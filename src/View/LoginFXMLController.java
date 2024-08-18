@@ -4,6 +4,8 @@ package View;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javax.security.auth.spi.LoginModule;
+import javax.swing.JButton;
 
 /**
  * FXML Controller class
@@ -18,6 +20,7 @@ public class LoginFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
     }    
     
 }
