@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <AnchorPane prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #253F;" BorderPane.alignment="CENTER">
+         <children>
+            <Label contentDisplay="CENTER" layoutX="131.0" layoutY="60.0" prefHeight="46.0" prefWidth="139.0" text="LOGIN" textAlignment="JUSTIFY" textFill="#fffefe">
+               <font>
+                  <Font name="Verdana Bold" size="36.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Label>
+            <Line endX="100.0" layoutX="193.0" layoutY="106.0" startX="-100.0" stroke="#fffdfd">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Line>
+            <Circle fill="WHITE" layoutX="193.0" layoutY="210.0" radius="79.0" stroke="#2c2d301c" strokeType="INSIDE" />
+            <Label contentDisplay="CENTER" layoutX="114.0" layoutY="540.0" prefHeight="46.0" prefWidth="159.0" text="Copyrights @ All Rights Reserved" textAlignment="JUSTIFY" textFill="#f7f4f4">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Label>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="600.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
