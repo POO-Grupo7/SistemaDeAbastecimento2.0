@@ -1,11 +1,5 @@
 package View;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
-
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -38,23 +32,25 @@ public class LoginViewFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void btnLogIn(ActionEvent event) {
-        if (txtUserName.getText().equals("Ussene") && txtPassword.getText().equals("123")){
+        if (txtUserName.getText().equals("Ussene") && txtPassword.getText().equals("123")) {
             JOptionPane.showMessageDialog(null, "Entrando");
+            txtUserName.setText("");
+            txtPassword.setText("");
         } else {
-            JOptionPane.showMessageDialog(null, "Senha Incorrecta");
+            JOptionPane.showMessageDialog(null, "UserName e/ou senha incorrecta!");
             txtUserName.setText("");
             txtPassword.setText("");
         }
-        
+
     }
 
     @FXML
     private void btnCancel(ActionEvent event) {
         System.exit(0);
     }
-    
+
 }

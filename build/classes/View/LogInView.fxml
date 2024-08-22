@@ -7,7 +7,6 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Circle?>
@@ -36,9 +35,6 @@
                <font>
                   <Font size="14.0" />
                </font>
-               <effect>
-                  <InnerShadow />
-               </effect>
             </Label>
          </children>
       </AnchorPane>
@@ -62,10 +58,16 @@
                </font>
             </Label>
             <!--<TextField fx:id="txtUsername" layoutX="126.0" layoutY="138.0" prefHeight="26.0" prefWidth="224.0" promptText="Username" />-->
-            <PasswordField fx:id="txtPassword" layoutX="125.0" layoutY="200.0" prefHeight="26.0" prefWidth="227.0" promptText="Password" />
+            <PasswordField fx:id="txtPassword" layoutX="125.0" layoutY="200.0" prefHeight="26.0" prefWidth="227.0" promptText="Password">
+               <font>
+                  <Font size="14.0" />
+               </font></PasswordField>
             <Button fx:id="btnLogIn" layoutX="126.0" layoutY="258.0" mnemonicParsing="false" onAction="#btnLogIn" prefHeight="30.0" prefWidth="227.0" style="-fx-background-color: #19366A;" text="Login" textFill="WHITE" />
             <Button fx:id="btnCancel" layoutX="125.0" layoutY="308.0" mnemonicParsing="false" onAction="#btnCancel" prefHeight="30.0" prefWidth="227.0" style="-fx-background-color: #19366A;" text="Cancel" textFill="WHITE" />
-            <TextField fx:id="txtUserName" layoutX="125.0" layoutY="138.0" prefHeight="26.0" prefWidth="227.0" promptText="UserName" />
+            <TextField fx:id="txtUserName" layoutX="125.0" layoutY="138.0" prefHeight="26.0" prefWidth="227.0" promptText="UserName">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
          </children></AnchorPane>
    </right>
 </BorderPane>
