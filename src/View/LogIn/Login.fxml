@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--<?import com.gluonhq.charm.glisten.control.Icon?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>-->
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<fx:root id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="mainFxmlClass" type="AnchorPane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.LogIn.LoginFXMLController">
+    <stylesheets>
+        <URL value="@loginfxml.css" />
+    </stylesheets>
+   <children>
+      <Pane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #507B9A;">
+         <children>
+            <ImageView fitHeight="387.0" fitWidth="388.0" layoutX="66.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../NetBeansProjects/SistemaDeAbastecimento/SistemaDeAbastecimento/src/View/Icons/water-tap.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="675.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../NetBeansProjects/SistemaDeAbastecimento/SistemaDeAbastecimento/src/View/Icons/user.png" />
+         </image>
+      </ImageView>
+      <TextField layoutX="600.0" layoutY="300.0" prefHeight="26.0" prefWidth="305.0" promptText="Username">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <Label layoutX="692.0" layoutY="235.0" text="Bem Vindo(a)">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="691.0" layoutY="262.0" text="Acesse a sua Conta" textAlignment="JUSTIFY" textFill="#0533eb" />
+      <PasswordField layoutX="601.0" layoutY="384.0" prefHeight="26.0" prefWidth="305.0" promptText="Password" />
+<!--      <MFXButton buttonType="RAISED" layoutX="626.0" layoutY="433.0" prefHeight="32.0" prefWidth="248.0" style="-fx-background-color: #507B9A;" styleClass="mfx-button" text="Entrar">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </MFXButton>
+      <Icon content="LOCK" layoutX="569.0" layoutY="378.0" prefHeight="39.0" prefWidth="31.0" />
+      <Icon content="PERSON_PIN" layoutX="569.0" layoutY="294.0" prefHeight="39.0" prefWidth="31.0" />
+      <Icon content="ARROW_DROP_DOWN" layoutX="735.0" layoutY="510.0" prefHeight="39.0" prefWidth="31.0" />-->
+      <Label layoutX="700.0" layoutY="492.0" text="Esqueceu a senha" textAlignment="JUSTIFY" textFill="#0533eb" />
+      <!--<Icon fx:id="checkPassword" content="VISIBILITY" layoutX="874.0" layoutY="384.0" onDragEntered="#checkPassword" opacity="0.2" prefHeight="26.0" prefWidth="31.0" />-->
+      <!--<Icon fx:id="enviarEmailRecuperacao" content="EMAIL" layoutX="735.0" layoutY="549.0" prefHeight="26.0" prefWidth="31.0" />-->
+   </children>
+</fx:root>
