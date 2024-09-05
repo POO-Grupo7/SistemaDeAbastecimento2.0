@@ -1,0 +1,41 @@
+@startuml
+annotation java.lang.Override
+annotation javafx.fxml.FXML
+class Controller.LogInController
+class View.Main
+class java.io.IOException
+class java.net.URL
+class java.util.ResourceBundle
+class javafx.application.Application
+class javafx.event.ActionEvent
+class javafx.fxml.FXMLLoader
+class javafx.scene.Parent
+class javafx.scene.Scene
+class javafx.scene.control.Button
+class javafx.scene.control.PasswordField
+class javafx.scene.control.TextField
+class javafx.scene.layout.AnchorPane
+class javafx.stage.Stage
+class javafx.stage.StageStyle
+class javax.swing.JOptionPane
+interface javafx.fxml.Initializable
+Controller.LogInController ..> java.lang.Override
+Controller.LogInController ..> javafx.fxml.FXML
+Controller.LogInController ..> java.net.URL
+Controller.LogInController ..> java.util.ResourceBundle
+Controller.LogInController ..> javafx.event.ActionEvent
+Controller.LogInController ..> javafx.scene.control.Button
+Controller.LogInController ..> javafx.scene.control.PasswordField
+Controller.LogInController ..> javafx.scene.control.TextField
+Controller.LogInController --|> javafx.scene.layout.AnchorPane
+Controller.LogInController ..> javax.swing.JOptionPane
+Controller.LogInController --|> javafx.fxml.Initializable
+View.Main ..> java.lang.Override
+View.Main ..> java.io.IOException
+View.Main --|> javafx.application.Application
+View.Main ..> javafx.fxml.FXMLLoader
+View.Main ..> javafx.scene.Parent
+View.Main ..> javafx.scene.Scene
+View.Main ..> javafx.stage.Stage
+View.Main ..> javafx.stage.StageStyle
+@enduml
