@@ -1,4 +1,4 @@
-package View;
+package Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,34 +8,30 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 
-/**
- * FXML Controller class
- *
- * @author lenovo
- */
-public class LoginViewFXMLController implements Initializable {
+public class LogInController extends AnchorPane implements Initializable {
+
+    @FXML
+    private Button btnLogIn;
 
     @FXML
     private PasswordField txtPassword;
-    @FXML
-    private Button btnLogIn;
-    @FXML
-    private Button btnCancel;
+
     @FXML
     private TextField txtUserName;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    @FXML
+    void exit(ActionEvent event) {
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 
     @FXML
-    private void btnLogIn(ActionEvent event) {
+    void logIn(ActionEvent event) {
         if (txtUserName.getText().equals("Ussene") && txtPassword.getText().equals("123")) {
             JOptionPane.showMessageDialog(null, "Entrando");
             txtUserName.setText("");
@@ -45,12 +41,11 @@ public class LoginViewFXMLController implements Initializable {
             txtUserName.setText("");
             txtPassword.setText("");
         }
-
     }
 
-    @FXML
-    private void btnCancel(ActionEvent event) {
-        System.exit(0);
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
     }
 
 }
