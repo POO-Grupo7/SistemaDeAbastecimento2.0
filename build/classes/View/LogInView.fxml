@@ -25,7 +25,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="500.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="btnCancelar" layoutX="500.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: white;">
          <children>
             <Label layoutX="205.0" layoutY="225.0" text="Bem Vindo(a)">
                <font>
@@ -56,6 +56,11 @@
                   <Font size="14.0" />
                </font></Label>
             <Label layoutX="203.0" layoutY="432.0" text="Esqueceu a senha" underline="true" />
+            <Button fx:id="btnExit" cancelButton="true" layoutX="192.0" layoutY="470.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#exit" prefHeight="30.0" prefWidth="117.0" style="-fx-background-color: #D40A00;" text="Cancelar" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>

@@ -24,7 +24,10 @@ public class LogInController extends AnchorPane implements Initializable {
 
     @FXML
     void exit(ActionEvent event) {
-        System.exit(0);
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 
     @FXML
