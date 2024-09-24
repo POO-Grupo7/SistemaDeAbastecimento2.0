@@ -39,6 +39,12 @@ public class TelaMenu extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
+        TbLeituras = new javax.swing.JPanel();
+        TbPagamentos = new javax.swing.JPanel();
+        TbUsuarios = new javax.swing.JPanel();
+        TbGestaoInterna = new javax.swing.JPanel();
+        TbRelatorios = new javax.swing.JPanel();
+        TbLogout = new javax.swing.JPanel();
         TbClientes = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -73,13 +79,7 @@ public class TelaMenu extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        TbLeituras = new javax.swing.JPanel();
         TbFacturamento = new javax.swing.JPanel();
-        TbPagamentos = new javax.swing.JPanel();
-        TbUsuarios = new javax.swing.JPanel();
-        TbGestaoInterna = new javax.swing.JPanel();
-        TbRelatorios = new javax.swing.JPanel();
-        TbLogout = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,36 +126,46 @@ public class TelaMenu extends javax.swing.JFrame {
         BtnLogout.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jButton9.setText("Sair");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setText("Ajuda");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 43, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnGestaoInterna, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnPagamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnFacturamento, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnLeituras, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44))
+                    .addComponent(BtnLeituras, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(43, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(jButton9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton10)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(173, 173, 173)
+                .addGap(290, 290, 290)
                 .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BtnLeituras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,12 +181,90 @@ public class TelaMenu extends javax.swing.JFrame {
                 .addComponent(BtnRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BtnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton9)
                     .addComponent(jButton10))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33))
         );
+
+        javax.swing.GroupLayout TbLeiturasLayout = new javax.swing.GroupLayout(TbLeituras);
+        TbLeituras.setLayout(TbLeiturasLayout);
+        TbLeiturasLayout.setHorizontalGroup(
+            TbLeiturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 978, Short.MAX_VALUE)
+        );
+        TbLeiturasLayout.setVerticalGroup(
+            TbLeiturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 845, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Leituras", TbLeituras);
+
+        javax.swing.GroupLayout TbPagamentosLayout = new javax.swing.GroupLayout(TbPagamentos);
+        TbPagamentos.setLayout(TbPagamentosLayout);
+        TbPagamentosLayout.setHorizontalGroup(
+            TbPagamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 978, Short.MAX_VALUE)
+        );
+        TbPagamentosLayout.setVerticalGroup(
+            TbPagamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 845, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Pagamentos", TbPagamentos);
+
+        javax.swing.GroupLayout TbUsuariosLayout = new javax.swing.GroupLayout(TbUsuarios);
+        TbUsuarios.setLayout(TbUsuariosLayout);
+        TbUsuariosLayout.setHorizontalGroup(
+            TbUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 978, Short.MAX_VALUE)
+        );
+        TbUsuariosLayout.setVerticalGroup(
+            TbUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 845, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Usuarios", TbUsuarios);
+
+        javax.swing.GroupLayout TbGestaoInternaLayout = new javax.swing.GroupLayout(TbGestaoInterna);
+        TbGestaoInterna.setLayout(TbGestaoInternaLayout);
+        TbGestaoInternaLayout.setHorizontalGroup(
+            TbGestaoInternaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 978, Short.MAX_VALUE)
+        );
+        TbGestaoInternaLayout.setVerticalGroup(
+            TbGestaoInternaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 845, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Gestao Interna", TbGestaoInterna);
+
+        javax.swing.GroupLayout TbRelatoriosLayout = new javax.swing.GroupLayout(TbRelatorios);
+        TbRelatorios.setLayout(TbRelatoriosLayout);
+        TbRelatoriosLayout.setHorizontalGroup(
+            TbRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 978, Short.MAX_VALUE)
+        );
+        TbRelatoriosLayout.setVerticalGroup(
+            TbRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 845, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Relatorios", TbRelatorios);
+
+        javax.swing.GroupLayout TbLogoutLayout = new javax.swing.GroupLayout(TbLogout);
+        TbLogout.setLayout(TbLogoutLayout);
+        TbLogoutLayout.setHorizontalGroup(
+            TbLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 978, Short.MAX_VALUE)
+        );
+        TbLogoutLayout.setVerticalGroup(
+            TbLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 845, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Logout", TbLogout);
 
         TbClientes.setForeground(new java.awt.Color(0, 102, 153));
 
@@ -239,10 +327,6 @@ public class TelaMenu extends javax.swing.JFrame {
         TbClientesLayout.setHorizontalGroup(
             TbClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TbClientesLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 916, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
-            .addGroup(TbClientesLayout.createSequentialGroup()
                 .addGroup(TbClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TbClientesLayout.createSequentialGroup()
                         .addGroup(TbClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,8 +378,11 @@ public class TelaMenu extends javax.swing.JFrame {
                                 .addComponent(jButton6))))
                     .addGroup(TbClientesLayout.createSequentialGroup()
                         .addGap(302, 302, 302)
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addGroup(TbClientesLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 916, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         TbClientesLayout.setVerticalGroup(
             TbClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,118 +433,43 @@ public class TelaMenu extends javax.swing.JFrame {
                     .addComponent(jButton4)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Clientes", TbClientes);
-
-        javax.swing.GroupLayout TbLeiturasLayout = new javax.swing.GroupLayout(TbLeituras);
-        TbLeituras.setLayout(TbLeiturasLayout);
-        TbLeiturasLayout.setHorizontalGroup(
-            TbLeiturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 974, Short.MAX_VALUE)
-        );
-        TbLeiturasLayout.setVerticalGroup(
-            TbLeiturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 844, Short.MAX_VALUE)
-        );
-
-        jTabbedPane2.addTab("Leituras", TbLeituras);
 
         javax.swing.GroupLayout TbFacturamentoLayout = new javax.swing.GroupLayout(TbFacturamento);
         TbFacturamento.setLayout(TbFacturamentoLayout);
         TbFacturamentoLayout.setHorizontalGroup(
             TbFacturamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 974, Short.MAX_VALUE)
+            .addGap(0, 978, Short.MAX_VALUE)
         );
         TbFacturamentoLayout.setVerticalGroup(
             TbFacturamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 844, Short.MAX_VALUE)
+            .addGap(0, 845, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Facturamento", TbFacturamento);
-
-        javax.swing.GroupLayout TbPagamentosLayout = new javax.swing.GroupLayout(TbPagamentos);
-        TbPagamentos.setLayout(TbPagamentosLayout);
-        TbPagamentosLayout.setHorizontalGroup(
-            TbPagamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 974, Short.MAX_VALUE)
-        );
-        TbPagamentosLayout.setVerticalGroup(
-            TbPagamentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 844, Short.MAX_VALUE)
-        );
-
-        jTabbedPane2.addTab("Pagamentos", TbPagamentos);
-
-        javax.swing.GroupLayout TbUsuariosLayout = new javax.swing.GroupLayout(TbUsuarios);
-        TbUsuarios.setLayout(TbUsuariosLayout);
-        TbUsuariosLayout.setHorizontalGroup(
-            TbUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 974, Short.MAX_VALUE)
-        );
-        TbUsuariosLayout.setVerticalGroup(
-            TbUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 844, Short.MAX_VALUE)
-        );
-
-        jTabbedPane2.addTab("Usuarios", TbUsuarios);
-
-        javax.swing.GroupLayout TbGestaoInternaLayout = new javax.swing.GroupLayout(TbGestaoInterna);
-        TbGestaoInterna.setLayout(TbGestaoInternaLayout);
-        TbGestaoInternaLayout.setHorizontalGroup(
-            TbGestaoInternaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 974, Short.MAX_VALUE)
-        );
-        TbGestaoInternaLayout.setVerticalGroup(
-            TbGestaoInternaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 844, Short.MAX_VALUE)
-        );
-
-        jTabbedPane2.addTab("Gestao Interna", TbGestaoInterna);
-
-        javax.swing.GroupLayout TbRelatoriosLayout = new javax.swing.GroupLayout(TbRelatorios);
-        TbRelatorios.setLayout(TbRelatoriosLayout);
-        TbRelatoriosLayout.setHorizontalGroup(
-            TbRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 974, Short.MAX_VALUE)
-        );
-        TbRelatoriosLayout.setVerticalGroup(
-            TbRelatoriosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 844, Short.MAX_VALUE)
-        );
-
-        jTabbedPane2.addTab("Relatorios", TbRelatorios);
-
-        javax.swing.GroupLayout TbLogoutLayout = new javax.swing.GroupLayout(TbLogout);
-        TbLogout.setLayout(TbLogoutLayout);
-        TbLogoutLayout.setHorizontalGroup(
-            TbLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 974, Short.MAX_VALUE)
-        );
-        TbLogoutLayout.setVerticalGroup(
-            TbLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 844, Short.MAX_VALUE)
-        );
-
-        jTabbedPane2.addTab("Logout", TbLogout);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane2)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane2)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -472,7 +484,7 @@ public class TelaMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         pack();
@@ -490,6 +502,14 @@ public class TelaMenu extends javax.swing.JFrame {
     private void BtnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUsuariosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnUsuariosActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments
