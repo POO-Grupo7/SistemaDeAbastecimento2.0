@@ -10,12 +10,12 @@ import java.awt.Color;
  *
  * @author lenovo
  */
-public class MenuView extends javax.swing.JFrame {
+public class MenuView1 extends javax.swing.JFrame {
 
     /**
      * Creates new form MenuView
      */
-    public MenuView() {
+    public MenuView1() {
         initComponents();
         setLocationRelativeTo(null);
 //        jTabbedPane1.setUI(null); // Isso vai esconder as guias
@@ -109,11 +109,9 @@ public class MenuView extends javax.swing.JFrame {
         jTextField21 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 700));
         setSize(new java.awt.Dimension(1200, 700));
 
         painelPrincipal.setPreferredSize(new java.awt.Dimension(1200, 700));
-        painelPrincipal.setLayout(new java.awt.BorderLayout());
 
         painelFixoMenu.setBackground(new java.awt.Color(0, 102, 102));
         painelFixoMenu.setPreferredSize(new java.awt.Dimension(200, 700));
@@ -164,8 +162,6 @@ public class MenuView extends javax.swing.JFrame {
 
         painelFixoMenu.add(painelButoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 222, -1));
 
-        painelPrincipal.add(painelFixoMenu, java.awt.BorderLayout.WEST);
-
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(1000, 700));
         jTabbedPane1.setRequestFocusEnabled(false);
@@ -184,14 +180,14 @@ public class MenuView extends javax.swing.JFrame {
             .addGroup(painelDadosLayout.createSequentialGroup()
                 .addGap(347, 347, 347)
                 .addComponent(jLabel1)
-                .addContainerGap(571, Short.MAX_VALUE))
+                .addContainerGap(549, Short.MAX_VALUE))
         );
         painelDadosLayout.setVerticalGroup(
             painelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDadosLayout.createSequentialGroup()
                 .addGap(127, 127, 127)
                 .addComponent(jLabel1)
-                .addContainerGap(1050, Short.MAX_VALUE))
+                .addContainerGap(590, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Base", painelDados);
@@ -268,7 +264,7 @@ public class MenuView extends javax.swing.JFrame {
         painelClientesLayout.setHorizontalGroup(
             painelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelClientesLayout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
+                .addContainerGap(43, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 916, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37))
             .addGroup(painelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,12 +318,12 @@ public class MenuView extends javax.swing.JFrame {
                         .addGroup(painelClientesLayout.createSequentialGroup()
                             .addGap(330, 330, 330)
                             .addComponent(jLabel14)))
-                    .addContainerGap(120, Short.MAX_VALUE)))
+                    .addContainerGap(98, Short.MAX_VALUE)))
         );
         painelClientesLayout.setVerticalGroup(
             painelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelClientesLayout.createSequentialGroup()
-                .addContainerGap(942, Short.MAX_VALUE)
+                .addContainerGap(482, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(165, 165, 165))
             .addGroup(painelClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -377,7 +373,7 @@ public class MenuView extends javax.swing.JFrame {
                         .addComponent(jButton3)
                         .addComponent(jButton4)
                         .addComponent(jButton5))
-                    .addContainerGap(828, Short.MAX_VALUE)))
+                    .addContainerGap(368, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Clientes", painelClientes);
@@ -571,7 +567,7 @@ public class MenuView extends javax.swing.JFrame {
                                         .addComponent(jCheckBox1))
                                     .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
             .addGroup(painelClientes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(painelClientes1Layout.createSequentialGroup()
                     .addGroup(painelClientes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -639,7 +635,7 @@ public class MenuView extends javax.swing.JFrame {
                     .addComponent(jButton8)
                     .addComponent(jButton6)
                     .addComponent(jButton7))
-                .addContainerGap(829, Short.MAX_VALUE))
+                .addContainerGap(369, Short.MAX_VALUE))
             .addGroup(painelClientes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(painelClientes1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -651,13 +647,31 @@ public class MenuView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Usuarios", painelClientes1);
 
-        painelPrincipal.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
+        painelPrincipal.setLayout(painelPrincipalLayout);
+        painelPrincipalLayout.setHorizontalGroup(
+            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelPrincipalLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(painelFixoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 990, Short.MAX_VALUE))
+        );
+        painelPrincipalLayout.setVerticalGroup(
+            painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(painelFixoMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1223, Short.MAX_VALUE)
+            .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1212, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -737,20 +751,21 @@ public class MenuView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuView1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuView1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuView1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuView1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuView().setVisible(true);
+                new MenuView1().setVisible(true);
             }
         });
     }
