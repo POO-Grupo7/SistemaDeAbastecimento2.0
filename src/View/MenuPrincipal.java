@@ -196,7 +196,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         painelCentralDireitoBotoesMenu.setPreferredSize(new java.awt.Dimension(700, 680));
         painelCentralDireitoBotoesMenu.setLayout(new java.awt.GridLayout(3, 3, 10, 10));
 
-        btnUsuarios.setBackground(new java.awt.Color(255, 255, 255));
         btnUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/programmer.png"))); // NOI18N
         btnUsuarios.setText("USUÁRIOS");
@@ -218,7 +217,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnUsuarios);
 
-        btnClientes.setBackground(new java.awt.Color(255, 255, 255));
         btnClientes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_admin_settings_male_64px.png"))); // NOI18N
         btnClientes.setText("CLIENTES");
@@ -234,7 +232,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnClientes);
 
-        btnLeituras.setBackground(new java.awt.Color(255, 255, 255));
         btnLeituras.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnLeituras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_speed_64px_1.png"))); // NOI18N
         btnLeituras.setText("LEITURAS");
@@ -250,7 +247,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnLeituras);
 
-        btnFacturacao.setBackground(new java.awt.Color(255, 255, 255));
         btnFacturacao.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnFacturacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/contabilidade.png"))); // NOI18N
         btnFacturacao.setText("FACTURAÇÃO");
@@ -271,7 +267,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnFacturacao);
 
-        btnRecebimentos.setBackground(new java.awt.Color(255, 255, 255));
         btnRecebimentos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnRecebimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/dia-do-pagamento.png"))); // NOI18N
         btnRecebimentos.setText("RECEBIMENTOS");
@@ -287,7 +282,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnRecebimentos);
 
-        btnGestaoInterna.setBackground(new java.awt.Color(255, 255, 255));
         btnGestaoInterna.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnGestaoInterna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_journey_management_planning_64px.png"))); // NOI18N
         btnGestaoInterna.setText("GESTÃO INTERNA");
@@ -303,7 +297,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnGestaoInterna);
 
-        btnRelatorios.setBackground(new java.awt.Color(255, 255, 255));
         btnRelatorios.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_combo_chart_64px.png"))); // NOI18N
         btnRelatorios.setText("RELATÓRIOS");
@@ -319,7 +312,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnRelatorios);
 
-        btnDefinicoes.setBackground(new java.awt.Color(255, 255, 255));
         btnDefinicoes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnDefinicoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_installing_updates_64px.png"))); // NOI18N
         btnDefinicoes.setText("DEFINIÇÕES");
@@ -333,7 +325,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnDefinicoes);
 
-        btnTeam.setBackground(new java.awt.Color(255, 255, 255));
         btnTeam.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnTeam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/team.png"))); // NOI18N
         btnTeam.setText("EQUIPE TÉCNICA");
