@@ -128,7 +128,7 @@ public class Usuarios extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("USUÁRIOS");
         setAlwaysOnTop(true);
-        setMinimumSize(new java.awt.Dimension(1000, 650));
+        setMinimumSize(new java.awt.Dimension(1180, 650));
         setPreferredSize(new java.awt.Dimension(1260, 700));
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
@@ -478,6 +478,7 @@ public class Usuarios extends javax.swing.JFrame {
         botoes.setLayout(botoesLayout);
 
         jButton6.setBackground(new java.awt.Color(52, 102, 138));
+        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Cadastrar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -490,6 +491,7 @@ public class Usuarios extends javax.swing.JFrame {
         botoes.add(jButton6, gridBagConstraints);
 
         jButton7.setBackground(new java.awt.Color(52, 102, 138));
+        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Actualizar");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -497,6 +499,7 @@ public class Usuarios extends javax.swing.JFrame {
         botoes.add(jButton7, gridBagConstraints);
 
         jButton8.setBackground(new java.awt.Color(52, 102, 138));
+        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("Carregar Campos");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -509,6 +512,7 @@ public class Usuarios extends javax.swing.JFrame {
         botoes.add(jButton8, gridBagConstraints);
 
         jButton9.setBackground(new java.awt.Color(52, 102, 138));
+        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setText("Limpar Campos");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -521,6 +525,7 @@ public class Usuarios extends javax.swing.JFrame {
         botoes.add(jButton9, gridBagConstraints);
 
         jButton10.setBackground(new java.awt.Color(52, 102, 138));
+        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton10.setForeground(new java.awt.Color(255, 255, 255));
         jButton10.setText("Apagar");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -608,7 +613,7 @@ public class Usuarios extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         try {
-            FlatCyanLightIJTheme.setup();
+//            FlatCyanLightIJTheme.setup();
 //            UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (Exception e) {
            e.printStackTrace();
