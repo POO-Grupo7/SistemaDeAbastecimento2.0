@@ -195,6 +195,11 @@ public class Usuarios extends javax.swing.JFrame {
         btnVoltarMenu.setDefaultCapable(false);
         btnVoltarMenu.setOpaque(true);
         btnVoltarMenu.setSelected(true);
+        btnVoltarMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarMenuActionPerformed(evt);
+            }
+        });
         painelConteudoEsquerdo.add(btnVoltarMenu, java.awt.BorderLayout.NORTH);
         btnVoltarMenu.getAccessibleContext().setAccessibleName("btnVoltarMenu");
 
@@ -607,6 +612,11 @@ public class Usuarios extends javax.swing.JFrame {
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeAPesquisarActionPerformed
+
+    private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
+        new MenuPrincipal().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
     /**
      * @param args the command line arguments

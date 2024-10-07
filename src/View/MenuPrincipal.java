@@ -216,6 +216,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 btnUsuariosMouseExited(evt);
             }
         });
+        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuariosActionPerformed(evt);
+            }
+        });
         painelCentralDireitoBotoesMenu.add(btnUsuarios);
 
         btnClientes.setBackground(new java.awt.Color(255, 255, 255));
@@ -315,6 +320,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnRelatoriosMouseExited(evt);
+            }
+        });
+        btnRelatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatoriosActionPerformed(evt);
             }
         });
         painelCentralDireitoBotoesMenu.add(btnRelatorios);
@@ -525,6 +535,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void lblImagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImagemMouseClicked
         // TODO add your handling code here:   
     }//GEN-LAST:event_lblImagemMouseClicked
+
+    private void btnRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatoriosActionPerformed
+        new RelatoriosView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnRelatoriosActionPerformed
+
+    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
+        new Usuarios().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
