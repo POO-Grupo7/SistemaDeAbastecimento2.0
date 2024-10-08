@@ -237,6 +237,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 btnClientesMouseExited(evt);
             }
         });
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
         painelCentralDireitoBotoesMenu.add(btnClientes);
 
         btnLeituras.setBackground(new java.awt.Color(255, 255, 255));
@@ -251,6 +256,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnLeiturasMouseExited(evt);
+            }
+        });
+        btnLeituras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLeiturasActionPerformed(evt);
             }
         });
         painelCentralDireitoBotoesMenu.add(btnLeituras);
@@ -290,6 +300,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 btnRecebimentosMouseExited(evt);
             }
         });
+        btnRecebimentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecebimentosActionPerformed(evt);
+            }
+        });
         painelCentralDireitoBotoesMenu.add(btnRecebimentos);
 
         btnGestaoInterna.setBackground(new java.awt.Color(255, 255, 255));
@@ -304,6 +319,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnGestaoInternaMouseExited(evt);
+            }
+        });
+        btnGestaoInterna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestaoInternaActionPerformed(evt);
             }
         });
         painelCentralDireitoBotoesMenu.add(btnGestaoInterna);
@@ -445,7 +465,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFacturacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturacaoActionPerformed
-        // TODO add your handling code here:
+        new FacturacaoView().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnFacturacaoActionPerformed
 
     private void btnUsuariosMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMouseDragged
@@ -542,9 +563,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRelatoriosActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        new Usuarios().setVisible(true);
+        new UsuariosView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnUsuariosActionPerformed
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        new ClientesView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnLeiturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeiturasActionPerformed
+        new LeiturasView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnLeiturasActionPerformed
+
+    private void btnGestaoInternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestaoInternaActionPerformed
+        new GestaoInternaView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnGestaoInternaActionPerformed
+
+    private void btnRecebimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecebimentosActionPerformed
+        new RecebimentosView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnRecebimentosActionPerformed
 
     /**
      * @param args the command line arguments
