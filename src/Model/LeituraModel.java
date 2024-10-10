@@ -8,7 +8,10 @@ package Model;
  *
  * @author lenovo
  */
-public class LeituraModel extends ClienteModel {
+public class LeituraModel {
+
+    private int idLeitura;
+    private ClienteModel cliente;
     private double leituraActual;
     private double leituraAnterior;
     private double consumoMes;
@@ -16,6 +19,26 @@ public class LeituraModel extends ClienteModel {
     private String dataEmissao;
     private String mesReferencia;
     private String nrLeitura;
+    private boolean statusLeitura;
+
+    public LeituraModel() {
+    }
+
+    public int getIdLeitura() {
+        return idLeitura;
+    }
+
+    public void setIdLeitura(int idLeitura) {
+        this.idLeitura = idLeitura;
+    }
+
+    public ClienteModel getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteModel cliente) {
+        this.cliente = cliente;
+    }
 
     public double getLeituraActual() {
         return leituraActual;
@@ -72,5 +95,14 @@ public class LeituraModel extends ClienteModel {
     public void setNrLeitura(String nrLeitura) {
         this.nrLeitura = nrLeitura;
     }
-    
+
+    public boolean isStatusLeitura() {
+        return statusLeitura;
+    }
+
+    public void setStatusLeitura(boolean statusLeitura) {
+        this.statusLeitura = statusLeitura;
+    }
+
+
 }

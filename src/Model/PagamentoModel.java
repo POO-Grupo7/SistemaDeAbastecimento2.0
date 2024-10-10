@@ -1,11 +1,12 @@
 package Model;
 
-public class PagamentoModel extends ClienteModel {
+public class PagamentoModel {
 
     private int idPagamento;
+    private ClienteModel cliente;
     private String dataPagamento;
     private String prazoPagamento;
-    private String statusPagamento;
+    private boolean statusPagamento;
     private int nrDaFactura;
     private double valorDaFactura;
     private double multa;
@@ -14,13 +15,24 @@ public class PagamentoModel extends ClienteModel {
     private double trocos;
     private String nomeDoCliente;
     private int nrRecibo;
-    
+
+    public PagamentoModel() {
+    }
+
     public int getIdPagamento() {
         return idPagamento;
     }
 
     public void setIdPagamento(int idPagamento) {
         this.idPagamento = idPagamento;
+    }
+
+    public ClienteModel getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteModel cliente) {
+        this.cliente = cliente;
     }
 
     public String getDataPagamento() {
@@ -39,11 +51,11 @@ public class PagamentoModel extends ClienteModel {
         this.prazoPagamento = prazoPagamento;
     }
 
-    public String getStatusPagamento() {
+    public boolean isStatusPagamento() {
         return statusPagamento;
     }
 
-    public void setStatusPagamento(String statusPagamento) {
+    public void setStatusPagamento(boolean statusPagamento) {
         this.statusPagamento = statusPagamento;
     }
 
@@ -110,6 +122,6 @@ public class PagamentoModel extends ClienteModel {
     public void setNrRecibo(int nrRecibo) {
         this.nrRecibo = nrRecibo;
     }
-
+    
     
 }
