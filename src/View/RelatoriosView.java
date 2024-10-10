@@ -232,7 +232,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         lblCabecalho.setBackground(new java.awt.Color(52, 102, 138));
         lblCabecalho.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         lblCabecalho.setForeground(new java.awt.Color(255, 255, 255));
-        lblCabecalho.setText("Relatórios");
+        lblCabecalho.setText("Voltar");
         jPanel1.add(lblCabecalho);
 
         painelConteudoEsquerdo.add(jPanel1, java.awt.BorderLayout.NORTH);
@@ -383,7 +383,6 @@ public class RelatoriosView extends javax.swing.JFrame {
 
         getContentPane().add(painelPrincipal, java.awt.BorderLayout.CENTER);
 
-        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
         jMenuBar1.setAlignmentY(0.5F);
         jMenuBar1.setBorderPainted(false);
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N

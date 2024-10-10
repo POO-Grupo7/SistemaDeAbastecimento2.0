@@ -139,7 +139,7 @@ public class GestaoInternaView extends javax.swing.JFrame {
 
         lblCabecalho.setFont(new java.awt.Font("Arial", 1, 40)); // NOI18N
         lblCabecalho.setForeground(new java.awt.Color(255, 255, 255));
-        lblCabecalho.setText("Usuários");
+        lblCabecalho.setText("Gestão Interna");
 
         txtNomeAPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +155,7 @@ public class GestaoInternaView extends javax.swing.JFrame {
             painelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCabecalhoLayout.createSequentialGroup()
                 .addComponent(lblCabecalho)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 882, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 777, Short.MAX_VALUE)
                 .addComponent(txtNomeAPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -194,6 +194,11 @@ public class GestaoInternaView extends javax.swing.JFrame {
         btnVoltarMenu.setDefaultCapable(false);
         btnVoltarMenu.setOpaque(true);
         btnVoltarMenu.setSelected(true);
+        btnVoltarMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarMenuActionPerformed(evt);
+            }
+        });
         painelConteudoEsquerdo.add(btnVoltarMenu, java.awt.BorderLayout.NORTH);
         btnVoltarMenu.getAccessibleContext().setAccessibleName("btnVoltarMenu");
 
@@ -548,7 +553,6 @@ public class GestaoInternaView extends javax.swing.JFrame {
 
         getContentPane().add(painelPrincipal, java.awt.BorderLayout.CENTER);
 
-        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
         jMenuBar1.setAlignmentY(0.5F);
         jMenuBar1.setBorderPainted(false);
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
@@ -606,6 +610,11 @@ public class GestaoInternaView extends javax.swing.JFrame {
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeAPesquisarActionPerformed
+
+    private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
+        new MenuPrincipal().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
     /**
      * @param args the command line arguments

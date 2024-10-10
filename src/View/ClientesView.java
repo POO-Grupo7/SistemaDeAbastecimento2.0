@@ -157,7 +157,7 @@ public class ClientesView extends javax.swing.JFrame {
             painelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCabecalhoLayout.createSequentialGroup()
                 .addComponent(lblCabecalho)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1081, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1090, Short.MAX_VALUE)
                 .addComponent(txtNomeAPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -196,6 +196,11 @@ public class ClientesView extends javax.swing.JFrame {
         btnVoltarMenu.setDefaultCapable(false);
         btnVoltarMenu.setOpaque(true);
         btnVoltarMenu.setSelected(true);
+        btnVoltarMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarMenuActionPerformed(evt);
+            }
+        });
         painelConteudoEsquerdo.add(btnVoltarMenu, java.awt.BorderLayout.NORTH);
         btnVoltarMenu.getAccessibleContext().setAccessibleName("btnVoltarMenu");
 
@@ -213,8 +218,10 @@ public class ClientesView extends javax.swing.JFrame {
 
         painelEsqDados.setBackground(new java.awt.Color(255, 255, 255));
         painelEsqDados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 43, 64)));
+        painelEsqDados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbId.setText("Id:");
+        painelEsqDados.add(lbId, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 14, -1, 22));
 
         txtId.setEditable(false);
         txtId.setBackground(new java.awt.Color(255, 255, 255));
@@ -223,125 +230,50 @@ public class ClientesView extends javax.swing.JFrame {
                 txtIdActionPerformed(evt);
             }
         });
+        painelEsqDados.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 14, 82, -1));
 
         lbNome.setText("Nome:*");
+        painelEsqDados.add(lbNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 54, -1, 22));
 
         lbBairro.setText("Bairro:*");
+        painelEsqDados.add(lbBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 94, -1, 22));
 
         lbNumeroDaCasa.setText("Numero da Casa:*");
+        painelEsqDados.add(lbNumeroDaCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 134, -1, 22));
 
         lblDataDeContrato.setText("Data do Contrato:*");
+        painelEsqDados.add(lblDataDeContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 174, -1, 22));
+        painelEsqDados.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 54, 315, -1));
 
         lbEmailParticular.setText("Email Particular:");
+        painelEsqDados.add(lbEmailParticular, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 254, -1, 22));
 
         cbxBairro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "CMC" }));
+        painelEsqDados.add(cbxBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 94, -1, -1));
 
         jLabel2.setText("Quarterao:");
+        painelEsqDados.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(259, 97, -1, -1));
 
         txtQuarterao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtQuarteraoActionPerformed(evt);
             }
         });
+        painelEsqDados.add(txtQuarterao, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 94, -1, -1));
+        painelEsqDados.add(txtNumeroDeCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 134, 91, -1));
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
             }
         });
+        painelEsqDados.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 214, 108, -1));
 
         lbNumeroDeTelefone.setText("Numero de Telefone:*");
-
-        javax.swing.GroupLayout painelEsqDadosLayout = new javax.swing.GroupLayout(painelEsqDados);
-        painelEsqDados.setLayout(painelEsqDadosLayout);
-        painelEsqDadosLayout.setHorizontalGroup(
-            painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                        .addComponent(lblDataDeContrato)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtDataDeContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                        .addComponent(lbEmailParticular)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtEmailParticular, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                            .addComponent(lbNumeroDeTelefone)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TxtNumeroDeTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                            .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                    .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lbBairro)
-                                        .addComponent(lbNome)
-                                        .addComponent(lbId))
-                                    .addGap(51, 51, 51)
-                                    .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                            .addGap(58, 58, 58)
-                                            .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                                    .addComponent(cbxBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(jLabel2)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(txtQuarterao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(177, 177, 177))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelEsqDadosLayout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addComponent(lbNumeroDaCasa))
-                            .addGap(0, 0, Short.MAX_VALUE))))
-                .addContainerGap())
-        );
-        painelEsqDadosLayout.setVerticalGroup(
-            painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbId)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNome)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbBairro)
-                    .addComponent(cbxBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtQuarterao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNumeroDaCasa)
-                    .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDataDeContrato)
-                    .addComponent(txtDataDeContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbEmailParticular)
-                    .addComponent(txtEmailParticular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNumeroDeTelefone)
-                    .addComponent(TxtNumeroDeTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(68, Short.MAX_VALUE))
-        );
-
-        painelEsqDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lbBairro, lbEmailParticular, lbId, lbNome, lbNumeroDaCasa, lblDataDeContrato, txtId, txtNome});
+        painelEsqDados.add(lbNumeroDeTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 297, -1, -1));
+        painelEsqDados.add(txtEmailParticular, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 254, 411, -1));
+        painelEsqDados.add(txtDataDeContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 174, 411, -1));
+        painelEsqDados.add(TxtNumeroDeTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 294, 411, -1));
 
         painelSuperiorDados.add(painelEsqDados);
 
@@ -624,6 +556,11 @@ public class ClientesView extends javax.swing.JFrame {
     private void txtSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSaldoActionPerformed
+
+    private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
+        new MenuPrincipal().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,40 +1,27 @@
 
 package Model;
 
-public class FacturacaoModel extends ClienteModel{
+public class FacturacaoModel{
 
+    private ClienteModel cliente;
     private static final double TAXA = 55.0;
     private String prazoDePagamento;
     private double descontos, iva,subTotal, totalFactura, dividaAnterior, dividaActual, consumoMensal;
-    private String dataFacturacao, mesDeReferencia, processada;
+    private String dataFacturacao, mesDeReferencia;
     private int nrDaFactura;
     private String nrLeitura;
+    private boolean processada;
 
-    public int getNrDaFactura() {
-        return nrDaFactura;
+    public FacturacaoModel() {
     }
 
-    public void setNrDaFactura(int nrDaFactura) {
-        this.nrDaFactura = nrDaFactura;
+    public ClienteModel getCliente() {
+        return cliente;
     }
 
-    
-    public double getConsumoMensal() {
-        return consumoMensal;
+    public void setCliente(ClienteModel cliente) {
+        this.cliente = cliente;
     }
-
-    public void setConsumoMensal(double consumoMensal) {
-        this.consumoMensal = consumoMensal;
-    }
-
-    public String getMesDeReferencia() {
-        return mesDeReferencia;
-    }
-
-    public void setMesDeReferencia(String mesDeReferencia) {
-        this.mesDeReferencia = mesDeReferencia;
-    }
-
 
     public String getPrazoDePagamento() {
         return prazoDePagamento;
@@ -42,18 +29,6 @@ public class FacturacaoModel extends ClienteModel{
 
     public void setPrazoDePagamento(String prazoDePagamento) {
         this.prazoDePagamento = prazoDePagamento;
-    }
-
-    public String getDataFacturacao() {
-        return dataFacturacao;
-    }
-
-    public void setDataFacturacao(String dataFacturacao) {
-        this.dataFacturacao = dataFacturacao;
-    }
-
-    public double getTAXA() {
-        return TAXA;
     }
 
     public double getDescontos() {
@@ -104,12 +79,36 @@ public class FacturacaoModel extends ClienteModel{
         this.dividaActual = dividaActual;
     }
 
-    public String getProcessada() {
-        return processada;
+    public double getConsumoMensal() {
+        return consumoMensal;
     }
 
-    public void setProcessada(String processada) {
-        this.processada = processada;
+    public void setConsumoMensal(double consumoMensal) {
+        this.consumoMensal = consumoMensal;
+    }
+
+    public String getDataFacturacao() {
+        return dataFacturacao;
+    }
+
+    public void setDataFacturacao(String dataFacturacao) {
+        this.dataFacturacao = dataFacturacao;
+    }
+
+    public String getMesDeReferencia() {
+        return mesDeReferencia;
+    }
+
+    public void setMesDeReferencia(String mesDeReferencia) {
+        this.mesDeReferencia = mesDeReferencia;
+    }
+
+    public int getNrDaFactura() {
+        return nrDaFactura;
+    }
+
+    public void setNrDaFactura(int nrDaFactura) {
+        this.nrDaFactura = nrDaFactura;
     }
 
     public String getNrLeitura() {
@@ -120,7 +119,13 @@ public class FacturacaoModel extends ClienteModel{
         this.nrLeitura = nrLeitura;
     }
 
+    public boolean isProcessada() {
+        return processada;
+    }
 
-            
+    public void setProcessada(boolean processada) {
+        this.processada = processada;
+    }
+
             
 }

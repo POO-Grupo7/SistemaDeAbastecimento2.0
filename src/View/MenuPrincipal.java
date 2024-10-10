@@ -4,7 +4,9 @@
  */
 package View;
 
+import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.FileChooserUI;
 
 /**
@@ -97,7 +99,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         lblEmaildeeAcesso.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblEmaildeeAcesso.setForeground(new java.awt.Color(255, 255, 255));
         lblEmaildeeAcesso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_gmail_16px.png"))); // NOI18N
-        lblEmaildeeAcesso.setText("ussenematato@gmail.com");
+        lblEmaildeeAcesso.setText("ussene.c.matato@gmail.com");
 
         btnAlterarDados.setText("Alterar Dados");
 
@@ -182,7 +184,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(painelDadosUtilizador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelBotoesSairVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
                 .addComponent(btnTerminarSeccao, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -196,8 +198,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         painelCentralDireitoBotoesMenu.setPreferredSize(new java.awt.Dimension(700, 680));
         painelCentralDireitoBotoesMenu.setLayout(new java.awt.GridLayout(3, 3, 10, 10));
 
-        btnUsuarios.setBackground(new java.awt.Color(255, 255, 255));
-        btnUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnUsuarios.setFont(new java.awt.Font("Poor Richard", 1, 18)); // NOI18N
         btnUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/programmer.png"))); // NOI18N
         btnUsuarios.setText("USUÁRIOS");
         btnUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -206,6 +207,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnUsuarios.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 btnUsuariosMouseDragged(evt);
+            }
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnUsuariosMouseMoved(evt);
             }
         });
         btnUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -223,8 +227,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnUsuarios);
 
-        btnClientes.setBackground(new java.awt.Color(255, 255, 255));
-        btnClientes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnClientes.setFont(new java.awt.Font("Poor Richard", 1, 18)); // NOI18N
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_admin_settings_male_64px.png"))); // NOI18N
         btnClientes.setText("CLIENTES");
         btnClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -244,8 +247,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnClientes);
 
-        btnLeituras.setBackground(new java.awt.Color(255, 255, 255));
-        btnLeituras.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnLeituras.setFont(new java.awt.Font("Poor Richard", 1, 18)); // NOI18N
         btnLeituras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_speed_64px_1.png"))); // NOI18N
         btnLeituras.setText("LEITURAS");
         btnLeituras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -265,8 +267,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnLeituras);
 
-        btnFacturacao.setBackground(new java.awt.Color(255, 255, 255));
-        btnFacturacao.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnFacturacao.setFont(new java.awt.Font("Poor Richard", 1, 18)); // NOI18N
         btnFacturacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/contabilidade.png"))); // NOI18N
         btnFacturacao.setText("FACTURAÇÃO");
         btnFacturacao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -286,8 +287,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnFacturacao);
 
-        btnRecebimentos.setBackground(new java.awt.Color(255, 255, 255));
-        btnRecebimentos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnRecebimentos.setFont(new java.awt.Font("Poor Richard", 1, 18)); // NOI18N
         btnRecebimentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/dia-do-pagamento.png"))); // NOI18N
         btnRecebimentos.setText("RECEBIMENTOS");
         btnRecebimentos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -307,8 +307,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnRecebimentos);
 
-        btnGestaoInterna.setBackground(new java.awt.Color(255, 255, 255));
-        btnGestaoInterna.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnGestaoInterna.setFont(new java.awt.Font("Poor Richard", 1, 18)); // NOI18N
         btnGestaoInterna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_journey_management_planning_64px.png"))); // NOI18N
         btnGestaoInterna.setText("GESTÃO INTERNA");
         btnGestaoInterna.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -328,10 +327,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnGestaoInterna);
 
-        btnRelatorios.setBackground(new java.awt.Color(255, 255, 255));
-        btnRelatorios.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        btnRelatorios.setFont(new java.awt.Font("Poor Richard", 1, 18)); // NOI18N
         btnRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_combo_chart_64px.png"))); // NOI18N
         btnRelatorios.setText("RELATÓRIOS");
+        btnRelatorios.setDefaultCapable(false);
         btnRelatorios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRelatorios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRelatorios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -349,8 +348,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnRelatorios);
 
-        btnDefinicoes.setBackground(new java.awt.Color(255, 255, 255));
-        btnDefinicoes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnDefinicoes.setFont(new java.awt.Font("Poor Richard", 1, 18)); // NOI18N
         btnDefinicoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_installing_updates_64px.png"))); // NOI18N
         btnDefinicoes.setText("DEFINIÇÕES");
         btnDefinicoes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -363,8 +361,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnDefinicoes);
 
-        btnTeam.setBackground(new java.awt.Color(255, 255, 255));
-        btnTeam.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnTeam.setFont(new java.awt.Font("Poor Richard", 1, 18)); // NOI18N
         btnTeam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/team.png"))); // NOI18N
         btnTeam.setText("EQUIPE TÉCNICA");
         btnTeam.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -470,7 +467,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFacturacaoActionPerformed
 
     private void btnUsuariosMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMouseDragged
-        // TODO add your handling code here:        
+        // TODO add your handling code here:       
     }//GEN-LAST:event_btnUsuariosMouseDragged
 
     private void btnUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMouseEntered
@@ -550,7 +547,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTeamMouseExited
 
     private void btnTerminarSeccaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminarSeccaoActionPerformed
-        // TODO add your handling code here:
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que terminar a secção?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            new LogInView().setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_btnTerminarSeccaoActionPerformed
 
     private void lblImagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImagemMouseClicked
@@ -587,34 +588,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnRecebimentosActionPerformed
 
+    private void btnUsuariosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMouseMoved
+        // TODO add your handling 
+    }//GEN-LAST:event_btnUsuariosMouseMoved
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            FlatCyanLightIJTheme.setup();
+//            UIManager.setLookAndFeel(new FlatDarkLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuPrincipal().setVisible(true);
