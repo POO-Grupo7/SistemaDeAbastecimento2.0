@@ -7,8 +7,7 @@ public abstract class FuncionarioModel extends Pessoa {
     private String dataNascimento;
     private String funcaoFuncionario;
     private String perfilDeAcesso;
-    private byte[] imagemBytes;
-
+//    private byte[] imagemBytes;
     
     //Construtor vazio
     public FuncionarioModel() {

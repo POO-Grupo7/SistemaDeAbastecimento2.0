@@ -1,37 +1,28 @@
-
 package Model;
 
 public class HidrometroModel {
-    private ClienteModel cliente;
-    private int IdHideometro;
-    private int nrHidrometro;
+    private int idHidrometro;
+    private String nrHiodrometro;
     private boolean status;
+    private boolean apagado;
 
     public HidrometroModel() {
     }
 
-    public ClienteModel getCliente() {
-        return cliente;
+    public int getIdHidrometro() {
+        return idHidrometro;
     }
 
-    public void setCliente(ClienteModel cliente) {
-        this.cliente = cliente;
+    public void setIdHidrometro(int idHidrometro) {
+        this.idHidrometro = idHidrometro;
     }
 
-    public int getIdHideometro() {
-        return IdHideometro;
+    public String getNrHiodrometro() {
+        return nrHiodrometro;
     }
 
-    public void setIdHideometro(int IdHideometro) {
-        this.IdHideometro = IdHideometro;
-    }
-
-    public int getNrHidrometro() {
-        return nrHidrometro;
-    }
-
-    public void setNrHidrometro(int nrHidrometro) {
-        this.nrHidrometro = nrHidrometro;
+    public void setNrHiodrometro(String nrHiodrometro) {
+        this.nrHiodrometro = nrHiodrometro;
     }
 
     public boolean isStatus() {
@@ -41,6 +32,18 @@ public class HidrometroModel {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    public boolean isApagado() {
+        return apagado;
+    }
+
+    public void setApagado(boolean apagado) {
+        this.apagado = apagado;
+    }
+    
+    
+    
+    
     
     
 }
