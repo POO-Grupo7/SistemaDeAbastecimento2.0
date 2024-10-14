@@ -1,10 +1,9 @@
-
 package Model;
 
-public class AdminModel extends FuncionarioModel{
-    private String perfilDeAcesso = "Admin";
+public class BalconistaModel extends FuncionarioModel{
+    private String perfilDeAcesso = "Balconista";
 
-    public AdminModel() {
+    public BalconistaModel() {
     }
 
     public String getPerfilDeAcesso() {
@@ -14,5 +13,6 @@ public class AdminModel extends FuncionarioModel{
     public void setPerfilDeAcesso(String perfilDeAcesso) {
         this.perfilDeAcesso = perfilDeAcesso;
     }
+    
     
 }

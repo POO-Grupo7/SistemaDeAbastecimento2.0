@@ -1,10 +1,9 @@
-
 package Model;
 
-public class AdminModel extends FuncionarioModel{
-    private String perfilDeAcesso = "Admin";
+public class GestorModel extends FuncionarioModel{
+    private String perfilDeAcesso = "Gestor";
 
-    public AdminModel() {
+    public GestorModel() {
     }
 
     public String getPerfilDeAcesso() {
