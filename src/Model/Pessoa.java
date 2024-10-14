@@ -4,12 +4,8 @@ abstract public class Pessoa {
     
     private String nome;
     private String apelido;
-    private String naturalidade;
-    private String moradia;
-    private String dataDeNascimento;
-    private String genero;
-    private String estadoCivil;
     private String email;
+    private String nrTelefone;
     private boolean status;
     private boolean disp; //estado de exixtencia apagar/recuperar
 
@@ -32,52 +28,20 @@ abstract public class Pessoa {
         this.apelido = apelido;
     }
 
-    public String getNaturalidade() {
-        return naturalidade;
-    }
-
-    public void setNaturalidade(String naturalidade) {
-        this.naturalidade = naturalidade;
-    }
-
-    public String getMoradia() {
-        return moradia;
-    }
-
-    public void setMoradia(String moradia) {
-        this.moradia = moradia;
-    }
-
-    public String getDataDeNascimento() {
-        return dataDeNascimento;
-    }
-
-    public void setDataDeNascimento(String dataDeNascimento) {
-        this.dataDeNascimento = dataDeNascimento;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public String getEstadoCivil() {
-        return estadoCivil;
-    }
-
-    public void setEstadoCivil(String estadoCivil) {
-        this.estadoCivil = estadoCivil;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNrTelefone() {
+        return nrTelefone;
+    }
+
+    public void setNrTelefone(String nrTelefone) {
+        this.nrTelefone = nrTelefone;
     }
 
     public boolean isStatus() {
@@ -95,7 +59,6 @@ abstract public class Pessoa {
     public void setDisp(boolean disp) {
         this.disp = disp;
     }
-
 
 
 }
