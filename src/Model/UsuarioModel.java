@@ -6,6 +6,8 @@ public class UsuarioModel extends Pessoa {
     private String nomeUsuario;
     private String funcaoUsuario;
     private String perfilDeAcesso;
+    private byte[] imagemBytes;
+
     
     //Construtor vazio
     public UsuarioModel() {
