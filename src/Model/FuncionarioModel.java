@@ -1,19 +1,36 @@
 
 package Model;
 
-public abstract class FuncionarioModel extends Pessoa {
+public class FuncionarioModel extends Pessoa {
+    private int idFuncionario;
     private String senhaFuncionario;
     private String nomeFuncionario;
     private String dataNascimento;
     private String funcaoFuncionario;
     private String perfilDeAcesso;
+    private String NaturalidadeFuncionario;
+    
 //    private byte[] imagemBytes;
     
     //Construtor vazio
     public FuncionarioModel() {
     }
- 
-    //Getters e Setters
+
+    public int getIdFuncionario() {
+        return idFuncionario;
+    }
+
+    public void setIdFuncionario(int idFuncionario) {
+        this.idFuncionario = idFuncionario;
+    }
+
+    public String getSenhaFuncionario() {
+        return senhaFuncionario;
+    }
+
+    public void setSenhaFuncionario(String senhaFuncionario) {
+        this.senhaFuncionario = senhaFuncionario;
+    }
 
     public String getNomeFuncionario() {
         return nomeFuncionario;
@@ -22,13 +39,13 @@ public abstract class FuncionarioModel extends Pessoa {
     public void setNomeFuncionario(String nomeFuncionario) {
         this.nomeFuncionario = nomeFuncionario;
     }
-    
-    public String getSenha() {
-        return senhaFuncionario;
+
+    public String getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setSenha(String senha) {
-        this.senhaFuncionario = senha;
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public String getFuncaoFuncionario() {
@@ -38,7 +55,6 @@ public abstract class FuncionarioModel extends Pessoa {
     public void setFuncaoFuncionario(String funcaoFuncionario) {
         this.funcaoFuncionario = funcaoFuncionario;
     }
-    
 
     public String getPerfilDeAcesso() {
         return perfilDeAcesso;
@@ -48,6 +64,16 @@ public abstract class FuncionarioModel extends Pessoa {
         this.perfilDeAcesso = perfilDeAcesso;
     }
 
-  
+    public String getNaturalidadeFuncionario() {
+        return NaturalidadeFuncionario;
+    }
+
+    public void setNaturalidadeFuncionario(String NaturalidadeFuncionario) {
+        this.NaturalidadeFuncionario = NaturalidadeFuncionario;
+    }
+
+   
+
+    
 
 }

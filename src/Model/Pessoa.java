@@ -44,7 +44,7 @@ abstract public class Pessoa {
         this.nrTelefone = nrTelefone;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -52,7 +52,7 @@ abstract public class Pessoa {
         this.status = status;
     }
 
-    public boolean isDisp() {
+    public boolean getDisp() {
         return disp;
     }
 
