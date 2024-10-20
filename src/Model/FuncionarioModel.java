@@ -1,7 +1,7 @@
 
 package Model;
 
-public abstract class FuncionarioModel extends Pessoa {
+public class FuncionarioModel extends Pessoa {
     private String senhaFuncionario;
     private String nomeFuncionario;
     private String dataNascimento;

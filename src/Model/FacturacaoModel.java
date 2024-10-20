@@ -1,8 +1,12 @@
 
 package Model;
 
-public class FacturacaoModel extends ClienteModel{
+public class FacturacaoModel{
 
+    private int idFacturacao;
+    private LeituraModel leitura;
+    private BalconistaModel balconista;
+    private HistoricoHidrometroModel historicoHidrometro;
     private static final double TAXA = 55.0;
     private String prazoDePagamento;
     private double descontos, iva,subTotal, totalFactura, dividaAnterior, dividaActual, consumoMensal;

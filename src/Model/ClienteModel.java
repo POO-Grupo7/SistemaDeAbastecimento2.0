@@ -1,6 +1,8 @@
 
 package Model;
 
+import java.util.ArrayList;
+
 public class ClienteModel extends Pessoa{
 
     private double consumo;
@@ -9,6 +11,7 @@ public class ClienteModel extends Pessoa{
     private int quarteirao;
     private int nrDaCasa;
     private String dataContracto;
+    private ArrayList<HistoricoHidrometroModel> historicoHidrometro;
 
     public ClienteModel() {
     }

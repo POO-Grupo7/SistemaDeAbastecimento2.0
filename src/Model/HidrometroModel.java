@@ -1,10 +1,14 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class HidrometroModel {
     private int idHidrometro;
-    private String nrHiodrometro;
+    private String nrHidrometro;
     private boolean status;
     private boolean apagado;
+    private ArrayList<FacturacaoModel> listaFacturacao;
+    private ArrayList<HistoricoHidrometroModel> listaHistorico;
 
     public HidrometroModel() {
     }
@@ -17,15 +21,15 @@ public class HidrometroModel {
         this.idHidrometro = idHidrometro;
     }
 
-    public String getNrHiodrometro() {
-        return nrHiodrometro;
+    public String getNrHidrometro() {
+        return nrHidrometro;
     }
 
-    public void setNrHiodrometro(String nrHiodrometro) {
-        this.nrHiodrometro = nrHiodrometro;
+    public void setNrHiodrometro(String nrHidrometro) {
+        this.nrHidrometro = nrHidrometro;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -33,7 +37,7 @@ public class HidrometroModel {
         this.status = status;
     }
 
-    public boolean isApagado() {
+    public boolean getApagado() {
         return apagado;
     }
 
