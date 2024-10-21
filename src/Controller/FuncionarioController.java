@@ -36,7 +36,6 @@ public class FuncionarioController {
         }
     }
 
-
     //Metodo que verifia a existencia de um ususario com mesmos dados
     public boolean usuarioExiste(String nomeUsuario, String email) {
         conexao = new ConexaoController().conectaBaseDados();
@@ -92,7 +91,6 @@ public class FuncionarioController {
                 pstm.setString(9, funcionarioModel.getPerfilDeAcesso());
                 pstm.setBoolean(10, funcionarioModel.getStatus());
                 pstm.setBoolean(11, funcionarioModel.getDisp());
-                
 
                 pstm.execute();
                 pstm.close();
@@ -105,92 +103,64 @@ public class FuncionarioController {
     }
 
 //    //METODO PARA LISTAR
-//    public ArrayList<FuncionarioModel> PesquisarUsuario() {
-//        ArrayList<FuncionarioModel> list = new ArrayList<>();
-//        String sql = "select * from usuario where disp = 'Sim'";
-//        conexao = new ConexaoController().conectaBaseDados();
-//
-//        try {
-//            pstm = conexao.prepareStatement(sql);
-//            rs = pstm.executeQuery();
-//
-//            while (rs.next()) {
-//                FuncionarioModel funcionarioModel = new FuncionarioModel();
-//                funcionarioModel.setIdFuncionario(rs.getInt("idFuncionario"));
-//                funcionarioModel.setNome(rs.getString("nome"));
-//                funcionarioModel.setApelido(rs.getString("apelidoFuncionario"));
-//                funcionarioModel.setNaturalidadeFuncionario(rs.getString("naturalidadeFuncionario"));
-//                funcionarioModel.setDataNascimento(rs.getString("dataNascimentoFuncionario"));
-//                funcionarioModel.setEmail(rs.getString("emailFuncionario"));
-//                funcionarioModel.setFuncaoFuncionario(rs.getString("funcaoFuncionario"));
-//                funcionarioModel.setNomeFuncionario(rs.getString("nomeUsuario"));
-//                funcionarioModel.setSenhaFuncionario(rs.getString("senhaUsuario"));
-//                funcionarioModel.setPerfilDeAcesso(rs.getString("perfil"));
-//                funcionarioModel.setStatus(rs.getBoolean("1"));
-//                funcionarioModel.setDisp(rs.getBoolean("1"));
-//
-//                list.add(funcionarioModel);
-//            }
-//        } catch (SQLException erro) {
-//            JOptionPane.showMessageDialog(null, "FuncionarioController Pesquisar" + erro);
-//        }
-//        return list;
-//    }
-//}
     public ArrayList<FuncionarioModel> PesquisarUsuario() {
-    ArrayList<FuncionarioModel> list = new ArrayList<>();
-    String sql = "select * from usuario where disp = 'Sim'";
-    conexao = new ConexaoController().conectaBaseDados();
+        ArrayList<FuncionarioModel> list = new ArrayList<>();
+        String sql = "select * from usuario where disp = 'Sim'";
+        conexao = new ConexaoController().conectaBaseDados();
 
-    try {
-        pstm = conexao.prepareStatement(sql);
-        rs = pstm.executeQuery();
+        try {
+            pstm = conexao.prepareStatement(sql);
+            rs = pstm.executeQuery();
 
-        while (rs.next()) {
-            FuncionarioModel funcionarioModel = new FuncionarioModel();
-            funcionarioModel.setIdFuncionario(rs.getInt("idFuncionario")); // Confirme se o nome da coluna está correto
-            funcionarioModel.setNome(rs.getString("nome"));
-            funcionarioModel.setApelido(rs.getString("apelidoFuncionario"));
-            funcionarioModel.setNaturalidadeFuncionario(rs.getString("naturalidadeFuncionario"));
-            funcionarioModel.setDataNascimento(rs.getString("dataNascimentoFuncionario"));
-            funcionarioModel.setEmail(rs.getString("emailFuncionario"));
-            funcionarioModel.setFuncaoFuncionario(rs.getString("funcaoFuncionario"));
-            funcionarioModel.setNomeFuncionario(rs.getString("nomeUsuario"));
-            funcionarioModel.setSenhaFuncionario(rs.getString("senhaUsuario"));
-            funcionarioModel.setPerfilDeAcesso(rs.getString("perfil"));
+            while (rs.next()) {
+                FuncionarioModel funcionarioModel = new FuncionarioModel();
+                funcionarioModel.setIdFuncionario(rs.getInt("idFuncionario")); // Confirme se o nome da coluna está correto
+                funcionarioModel.setNome(rs.getString("nome"));
+                funcionarioModel.setApelido(rs.getString("apelidoFuncionario"));
+                funcionarioModel.setNaturalidadeFuncionario(rs.getString("naturalidadeFuncionario"));
+                funcionarioModel.setDataNascimento(rs.getString("dataNascimentoFuncionario"));
+                funcionarioModel.setEmail(rs.getString("emailFuncionario"));
+                funcionarioModel.setFuncaoFuncionario(rs.getString("funcaoFuncionario"));
+                funcionarioModel.setNomeFuncionario(rs.getString("nomeUsuario"));
+                funcionarioModel.setSenhaFuncionario(rs.getString("senhaUsuario"));
+                funcionarioModel.setPerfilDeAcesso(rs.getString("perfil"));
 
-            // Verifique se estas colunas existem e têm o nome correto na tabela
-            funcionarioModel.setStatus(rs.getBoolean("activo")); // Corrigir o nome da coluna
-            funcionarioModel.setDisp(rs.getBoolean("disp")); // Corrigir o nome da coluna
+                // Verifique se estas colunas existem e têm o nome correto na tabela
+                funcionarioModel.setStatus(rs.getBoolean("activo")); // Corrigir o nome da coluna
+                funcionarioModel.setDisp(rs.getBoolean("disp")); // Corrigir o nome da coluna
 
-            list.add(funcionarioModel);
+                list.add(funcionarioModel);
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FuncionarioController Pesquisar" + erro);
         }
-    } catch (SQLException erro) {
-        JOptionPane.showMessageDialog(null, "FuncionarioController Pesquisar" + erro);
+        return list;
     }
-    return list;
-}
 //Metodo para actualizar usuarios
-public void ActualizarUsuario(FuncionarioModel funcionarioModel) {
-        String sql = "update usuario set nome = ?, apelidoFuncionario = ?, naturalidadeFuncionario = ?, dataNascimentoFuncionario = ?, emailFuncionario = ?, funcaoFuncionario = ?, nomeUsuario = ?, senhaUsuario = ?, perfil = ?, activo = ?, disp = ? where idUsuario = ?";
+
+    public void ActualizarUsuario(FuncionarioModel funcionarioModel) {
+        String sql = "update usuario set nome = ?, apelidoFuncionario = ?, naturalidadeFuncionario = ?, dataNascimentoFuncionario = ?, emailFuncionario = ?, funcaoFuncionario = ?, nomeUsuario = ?, senhaUsuario = ?, perfil = ?, activo = ?, disp = ? where idFuncionario = ?";
         Connection conexao = null;
         PreparedStatement pstm = null;
 
         try {
             conexao = new ConexaoController().conectaBaseDados();
             pstm = conexao.prepareStatement(sql);
+
+            pstm.setString(1, funcionarioModel.getNome());
+            pstm.setString(2, funcionarioModel.getApelido());
+            pstm.setString(3, funcionarioModel.getNaturalidadeFuncionario());
+            pstm.setString(4, funcionarioModel.getDataNascimento());
+            pstm.setString(5, funcionarioModel.getEmail());
+            pstm.setString(6, funcionarioModel.getFuncaoFuncionario());
+            pstm.setString(7, funcionarioModel.getNomeFuncionario());
+            pstm.setString(8, funcionarioModel.getSenhaFuncionario());
+            pstm.setString(9, funcionarioModel.getPerfilDeAcesso());
+            pstm.setBoolean(10, funcionarioModel.getStatus());
+            pstm.setBoolean(11, funcionarioModel.getDisp());
+            pstm.setInt(12, funcionarioModel.getIdFuncionario());
             
-                pstm.setString(1, funcionarioModel.getNome());
-                pstm.setString(2, funcionarioModel.getApelido());
-                pstm.setString(3, funcionarioModel.getNaturalidadeFuncionario());
-                pstm.setString(4, funcionarioModel.getDataNascimento());
-                pstm.setString(5, funcionarioModel.getEmail());
-                pstm.setString(6, funcionarioModel.getFuncaoFuncionario());
-                pstm.setString(7, funcionarioModel.getNomeFuncionario());
-                pstm.setString(8, funcionarioModel.getSenhaFuncionario());
-                pstm.setString(9, funcionarioModel.getPerfilDeAcesso());
-                pstm.setBoolean(10, funcionarioModel.getStatus());
-                pstm.setBoolean(11, funcionarioModel.getDisp());
+
 
             pstm.executeUpdate();
         } catch (SQLException erro) {
@@ -210,7 +180,6 @@ public void ActualizarUsuario(FuncionarioModel funcionarioModel) {
     }
 
 }
-
 
 //    //METODO PARA LISTAR APAGADOS STATUS « NAO
 //    public ArrayList<FuncionarioModel> ListarUsuarioApagados() {
@@ -285,9 +254,6 @@ public void ActualizarUsuario(FuncionarioModel funcionarioModel) {
 ////        }
 ////
 ////    }
-
-
-
 /*
 create table usuario (
     idUsuario int AUTO_INCREMENT PRIMARY KEY,

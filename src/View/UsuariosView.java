@@ -33,11 +33,6 @@ public class UsuariosView extends javax.swing.JFrame {
         testData(tabelaUsuarios);
         getContentPane().setBackground(Color.white);
         TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
-//        painelEsqDados.setLayout(new MigLayout());
-//        painelEsqDados.add(lblId);
-//        painelEsqDados.add(txtId, "wrap");
-//        painelEsqDados.add(lblNome);
-//        painelEsqDados.add(txtNome, "wrap, pushx, growx");
 
     }
 
@@ -548,27 +543,22 @@ public class UsuariosView extends javax.swing.JFrame {
     private void btnCarregarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarCamposActionPerformed
         
             CarregarCampos();
-
         
     }//GEN-LAST:event_btnCarregarCamposActionPerformed
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
-
-            limparCampos();
+          limparCampos();
 
         
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+       ApagarUsuario();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        
-
             cadastrarUsuario();
-
-        
+            limparCampos(); 
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -602,6 +592,7 @@ public class UsuariosView extends javax.swing.JFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
 
             ActualizarUsuario();
+            limparCampos();
 
         
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -671,8 +662,9 @@ public class UsuariosView extends javax.swing.JFrame {
         usuarioControler.cadastrarFuncionario(funcionarioModel);
         listarUsuarios();
     }
-//Metodo Actualizar
-
+    
+  //Metodo Actualizar
+    
     private void ActualizarUsuario() {
         String nome = txtNome.getText().trim();
         String apelido = txtApelido.getText().trim();
@@ -743,6 +735,7 @@ public class UsuariosView extends javax.swing.JFrame {
     }
 
     //Metodo Listar
+    
     private void listarUsuarios() {
         try {
             FuncionarioController usuarioController = new FuncionarioController();
@@ -751,6 +744,7 @@ public class UsuariosView extends javax.swing.JFrame {
             model.setRowCount(0);
 
             ArrayList<FuncionarioModel> lista = usuarioController.PesquisarUsuario();
+            System.out.println("Clientes encontrados: " + lista.size());
             System.out.println(lista.isEmpty());
 
             for (FuncionarioModel item : lista) {
@@ -810,9 +804,83 @@ public class UsuariosView extends javax.swing.JFrame {
         txtEmail.setText("");
         txtNomeUsuario.setText("");
         txtSenha.setText("");
+        cbxStatus.setSelectedIndex(0);
+        cbxFuncao.setSelectedIndex(0);
+        cbxNaturalidade.setSelectedIndex(0);
+        cbxPerfilDeAcesso.setSelectedIndex(0);
         txtNome.requestFocus();
     }
+    //Apagar 
+    private void ApagarUsuario() {
+        int idUsuario = Integer.parseInt(txtId.getText());
+        String nome = txtNome.getText().trim();
+        String apelido = txtApelido.getText().trim();
+        String naturalidade = cbxNaturalidade.getSelectedItem().toString();
+        String data = txtDataNascimento.getText().trim();
+        String email = txtEmail.getText().trim();
+        String funcao = cbxFuncao.getSelectedItem().toString();
+        String nomeUsuario = txtNomeUsuario.getText().trim();
+        String senha = txtSenha.getText().trim();
+        String perfil = cbxPerfilDeAcesso.getSelectedItem().toString();
+        boolean status;
+        if (cbxStatus.getItemAt(0) == "Activo") {
+            status = true;
 
+        } else {
+            status = false;
+        }
+//   ;
+
+        //verificacoes
+        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(this, "Nome inválido.");
+            return;
+        }
+        if (apelido.isEmpty() || !apelido.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(this, "Apelido inválido.");
+            return;
+        }
+        if (data.isEmpty() || !data.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            JOptionPane.showMessageDialog(this, "Data de nascimento inválida.");
+            return;
+        }
+       
+        if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(this, "Email inválido.");
+            return;
+        }
+        if (nomeUsuario.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nome de usuário não pode estar vazio.");
+            return;
+        }
+        if (senha.isEmpty() || senha.length() < 8) {
+            JOptionPane.showMessageDialog(this, "Senha deve ter pelo menos 8 caracteres.");
+            return;
+        }
+        if (perfil.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Perfil não pode estar vazio.");
+            return;
+        }
+
+        FuncionarioModel funcionarioModel = new FuncionarioModel();
+        funcionarioModel.setIdFuncionario(idUsuario);
+        funcionarioModel.setNome(nome);
+        funcionarioModel.setApelido(apelido);
+        funcionarioModel.setNaturalidadeFuncionario(naturalidade);
+        funcionarioModel.setDataNascimento(data);
+        funcionarioModel.setEmail(email);
+        funcionarioModel.setFuncaoFuncionario(funcao);
+        funcionarioModel.setNomeFuncionario(nomeUsuario);
+        funcionarioModel.setSenhaFuncionario(senha);
+        funcionarioModel.setPerfilDeAcesso(perfil);
+        funcionarioModel.setStatus(true);
+        
+
+        FuncionarioController usuarioController = new FuncionarioController();
+        usuarioController.ActualizarUsuario(funcionarioModel);
+
+        JOptionPane.showMessageDialog(null, "Usuario apagado com Sucesso.");
+    }
     /**
      * @param args the command line arguments
      */

@@ -1,16 +1,26 @@
-
 package Model;
 
-public class ClienteModel extends Pessoa{
+public class ClienteModel extends Pessoa {
 
+    private int id;
     private double consumo;
     private int contacto;
     private double saldo;
     private int quarteirao;
     private int nrDaCasa;
     private String dataContracto;
+    private String hidrometro;
+    private String bairro;
 
     public ClienteModel() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getConsumo() {
@@ -60,6 +70,23 @@ public class ClienteModel extends Pessoa{
     public void setDataContracto(String dataContracto) {
         this.dataContracto = dataContracto;
     }
- 
+
+    public String getHidrometro() {
+        return hidrometro;
+    }
+
+    public void setHidrometro(String hidrometro) {
+        this.hidrometro = hidrometro;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    
     
 }
