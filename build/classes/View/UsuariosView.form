@@ -27,7 +27,6 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="USU&#xc1;RIOS"/>
-    <Property name="alwaysOnTop" type="boolean" value="true"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1180, 650]"/>
     </Property>
@@ -524,16 +523,11 @@
                                           </Group>
                                           <EmptySpace min="28" pref="28" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jComboBox2" min="-2" pref="118" max="-2" attributes="0"/>
-                                              <Component id="jComboBox1" min="-2" pref="118" max="-2" attributes="0"/>
+                                              <Component id="cbxPerfilDeAcesso" min="-2" pref="118" max="-2" attributes="0"/>
+                                              <Component id="cbxStatus" min="-2" pref="118" max="-2" attributes="0"/>
                                               <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtPassword" min="-2" pref="118" max="-2" attributes="0"/>
+                                              <Component id="txtSenha" min="-2" pref="118" max="-2" attributes="0"/>
                                           </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="29" pref="29" max="-2" attributes="0"/>
-                                          <Component id="jTextField18" min="-2" pref="118" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="lblNomeUsuario" min="-2" max="-2" attributes="0"/>
@@ -541,7 +535,7 @@
                                           <Component id="txtNomeUsuario" min="-2" pref="118" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace type="separate" pref="45" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" pref="38" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jButton1" min="-2" pref="140" max="-2" attributes="0"/>
                                       <Component id="lblFoto" min="-2" max="-2" attributes="0"/>
@@ -559,7 +553,7 @@
                                           <Component id="lblFoto" min="-2" pref="155" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace pref="95" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="3" attributes="0">
@@ -569,19 +563,19 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Component id="lblSenha" linkSize="2" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
+                                              <Component id="txtSenha" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="3" attributes="0">
                                                       <Component id="jLabel26" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="cbxPerfilDeAcesso" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="3" attributes="0">
                                                       <Component id="jLabel28" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="cbxStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
@@ -589,17 +583,7 @@
                                                   <Component id="jCheckBox1" linkSize="2" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
-                                                  <Component id="jLabel29" linkSize="2" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                                                  <Component id="jTextField18" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -632,22 +616,12 @@
                             <Property name="text" type="java.lang.String" value="Estado:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel29">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Disponibilidade:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField18">
-                          <Properties>
-                            <Property name="editable" type="boolean" value="false"/>
-                          </Properties>
-                        </Component>
                         <Component class="javax.swing.JCheckBox" name="jCheckBox1">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Ver Senha"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="jComboBox2">
+                        <Component class="javax.swing.JComboBox" name="cbxPerfilDeAcesso">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="5">
@@ -663,7 +637,7 @@
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="jComboBox1">
+                        <Component class="javax.swing.JComboBox" name="cbxStatus">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="2">
@@ -698,7 +672,7 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JPasswordField" name="txtPassword">
+                        <Component class="javax.swing.JPasswordField" name="txtSenha">
                         </Component>
                       </SubComponents>
                     </Container>
@@ -749,7 +723,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JTable" name="jTable2">
+                            <Component class="javax.swing.JTable" name="tabelaUsuarios">
                               <Properties>
                                 <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -762,7 +736,7 @@
                                     <Column editable="false" title="Apelido" type="java.lang.Object"/>
                                     <Column editable="false" title="Naturalidade" type="java.lang.Object"/>
                                     <Column editable="false" title="Data de Nascimento" type="java.lang.Object"/>
-                                    <Column editable="true" title="Email institucional" type="java.lang.Object"/>
+                                    <Column editable="false" title="Email institucional" type="java.lang.Object"/>
                                     <Column editable="false" title="Funcao" type="java.lang.Object"/>
                                     <Column editable="false" title="Usuario" type="java.lang.Object"/>
                                     <Column editable="false" title="Senha" type="java.lang.Object"/>
@@ -855,7 +829,7 @@
                             </Constraint>
                           </Constraints>
                           <SubComponents>
-                            <Component class="javax.swing.JButton" name="jButton6">
+                            <Component class="javax.swing.JButton" name="btnCadastrar">
                               <Properties>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="8a" green="66" red="34" type="rgb"/>
@@ -869,7 +843,7 @@
                                 <Property name="text" type="java.lang.String" value="Cadastrar"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarActionPerformed"/>
                               </Events>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -877,7 +851,7 @@
                                 </Constraint>
                               </Constraints>
                             </Component>
-                            <Component class="javax.swing.JButton" name="jButton7">
+                            <Component class="javax.swing.JButton" name="btnActualizar">
                               <Properties>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="8a" green="66" red="34" type="rgb"/>
@@ -890,13 +864,16 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Actualizar"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarActionPerformed"/>
+                              </Events>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                                   <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="25" insetsLeft="10" insetsBottom="25" insetsRight="10" anchor="10" weightX="0.0" weightY="0.0"/>
                                 </Constraint>
                               </Constraints>
                             </Component>
-                            <Component class="javax.swing.JButton" name="jButton8">
+                            <Component class="javax.swing.JButton" name="btnCarregarCampos">
                               <Properties>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="8a" green="66" red="34" type="rgb"/>
@@ -910,7 +887,7 @@
                                 <Property name="text" type="java.lang.String" value="Carregar Campos"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCarregarCamposActionPerformed"/>
                               </Events>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -918,7 +895,7 @@
                                 </Constraint>
                               </Constraints>
                             </Component>
-                            <Component class="javax.swing.JButton" name="jButton9">
+                            <Component class="javax.swing.JButton" name="btnLimparCampos">
                               <Properties>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="8a" green="66" red="34" type="rgb"/>
@@ -932,7 +909,7 @@
                                 <Property name="text" type="java.lang.String" value="Limpar Campos"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparCamposActionPerformed"/>
                               </Events>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -1057,11 +1034,11 @@
                                 <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                               </StatementProvider>
                               <Parameters>
-                                <CodeExpression id="7_jButton6">
-                                  <CodeVariable name="jButton6" type="8194" declaredType="javax.swing.JButton"/>
+                                <CodeExpression id="7_btnCadastrar">
+                                  <CodeVariable name="btnCadastrar" type="8194" declaredType="javax.swing.JButton"/>
                                   <ExpressionOrigin>
                                     <ExpressionProvider type="ComponentRef">
-                                      <ComponentRef name="jButton6"/>
+                                      <ComponentRef name="btnCadastrar"/>
                                     </ExpressionProvider>
                                   </ExpressionOrigin>
                                 </CodeExpression>
@@ -1102,11 +1079,11 @@
                                 <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                               </StatementProvider>
                               <Parameters>
-                                <CodeExpression id="10_jButton7">
-                                  <CodeVariable name="jButton7" type="8194" declaredType="javax.swing.JButton"/>
+                                <CodeExpression id="10_btnActualizar">
+                                  <CodeVariable name="btnActualizar" type="8194" declaredType="javax.swing.JButton"/>
                                   <ExpressionOrigin>
                                     <ExpressionProvider type="ComponentRef">
-                                      <ComponentRef name="jButton7"/>
+                                      <ComponentRef name="btnActualizar"/>
                                     </ExpressionProvider>
                                   </ExpressionOrigin>
                                 </CodeExpression>
@@ -1147,11 +1124,11 @@
                                 <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                               </StatementProvider>
                               <Parameters>
-                                <CodeExpression id="13_jButton8">
-                                  <CodeVariable name="jButton8" type="8194" declaredType="javax.swing.JButton"/>
+                                <CodeExpression id="13_btnCarregarCampos">
+                                  <CodeVariable name="btnCarregarCampos" type="8194" declaredType="javax.swing.JButton"/>
                                   <ExpressionOrigin>
                                     <ExpressionProvider type="ComponentRef">
-                                      <ComponentRef name="jButton8"/>
+                                      <ComponentRef name="btnCarregarCampos"/>
                                     </ExpressionProvider>
                                   </ExpressionOrigin>
                                 </CodeExpression>
@@ -1192,11 +1169,11 @@
                                 <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                               </StatementProvider>
                               <Parameters>
-                                <CodeExpression id="16_jButton9">
-                                  <CodeVariable name="jButton9" type="8194" declaredType="javax.swing.JButton"/>
+                                <CodeExpression id="16_btnLimparCampos">
+                                  <CodeVariable name="btnLimparCampos" type="8194" declaredType="javax.swing.JButton"/>
                                   <ExpressionOrigin>
                                     <ExpressionProvider type="ComponentRef">
-                                      <ComponentRef name="jButton9"/>
+                                      <ComponentRef name="btnLimparCampos"/>
                                     </ExpressionProvider>
                                   </ExpressionOrigin>
                                 </CodeExpression>
