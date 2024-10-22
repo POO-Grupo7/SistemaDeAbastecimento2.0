@@ -68,8 +68,10 @@ public class UsuariosView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         painelConteudo = new javax.swing.JPanel();
         painelConteudoEsquerdo = new javax.swing.JPanel();
-        btnVoltarMenu = new javax.swing.JButton();
         lblIconLogo = new javax.swing.JLabel();
+        painelVoltarMenu = new javax.swing.JPanel();
+        btnVoltarMenu1 = new javax.swing.JButton();
+        lblCabecalho1 = new javax.swing.JLabel();
         painelContCentral = new javax.swing.JPanel();
         painelSuperiorDados = new javax.swing.JPanel();
         painelEsqDados = new javax.swing.JPanel();
@@ -175,26 +177,47 @@ public class UsuariosView extends javax.swing.JFrame {
         painelConteudoEsquerdo.setBackground(new java.awt.Color(52, 102, 138));
         painelConteudoEsquerdo.setLayout(new java.awt.BorderLayout());
 
-        btnVoltarMenu.setBackground(new java.awt.Color(52, 102, 138));
-        btnVoltarMenu.setForeground(new java.awt.Color(52, 102, 138));
-        btnVoltarMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8-menu-48.png"))); // NOI18N
-        btnVoltarMenu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 102), 2, true));
-        btnVoltarMenu.setContentAreaFilled(false);
-        btnVoltarMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnVoltarMenu.setDefaultCapable(false);
-        btnVoltarMenu.setOpaque(true);
-        btnVoltarMenu.setSelected(true);
-        btnVoltarMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarMenuActionPerformed(evt);
-            }
-        });
-        painelConteudoEsquerdo.add(btnVoltarMenu, java.awt.BorderLayout.NORTH);
-        btnVoltarMenu.getAccessibleContext().setAccessibleName("btnVoltarMenu");
-
         lblIconLogo.setBackground(new java.awt.Color(52, 102, 138));
         lblIconLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/images/social-media.png"))); // NOI18N
         painelConteudoEsquerdo.add(lblIconLogo, java.awt.BorderLayout.CENTER);
+
+        painelVoltarMenu.setBackground(new java.awt.Color(52, 102, 138));
+
+        btnVoltarMenu1.setBackground(new java.awt.Color(52, 102, 138));
+        btnVoltarMenu1.setForeground(new java.awt.Color(52, 102, 138));
+        btnVoltarMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8-menu-48.png"))); // NOI18N
+        btnVoltarMenu1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 102), 2, true));
+        btnVoltarMenu1.setContentAreaFilled(false);
+        btnVoltarMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnVoltarMenu1.setDisabledIcon(null);
+        btnVoltarMenu1.setDisabledSelectedIcon(null);
+        btnVoltarMenu1.setOpaque(true);
+        btnVoltarMenu1.setSelected(true);
+        btnVoltarMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVoltarMenu1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVoltarMenu1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVoltarMenu1MouseExited(evt);
+            }
+        });
+        btnVoltarMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarMenu1ActionPerformed(evt);
+            }
+        });
+        painelVoltarMenu.add(btnVoltarMenu1);
+
+        lblCabecalho1.setBackground(new java.awt.Color(52, 102, 138));
+        lblCabecalho1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        lblCabecalho1.setForeground(new java.awt.Color(255, 255, 255));
+        lblCabecalho1.setText("Voltar");
+        painelVoltarMenu.add(lblCabecalho1);
+
+        painelConteudoEsquerdo.add(painelVoltarMenu, java.awt.BorderLayout.NORTH);
 
         painelConteudo.add(painelConteudoEsquerdo, java.awt.BorderLayout.WEST);
 
@@ -601,10 +624,22 @@ public class UsuariosView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeAPesquisarActionPerformed
 
-    private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
+    private void btnVoltarMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenu1MouseClicked
+        btnVoltarMenu1.setBackground(new Color(52,102,138));
+    }//GEN-LAST:event_btnVoltarMenu1MouseClicked
+
+    private void btnVoltarMenu1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenu1MouseEntered
+        btnVoltarMenu1.setBackground(new Color(45, 45, 45));
+    }//GEN-LAST:event_btnVoltarMenu1MouseEntered
+
+    private void btnVoltarMenu1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenu1MouseExited
+        btnVoltarMenu1.setBackground(new Color(52,102,138));
+    }//GEN-LAST:event_btnVoltarMenu1MouseExited
+
+    private void btnVoltarMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenu1ActionPerformed
         new MenuPrincipal().setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnVoltarMenuActionPerformed
+    }//GEN-LAST:event_btnVoltarMenu1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -625,7 +660,7 @@ public class UsuariosView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botoes;
-    private javax.swing.JButton btnVoltarMenu;
+    private javax.swing.JButton btnVoltarMenu1;
     private javax.swing.JComboBox<String> cbxFuncao;
     private javax.swing.JComboBox<String> cbxNaturalidade;
     private javax.swing.JButton jButton1;
@@ -649,6 +684,7 @@ public class UsuariosView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField18;
     private javax.swing.JLabel lblApelido;
     private javax.swing.JLabel lblCabecalho;
+    private javax.swing.JLabel lblCabecalho1;
     private javax.swing.JLabel lblDataNascimento;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblFoto;
@@ -668,6 +704,7 @@ public class UsuariosView extends javax.swing.JFrame {
     private javax.swing.JPanel painelInferiorBotoesTabela;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JPanel painelSuperiorDados;
+    private javax.swing.JPanel painelVoltarMenu;
     private javax.swing.JPanel tabela;
     private javax.swing.JTextField txtApelido;
     private javax.swing.JTextField txtDataNascimento;

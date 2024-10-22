@@ -30,25 +30,25 @@ public class HidrometroView extends javax.swing.JFrame {
 //        painelEsqDados.add(txtId, "wrap");
 //        painelEsqDados.add(lblNome);
 //        painelEsqDados.add(txtNome, "wrap, pushx, growx");
-        
+
     }
-    
-    private void testData(JTable table){
+
+    private void testData(JTable table) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
 //        "ID", "Nome", "Apelido", "Naturalidade", "Data Nascimento", "Email", "Função", "Usuario", "Senha", "Perfil", "Activo", "Disp"
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});   
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
     }
 
     /**
@@ -68,7 +68,9 @@ public class HidrometroView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         painelConteudo = new javax.swing.JPanel();
         painelConteudoEsquerdo = new javax.swing.JPanel();
+        painelVoltarMenu1 = new javax.swing.JPanel();
         btnVoltarMenu = new javax.swing.JButton();
+        lblCabecalho1 = new javax.swing.JLabel();
         lblIconLogo = new javax.swing.JLabel();
         painelContCentral = new javax.swing.JPanel();
         painelSuperiorDados = new javax.swing.JPanel();
@@ -119,8 +121,8 @@ public class HidrometroView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HIDROMETRO");
-        setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(1180, 650));
+        setPreferredSize(new java.awt.Dimension(1260, 700));
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         painelPrincipal.setPreferredSize(new java.awt.Dimension(1260, 720));
@@ -147,7 +149,7 @@ public class HidrometroView extends javax.swing.JFrame {
             painelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCabecalhoLayout.createSequentialGroup()
                 .addComponent(lblCabecalho)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 994, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 836, Short.MAX_VALUE)
                 .addComponent(txtNomeAPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -177,25 +179,51 @@ public class HidrometroView extends javax.swing.JFrame {
         painelConteudoEsquerdo.setBackground(new java.awt.Color(52, 102, 138));
         painelConteudoEsquerdo.setLayout(new java.awt.BorderLayout());
 
+        painelVoltarMenu1.setBackground(new java.awt.Color(52, 102, 138));
+        painelVoltarMenu1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                painelVoltarMenu1KeyPressed(evt);
+            }
+        });
+
         btnVoltarMenu.setBackground(new java.awt.Color(52, 102, 138));
         btnVoltarMenu.setForeground(new java.awt.Color(52, 102, 138));
         btnVoltarMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8-menu-48.png"))); // NOI18N
         btnVoltarMenu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 102), 2, true));
         btnVoltarMenu.setContentAreaFilled(false);
         btnVoltarMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnVoltarMenu.setDefaultCapable(false);
+        btnVoltarMenu.setDisabledIcon(null);
+        btnVoltarMenu.setDisabledSelectedIcon(null);
         btnVoltarMenu.setOpaque(true);
         btnVoltarMenu.setSelected(true);
+        btnVoltarMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVoltarMenuMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVoltarMenuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVoltarMenuMouseExited(evt);
+            }
+        });
         btnVoltarMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarMenuActionPerformed(evt);
             }
         });
-        painelConteudoEsquerdo.add(btnVoltarMenu, java.awt.BorderLayout.NORTH);
-        btnVoltarMenu.getAccessibleContext().setAccessibleName("btnVoltarMenu");
+        painelVoltarMenu1.add(btnVoltarMenu);
+
+        lblCabecalho1.setBackground(new java.awt.Color(52, 102, 138));
+        lblCabecalho1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        lblCabecalho1.setForeground(new java.awt.Color(255, 255, 255));
+        lblCabecalho1.setText("Voltar");
+        painelVoltarMenu1.add(lblCabecalho1);
+
+        painelConteudoEsquerdo.add(painelVoltarMenu1, java.awt.BorderLayout.NORTH);
 
         lblIconLogo.setBackground(new java.awt.Color(52, 102, 138));
-        lblIconLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_speed_256px_1.png"))); // NOI18N
+        lblIconLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_speed_256px.png"))); // NOI18N
         painelConteudoEsquerdo.add(lblIconLogo, java.awt.BorderLayout.CENTER);
 
         painelConteudo.add(painelConteudoEsquerdo, java.awt.BorderLayout.WEST);
@@ -277,7 +305,7 @@ public class HidrometroView extends javax.swing.JFrame {
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                                 .addComponent(txtBairro)
                                 .addGap(174, 174, 174))
-                            .addComponent(cbxNomeDoCliente, 0, 403, Short.MAX_VALUE)))
+                            .addComponent(cbxNomeDoCliente, 0, 324, Short.MAX_VALUE)))
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblQuarterao)
@@ -331,7 +359,7 @@ public class HidrometroView extends javax.swing.JFrame {
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblDataDeEmissao)
                     .addComponent(rSDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         painelSuperiorDados.add(painelEsqDados);
@@ -403,7 +431,7 @@ public class HidrometroView extends javax.swing.JFrame {
                     .addGroup(painelDirDadosLayout.createSequentialGroup()
                         .addComponent(lblNumeroDeHidrometro)
                         .addGap(38, 38, 38)
-                        .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                        .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                         .addGap(288, 288, 288))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDirDadosLayout.createSequentialGroup()
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -619,11 +647,6 @@ public class HidrometroView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeAPesquisarActionPerformed
 
-    private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
-        new MenuPrincipal().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnVoltarMenuActionPerformed
-
     private void cbxNomeDoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNomeDoClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxNomeDoClienteActionPerformed
@@ -664,6 +687,27 @@ public class HidrometroView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
 
+    private void btnVoltarMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenuMouseClicked
+        btnVoltarMenu.setBackground(new Color(52, 102, 138));
+    }//GEN-LAST:event_btnVoltarMenuMouseClicked
+
+    private void btnVoltarMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenuMouseEntered
+        btnVoltarMenu.setBackground(new Color(45, 45, 45));
+    }//GEN-LAST:event_btnVoltarMenuMouseEntered
+
+    private void btnVoltarMenuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenuMouseExited
+        btnVoltarMenu.setBackground(new Color(52, 102, 138));
+    }//GEN-LAST:event_btnVoltarMenuMouseExited
+
+    private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
+        new MenuPrincipal().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnVoltarMenuActionPerformed
+
+    private void painelVoltarMenu1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_painelVoltarMenu1KeyPressed
+
+    }//GEN-LAST:event_painelVoltarMenu1KeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -672,7 +716,7 @@ public class HidrometroView extends javax.swing.JFrame {
             FlatCyanLightIJTheme.setup();
 //            UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -699,6 +743,7 @@ public class HidrometroView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCabecalho;
+    private javax.swing.JLabel lblCabecalho1;
     private javax.swing.JLabel lblConsumoDoMes;
     private javax.swing.JLabel lblDataDeEmissao;
     private javax.swing.JLabel lblIconLogo;
@@ -722,6 +767,7 @@ public class HidrometroView extends javax.swing.JFrame {
     private javax.swing.JPanel painelInferiorBotoesTabela;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JPanel painelSuperiorDados;
+    private javax.swing.JPanel painelVoltarMenu1;
     private rojeru_san.componentes.RSDateChooser rSDateChooser1;
     private rojeru_san.componentes.RSDateChooser rSDateChooser2;
     private javax.swing.JPanel tabela;
