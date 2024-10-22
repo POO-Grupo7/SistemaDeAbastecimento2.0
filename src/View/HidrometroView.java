@@ -18,13 +18,13 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import net.miginfocom.swing.MigLayout;
 
-public class GestaoInternaView extends javax.swing.JFrame {
+public class HidrometroView extends javax.swing.JFrame {
 
-    public GestaoInternaView() {
+    public HidrometroView() {
         initComponents();
-        testData(jTable2);
+        testData(tabelaLeitura);
         getContentPane().setBackground(Color.white);
-        TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
+        TableCustom.apply(jScrollPane1, TableCustom.TableType.MULTI_LINE);
 //        painelEsqDados.setLayout(new MigLayout());
 //        painelEsqDados.add(lblId);
 //        painelEsqDados.add(txtId, "wrap");
@@ -47,17 +47,7 @@ public class GestaoInternaView extends javax.swing.JFrame {
         model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
         model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
         model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});   
         model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
     }
 
@@ -85,49 +75,52 @@ public class GestaoInternaView extends javax.swing.JFrame {
         painelEsqDados = new javax.swing.JPanel();
         lblId = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        lblNome = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
-        lblApelido = new javax.swing.JLabel();
-        txtApelido = new javax.swing.JTextField();
-        lblNaturalidade = new javax.swing.JLabel();
-        cbxNaturalidade = new javax.swing.JComboBox<>();
-        lblDataNascimento = new javax.swing.JLabel();
-        txtDataNascimento = new javax.swing.JTextField();
-        lblEmail = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
-        lblFuncao = new javax.swing.JLabel();
-        cbxFuncao = new javax.swing.JComboBox<>();
+        cbxNomeDoCliente = new javax.swing.JComboBox<>();
+        lblNomeDoCliente = new javax.swing.JLabel();
+        lblBairro = new javax.swing.JLabel();
+        txtBairro = new javax.swing.JTextField();
+        lblQuarterao = new javax.swing.JLabel();
+        txtQuarterao = new javax.swing.JTextField();
+        lblNumeroDaCasa = new javax.swing.JLabel();
+        txtNumeroDeCasa = new javax.swing.JTextField();
+        lblMesDeReferencia = new javax.swing.JLabel();
+        lblDataDeEmissao = new javax.swing.JLabel();
+        rSDateChooser1 = new rojeru_san.componentes.RSDateChooser();
+        rSDateChooser2 = new rojeru_san.componentes.RSDateChooser();
         painelDirDados = new javax.swing.JPanel();
-        lblNomeUsuario = new javax.swing.JLabel();
-        txtNomeUsuario = new javax.swing.JTextField();
-        lblSenha = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jTextField18 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        txtPassword = new javax.swing.JPasswordField();
+        lblNumeroDeHidrometro = new javax.swing.JLabel();
+        txtNumeroDeHidrometro = new javax.swing.JTextField();
+        lblLeituraAnterior = new javax.swing.JLabel();
+        txtLeituraActual = new javax.swing.JTextField();
+        lblLeituraActual = new javax.swing.JLabel();
+        lblConsumoDoMes = new javax.swing.JLabel();
+        txtConsumoDoMes = new javax.swing.JTextField();
+        txtOcorrencia = new javax.swing.JTextField();
+        lblOcorrencia = new javax.swing.JLabel();
+        lblNumeroDaLeitura = new javax.swing.JLabel();
+        txtNumeroDaLeitura = new javax.swing.JTextField();
+        txtSaldoActual = new javax.swing.JTextField();
+        lblSaldoActual = new javax.swing.JLabel();
+        btnApagados = new javax.swing.JButton();
+        cbxMesDeReferencia = new javax.swing.JComboBox<>();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
         tabela = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         botoes = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaLeitura = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("USUÁRIOS");
+        setTitle("HIDROMETRO");
         setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(1180, 650));
-        setPreferredSize(new java.awt.Dimension(1260, 680));
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         painelPrincipal.setPreferredSize(new java.awt.Dimension(1260, 720));
@@ -138,7 +131,7 @@ public class GestaoInternaView extends javax.swing.JFrame {
 
         lblCabecalho.setFont(new java.awt.Font("Arial", 1, 40)); // NOI18N
         lblCabecalho.setForeground(new java.awt.Color(255, 255, 255));
-        lblCabecalho.setText("Gestão Interna");
+        lblCabecalho.setText("Hidrometro");
 
         txtNomeAPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,7 +147,7 @@ public class GestaoInternaView extends javax.swing.JFrame {
             painelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCabecalhoLayout.createSequentialGroup()
                 .addComponent(lblCabecalho)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 777, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 994, Short.MAX_VALUE)
                 .addComponent(txtNomeAPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -202,7 +195,7 @@ public class GestaoInternaView extends javax.swing.JFrame {
         btnVoltarMenu.getAccessibleContext().setAccessibleName("btnVoltarMenu");
 
         lblIconLogo.setBackground(new java.awt.Color(52, 102, 138));
-        lblIconLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/images/social-media.png"))); // NOI18N
+        lblIconLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_speed_256px_1.png"))); // NOI18N
         painelConteudoEsquerdo.add(lblIconLogo, java.awt.BorderLayout.CENTER);
 
         painelConteudo.add(painelConteudoEsquerdo, java.awt.BorderLayout.WEST);
@@ -218,30 +211,53 @@ public class GestaoInternaView extends javax.swing.JFrame {
 
         lblId.setText("Id:");
 
-        txtId.setEditable(false);
-        txtId.setBackground(new java.awt.Color(255, 255, 255));
-
-        lblNome.setText("Nome:");
-
-        lblApelido.setText("Apelido:");
-
-        lblNaturalidade.setText("Naturalidade:");
-
-        cbxNaturalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        lblDataNascimento.setText("Data de Nascimento:");
-
-        lblEmail.setText("Email institucional:");
-
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+        txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
+                txtIdActionPerformed(evt);
             }
         });
 
-        lblFuncao.setText("Funcao:");
+        cbxNomeDoCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxNomeDoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxNomeDoClienteActionPerformed(evt);
+            }
+        });
 
-        cbxFuncao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lblNomeDoCliente.setText("Nome do Cliente:*");
+
+        lblBairro.setText("Bairro:*");
+
+        txtBairro.setEditable(false);
+
+        lblQuarterao.setText("Quarteirao:*");
+
+        txtQuarterao.setEditable(false);
+        txtQuarterao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQuarteraoActionPerformed(evt);
+            }
+        });
+
+        lblNumeroDaCasa.setText("Numero da Casa:*");
+
+        txtNumeroDeCasa.setEditable(false);
+        txtNumeroDeCasa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroDeCasaActionPerformed(evt);
+            }
+        });
+
+        lblMesDeReferencia.setText("Data de Inicio:*");
+
+        lblDataDeEmissao.setText("Data de Fim:");
+
+        rSDateChooser1.setFuente(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        rSDateChooser1.setPlaceholder("Seleccionar data");
+
+        rSDateChooser2.setColorButtonHover(new java.awt.Color(255, 51, 51));
+        rSDateChooser2.setFuente(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        rSDateChooser2.setPlaceholder("Seleccionar data");
 
         javax.swing.GroupLayout painelEsqDadosLayout = new javax.swing.GroupLayout(painelEsqDados);
         painelEsqDados.setLayout(painelEsqDadosLayout);
@@ -252,99 +268,130 @@ public class GestaoInternaView extends javax.swing.JFrame {
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDataNascimento)
-                            .addComponent(lblApelido)
-                            .addComponent(lblNome)
-                            .addComponent(lblId)
-                            .addComponent(lblNaturalidade))
-                        .addGap(18, 18, 18)
+                            .addComponent(lblNomeDoCliente)
+                            .addComponent(lblBairro)
+                            .addComponent(lblId))
+                        .addGap(61, 61, 61)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNome)
-                            .addComponent(txtApelido)
-                            .addComponent(txtDataNascimento)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbxNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 53, Short.MAX_VALUE))))
+                                .addComponent(txtBairro)
+                                .addGap(174, 174, 174))
+                            .addComponent(cbxNomeDoCliente, 0, 403, Short.MAX_VALUE)))
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFuncao)
-                            .addComponent(lblEmail))
+                            .addComponent(lblQuarterao)
+                            .addComponent(lblMesDeReferencia)
+                            .addComponent(lblNumeroDaCasa)
+                            .addComponent(lblDataDeEmissao))
+                        .addGap(63, 63, 63)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(cbxFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtQuarterao))
+                                .addGap(20, 20, 20))
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(txtEmail)))))
+                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rSDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(rSDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         painelEsqDadosLayout.setVerticalGroup(
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblId)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNome)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblApelido)
-                    .addComponent(txtApelido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNaturalidade)
-                    .addComponent(cbxNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDataNascimento)
-                    .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEmail))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(painelEsqDadosLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lblId))
+                    .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFuncao)
-                    .addComponent(cbxFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                    .addComponent(lblNomeDoCliente)
+                    .addComponent(cbxNomeDoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBairro)
+                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblQuarterao)
+                    .addComponent(txtQuarterao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNumeroDaCasa)
+                    .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblMesDeReferencia)
+                    .addComponent(rSDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblDataDeEmissao)
+                    .addComponent(rSDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
-
-        painelEsqDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbxFuncao, cbxNaturalidade, lblApelido, lblDataNascimento, lblEmail, lblFuncao, lblId, lblNaturalidade, lblNome, txtApelido, txtDataNascimento, txtEmail, txtId, txtNome});
 
         painelSuperiorDados.add(painelEsqDados);
 
         painelDirDados.setBackground(new java.awt.Color(255, 255, 255));
         painelDirDados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 43, 64)));
 
-        lblNomeUsuario.setText("Nome do Usuario:");
+        lblNumeroDeHidrometro.setText("Numero de Hidrometro:");
 
-        txtNomeUsuario.addActionListener(new java.awt.event.ActionListener() {
+        txtNumeroDeHidrometro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeUsuarioActionPerformed(evt);
+                txtNumeroDeHidrometroActionPerformed(evt);
             }
         });
 
-        lblSenha.setText("Senha:");
+        lblLeituraAnterior.setText("Taxa de Consumo");
 
-        jLabel26.setText("Perfil de Acesso:");
+        txtLeituraActual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLeituraActualActionPerformed(evt);
+            }
+        });
 
-        jLabel28.setText("Estado:");
+        lblLeituraActual.setText("Leitura Actual:*");
 
-        jLabel29.setText("Disponibilidade:");
+        lblConsumoDoMes.setText("Consumo do mes:");
 
-        jTextField18.setEditable(false);
+        txtConsumoDoMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtConsumoDoMesActionPerformed(evt);
+            }
+        });
 
-        jCheckBox1.setText("Ver Senha");
+        txtOcorrencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtOcorrenciaActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lblOcorrencia.setText("Ocorrencia:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lblNumeroDaLeitura.setText("Numero da Leitura:");
+
+        txtNumeroDaLeitura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroDaLeituraActionPerformed(evt);
+            }
+        });
+
+        lblSaldoActual.setText("Saldo Actual:");
+
+        btnApagados.setBackground(new java.awt.Color(255, 0, 51));
+        btnApagados.setText("Ver Apagados");
+
+        cbxMesDeReferencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Janeiro", "Fevereiro", "Marco", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+        cbxMesDeReferencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxMesDeReferenciaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelDirDadosLayout = new javax.swing.GroupLayout(painelDirDados);
         painelDirDados.setLayout(painelDirDadosLayout);
@@ -354,61 +401,74 @@ public class GestaoInternaView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelDirDadosLayout.createSequentialGroup()
+                        .addComponent(lblNumeroDeHidrometro)
+                        .addGap(38, 38, 38)
+                        .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                        .addGap(288, 288, 288))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDirDadosLayout.createSequentialGroup()
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSenha)
-                            .addComponent(jLabel26)
-                            .addComponent(jLabel28))
-                        .addGap(28, 28, 28)
+                            .addComponent(lblLeituraActual)
+                            .addComponent(lblNumeroDaLeitura)
+                            .addComponent(lblSaldoActual)
+                            .addComponent(lblConsumoDoMes)
+                            .addComponent(lblOcorrencia)
+                            .addComponent(lblLeituraAnterior))
+                        .addGap(64, 64, 64)
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox1)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(painelDirDadosLayout.createSequentialGroup()
-                        .addComponent(jLabel29)
-                        .addGap(29, 29, 29)
-                        .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelDirDadosLayout.createSequentialGroup()
-                        .addComponent(lblNomeUsuario)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(257, Short.MAX_VALUE))
+                            .addGroup(painelDirDadosLayout.createSequentialGroup()
+                                .addComponent(txtConsumoDoMes)
+                                .addGap(165, 165, 165))
+                            .addGroup(painelDirDadosLayout.createSequentialGroup()
+                                .addComponent(btnApagados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(126, 126, 126))
+                            .addGroup(painelDirDadosLayout.createSequentialGroup()
+                                .addComponent(txtSaldoActual)
+                                .addGap(162, 162, 162))
+                            .addGroup(painelDirDadosLayout.createSequentialGroup()
+                                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtOcorrencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                                    .addComponent(txtLeituraActual, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNumeroDaLeitura))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(painelDirDadosLayout.createSequentialGroup()
+                                .addComponent(cbxMesDeReferencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())))))
         );
         painelDirDadosLayout.setVerticalGroup(
             painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDirDadosLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
+                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNumeroDeHidrometro)
+                    .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNomeUsuario)
-                    .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblSenha)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblLeituraAnterior)
+                    .addComponent(cbxMesDeReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelDirDadosLayout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel26)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel28)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(painelDirDadosLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCheckBox1)))
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelDirDadosLayout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel29))
-                    .addGroup(painelDirDadosLayout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 23, Short.MAX_VALUE))
+                    .addComponent(txtLeituraActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLeituraActual, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtConsumoDoMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblConsumoDoMes))
+                .addGap(18, 18, 18)
+                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOcorrencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblOcorrencia))
+                .addGap(18, 18, 18)
+                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumeroDaLeitura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNumeroDaLeitura))
+                .addGap(18, 18, 18)
+                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSaldoActual)
+                    .addComponent(txtSaldoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(btnApagados)
+                .addGap(74, 74, 74))
         );
-
-        painelDirDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCheckBox1, jLabel26, jLabel28, jLabel29, lblNomeUsuario, lblSenha});
 
         painelSuperiorDados.add(painelDirDados);
 
@@ -419,39 +479,6 @@ public class GestaoInternaView extends javax.swing.JFrame {
 
         tabela.setBackground(new java.awt.Color(255, 255, 255));
         tabela.setLayout(new java.awt.BorderLayout());
-
-        jScrollPane2.setBackground(new java.awt.Color(0, 102, 102));
-
-        jTable2.setAutoCreateRowSorter(true);
-        jTable2.setForeground(new java.awt.Color(51, 51, 51));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Id", "Nome", "Apelido", "Naturalidade", "Data de Nascimento", "Email institucional", "Funcao", "Usuario", "Senha", "Perfil", "Activo", "Disp"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable2.setShowGrid(true);
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(100);
-            jTable2.getColumnModel().getColumn(4).setPreferredWidth(100);
-            jTable2.getColumnModel().getColumn(5).setPreferredWidth(180);
-            jTable2.getColumnModel().getColumn(10).setPreferredWidth(40);
-            jTable2.getColumnModel().getColumn(11).setPreferredWidth(40);
-        }
-
-        tabela.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         botoes.setBackground(new java.awt.Color(255, 255, 255));
         java.awt.GridBagLayout botoesLayout = new java.awt.GridBagLayout();
@@ -521,6 +548,31 @@ public class GestaoInternaView extends javax.swing.JFrame {
 
         tabela.add(botoes, java.awt.BorderLayout.PAGE_START);
 
+        tabelaLeitura.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tabelaLeitura.setForeground(new java.awt.Color(255, 255, 255));
+        tabelaLeitura.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "Nome do cliente", "Quarterao", "Numero da casa", "Mes de Referencia", "Data de Emissao ", "Numero de Hidrometro", "Leitura Anterior", "Leitura Actual", "Consumo do mes", "Ocorrencia", "Numero de Leitura", "Saldo Actual"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabelaLeitura);
+
+        tabela.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
         painelInferiorBotoesTabela.add(tabela, java.awt.BorderLayout.CENTER);
 
         painelContCentral.add(painelInferiorBotoesTabela, java.awt.BorderLayout.CENTER);
@@ -547,10 +599,6 @@ public class GestaoInternaView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNomeUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeUsuarioActionPerformed
-
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -567,10 +615,6 @@ public class GestaoInternaView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeAPesquisarActionPerformed
@@ -580,57 +624,95 @@ public class GestaoInternaView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
+    private void cbxNomeDoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNomeDoClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxNomeDoClienteActionPerformed
+
+    private void txtQuarteraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuarteraoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuarteraoActionPerformed
+
+    private void txtNumeroDeCasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroDeCasaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroDeCasaActionPerformed
+
+    private void cbxMesDeReferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMesDeReferenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxMesDeReferenciaActionPerformed
+
+    private void txtNumeroDeHidrometroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroDeHidrometroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroDeHidrometroActionPerformed
+
+    private void txtLeituraActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLeituraActualActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLeituraActualActionPerformed
+
+    private void txtConsumoDoMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConsumoDoMesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtConsumoDoMesActionPerformed
+
+    private void txtOcorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOcorrenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtOcorrenciaActionPerformed
+
+    private void txtNumeroDaLeituraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroDaLeituraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroDaLeituraActionPerformed
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         try {
-//            FlatCyanLightIJTheme.setup();
+            FlatCyanLightIJTheme.setup();
 //            UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (Exception e) {
            e.printStackTrace();
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GestaoInternaView().setVisible(true);
+                new HidrometroView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botoes;
+    private javax.swing.JButton btnApagados;
     private javax.swing.JButton btnVoltarMenu;
-    private javax.swing.JComboBox<String> cbxFuncao;
-    private javax.swing.JComboBox<String> cbxNaturalidade;
+    private javax.swing.JComboBox<String> cbxMesDeReferencia;
+    private javax.swing.JComboBox<String> cbxNomeDoCliente;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JLabel lblApelido;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCabecalho;
-    private javax.swing.JLabel lblDataNascimento;
-    private javax.swing.JLabel lblEmail;
-    private javax.swing.JLabel lblFuncao;
+    private javax.swing.JLabel lblConsumoDoMes;
+    private javax.swing.JLabel lblDataDeEmissao;
     private javax.swing.JLabel lblIconLogo;
     private javax.swing.JLabel lblId;
-    private javax.swing.JLabel lblNaturalidade;
-    private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblNomeUsuario;
-    private javax.swing.JLabel lblSenha;
+    private javax.swing.JLabel lblLeituraActual;
+    private javax.swing.JLabel lblLeituraAnterior;
+    private javax.swing.JLabel lblMesDeReferencia;
+    private javax.swing.JLabel lblNomeDoCliente;
+    private javax.swing.JLabel lblNumeroDaCasa;
+    private javax.swing.JLabel lblNumeroDaLeitura;
+    private javax.swing.JLabel lblNumeroDeHidrometro;
+    private javax.swing.JLabel lblOcorrencia;
+    private javax.swing.JLabel lblQuarterao;
+    private javax.swing.JLabel lblSaldoActual;
     private javax.swing.JPanel painelCabecalho;
     private javax.swing.JPanel painelContCentral;
     private javax.swing.JPanel painelConteudo;
@@ -640,14 +722,20 @@ public class GestaoInternaView extends javax.swing.JFrame {
     private javax.swing.JPanel painelInferiorBotoesTabela;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JPanel painelSuperiorDados;
+    private rojeru_san.componentes.RSDateChooser rSDateChooser1;
+    private rojeru_san.componentes.RSDateChooser rSDateChooser2;
     private javax.swing.JPanel tabela;
-    private javax.swing.JTextField txtApelido;
-    private javax.swing.JTextField txtDataNascimento;
-    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTable tabelaLeitura;
+    private javax.swing.JTextField txtBairro;
+    private javax.swing.JTextField txtConsumoDoMes;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtLeituraActual;
     private javax.swing.JTextField txtNomeAPesquisar;
-    private javax.swing.JTextField txtNomeUsuario;
-    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtNumeroDaLeitura;
+    private javax.swing.JTextField txtNumeroDeCasa;
+    private javax.swing.JTextField txtNumeroDeHidrometro;
+    private javax.swing.JTextField txtOcorrencia;
+    private javax.swing.JTextField txtQuarterao;
+    private javax.swing.JTextField txtSaldoActual;
     // End of variables declaration//GEN-END:variables
 }
