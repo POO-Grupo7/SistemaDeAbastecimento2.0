@@ -57,132 +57,91 @@ public class ClienteController {
         return false;
     }
 
-
     public void cadastrarCliente(ClienteModel clienteModel) {
-    String sql = "INSERT INTO clientes (nomeCliente, bairro, quarteirao, numeroCasa, dataContrato, emailCliente, telefone, hidrometro, consumo, saldo, activo, disp) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-    
-    conexao = new ConexaoController().conectaBaseDados();
-    
-    try {
-        pstm = conexao.prepareStatement(sql);
-        
-        // Ordem correta dos parâmetros de acordo com o SQL
-        pstm.setString(1, clienteModel.getNome());            // nomeCliente
-        pstm.setString(2, clienteModel.getBairro());          // bairro
-        pstm.setInt(3, clienteModel.getQuarteirao());         // quarteirao
-        pstm.setInt(4, clienteModel.getNrDaCasa());           // numeroCasa
-        pstm.setString(5, clienteModel.getDataContracto());   // dataContrato
-        pstm.setString(6, clienteModel.getEmail());           // emailCliente
-        pstm.setInt(7, clienteModel.getContacto());           // telefone
-        pstm.setString(8, clienteModel.getHidrometro());      // hidrometro
-        pstm.setDouble(9, clienteModel.getConsumo());         // consumo
-        pstm.setDouble(10, clienteModel.getSaldo());          // saldo
-        pstm.setBoolean(11, clienteModel.getStatus());        // activo
-        pstm.setBoolean(12, clienteModel.getDisp());          // disp
+        String sql = "INSERT INTO clientes (nomeCliente, bairro, quarteirao, numeroCasa, dataContrato, emailCliente, telefone, hidrometro, consumo, saldo, activo, disp) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        pstm.execute();
-        pstm.close();
-        
-        JOptionPane.showMessageDialog(null, "O Cadastro foi efetuado com sucesso");
-    } catch (SQLException erro) {
-        JOptionPane.showMessageDialog(null, "Erro ao cadastrar cliente: " + erro.getMessage());
-    }
-}
+        conexao = new ConexaoController().conectaBaseDados();
 
-
-    //METODO PARA LISTAR
-    
-//    public ArrayList<ClienteModel> PesquisarCliente() {
-//    ArrayList<ClienteModel> list = new ArrayList<>();
-//    String sql = "select * from clientes where disp = 'Sim'";
-//
-//    conexao = new ConexaoController().conectaBaseDados();
-//
-//    try {
-//        pstm = conexao.prepareStatement(sql);
-//        rs = pstm.executeQuery();
-//
-//        while (rs.next()) {
-//            ClienteModel clienteModel = new ClienteModel();
-//            clienteModel.setId(rs.getInt("idCliente"));
-//            clienteModel.setNome(rs.getString("nomeCliente"));
-//            clienteModel.setQuarteirao(rs.getInt("quarteirao"));
-//            clienteModel.setNrDaCasa(rs.getInt("numeroCasa"));
-//            clienteModel.setDataContracto(rs.getString("dataContrato"));
-//            clienteModel.setEmail(rs.getString("emailCliente"));
-//            clienteModel.setContacto(rs.getInt("telefone"));
-//            clienteModel.setHidrometro(rs.getString("hidrometro"));
-//            clienteModel.setConsumo(rs.getDouble("consumo"));
-//            clienteModel.setSaldo(rs.getDouble("saldo"));
-//            clienteModel.setBairro(rs.getString("bairro"));
-//            clienteModel.setStatus(rs.getBoolean("activo"));
-//            clienteModel.setDisp(rs.getBoolean("disp"));  // Já vem como booleano no banco de dados
-//
-//            list.add(clienteModel);
-//        }
-//
-//    } catch (SQLException erro) {
-//        JOptionPane.showMessageDialog(null, "Erro ao pesquisar clientes: " + erro.getMessage());
-//    } finally {
-//        try {
-//            if (rs != null) rs.close();
-//            if (pstm != null) pstm.close();
-//            if (conexao != null) conexao.close();
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, "Erro ao fechar recursos: " + e.getMessage());
-//        }
-//    }
-//    return list;
-//}
-public ArrayList<ClienteModel> PesquisarCliente() {
-    ArrayList<ClienteModel> list = new ArrayList<>();
-    String sql = "SELECT * FROM clientes WHERE disp = true";  // Ajustado para boolean
-
-    conexao = new ConexaoController().conectaBaseDados();
-
-    try {
-        if (conexao == null) {
-            JOptionPane.showMessageDialog(null, "Conexão com o banco de dados falhou.");
-            return list;
-        }
-
-        pstm = conexao.prepareStatement(sql);
-        rs = pstm.executeQuery();
-
-        while (rs.next()) {
-            ClienteModel clienteModel = new ClienteModel();
-            clienteModel.setId(rs.getInt("idCliente"));
-            clienteModel.setNome(rs.getString("nomeCliente"));
-            clienteModel.setQuarteirao(rs.getInt("quarteirao"));
-            clienteModel.setNrDaCasa(rs.getInt("numeroCasa"));
-            clienteModel.setDataContracto(rs.getString("dataContrato"));
-            clienteModel.setEmail(rs.getString("emailCliente"));
-            clienteModel.setContacto(rs.getInt("telefone"));  // Ajustado para String se telefone for String
-            clienteModel.setHidrometro(rs.getString("hidrometro"));
-            clienteModel.setConsumo(rs.getDouble("consumo"));
-            clienteModel.setSaldo(rs.getDouble("saldo"));
-            clienteModel.setBairro(rs.getString("bairro"));
-            clienteModel.setStatus(rs.getBoolean("activo"));
-            clienteModel.setDisp(rs.getBoolean("disp"));  // Já tratado como booleano
-
-            list.add(clienteModel);
-        }
-
-    } catch (SQLException erro) {
-        JOptionPane.showMessageDialog(null, "Erro ao pesquisar clientes: " + erro.getMessage());
-        erro.printStackTrace();  // Para depurar o erro
-    } finally {
         try {
-            if (rs != null) rs.close();
-            if (pstm != null) pstm.close();
-            if (conexao != null) conexao.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao fechar recursos: " + e.getMessage());
+            pstm = conexao.prepareStatement(sql);
+
+            // Ordem correta dos parâmetros de acordo com o SQL
+            pstm.setString(1, clienteModel.getNome());            // nomeCliente
+            pstm.setString(2, clienteModel.getBairro());          // bairro
+            pstm.setInt(3, clienteModel.getQuarteirao());         // quarteirao
+            pstm.setInt(4, clienteModel.getNrDaCasa());           // numeroCasa
+            pstm.setString(5, clienteModel.getDataContracto());   // dataContrato
+            pstm.setString(6, clienteModel.getEmail());           // emailCliente
+            pstm.setInt(7, clienteModel.getContacto());           // telefone
+            pstm.setString(8, clienteModel.getHidrometro());      // hidrometro
+            pstm.setDouble(9, clienteModel.getConsumo());         // consumo
+            pstm.setDouble(10, clienteModel.getSaldo());          // saldo
+            pstm.setBoolean(11, clienteModel.getStatus());        // activo
+            pstm.setBoolean(12, clienteModel.getDisp());          // disp
+
+            pstm.execute();
+            pstm.close();
+
+            JOptionPane.showMessageDialog(null, "O Cadastro foi efetuado com sucesso");
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar cliente: " + erro.getMessage());
         }
     }
-    return list;
-}
 
+    public ArrayList<ClienteModel> PesquisarCliente() {
+//    ArrayList<ClienteModel> list = new ArrayList<>();
+        String sql = "SELECT * FROM clientes WHERE disp = 1";  // Ajustado para boolean
+
+        conexao = new ConexaoController().conectaBaseDados();
+
+        try {
+            if (conexao == null) {
+                JOptionPane.showMessageDialog(null, "Conexão com o banco de dados falhou.");
+                return lista;
+            }
+
+            pstm = conexao.prepareStatement(sql);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                ClienteModel clienteModel = new ClienteModel();
+                clienteModel.setId(rs.getInt("idCliente"));
+                clienteModel.setNome(rs.getString("nomeCliente"));
+                clienteModel.setBairro(rs.getString("bairro"));
+                clienteModel.setQuarteirao(rs.getInt("quarteirao"));
+                clienteModel.setNrDaCasa(rs.getInt("numeroCasa"));
+                clienteModel.setDataContracto(rs.getString("dataContrato"));
+                clienteModel.setEmail(rs.getString("emailCliente"));
+                clienteModel.setContacto(rs.getInt("telefone"));  // Ajustado para String se telefone for String
+                clienteModel.setHidrometro(rs.getString("hidrometro"));
+                clienteModel.setConsumo(rs.getDouble("consumo"));
+                clienteModel.setSaldo(rs.getDouble("saldo"));
+                clienteModel.setStatus(rs.getBoolean("activo"));
+                clienteModel.setDisp(rs.getBoolean("disp"));  // Já tratado como booleano
+
+                lista.add(clienteModel);
+            }
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar clientes: " + erro.getMessage());
+            erro.printStackTrace();  // Para depurar o erro
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar recursos: " + e.getMessage());
+            }
+        }
+        return lista;
+    }
 
     //Metodo para actualizar clientes
     public void ActualizarCliente(ClienteModel clienteModel) {

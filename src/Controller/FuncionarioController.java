@@ -105,7 +105,7 @@ public class FuncionarioController {
 //    //METODO PARA LISTAR
     public ArrayList<FuncionarioModel> PesquisarUsuario() {
         ArrayList<FuncionarioModel> list = new ArrayList<>();
-        String sql = "select * from usuario where disp = 'Sim'";
+        String sql = "select * from usuario where disp = 1";
         conexao = new ConexaoController().conectaBaseDados();
 
         try {
@@ -136,11 +136,14 @@ public class FuncionarioController {
         }
         return list;
     }
+    
 //Metodo para actualizar usuarios
 
     public void ActualizarUsuario(FuncionarioModel funcionarioModel) {
-        String sql = "update usuario set nome = ?, apelidoFuncionario = ?, naturalidadeFuncionario = ?, dataNascimentoFuncionario = ?, emailFuncionario = ?, funcaoFuncionario = ?, nomeUsuario = ?, senhaUsuario = ?, perfil = ?, activo = ?, disp = ? where idFuncionario = ?";
-        Connection conexao = null;
+//        String sql = "update usuario set nome = ?, apelidoFuncionario = ?, naturalidadeFuncionario = ?, dataNascimentoFuncionario = ?, emailFuncionario = ?, funcaoFuncionario = ?, nomeUsuario = ?, senhaUsuario = ?, perfil = ?, activo = ?, disp = ? where idFuncionario = ?";
+ String sql = "UPDATE usuario SET nome = ?,apelidoFuncionario = ?, naturalidadeFuncionario = ?, dataNascimentoFuncionario = ?, emailFuncionario = ?, funcaoFuncionario = ?, nomeUsuario = ?, senhaUsuario = ?, perfil = ?, activo = ?, disp = ? WHERE idFuncionario = ?";        
+
+Connection conexao = null;
         PreparedStatement pstm = null;
 
         try {
@@ -163,6 +166,7 @@ public class FuncionarioController {
 
 
             pstm.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Dados actualizados com Sucesso.");
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Funcionario Controller Atualizar Usuario: " + erro);
         } finally {

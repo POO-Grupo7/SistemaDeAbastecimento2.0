@@ -541,24 +541,27 @@ public class UsuariosView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeUsuarioActionPerformed
 
     private void btnCarregarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarCamposActionPerformed
-        
-            CarregarCampos();
-        
+
+        CarregarCampos();
+
     }//GEN-LAST:event_btnCarregarCamposActionPerformed
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
-          limparCampos();
+        limparCampos();
 
-        
+
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-       ApagarUsuario();
+        ApagarUsuario();
+        limparCampos();
+        listarUsuarios();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-            cadastrarUsuario();
-            limparCampos(); 
+        cadastrarUsuario();
+        listarUsuarios();
+        limparCampos();
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -591,10 +594,10 @@ public class UsuariosView extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
 
-            ActualizarUsuario();
-            limparCampos();
+        ActualizarUsuario();
+        limparCampos();
+        listarUsuarios();
 
-        
     }//GEN-LAST:event_btnActualizarActionPerformed
 
 //Metodo para Cadastrar Funcionario
@@ -608,7 +611,8 @@ public class UsuariosView extends javax.swing.JFrame {
         String nomeUsuario = txtNomeUsuario.getText().trim();
         String senha = txtSenha.getText().trim();
         String perfil = cbxPerfilDeAcesso.getSelectedItem().toString();
-        boolean status;
+        boolean status, disponibilidade;
+        disponibilidade = true;
         if (cbxStatus.getItemAt(0) == "Activo") {
             status = true;
 
@@ -657,15 +661,16 @@ public class UsuariosView extends javax.swing.JFrame {
         funcionarioModel.setSenhaFuncionario(senha);
         funcionarioModel.setPerfilDeAcesso(perfil);
         funcionarioModel.setStatus(status);
+        funcionarioModel.setDisp(disponibilidade);
 
         FuncionarioController usuarioControler = new FuncionarioController();
         usuarioControler.cadastrarFuncionario(funcionarioModel);
-        listarUsuarios();
+
     }
-    
-  //Metodo Actualizar
-    
+
+    //Metodo Actualizar
     private void ActualizarUsuario() {
+        int id = Integer.parseInt(txtId.getText());
         String nome = txtNome.getText().trim();
         String apelido = txtApelido.getText().trim();
         String naturalidade = cbxNaturalidade.getSelectedItem().toString();
@@ -675,10 +680,10 @@ public class UsuariosView extends javax.swing.JFrame {
         String nomeUsuario = txtNomeUsuario.getText().trim();
         String senha = txtSenha.getText().trim();
         String perfil = cbxPerfilDeAcesso.getSelectedItem().toString();
-        boolean status;
-        if (cbxStatus.getItemAt(0) == "Activo") {
+        boolean status, disponibilidade;
+        disponibilidade = true;
+        if (cbxStatus.getSelectedItem().toString().equals("Activo")) {
             status = true;
-
         } else {
             status = false;
         }
@@ -714,8 +719,8 @@ public class UsuariosView extends javax.swing.JFrame {
             return;
         }
 
-
         FuncionarioModel funcionarioModel = new FuncionarioModel();
+        funcionarioModel.setIdFuncionario(id);
         funcionarioModel.setNome(nome);
         funcionarioModel.setApelido(apelido);
         funcionarioModel.setNaturalidadeFuncionario(naturalidade);
@@ -726,16 +731,15 @@ public class UsuariosView extends javax.swing.JFrame {
         funcionarioModel.setSenhaFuncionario(senha);
         funcionarioModel.setPerfilDeAcesso(perfil);
         funcionarioModel.setStatus(status);
-        
-        
+        funcionarioModel.setDisp(disponibilidade);
+
         FuncionarioController usuarioController = new FuncionarioController();
         usuarioController.ActualizarUsuario(funcionarioModel);
 
-        JOptionPane.showMessageDialog(null, "Dados actualizados com Sucesso.");
+//        JOptionPane.showMessageDialog(null, "Dados actualizados com Sucesso.");
     }
 
     //Metodo Listar
-    
     private void listarUsuarios() {
         try {
             FuncionarioController usuarioController = new FuncionarioController();
@@ -810,9 +814,10 @@ public class UsuariosView extends javax.swing.JFrame {
         cbxPerfilDeAcesso.setSelectedIndex(0);
         txtNome.requestFocus();
     }
+
     //Apagar 
     private void ApagarUsuario() {
-        int idUsuario = Integer.parseInt(txtId.getText());
+         int id = Integer.parseInt(txtId.getText());
         String nome = txtNome.getText().trim();
         String apelido = txtApelido.getText().trim();
         String naturalidade = cbxNaturalidade.getSelectedItem().toString();
@@ -822,14 +827,13 @@ public class UsuariosView extends javax.swing.JFrame {
         String nomeUsuario = txtNomeUsuario.getText().trim();
         String senha = txtSenha.getText().trim();
         String perfil = cbxPerfilDeAcesso.getSelectedItem().toString();
-        boolean status;
-        if (cbxStatus.getItemAt(0) == "Activo") {
+        boolean status, disponibilidade;
+        disponibilidade = false;
+        if (cbxStatus.getSelectedItem().toString().equals("Activo")) {
             status = true;
-
         } else {
             status = false;
         }
-//   ;
 
         //verificacoes
         if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
@@ -844,7 +848,7 @@ public class UsuariosView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Data de nascimento inválida.");
             return;
         }
-       
+
         if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             JOptionPane.showMessageDialog(this, "Email inválido.");
             return;
@@ -863,7 +867,7 @@ public class UsuariosView extends javax.swing.JFrame {
         }
 
         FuncionarioModel funcionarioModel = new FuncionarioModel();
-        funcionarioModel.setIdFuncionario(idUsuario);
+        funcionarioModel.setIdFuncionario(id);
         funcionarioModel.setNome(nome);
         funcionarioModel.setApelido(apelido);
         funcionarioModel.setNaturalidadeFuncionario(naturalidade);
@@ -873,14 +877,17 @@ public class UsuariosView extends javax.swing.JFrame {
         funcionarioModel.setNomeFuncionario(nomeUsuario);
         funcionarioModel.setSenhaFuncionario(senha);
         funcionarioModel.setPerfilDeAcesso(perfil);
-        funcionarioModel.setStatus(true);
-        
+        funcionarioModel.setStatus(status);
+        funcionarioModel.setDisp(disponibilidade);
 
         FuncionarioController usuarioController = new FuncionarioController();
         usuarioController.ActualizarUsuario(funcionarioModel);
 
-        JOptionPane.showMessageDialog(null, "Usuario apagado com Sucesso.");
+        JOptionPane.showMessageDialog(null, "Funcionario apagado com Sucesso.");
+
+        
     }
+
     /**
      * @param args the command line arguments
      */

@@ -33,6 +33,11 @@ public class ClientesView extends javax.swing.JFrame {
         TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
 
     }
+    
+        private void testData(JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+//       
+    }
 
     //Metodo Cadastrar
     private void cadastrarCliente() {
@@ -98,7 +103,7 @@ public class ClientesView extends javax.swing.JFrame {
         // Define o saldo automaticamente
         double saldo = Double.parseDouble(txtSaldo.getText());
         txtSaldo.setText(String.valueOf(saldo));
-        String disponibilidade = "Sim";
+        boolean disponibilidade = true;
 
 //        // Status: Verifica o item selecionado corretamente
 //        boolean status = cbxStatus.getSelectedItem().toString().equalsIgnoreCase("Activo");
@@ -116,6 +121,7 @@ public class ClientesView extends javax.swing.JFrame {
         clienteModel.setConsumo(0); // Consumo inicial
         clienteModel.setSaldo(saldo);
         clienteModel.setStatus(status);
+        clienteModel.setDisp(disponibilidade);
 
         // Cadastrar cliente através do controlador
         ClienteController clienteControler = new ClienteController();
@@ -133,8 +139,10 @@ public class ClientesView extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tabelaClientes.getModel();
             model.setRowCount(0); // Limpar a tabela antes de listar novamente
 
-            // Recuperar a lista de clientes
-//            ArrayList<ClienteModel> lista = clienteController.PesquisarCliente();
+//            tabelaClientes.setModel(model);
+
+
+
             ArrayList<ClienteModel> lista = clienteController.PesquisarCliente();
              System.out.println("Clientes encontrados: " + lista.size());
              System.out.println(lista.isEmpty());
@@ -221,10 +229,10 @@ public class ClientesView extends javax.swing.JFrame {
         System.out.println("Campos Limpos");
     }
 
-    private void testData(JTable table) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-//       
-    }
+//    private void testData(JTable table) {
+//        DefaultTableModel model = (DefaultTableModel) table.getModel();
+////       
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -292,7 +300,6 @@ public class ClientesView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("USUÁRIOS");
-        setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(1180, 650));
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
@@ -692,6 +699,8 @@ public class ClientesView extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         cadastrarCliente();
+        listarClientes();
+        limparCampos();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
