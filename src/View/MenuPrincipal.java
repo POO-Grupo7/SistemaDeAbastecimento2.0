@@ -46,6 +46,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         painelCentralDireitoBotoesMenu = new javax.swing.JPanel();
         btnUsuarios = new javax.swing.JButton();
         btnClientes = new javax.swing.JButton();
+        btnHidrometro = new javax.swing.JButton();
         btnLeituras = new javax.swing.JButton();
         btnFacturacao = new javax.swing.JButton();
         btnRecebimentos = new javax.swing.JButton();
@@ -67,7 +68,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Principal");
         setMinimumSize(new java.awt.Dimension(1000, 650));
-        setPreferredSize(new java.awt.Dimension(1000, 700));
+        setPreferredSize(new java.awt.Dimension(1200, 700));
 
         painelPrincipal.setPreferredSize(new java.awt.Dimension(1000, 680));
         painelPrincipal.setLayout(new java.awt.BorderLayout());
@@ -184,7 +185,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(painelDadosUtilizador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelBotoesSairVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(btnTerminarSeccao, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -195,8 +196,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         painelCentralDireito.setLayout(new java.awt.BorderLayout());
 
         painelCentralDireitoBotoesMenu.setBackground(new java.awt.Color(255, 255, 255));
-        painelCentralDireitoBotoesMenu.setPreferredSize(new java.awt.Dimension(700, 680));
-        painelCentralDireitoBotoesMenu.setLayout(new java.awt.GridLayout(3, 3, 10, 10));
+        painelCentralDireitoBotoesMenu.setPreferredSize(new java.awt.Dimension(730, 680));
+        painelCentralDireitoBotoesMenu.setLayout(new java.awt.GridLayout(3, 4, 10, 10));
 
         btnUsuarios.setFont(new java.awt.Font("Poor Richard", 1, 18)); // NOI18N
         btnUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/programmer.png"))); // NOI18N
@@ -247,8 +248,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         painelCentralDireitoBotoesMenu.add(btnClientes);
 
+        btnHidrometro.setFont(new java.awt.Font("Poor Richard", 1, 18)); // NOI18N
+        btnHidrometro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_speed_64px.png"))); // NOI18N
+        btnHidrometro.setText("HIDROMETROS");
+        btnHidrometro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnHidrometro.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnHidrometro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnHidrometroMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnHidrometroMouseExited(evt);
+            }
+        });
+        btnHidrometro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHidrometroActionPerformed(evt);
+            }
+        });
+        painelCentralDireitoBotoesMenu.add(btnHidrometro);
+
         btnLeituras.setFont(new java.awt.Font("Poor Richard", 1, 18)); // NOI18N
-        btnLeituras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_speed_64px_1.png"))); // NOI18N
+        btnLeituras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/bill_3331603.png"))); // NOI18N
         btnLeituras.setText("LEITURAS");
         btnLeituras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnLeituras.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -594,6 +615,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling 
     }//GEN-LAST:event_btnUsuariosMouseMoved
 
+    private void btnHidrometroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHidrometroMouseEntered
+        btnHidrometro.setBackground(new Color(42, 130, 218));
+    }//GEN-LAST:event_btnHidrometroMouseEntered
+
+    private void btnHidrometroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHidrometroMouseExited
+        btnHidrometro.setBackground(Color.white);
+    }//GEN-LAST:event_btnHidrometroMouseExited
+
+    private void btnHidrometroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHidrometroActionPerformed
+        new HidrometroView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnHidrometroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -617,6 +651,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnDefinicoes;
     private javax.swing.JButton btnFacturacao;
     private javax.swing.JButton btnGestaoInterna;
+    private javax.swing.JButton btnHidrometro;
     private javax.swing.JButton btnLeituras;
     private javax.swing.JButton btnRecebimentos;
     private javax.swing.JButton btnRelatorios;

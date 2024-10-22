@@ -4,14 +4,10 @@
  */
 package View;
 
-import Controller.FuncionarioController;
-import Model.FuncionarioModel;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -40,9 +36,9 @@ public class LogInView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtNomeUsuario = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtSenhaUsuario = new javax.swing.JPasswordField();
+        txtSenha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
@@ -51,16 +47,12 @@ public class LogInView extends javax.swing.JFrame {
         setTitle("LOG IN");
         setResizable(false);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gifs/sink-ezgif.com-gif-maker.gif"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_user_32px.png"))); // NOI18N
-
-        txtNomeUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeUsuarioActionPerformed(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_password_32px.png"))); // NOI18N
@@ -105,8 +97,8 @@ public class LogInView extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtSenhaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -121,11 +113,11 @@ public class LogInView extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNomeUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSenhaUsuario))
+                    .addComponent(txtSenha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox1)
                 .addGap(2, 2, 2)
@@ -153,8 +145,8 @@ public class LogInView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        EntrarNoSistema();
-       
+        new MenuPrincipal().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -166,68 +158,11 @@ public class LogInView extends javax.swing.JFrame {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         if (jCheckBox1.isSelected()) {
-            txtSenhaUsuario.setEchoChar((char) 0);
+            txtSenha.setEchoChar((char) 0);
         } else {
-            txtSenhaUsuario.setEchoChar('*');
+            txtSenha.setEchoChar('*');
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void txtNomeUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeUsuarioActionPerformed
-  //Metodo Prencher Campos obrigatorios
-    private boolean camposObrigatoriosPreenchidos() {
-        boolean nomeUsuario = !txtNomeUsuario.getText().isEmpty();
-        boolean senhaUsuario = !txtSenhaUsuario.getText().isEmpty();
-
-        return nomeUsuario && senhaUsuario;
-    }
-
-   //Metodo para entrar no sistema
-    private void EntrarNoSistema() {
-        try {
-            String nomeUsuario, senhaUsuario;
-            nomeUsuario = txtNomeUsuario.getText();
-            senhaUsuario = txtSenhaUsuario.getText();
-            boolean activo =true;
-            boolean disponivel = true;
-
-            FuncionarioModel funcionarioModel = new FuncionarioModel();
-            funcionarioModel.setNomeFuncionario(nomeUsuario);
-            funcionarioModel.setSenhaFuncionario(senhaUsuario);
-            funcionarioModel.setStatus(true);
-            funcionarioModel.setDisp(true);
-
-            FuncionarioController funcionarioController = new FuncionarioController();
-            ResultSet rsUsuarioControlller = funcionarioController.autenticacaoUsuario(funcionarioModel);
-
-            if (rsUsuarioControlller.next()) {
-
-                //Verificacao do perfil do utilizador na coluna perfil da base de dados
-                String perfil = rsUsuarioControlller.getString("perfil");
-                dispose();
-
-                if ("admin".equals(perfil)) {
-                    MenuPrincipal menu = new MenuPrincipal();
-                    menu.setVisible(true);
-                    dispose();
-//                } else if ("Gestor".equals(perfil)) {
-//                    MenuPrincipal telaGestor = new MenuPrincipal();
-//                } else {
-//                    MenuPrincipal telaOperador = new MenuPrincipal();
-                }
-                JOptionPane.showMessageDialog(null, "Bem vindo(a) " + nomeUsuario + ".");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario ou senha inválida");
-                txtNomeUsuario.setText("");
-                txtSenhaUsuario.setText("");
-            }
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "LoginView" + erro);
-                 }
-    }
-
 
     /**
      * @param args the command line arguments
@@ -256,7 +191,7 @@ public class LogInView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtNomeUsuario;
-    private javax.swing.JPasswordField txtSenhaUsuario;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
