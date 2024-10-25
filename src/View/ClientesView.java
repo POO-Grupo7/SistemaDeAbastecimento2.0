@@ -28,8 +28,8 @@ public class ClientesView extends javax.swing.JFrame {
 
     public ClientesView() {
         initComponents();
-        testData(tabelaClientes);
         listarClientes();
+        testData(tabelaClientes);
         getContentPane().setBackground(Color.white);
         TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
 

@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author lenovo
+ * @author mac
  */
 public class ClienteController {
 
