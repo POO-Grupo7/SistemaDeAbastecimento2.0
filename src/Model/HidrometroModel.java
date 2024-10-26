@@ -7,10 +7,56 @@ public class HidrometroModel {
     private String nrHidrometro;
     private boolean status;
     private boolean apagado;
-    private ArrayList<FacturacaoModel> listaFacturacao;
-    private ArrayList<HistoricoHidrometroModel> listaHistorico;
+    private ArrayList<LeituraModel> leituras;
+    private ArrayList<HistoricoHidrometroModel> historicosHidrometros;
 
     public HidrometroModel() {
+        this.status = true;
+        this.apagado = false;
+        leituras = new ArrayList<>();
+        historicosHidrometros = new ArrayList<>();
+    }
+
+    //LEITURAS
+    //metodo para adicionar uma leitura
+    public void adicionarLeitura(LeituraModel leitura) {
+        leituras.add(leitura);
+    }
+
+    //metodo para excluir uma leitura
+    public void excluirLeitura(LeituraModel leitura) {
+        leituras.remove(leitura);
+    }
+
+    //metodo para ver o numero total de facturacoes
+    public int quantidadeLeitura() {
+        return leituras.size();
+    }
+
+    //metodo para pegar uma leitura especifica
+    public LeituraModel getLeituraModel(int posicao) {
+        return leituras.get(posicao);
+    }
+
+    //HISTORICO DE HIDROMETRO
+    //metodo para adicionar um historico de hidrometro
+    public void adicionarHistoricoHidrometro(HistoricoHidrometroModel historicoHidrometro) {
+        historicosHidrometros.add(historicoHidrometro);
+    }
+
+    //metodo para excluir um historico de hidrometro
+    public void excluirHistoricoHidrometro(HistoricoHidrometroModel historicoHidrometro) {
+        historicosHidrometros.remove(historicoHidrometro);
+    }
+
+    //metodo para ver o numero total de historico de hidrometro
+    public int quantidadeHistoricoHidrometro() {
+        return historicosHidrometros.size();
+    }
+
+    //metodo para pegar um historico de hidrometro especifica
+    public HistoricoHidrometroModel getHistoricoHidrometro(int posicao) {
+        return historicosHidrometros.get(posicao);
     }
 
     public int getIdHidrometro() {
@@ -44,10 +90,5 @@ public class HidrometroModel {
     public void setApagado(boolean apagado) {
         this.apagado = apagado;
     }
-    
-    
-    
-    
-    
-    
+
 }

@@ -2,33 +2,36 @@
 package Model;
 
 public class FuncionarioModel extends Pessoa {
+    private int idFuncionario;
     private String senhaFuncionario;
-    private String nomeFuncionario;
     private String dataNascimento;
     private String funcaoFuncionario;
     private String perfilDeAcesso;
-//    private byte[] imagemBytes;
+    private byte[] imagemBytes;
     
-    //Construtor vazio
-    public FuncionarioModel() {
-    }
- 
     //Getters e Setters
-
-    public String getNomeFuncionario() {
-        return nomeFuncionario;
+    public int getIdFuncionario() {
+        return idFuncionario;
     }
 
-    public void setNomeFuncionario(String nomeFuncionario) {
-        this.nomeFuncionario = nomeFuncionario;
+    public void setIdFuncionario(int idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
-    
-    public String getSenha() {
+
+    public String getSenhaFuncionario() {
         return senhaFuncionario;
     }
 
-    public void setSenha(String senha) {
-        this.senhaFuncionario = senha;
+    public void setSenhaFuncionario(String senhaFuncionario) {
+        this.senhaFuncionario = senhaFuncionario;
+    }
+
+    public String getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public String getFuncaoFuncionario() {
@@ -38,7 +41,6 @@ public class FuncionarioModel extends Pessoa {
     public void setFuncaoFuncionario(String funcaoFuncionario) {
         this.funcaoFuncionario = funcaoFuncionario;
     }
-    
 
     public String getPerfilDeAcesso() {
         return perfilDeAcesso;
@@ -48,6 +50,13 @@ public class FuncionarioModel extends Pessoa {
         this.perfilDeAcesso = perfilDeAcesso;
     }
 
-  
+    public byte[] getImagemBytes() {
+        return imagemBytes;
+    }
+
+    public void setImagemBytes(byte[] imagemBytes) {
+        this.imagemBytes = imagemBytes;
+    }
+
 
 }

@@ -10,6 +10,8 @@ abstract public class Pessoa {
     private boolean disp; //estado de exixtencia apagar/recuperar
 
     public Pessoa() {
+        this.status = true;
+        this.disp = true;
     }
 
     public String getNome() {
@@ -44,7 +46,7 @@ abstract public class Pessoa {
         this.nrTelefone = nrTelefone;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -52,7 +54,7 @@ abstract public class Pessoa {
         this.status = status;
     }
 
-    public boolean isDisp() {
+    public boolean getDisp() {
         return disp;
     }
 

@@ -5,7 +5,7 @@ public class LeituraModel {
 
     private int idLeitura;
     private HistoricoHidrometroModel historicoHidrometro;
-    private LeituristaModel leiturista;
+    private FuncionarioModel funcionario;
     private double leituraActual;
     private double leituraAnterior;
     private double consumoMes;
@@ -34,12 +34,12 @@ public class LeituraModel {
         this.historicoHidrometro = historicoHidrometro;
     }
 
-    public LeituristaModel getLeiturista() {
-        return leiturista;
+    public FuncionarioModel getFuncionario() {
+        return funcionario;
     }
 
-    public void setLeiturista(LeituristaModel leiturista) {
-        this.leiturista = leiturista;
+    public void setFuncionario(FuncionarioModel funcionario) {
+        this.funcionario = funcionario;
     }    
 
     public double getLeituraActual() {

@@ -69,7 +69,6 @@ public class GestaoInternaView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         painelPrincipal = new javax.swing.JPanel();
         painelCabecalho = new javax.swing.JPanel();

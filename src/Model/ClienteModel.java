@@ -4,17 +4,48 @@ package Model;
 import java.util.ArrayList;
 
 public class ClienteModel extends Pessoa{
-
+    private int idCliente;
     private double consumo;
-    private int contacto;
     private double saldo;
+    private String bairro;
     private int quarteirao;
     private int nrDaCasa;
     private String dataContracto;
-    private ArrayList<HistoricoHidrometroModel> historicoHidrometro;
+    private ArrayList<HistoricoHidrometroModel> historicosHidrometros;
 
     public ClienteModel() {
+        historicosHidrometros = new ArrayList<>();
     }
+    
+    //HISTORICO DO HIDROMETRO
+    //metodo para adicionar um historico de hidrometro
+    public void adicionarHistoricoHidrometro(HistoricoHidrometroModel historicoHidrometro) {
+        historicosHidrometros.add(historicoHidrometro);
+    }
+
+    //metodo para excluir um historico de hidrometro
+    public void excluirHistoricoHidrometro(HistoricoHidrometroModel historicoHidrometro) {
+        historicosHidrometros.remove(historicoHidrometro);
+    }
+
+    //metodo para ver o numero total de historico de hidrometro
+    public int quantidadeHistoricoHidrometro() {
+        return historicosHidrometros.size();
+    }
+
+    //metodo para pegar um historico de hidrometro especifico
+    public HistoricoHidrometroModel getHistoricoHidrometro(int posicao) {
+        return historicosHidrometros.get(posicao);
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+        
 
     public double getConsumo() {
         return consumo;
@@ -22,14 +53,6 @@ public class ClienteModel extends Pessoa{
 
     public void setConsumo(double consumo) {
         this.consumo = consumo;
-    }
-
-    public int getContacto() {
-        return contacto;
-    }
-
-    public void setContacto(int contacto) {
-        this.contacto = contacto;
     }
 
     public double getSaldo() {
@@ -63,6 +86,16 @@ public class ClienteModel extends Pessoa{
     public void setDataContracto(String dataContracto) {
         this.dataContracto = dataContracto;
     }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+    
+    
  
     
 }
