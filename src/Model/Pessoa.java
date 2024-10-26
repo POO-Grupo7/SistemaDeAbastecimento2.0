@@ -10,6 +10,8 @@ abstract public class Pessoa {
     private boolean disp; //estado de exixtencia apagar/recuperar
 
     public Pessoa() {
+        this.status = true;
+        this.disp = true;
     }
 
     public String getNome() {

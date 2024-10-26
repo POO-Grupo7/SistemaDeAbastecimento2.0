@@ -1,17 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Model;
 
-/**
- *
- * @author lenovo
- */
 public class LeituraModel {
 
     private int idLeitura;
-    private ClienteModel cliente;
+    private HistoricoHidrometroModel historicoHidrometro;
+    private FuncionarioModel funcionario;
     private double leituraActual;
     private double leituraAnterior;
     private double consumoMes;
@@ -32,13 +26,21 @@ public class LeituraModel {
         this.idLeitura = idLeitura;
     }
 
-    public ClienteModel getCliente() {
-        return cliente;
+    public HistoricoHidrometroModel getHistoricoHidrometro() {
+        return historicoHidrometro;
     }
 
-    public void setCliente(ClienteModel cliente) {
-        this.cliente = cliente;
+    public void setHistoricoHidrometro(HistoricoHidrometroModel historicoHidrometro) {
+        this.historicoHidrometro = historicoHidrometro;
     }
+
+    public FuncionarioModel getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(FuncionarioModel funcionario) {
+        this.funcionario = funcionario;
+    }    
 
     public double getLeituraActual() {
         return leituraActual;
