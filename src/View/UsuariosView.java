@@ -228,7 +228,7 @@ public class UsuariosView extends javax.swing.JFrame {
 
         lblNaturalidade.setText("Naturalidade:");
 
-        cbxNaturalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Maputo (Província)", "Maputo (Cidade)", "Gaza", "Inhambane", "Niassa", "Sofala", "Manica", "Tete", "Zambézia", "Nampula", "Cabo Delgado", " " }));
+        cbxNaturalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblDataNascimento.setText("Data de Nascimento:");
 
@@ -242,7 +242,7 @@ public class UsuariosView extends javax.swing.JFrame {
 
         lblFuncao.setText("Funcao:");
 
-        cbxFuncao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Administrador", "Gestor", "Operador" }));
+        cbxFuncao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout painelEsqDadosLayout = new javax.swing.GroupLayout(painelEsqDados);
         painelEsqDados.setLayout(painelEsqDadosLayout);
@@ -343,9 +343,9 @@ public class UsuariosView extends javax.swing.JFrame {
 
         jCheckBox1.setText("Ver Senha");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Admistrador ", "Gestor", "Leitor", "Balconista" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_account_128px.png"))); // NOI18N
         lblFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 102, 138), 2));
@@ -553,6 +553,7 @@ public class UsuariosView extends javax.swing.JFrame {
 
         getContentPane().add(painelPrincipal, java.awt.BorderLayout.CENTER);
 
+        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
         jMenuBar1.setAlignmentY(0.5F);
         jMenuBar1.setBorderPainted(false);
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
