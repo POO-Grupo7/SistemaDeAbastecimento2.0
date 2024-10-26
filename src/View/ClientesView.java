@@ -11,6 +11,7 @@ import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -27,16 +28,35 @@ public class ClientesView extends javax.swing.JFrame {
 
     public ClientesView() {
         initComponents();
-        testData(tabelaClientes);
         listarClientes();
+        testData(tabelaClientes);
         getContentPane().setBackground(Color.white);
         TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
 
+// Dentro do método de inicialização da interface, certifique-se de que o cbxDespesasIniciais esteja corretamente configurado
+        cbxDespesasIniciais.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarSaldo();
+            }
+        });
+
     }
-    
-        private void testData(JTable table) {
+
+    private void testData(JTable table) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
 //       
+    }
+// Função para atualizar o saldo com base na seleção
+
+    private void atualizarSaldo() {
+        String selectedOption = cbxDespesasIniciais.getSelectedItem().toString();
+
+        if (selectedOption.equals("Ligação")) {
+            txtSaldo.setText("3000");
+        } else {
+            txtSaldo.setText("8000");
+        }
     }
 
     //Metodo Cadastrar
@@ -97,17 +117,25 @@ public class ClientesView extends javax.swing.JFrame {
             return;
         }
 
+        // Define o saldo automaticamente
+        double saldo;
+        if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
+            saldo = 3000;
+        } else {
+            saldo = 8000;
+        }
+        txtSaldo.setText(String.valueOf(saldo));
+
         // Define o número do hidrômetro
         String nrHidrometro = quarteirao + "/" + nrDaCasa;
         txtNumeroDeHidrometro.setText(nrHidrometro);
         // Define o saldo automaticamente
-        double saldo = Double.parseDouble(txtSaldo.getText());
+        saldo = Double.parseDouble(txtSaldo.getText());
         txtSaldo.setText(String.valueOf(saldo));
         boolean disponibilidade = true;
 
 //        // Status: Verifica o item selecionado corretamente
 //        boolean status = cbxStatus.getSelectedItem().toString().equalsIgnoreCase("Activo");
-
         // Criar o modelo de cliente
         ClienteModel clienteModel = new ClienteModel();
         clienteModel.setNome(nome);
@@ -131,6 +159,179 @@ public class ClientesView extends javax.swing.JFrame {
         listarClientes();
     }
 
+    //Metodo Actualizar Cliente
+    private void ActualizarCliente() {
+        int id = Integer.parseInt(txtId.getText());
+        String nome = txtNome.getText().trim();
+        String bairro = cbxBairro.getSelectedItem().toString();
+        String quarteiraoText = txtQuarterao.getText().trim();
+        String nr = txtNumeroDeCasa.getText().trim();
+        String data = txtDataDeContrato.getText().trim();
+        String email = txtEmailParticular.getText().trim();
+        String nrTel = TxtNumeroDeTelefone.getText().trim();
+        String cons = txtConsumo.getText();
+        boolean status;
+        if (cbxStatus.getItemAt(0) == "Sim") {
+            status = true;
+
+        } else {
+            status = false;
+        }
+
+        // Verificações
+        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(null, "Nome inválido.");
+            return;
+        }
+        if (bairro.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Bairro inválido.");
+            return;
+        }
+        if (quarteiraoText.isEmpty() || !quarteiraoText.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Quarteirão inválido.");
+            return;
+        }
+        int quarteirao = Integer.parseInt(quarteiraoText);
+        if (nr.isEmpty() || !nr.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Número da casa inválido.");
+            return;
+        }
+        int nrDaCasa = Integer.parseInt(nr);
+
+        if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(null, "Email inválido.");
+            return;
+        }
+        if (nrTel.isEmpty() || !nrTel.matches("(21|82|83|84|85|86|87)\\d{7}")) {
+            JOptionPane.showMessageDialog(null, "Telefone inválido.");
+            return;
+        }
+        int nrtelefone = Integer.parseInt(nrTel);
+
+        double consumo = Double.parseDouble(cons);
+
+        // Define o número do hidrômetro
+        String nrHidrometro = quarteirao + "/" + nrDaCasa;
+        txtNumeroDeHidrometro.setText(nrHidrometro);
+
+        // Define o saldo automaticamente
+        double saldo;
+        if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
+            saldo = 3000;
+        } else {
+            saldo = 8000;
+        }
+        txtSaldo.setText(String.valueOf(saldo));
+        boolean disponibilidade = true;
+
+        ClienteModel clienteModel = new ClienteModel();
+        clienteModel.setId(id);
+        clienteModel.setNome(nome);
+        clienteModel.setBairro(bairro);
+        clienteModel.setQuarteirao(quarteirao);
+        clienteModel.setNrDaCasa(nrDaCasa);
+        clienteModel.setDataContracto(data);
+        clienteModel.setEmail(email);
+        clienteModel.setContacto(nrtelefone);
+        clienteModel.setHidrometro(nrHidrometro);
+        clienteModel.setConsumo(consumo);
+        clienteModel.setSaldo(saldo);
+        clienteModel.setStatus(status);
+        clienteModel.setDisp(disponibilidade);
+
+        ClienteController clienteControler = new ClienteController();
+        clienteControler.ActualizarCliente(clienteModel);
+
+        JOptionPane.showMessageDialog(null, "Cliente actualizado com sucesso");
+    }
+
+    //Metodo Apagar Cliente
+    private void ApagarCliente() {
+
+        int id = Integer.parseInt(txtId.getText());
+        String nome = txtNome.getText().trim();
+        String bairro = cbxBairro.getSelectedItem().toString();
+        String quarteiraoText = txtQuarterao.getText().trim();
+        String nr = txtNumeroDeCasa.getText().trim();
+        String data = txtDataDeContrato.getText().trim();
+        String email = txtEmailParticular.getText().trim();
+        String nrTel = TxtNumeroDeTelefone.getText().trim();
+        String cons = txtConsumo.getText();
+        boolean status;
+        if (cbxStatus.getItemAt(0) == "Sim") {
+            status = true;
+
+        } else {
+            status = false;
+        }
+
+        // Verificações
+        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(null, "Nome inválido.");
+            return;
+        }
+        if (bairro.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Bairro inválido.");
+            return;
+        }
+        if (quarteiraoText.isEmpty() || !quarteiraoText.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Quarteirão inválido.");
+            return;
+        }
+        int quarteirao = Integer.parseInt(quarteiraoText);
+        if (nr.isEmpty() || !nr.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Número da casa inválido.");
+            return;
+        }
+        int nrDaCasa = Integer.parseInt(nr);
+
+        if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(null, "Email inválido.");
+            return;
+        }
+        if (nrTel.isEmpty() || !nrTel.matches("(21|82|83|84|85|86|87)\\d{7}")) {
+            JOptionPane.showMessageDialog(null, "Telefone inválido.");
+            return;
+        }
+        int nrtelefone = Integer.parseInt(nrTel);
+
+        double consumo = Double.parseDouble(cons);
+
+        // Define o número do hidrômetro
+        String nrHidrometro = quarteirao + "/" + nrDaCasa;
+        txtNumeroDeHidrometro.setText(nrHidrometro);
+
+        // Define o saldo automaticamente
+        double saldo;
+        if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
+            saldo = 3000;
+        } else {
+            saldo = 8000;
+        }
+        txtSaldo.setText(String.valueOf(saldo));
+        boolean disponibilidade = false;
+
+        ClienteModel clienteModel = new ClienteModel();
+        clienteModel.setId(id);
+        clienteModel.setNome(nome);
+        clienteModel.setBairro(bairro);
+        clienteModel.setQuarteirao(quarteirao);
+        clienteModel.setNrDaCasa(nrDaCasa);
+        clienteModel.setDataContracto(data);
+        clienteModel.setEmail(email);
+        clienteModel.setContacto(nrtelefone);
+        clienteModel.setHidrometro(nrHidrometro);
+        clienteModel.setConsumo(consumo);
+        clienteModel.setSaldo(saldo);
+        clienteModel.setStatus(status);
+        clienteModel.setDisp(disponibilidade);
+
+        ClienteController clienteControler = new ClienteController();
+        clienteControler.ActualizarCliente(clienteModel);
+
+        JOptionPane.showMessageDialog(null, "Cliente apagado com sucesso");
+    }
+
     //Metodo para Listar Clientes
     private void listarClientes() {
         try {
@@ -140,13 +341,9 @@ public class ClientesView extends javax.swing.JFrame {
             model.setRowCount(0); // Limpar a tabela antes de listar novamente
 
 //            tabelaClientes.setModel(model);
-
-
-
             ArrayList<ClienteModel> lista = clienteController.PesquisarCliente();
-             System.out.println("Clientes encontrados: " + lista.size());
-             System.out.println(lista.isEmpty());
-
+            System.out.println("Clientes encontrados: " + lista.size());
+            System.out.println(lista.isEmpty());
 
             // Preencher a tabela com os dados dos clientes
             for (ClienteModel item : lista) {
@@ -233,7 +430,6 @@ public class ClientesView extends javax.swing.JFrame {
 //        DefaultTableModel model = (DefaultTableModel) table.getModel();
 ////       
 //    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -418,7 +614,7 @@ public class ClientesView extends javax.swing.JFrame {
         lbEmailParticular.setText("Email Particular:");
         painelEsqDados.add(lbEmailParticular, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 254, -1, 22));
 
-        cbxBairro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "CMC" }));
+        cbxBairro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "CMC", "Albasine" }));
         painelEsqDados.add(cbxBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 94, -1, -1));
 
         jLabel2.setText("Quarteirao:");
@@ -483,6 +679,7 @@ public class ClientesView extends javax.swing.JFrame {
             }
         });
 
+        txtSaldo.setEditable(false);
         txtSaldo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSaldoActionPerformed(evt);
@@ -694,7 +891,9 @@ public class ClientesView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        ApagarCliente();
+        listarClientes();
+        limparCampos();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -733,7 +932,9 @@ public class ClientesView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        ActualizarCliente();
+        listarClientes();
+        limparCampos();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void cbxDespesasIniciaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDespesasIniciaisActionPerformed
