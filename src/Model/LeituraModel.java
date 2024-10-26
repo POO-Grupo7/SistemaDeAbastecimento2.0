@@ -11,7 +11,7 @@ package Model;
 public class LeituraModel {
 
     private int idLeitura;
-    private ClienteModel cliente;
+    private HistoricoHidrometroModel cliente;
     private double leituraActual;
     private double leituraAnterior;
     private double consumoMes;
@@ -32,11 +32,11 @@ public class LeituraModel {
         this.idLeitura = idLeitura;
     }
 
-    public ClienteModel getCliente() {
+    public HistoricoHidrometroModel getCliente() {
         return cliente;
     }
 
-    public void setCliente(ClienteModel cliente) {
+    public void setCliente(HistoricoHidrometroModel cliente) {
         this.cliente = cliente;
     }
 
@@ -104,5 +104,6 @@ public class LeituraModel {
         this.statusLeitura = statusLeitura;
     }
 
+    
 
 }

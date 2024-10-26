@@ -97,7 +97,7 @@ public class LeituraController {
 //                pstm = conexao.prepareStatement(sql);
 //
 //                pstm.setString(1, leituraModel.getNome());
-//                pstm.setString(2, leituraModel.getMoradia());
+//                pstm.setString(2, leituraModel.getCliente().);
 //                pstm.setInt(3, leituraModel.getQuarteirao());
 //                pstm.setInt(4, leituraModel.getNrDaCasa());
 //                pstm.setString(5, leituraModel.getMesReferencia());
@@ -117,8 +117,7 @@ public class LeituraController {
 //            } catch (SQLException erro) {
 //                JOptionPane.showMessageDialog(null, "LeituraController Cadastrar" + erro);
 //            }
-//    }
-//
+//}
 //    //METODO PARA LISTAR
 //    public ArrayList<LeituraModel> listarLeituras() {
 //        ArrayList<LeituraModel> list = new ArrayList<>();
