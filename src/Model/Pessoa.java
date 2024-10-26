@@ -5,7 +5,7 @@ abstract public class Pessoa {
     private String nome;
     private String apelido;
     private String email;
-    private String nrTelefone;
+    private int nrTelefone;
     private boolean status;
     private boolean disp; //estado de exixtencia apagar/recuperar
 
@@ -38,11 +38,11 @@ abstract public class Pessoa {
         this.email = email;
     }
 
-    public String getNrTelefone() {
+    public int getNrTelefone() {
         return nrTelefone;
     }
 
-    public void setNrTelefone(String nrTelefone) {
+    public void setNrTelefone(int nrTelefone) {
         this.nrTelefone = nrTelefone;
     }
 

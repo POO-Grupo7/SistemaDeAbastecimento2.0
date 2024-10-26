@@ -116,12 +116,14 @@ public class ClientesView extends javax.swing.JFrame {
         clienteModel.setNrDaCasa(nrDaCasa);
         clienteModel.setDataContracto(data);
         clienteModel.setEmail(email);
-        clienteModel.setContacto(nrtelefone);
-        clienteModel.setHidrometro(nrHidrometro);
+        clienteModel.setNrTelefone(nrtelefone);
+//        clienteModel.setHidrometro(nrHidrometro);
         clienteModel.setConsumo(0); // Consumo inicial
         clienteModel.setSaldo(saldo);
         clienteModel.setStatus(status);
         clienteModel.setDisp(disponibilidade);
+        
+        
 
         // Cadastrar cliente através do controlador
         ClienteController clienteControler = new ClienteController();
@@ -131,6 +133,182 @@ public class ClientesView extends javax.swing.JFrame {
         listarClientes();
     }
 
+<<<<<<< Updated upstream
+=======
+    //Metodo Actualizar Cliente
+    private void ActualizarCliente() {
+        int id = Integer.parseInt(txtId.getText());
+        String nome = txtNome.getText().trim();
+        String bairro = cbxBairro.getSelectedItem().toString();
+        String quarteiraoText = txtQuarterao.getText().trim();
+        String nr = txtNumeroDeCasa.getText().trim();
+        String data = txtDataDeContrato.getText().trim();
+        String email = txtEmailParticular.getText().trim();
+        String nrTel = TxtNumeroDeTelefone.getText().trim();
+        String cons = txtConsumo.getText();
+        boolean status;
+        if (cbxStatus.getItemAt(0) == "Sim") {
+            status = true;
+
+        } else {
+            status = false;
+        }
+
+        // Verificações
+        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(null, "Nome inválido.");
+            return;
+        }
+        if (bairro.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Bairro inválido.");
+            return;
+        }
+        if (quarteiraoText.isEmpty() || !quarteiraoText.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Quarteirão inválido.");
+            return;
+        }
+        int quarteirao = Integer.parseInt(quarteiraoText);
+        if (nr.isEmpty() || !nr.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Número da casa inválido.");
+            return;
+        }
+        int nrDaCasa = Integer.parseInt(nr);
+
+        if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(null, "Email inválido.");
+            return;
+        }
+        if (nrTel.isEmpty() || !nrTel.matches("(21|82|83|84|85|86|87)\\d{7}")) {
+            JOptionPane.showMessageDialog(null, "Telefone inválido.");
+            return;
+        }
+        int nrtelefone = Integer.parseInt(nrTel);
+
+        double consumo = Double.parseDouble(cons);
+
+        // Define o número do hidrômetro
+        String nrHidrometro = quarteirao + "/" + nrDaCasa;
+        txtNumeroDeHidrometro.setText(nrHidrometro);
+
+        // Define o saldo automaticamente
+        double saldo;
+        if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
+            saldo = 3000;
+        } else {
+            saldo = 8000;
+        }
+        txtSaldo.setText(String.valueOf(saldo));
+        boolean disponibilidade = true;
+
+        ClienteModel clienteModel = new ClienteModel();
+        clienteModel.setIdCliente(id);
+        clienteModel.setNome(nome);
+        clienteModel.setBairro(bairro);
+        clienteModel.setQuarteirao(quarteirao);
+        clienteModel.setNrDaCasa(nrDaCasa);
+        clienteModel.setDataContracto(data);
+        clienteModel.setEmail(email);
+        clienteModel.setNrTelefone(nrtelefone);
+//        clienteModel.setHidrometro(nrHidrometro);
+        clienteModel.setConsumo(consumo);
+        clienteModel.setSaldo(saldo);
+        clienteModel.setStatus(status);
+        clienteModel.setDisp(disponibilidade);
+
+        ClienteController clienteControler = new ClienteController();
+        clienteControler.ActualizarCliente(clienteModel);
+
+        JOptionPane.showMessageDialog(null, "Cliente actualizado com sucesso");
+    }
+
+    //Metodo Apagar Cliente
+    private void ApagarCliente() {
+
+        int id = Integer.parseInt(txtId.getText());
+        String nome = txtNome.getText().trim();
+        String bairro = cbxBairro.getSelectedItem().toString();
+        String quarteiraoText = txtQuarterao.getText().trim();
+        String nr = txtNumeroDeCasa.getText().trim();
+        String data = txtDataDeContrato.getText().trim();
+        String email = txtEmailParticular.getText().trim();
+        String nrTel = TxtNumeroDeTelefone.getText().trim();
+        String cons = txtConsumo.getText();
+        boolean status;
+        if (cbxStatus.getItemAt(0) == "Sim") {
+            status = true;
+
+        } else {
+            status = false;
+        }
+
+        // Verificações
+        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(null, "Nome inválido.");
+            return;
+        }
+        if (bairro.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Bairro inválido.");
+            return;
+        }
+        if (quarteiraoText.isEmpty() || !quarteiraoText.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Quarteirão inválido.");
+            return;
+        }
+        int quarteirao = Integer.parseInt(quarteiraoText);
+        if (nr.isEmpty() || !nr.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Número da casa inválido.");
+            return;
+        }
+        int nrDaCasa = Integer.parseInt(nr);
+
+        if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(null, "Email inválido.");
+            return;
+        }
+        if (nrTel.isEmpty() || !nrTel.matches("(21|82|83|84|85|86|87)\\d{7}")) {
+            JOptionPane.showMessageDialog(null, "Telefone inválido.");
+            return;
+        }
+        int nrtelefone = Integer.parseInt(nrTel);
+
+        double consumo = Double.parseDouble(cons);
+
+        // Define o número do hidrômetro
+        String nrHidrometro = quarteirao + "/" + nrDaCasa;
+        txtNumeroDeHidrometro.setText(nrHidrometro);
+
+        // Define o saldo automaticamente
+        double saldo;
+        if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
+            saldo = 3000;
+        } else {
+            saldo = 8000;
+        }
+        txtSaldo.setText(String.valueOf(saldo));
+        boolean disponibilidade = false;
+
+        ClienteModel clienteModel = new ClienteModel();
+        clienteModel.setIdCliente(id);
+        clienteModel.setNome(nome);
+        clienteModel.setBairro(bairro);
+        clienteModel.setQuarteirao(quarteirao);
+        clienteModel.setNrDaCasa(nrDaCasa);
+        clienteModel.setDataContracto(data);
+        clienteModel.setEmail(email);
+        clienteModel.setNrTelefone(nrtelefone);
+//        clienteModel.setHidrometro(nrHidrometro);
+        clienteModel.setConsumo(consumo);
+        clienteModel.setSaldo(saldo);
+        clienteModel.setStatus(status);
+        clienteModel.setDisp(disponibilidade);
+
+        ClienteController clienteControler = new ClienteController();
+        clienteControler.ActualizarCliente(clienteModel);
+
+        JOptionPane.showMessageDialog(null, "Cliente apagado com sucesso");
+    }
+
+>>>>>>> Stashed changes
     //Metodo para Listar Clientes
     private void listarClientes() {
         try {
@@ -151,15 +329,15 @@ public class ClientesView extends javax.swing.JFrame {
             // Preencher a tabela com os dados dos clientes
             for (ClienteModel item : lista) {
                 model.addRow(new Object[]{
-                    item.getId(),
+                    item.getIdCliente(),
                     item.getNome(),
                     item.getBairro(),
                     item.getQuarteirao(), // Certifique-se de usar o índice correto
                     item.getNrDaCasa(), // Certifique-se de usar o índice correto
                     item.getDataContracto(),
                     item.getEmail(),
-                    item.getContacto(),
-                    item.getHidrometro(),
+                    item.getNrTelefone(),
+//                    item.getHidrometro(),
                     item.getConsumo(),
                     item.getSaldo(),
                     item.getStatus(),
@@ -268,11 +446,11 @@ public class ClientesView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtQuarterao = new javax.swing.JTextField();
         txtNumeroDeCasa = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
         lbNumeroDeTelefone = new javax.swing.JLabel();
         txtEmailParticular = new javax.swing.JTextField();
-        txtDataDeContrato = new javax.swing.JTextField();
         TxtNumeroDeTelefone = new javax.swing.JTextField();
+        txtData = new rojeru_san.componentes.RSDateChooser();
+        txtDataDeContrato = new javax.swing.JTextField();
         painelDirDados = new javax.swing.JPanel();
         lbNumeroDeHidrometro = new javax.swing.JLabel();
         txtNumeroDeHidrometro = new javax.swing.JTextField();
@@ -432,19 +610,12 @@ public class ClientesView extends javax.swing.JFrame {
         painelEsqDados.add(txtQuarterao, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 94, 70, -1));
         painelEsqDados.add(txtNumeroDeCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 134, 91, -1));
 
-        jTextField3.setEditable(false);
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-        painelEsqDados.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 214, 108, -1));
-
         lbNumeroDeTelefone.setText("Numero de Telefone:*");
         painelEsqDados.add(lbNumeroDeTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 297, -1, -1));
         painelEsqDados.add(txtEmailParticular, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 254, 360, -1));
-        painelEsqDados.add(txtDataDeContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 174, 350, -1));
         painelEsqDados.add(TxtNumeroDeTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 294, 360, -1));
+        painelEsqDados.add(txtData, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 340, 20));
+        painelEsqDados.add(txtDataDeContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 100, -1));
 
         painelSuperiorDados.add(painelEsqDados);
 
@@ -566,11 +737,11 @@ public class ClientesView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Bairro", "Quarteirao", "Numero da Casa", "Data de Contrato", "Email Particular", "Numero de Telefone", "Numero de Hidrometro", "Consumo", "Saldo", "Status", "Disp"
+                "Id", "Nome", "Bairro", "Quarteirao", "Numero da Casa", "Data de Contrato", "Email Particular", "Numero de Telefone", "Consumo", "Saldo", "Status", "Disp"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, true, true
+                false, false, false, false, false, false, false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -715,10 +886,6 @@ public class ClientesView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQuarteraoActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
     private void txtConsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConsumoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtConsumoActionPerformed
@@ -775,7 +942,6 @@ public class ClientesView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lbBairro;
     private javax.swing.JLabel lbConsumo;
     private javax.swing.JLabel lbDespesasIniciais;
@@ -802,6 +968,7 @@ public class ClientesView extends javax.swing.JFrame {
     private javax.swing.JPanel tabela;
     private javax.swing.JTable tabelaClientes;
     private javax.swing.JTextField txtConsumo;
+    private rojeru_san.componentes.RSDateChooser txtData;
     private javax.swing.JTextField txtDataDeContrato;
     private javax.swing.JTextField txtEmailParticular;
     private javax.swing.JTextField txtId;
