@@ -1,5 +1,6 @@
 package View;
 
+import Controller.HidrometroController;
 import Model.HidrometroModel;
 import View.table.TableCustom;
 import com.formdev.flatlaf.FlatDarculaLaf;
@@ -11,11 +12,10 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -26,6 +26,7 @@ public class HidrometroView extends javax.swing.JFrame {
 
     public HidrometroView() {
         initComponents();
+        listarHidrometro();
         testData(tabelaHidrometro);
         getContentPane().setBackground(Color.white);
         TableCustom.apply(jScrollPane1, TableCustom.TableType.MULTI_LINE);
@@ -39,20 +40,6 @@ public class HidrometroView extends javax.swing.JFrame {
 
     private void testData(JTable table) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-//        "ID", "Nome", "Apelido", "Naturalidade", "Data Nascimento", "Email", "Função", "Usuario", "Senha", "Perfil", "Activo", "Disp"
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
     }
 
     /**
@@ -82,11 +69,11 @@ public class HidrometroView extends javax.swing.JFrame {
         lblId = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         lblDataRegisto = new javax.swing.JLabel();
-        txtDataRegisto = new rojeru_san.componentes.RSDateChooser();
         txtNumeroDeHidrometro = new javax.swing.JTextField();
         lblNumeroDeHidrometro = new javax.swing.JLabel();
         lbStatus = new javax.swing.JLabel();
         cbxStatus = new javax.swing.JComboBox<>();
+        txtDataRegisto = new com.toedter.calendar.JDateChooser();
         painelDirDados = new javax.swing.JPanel();
         btnApagados = new javax.swing.JButton();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
@@ -232,14 +219,6 @@ public class HidrometroView extends javax.swing.JFrame {
 
         lblDataRegisto.setText("Data de Inicio:*");
 
-        txtDataRegisto.setFuente(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        txtDataRegisto.setPlaceholder("Seleccionar data");
-        txtDataRegisto.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                txtDataRegistoPropertyChange(evt);
-            }
-        });
-
         txtNumeroDeHidrometro.setEditable(false);
         txtNumeroDeHidrometro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,6 +232,8 @@ public class HidrometroView extends javax.swing.JFrame {
 
         cbxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>", "Operacional", "Nao Operacional" }));
 
+        txtDataRegisto.setDateFormatString("dd/MM/yyyy");
+
         javax.swing.GroupLayout painelEsqDadosLayout = new javax.swing.GroupLayout(painelEsqDados);
         painelEsqDados.setLayout(painelEsqDadosLayout);
         painelEsqDadosLayout.setHorizontalGroup(
@@ -261,21 +242,22 @@ public class HidrometroView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                        .addComponent(lblDataRegisto)
-                        .addGap(79, 79, 79)
-                        .addComponent(txtDataRegisto, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE))
-                    .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                        .addComponent(lblId)
-                        .addGap(146, 146, 146)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblNumeroDeHidrometro)
+                        .addGap(32, 32, 32)
+                        .addComponent(txtNumeroDeHidrometro))
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
                         .addComponent(lbStatus)
                         .addGap(117, 117, 117)
-                        .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 187, Short.MAX_VALUE))
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                        .addComponent(lblNumeroDeHidrometro)
-                        .addGap(32, 32, 32)
-                        .addComponent(txtNumeroDeHidrometro)))
+                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblId)
+                            .addComponent(lblDataRegisto))
+                        .addGap(79, 79, 79)
+                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDataRegisto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(19, 19, 19))
         );
         painelEsqDadosLayout.setVerticalGroup(
@@ -290,8 +272,8 @@ public class HidrometroView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDataRegisto)
-                    .addComponent(txtDataRegisto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtDataRegisto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNumeroDeHidrometro)
                     .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -360,6 +342,11 @@ public class HidrometroView extends javax.swing.JFrame {
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
         botoes.add(btnActualizar, gridBagConstraints);
@@ -433,8 +420,10 @@ public class HidrometroView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabelaHidrometro.setRowHeight(15);
         jScrollPane1.setViewportView(tabelaHidrometro);
         if (tabelaHidrometro.getColumnModel().getColumnCount() > 0) {
+            tabelaHidrometro.getColumnModel().getColumn(0).setPreferredWidth(10);
             tabelaHidrometro.getColumnModel().getColumn(2).setMinWidth(50);
             tabelaHidrometro.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
@@ -468,19 +457,23 @@ public class HidrometroView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCarregarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarCamposActionPerformed
-        // TODO add your handling code here:
+        carregarCampos();
     }//GEN-LAST:event_btnCarregarCamposActionPerformed
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
-        // TODO add your handling code here:
+        limparCampos();
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         apagarHidrometro();
+        listarHidrometro();
+        limparCampos();
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         cadastrarHidrometro();
+        listarHidrometro();
+        limparCampos();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
@@ -516,10 +509,11 @@ public class HidrometroView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_painelVoltarMenu1KeyPressed
 
-    private void txtDataRegistoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtDataRegistoPropertyChange
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtDataRegistoPropertyChange
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        actualizarHidrometro();
+        listarHidrometro();
+        limparCampos();
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -572,7 +566,7 @@ public class HidrometroView extends javax.swing.JFrame {
     private javax.swing.JPanel painelVoltarMenu1;
     private javax.swing.JPanel tabela;
     private javax.swing.JTable tabelaHidrometro;
-    private rojeru_san.componentes.RSDateChooser txtDataRegisto;
+    private com.toedter.calendar.JDateChooser txtDataRegisto;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNomeAPesquisar;
     private javax.swing.JTextField txtNumeroDeHidrometro;
@@ -585,14 +579,81 @@ public class HidrometroView extends javax.swing.JFrame {
         Date anoActual = new Date();
         String nrHidrometro = anoActual.getYear() + "/" + aleatorio.nextInt(10000001);
         txtNumeroDeHidrometro.setText(nrHidrometro);
-        
-        String dataReg = txtDataRegisto.getToolTipText().trim();
-        
+
+        String selectedOption = cbxStatus.getSelectedItem().toString();
+        String estado = "Operacional";
+        if (selectedOption.equals("<Selecione>")) {
+            JOptionPane.showMessageDialog(null, "Selecione uma opcao válida");
+        } else {
+            estado = cbxStatus.getSelectedItem().toString();
+        }
+
+        Date selectedDate = txtDataRegisto.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate = dateFormat.format(selectedDate);
+
         HidrometroModel hidrometroModel = new HidrometroModel();
-        hidrometroModel.setDataRegisto(dataReg);
+        hidrometroModel.setDataRegisto(formattedDate);
         hidrometroModel.setNrHiodrometro(nrHidrometro);
-        
-        
+        hidrometroModel.setEstado(estado);
+
+        HidrometroController hidrometroController = new HidrometroController();
+        hidrometroController.cadastrarHidrometro(hidrometroModel);
+    }
+
+    //Metodo para Listar Hidrometro
+    private void listarHidrometro() {
+        try {
+            HidrometroController hidrometroController = new HidrometroController();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaHidrometro.getModel();
+            model.setRowCount(0); // Limpar a tabela antes de listar novamente
+
+//            tabelaHidrometro.setModel(model);
+            ArrayList<HidrometroModel> lista = hidrometroController.listarHidrometro();
+            System.out.println("Hidrometro encontrados: " + lista.size());
+            System.out.println(lista.isEmpty());
+
+            // Preencher a tabela com os dados dos hidrometros
+            for (HidrometroModel item : lista) {
+                model.addRow(new Object[]{
+                    item.getIdHidrometro(),
+                    item.getDataRegisto(),
+                    item.getNrHidrometro(),
+                    item.getEstado()
+                });
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar hidrometros: " + erro.getMessage());
+        }
+    }
+
+    //Metodo Actualizar Hidrometro
+    private void actualizarHidrometro() {
+        int id = Integer.parseInt(txtId.getText());
+        String selectedOption = cbxStatus.getSelectedItem().toString();
+        String estado = "Operacional";
+        if (selectedOption.equals("<Selecione>")) {
+            JOptionPane.showMessageDialog(null, "Selecione uma opcao válida");
+        } else {
+            estado = cbxStatus.getSelectedItem().toString();
+        }
+
+        Date selectedDate = txtDataRegisto.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate = dateFormat.format(selectedDate);
+        String nrHidrometro = txtNumeroDeHidrometro.getText();
+
+        HidrometroModel hidrometroModel = new HidrometroModel();
+        hidrometroModel.setIdHidrometro(id);
+        hidrometroModel.setDataRegisto(formattedDate);
+        hidrometroModel.setNrHiodrometro(nrHidrometro);
+        hidrometroModel.setEstado(estado);
+
+        HidrometroController hidrometroControler = new HidrometroController();
+        hidrometroControler.actualizarHidrometro(hidrometroModel);
+
+        JOptionPane.showMessageDialog(null, "Hidrometro actualizado com sucesso");
     }
 
     private void apagarHidrometro() {
@@ -602,6 +663,24 @@ public class HidrometroView extends javax.swing.JFrame {
             System.out.println("Esta em estado apagado");
         }
 
+    }
+    
+        //Metodo Carregar Campos
+    private void carregarCampos() {
+        int setar = tabelaHidrometro.getSelectedRow();
+
+        txtId.setText(tabelaHidrometro.getModel().getValueAt(setar, 0).toString());
+        txtDataRegisto.setDateFormatString(tabelaHidrometro.getModel().getValueAt(setar, 1).toString());
+        txtNumeroDeHidrometro.setText(tabelaHidrometro.getModel().getValueAt(setar, 2).toString());
+        cbxStatus.setSelectedItem(tabelaHidrometro.getModel().getValueAt(setar, 3).toString());        
+    }
+
+    //Metodo Limpar Campos
+    private void limparCampos() {
+        txtId.setText("");
+        txtDataRegisto.setDateFormatString("");
+        txtNumeroDeHidrometro.setText("");
+        cbxStatus.setSelectedIndex(0);
     }
 
 }
