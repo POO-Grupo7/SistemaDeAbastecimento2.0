@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Date;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -89,22 +91,10 @@ public class HidrometroView extends javax.swing.JFrame {
         lblDataDeEmissao = new javax.swing.JLabel();
         rSDateChooser1 = new rojeru_san.componentes.RSDateChooser();
         rSDateChooser2 = new rojeru_san.componentes.RSDateChooser();
-        painelDirDados = new javax.swing.JPanel();
-        lblNumeroDeHidrometro = new javax.swing.JLabel();
         txtNumeroDeHidrometro = new javax.swing.JTextField();
-        lblLeituraAnterior = new javax.swing.JLabel();
-        txtLeituraActual = new javax.swing.JTextField();
-        lblLeituraActual = new javax.swing.JLabel();
-        lblConsumoDoMes = new javax.swing.JLabel();
-        txtConsumoDoMes = new javax.swing.JTextField();
-        txtOcorrencia = new javax.swing.JTextField();
-        lblOcorrencia = new javax.swing.JLabel();
-        lblNumeroDaLeitura = new javax.swing.JLabel();
-        txtNumeroDaLeitura = new javax.swing.JTextField();
-        txtSaldoActual = new javax.swing.JTextField();
-        lblSaldoActual = new javax.swing.JLabel();
+        lblNumeroDeHidrometro = new javax.swing.JLabel();
+        painelDirDados = new javax.swing.JPanel();
         btnApagados = new javax.swing.JButton();
-        cbxMesDeReferencia = new javax.swing.JComboBox<>();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
         tabela = new javax.swing.JPanel();
         botoes = new javax.swing.JPanel();
@@ -239,6 +229,7 @@ public class HidrometroView extends javax.swing.JFrame {
 
         lblId.setText("Id:");
 
+        txtId.setEditable(false);
         txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdActionPerformed(evt);
@@ -282,10 +273,23 @@ public class HidrometroView extends javax.swing.JFrame {
 
         rSDateChooser1.setFuente(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         rSDateChooser1.setPlaceholder("Seleccionar data");
+        rSDateChooser1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                rSDateChooser1PropertyChange(evt);
+            }
+        });
 
         rSDateChooser2.setColorButtonHover(new java.awt.Color(255, 51, 51));
         rSDateChooser2.setFuente(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         rSDateChooser2.setPlaceholder("Seleccionar data");
+
+        txtNumeroDeHidrometro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroDeHidrometroActionPerformed(evt);
+            }
+        });
+
+        lblNumeroDeHidrometro.setText("Numero de Hidrometro:");
 
         javax.swing.GroupLayout painelEsqDadosLayout = new javax.swing.GroupLayout(painelEsqDados);
         painelEsqDados.setLayout(painelEsqDadosLayout);
@@ -301,30 +305,35 @@ public class HidrometroView extends javax.swing.JFrame {
                             .addComponent(lblId))
                         .addGap(61, 61, 61)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(painelEsqDadosLayout.createSequentialGroup()
+                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                                 .addComponent(txtBairro)
-                                .addGap(174, 174, 174))
-                            .addComponent(cbxNomeDoCliente, 0, 383, Short.MAX_VALUE)))
+                                .addGap(180, 180, 180))
+                            .addComponent(cbxNomeDoCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblQuarterao)
                             .addComponent(lblMesDeReferencia)
                             .addComponent(lblNumeroDaCasa)
-                            .addComponent(lblDataDeEmissao))
-                        .addGap(63, 63, 63)
+                            .addComponent(lblDataDeEmissao)
+                            .addComponent(lblNumeroDeHidrometro))
+                        .addGap(31, 31, 31)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtQuarterao))
-                                .addGap(20, 20, 20))
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(rSDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(rSDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap())
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelEsqDadosLayout.createSequentialGroup()
+                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelEsqDadosLayout.createSequentialGroup()
+                                        .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtQuarterao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE))
+                                .addGap(26, 26, 26))))))
         );
         painelEsqDadosLayout.setVerticalGroup(
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,7 +368,11 @@ public class HidrometroView extends javax.swing.JFrame {
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblDataDeEmissao)
                     .addComponent(rSDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNumeroDeHidrometro)
+                    .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         painelSuperiorDados.add(painelEsqDados);
@@ -367,135 +380,24 @@ public class HidrometroView extends javax.swing.JFrame {
         painelDirDados.setBackground(new java.awt.Color(255, 255, 255));
         painelDirDados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 43, 64)));
 
-        lblNumeroDeHidrometro.setText("Numero de Hidrometro:");
-
-        txtNumeroDeHidrometro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumeroDeHidrometroActionPerformed(evt);
-            }
-        });
-
-        lblLeituraAnterior.setText("Taxa de Consumo");
-
-        txtLeituraActual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLeituraActualActionPerformed(evt);
-            }
-        });
-
-        lblLeituraActual.setText("Leitura Actual:*");
-
-        lblConsumoDoMes.setText("Consumo do mes:");
-
-        txtConsumoDoMes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtConsumoDoMesActionPerformed(evt);
-            }
-        });
-
-        txtOcorrencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOcorrenciaActionPerformed(evt);
-            }
-        });
-
-        lblOcorrencia.setText("Ocorrencia:");
-
-        lblNumeroDaLeitura.setText("Numero da Leitura:");
-
-        txtNumeroDaLeitura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumeroDaLeituraActionPerformed(evt);
-            }
-        });
-
-        lblSaldoActual.setText("Saldo Actual:");
-
         btnApagados.setBackground(new java.awt.Color(255, 0, 51));
         btnApagados.setText("Ver Apagados");
-
-        cbxMesDeReferencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Janeiro", "Fevereiro", "Marco", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
-        cbxMesDeReferencia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxMesDeReferenciaActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout painelDirDadosLayout = new javax.swing.GroupLayout(painelDirDados);
         painelDirDados.setLayout(painelDirDadosLayout);
         painelDirDadosLayout.setHorizontalGroup(
             painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDirDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelDirDadosLayout.createSequentialGroup()
-                        .addComponent(lblNumeroDeHidrometro)
-                        .addGap(38, 38, 38)
-                        .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                        .addGap(288, 288, 288))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDirDadosLayout.createSequentialGroup()
-                        .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblLeituraActual)
-                            .addComponent(lblNumeroDaLeitura)
-                            .addComponent(lblSaldoActual)
-                            .addComponent(lblConsumoDoMes)
-                            .addComponent(lblOcorrencia)
-                            .addComponent(lblLeituraAnterior))
-                        .addGap(64, 64, 64)
-                        .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelDirDadosLayout.createSequentialGroup()
-                                .addComponent(txtConsumoDoMes)
-                                .addGap(165, 165, 165))
-                            .addGroup(painelDirDadosLayout.createSequentialGroup()
-                                .addComponent(btnApagados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(126, 126, 126))
-                            .addGroup(painelDirDadosLayout.createSequentialGroup()
-                                .addComponent(txtSaldoActual)
-                                .addGap(162, 162, 162))
-                            .addGroup(painelDirDadosLayout.createSequentialGroup()
-                                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtOcorrencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                                    .addComponent(txtLeituraActual, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNumeroDaLeitura))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(painelDirDadosLayout.createSequentialGroup()
-                                .addComponent(cbxMesDeReferencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())))))
+                .addGap(159, 159, 159)
+                .addComponent(btnApagados, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addGap(139, 139, 139))
         );
         painelDirDadosLayout.setVerticalGroup(
             painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDirDadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNumeroDeHidrometro)
-                    .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLeituraAnterior)
-                    .addComponent(cbxMesDeReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtLeituraActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLeituraActual, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtConsumoDoMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblConsumoDoMes))
-                .addGap(18, 18, 18)
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtOcorrencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblOcorrencia))
-                .addGap(18, 18, 18)
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumeroDaLeitura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNumeroDaLeitura))
-                .addGap(18, 18, 18)
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSaldoActual)
-                    .addComponent(txtSaldoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(48, 48, 48)
                 .addComponent(btnApagados)
-                .addGap(74, 74, 74))
+                .addContainerGap(314, Short.MAX_VALUE))
         );
 
         painelSuperiorDados.add(painelDirDados);
@@ -640,7 +542,7 @@ public class HidrometroView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        cadastrarHidrometro();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
@@ -659,29 +561,9 @@ public class HidrometroView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumeroDeCasaActionPerformed
 
-    private void cbxMesDeReferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMesDeReferenciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxMesDeReferenciaActionPerformed
-
     private void txtNumeroDeHidrometroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroDeHidrometroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumeroDeHidrometroActionPerformed
-
-    private void txtLeituraActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLeituraActualActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLeituraActualActionPerformed
-
-    private void txtConsumoDoMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConsumoDoMesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtConsumoDoMesActionPerformed
-
-    private void txtOcorrenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOcorrenciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtOcorrenciaActionPerformed
-
-    private void txtNumeroDaLeituraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroDaLeituraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumeroDaLeituraActionPerformed
 
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
@@ -708,6 +590,11 @@ public class HidrometroView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_painelVoltarMenu1KeyPressed
 
+    private void rSDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rSDateChooser1PropertyChange
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_rSDateChooser1PropertyChange
+
     /**
      * @param args the command line arguments
      */
@@ -729,7 +616,6 @@ public class HidrometroView extends javax.swing.JFrame {
     private javax.swing.JPanel botoes;
     private javax.swing.JButton btnApagados;
     private javax.swing.JButton btnVoltarMenu;
-    private javax.swing.JComboBox<String> cbxMesDeReferencia;
     private javax.swing.JComboBox<String> cbxNomeDoCliente;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton6;
@@ -744,20 +630,14 @@ public class HidrometroView extends javax.swing.JFrame {
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCabecalho;
     private javax.swing.JLabel lblCabecalho1;
-    private javax.swing.JLabel lblConsumoDoMes;
     private javax.swing.JLabel lblDataDeEmissao;
     private javax.swing.JLabel lblIconLogo;
     private javax.swing.JLabel lblId;
-    private javax.swing.JLabel lblLeituraActual;
-    private javax.swing.JLabel lblLeituraAnterior;
     private javax.swing.JLabel lblMesDeReferencia;
     private javax.swing.JLabel lblNomeDoCliente;
     private javax.swing.JLabel lblNumeroDaCasa;
-    private javax.swing.JLabel lblNumeroDaLeitura;
     private javax.swing.JLabel lblNumeroDeHidrometro;
-    private javax.swing.JLabel lblOcorrencia;
     private javax.swing.JLabel lblQuarterao;
-    private javax.swing.JLabel lblSaldoActual;
     private javax.swing.JPanel painelCabecalho;
     private javax.swing.JPanel painelContCentral;
     private javax.swing.JPanel painelConteudo;
@@ -773,15 +653,20 @@ public class HidrometroView extends javax.swing.JFrame {
     private javax.swing.JPanel tabela;
     private javax.swing.JTable tabelaLeitura;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtConsumoDoMes;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtLeituraActual;
     private javax.swing.JTextField txtNomeAPesquisar;
-    private javax.swing.JTextField txtNumeroDaLeitura;
     private javax.swing.JTextField txtNumeroDeCasa;
     private javax.swing.JTextField txtNumeroDeHidrometro;
-    private javax.swing.JTextField txtOcorrencia;
     private javax.swing.JTextField txtQuarterao;
-    private javax.swing.JTextField txtSaldoActual;
     // End of variables declaration//GEN-END:variables
+
+    public void cadastrarHidrometro() {
+        // Define o número do hidrômetro        
+        //Numero aleatorio
+        Random aleatorio = new Random();
+        Date anoActual = new Date();
+        String nrHidrometro = anoActual.getYear() + "/" + aleatorio.nextInt(10000001);
+        txtNumeroDeHidrometro.setText(nrHidrometro);
+    }
+
 }

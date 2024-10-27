@@ -89,6 +89,8 @@ public class LeiturasView extends javax.swing.JFrame {
         cbxMesDeReferencia = new javax.swing.JComboBox<>();
         txtDataDeEmissao = new javax.swing.JTextField();
         lblDataDeEmissao = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtNomeCliente = new javax.swing.JTextField();
         painelDirDados = new javax.swing.JPanel();
         lblNumeroDeHidrometro = new javax.swing.JLabel();
         txtNumeroDeHidrometro = new javax.swing.JTextField();
@@ -234,6 +236,7 @@ public class LeiturasView extends javax.swing.JFrame {
 
         lblId.setText("Id:");
 
+        txtId.setEditable(false);
         txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdActionPerformed(evt);
@@ -247,12 +250,15 @@ public class LeiturasView extends javax.swing.JFrame {
             }
         });
 
-        lblNomeDoCliente.setText("Nome do Cliente:*");
+        lblNomeDoCliente.setText("Hidrometro:*");
 
         lblBairro.setText("Bairro:*");
 
+        txtBairro.setEditable(false);
+
         lblQuarterao.setText("Quarteirao:*");
 
+        txtQuarterao.setEditable(false);
         txtQuarterao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtQuarteraoActionPerformed(evt);
@@ -261,6 +267,7 @@ public class LeiturasView extends javax.swing.JFrame {
 
         lblNumeroDaCasa.setText("Numero da Casa:*");
 
+        txtNumeroDeCasa.setEditable(false);
         txtNumeroDeCasa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumeroDeCasaActionPerformed(evt);
@@ -278,39 +285,42 @@ public class LeiturasView extends javax.swing.JFrame {
 
         lblDataDeEmissao.setText("Data de Emissao:");
 
+        jLabel2.setText("Cliente");
+
+        txtNomeCliente.setEditable(false);
+
         javax.swing.GroupLayout painelEsqDadosLayout = new javax.swing.GroupLayout(painelEsqDados);
         painelEsqDados.setLayout(painelEsqDadosLayout);
         painelEsqDadosLayout.setHorizontalGroup(
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNomeDoCliente)
-                            .addComponent(lblBairro)
-                            .addComponent(lblId))
+                            .addComponent(lblId)
+                            .addComponent(jLabel2))
                         .addGap(61, 61, 61)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxNomeDoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbxNomeDoCliente, 0, 403, Short.MAX_VALUE)))
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBairro)
                             .addComponent(lblQuarterao)
                             .addComponent(lblMesDeReferencia)
                             .addComponent(lblDataDeEmissao)
                             .addComponent(lblNumeroDaCasa))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDataDeEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtQuarterao, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(20, 20, 20))
-                            .addComponent(cbxMesDeReferencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(27, 27, 27)
+                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDataDeEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxMesDeReferencia, 0, 403, Short.MAX_VALUE)
+                            .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQuarterao))))
+                .addGap(42, 42, 42))
         );
         painelEsqDadosLayout.setVerticalGroup(
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,11 +335,15 @@ public class LeiturasView extends javax.swing.JFrame {
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNomeDoCliente)
                     .addComponent(cbxNomeDoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBairro)
                     .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(15, 15, 15)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblQuarterao)
                     .addComponent(txtQuarterao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -345,7 +359,7 @@ public class LeiturasView extends javax.swing.JFrame {
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDataDeEmissao)
                     .addComponent(txtDataDeEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         painelSuperiorDados.add(painelEsqDados);
@@ -355,6 +369,7 @@ public class LeiturasView extends javax.swing.JFrame {
 
         lblNumeroDeHidrometro.setText("Numero de Hidrometro:");
 
+        txtNumeroDeHidrometro.setEditable(false);
         txtNumeroDeHidrometro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumeroDeHidrometroActionPerformed(evt);
@@ -470,7 +485,7 @@ public class LeiturasView extends javax.swing.JFrame {
                     .addComponent(txtSaldoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addComponent(btnApagados)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         painelSuperiorDados.add(painelDirDados);
@@ -708,6 +723,7 @@ public class LeiturasView extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
@@ -748,6 +764,7 @@ public class LeiturasView extends javax.swing.JFrame {
     private javax.swing.JTextField txtLeituraActual;
     private javax.swing.JTextField txtLeituraAnterior;
     private javax.swing.JTextField txtNomeAPesquisar;
+    private javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtNumeroDaLeitura;
     private javax.swing.JTextField txtNumeroDeCasa;
     private javax.swing.JTextField txtNumeroDeHidrometro;

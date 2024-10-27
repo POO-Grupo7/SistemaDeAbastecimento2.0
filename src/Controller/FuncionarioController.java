@@ -22,7 +22,7 @@ public class FuncionarioController {
             String sql = "SELECT * FROM usuario WHERE nomeUsuario = ? AND senhaUsuario = ? AND activo = ? AND disp = ?";
 
             PreparedStatement pstm = conexao.prepareStatement(sql);
-            pstm.setString(1, funcionarioModel.getNomeFuncionario());
+            pstm.setString(1, funcionarioModel.getNome());
             pstm.setString(2, funcionarioModel.getSenhaFuncionario());
             pstm.setBoolean(3, funcionarioModel.getStatus());
             pstm.setBoolean(4, funcionarioModel.getDisp());
@@ -71,7 +71,7 @@ public class FuncionarioController {
 
     //METODO PARA CADASTRAR
     public void cadastrarFuncionario(FuncionarioModel funcionarioModel) {
-        if (usuarioExiste(funcionarioModel.getNomeFuncionario(), funcionarioModel.getEmail())) {
+        if (usuarioExiste(funcionarioModel.getNome(), funcionarioModel.getEmail())) {
             JOptionPane.showMessageDialog(null, "Já existe um usuario com os mesmos dados.");
         } else {
             String sql = "insert into usuario (nome, apelidoFuncionario, naturalidadeFuncionario, dataNascimentoFuncionario, emailFuncionario, funcaoFuncionario, nomeUsuario, senhaUsuario, perfil, activo, disp) values (?,?,?,?,?,?,?,?,?,?,?) ";
@@ -86,7 +86,7 @@ public class FuncionarioController {
                 pstm.setString(4, funcionarioModel.getDataNascimento());
                 pstm.setString(5, funcionarioModel.getEmail());
                 pstm.setString(6, funcionarioModel.getFuncaoFuncionario());
-                pstm.setString(7, funcionarioModel.getNomeFuncionario());
+                pstm.setString(7, funcionarioModel.getNome());
                 pstm.setString(8, funcionarioModel.getSenhaFuncionario());
                 pstm.setString(9, funcionarioModel.getPerfilDeAcesso());
                 pstm.setBoolean(10, funcionarioModel.getStatus());
@@ -121,7 +121,7 @@ public class FuncionarioController {
                 funcionarioModel.setDataNascimento(rs.getString("dataNascimentoFuncionario"));
                 funcionarioModel.setEmail(rs.getString("emailFuncionario"));
                 funcionarioModel.setFuncaoFuncionario(rs.getString("funcaoFuncionario"));
-                funcionarioModel.setNomeFuncionario(rs.getString("nomeUsuario"));
+                funcionarioModel.setNome(rs.getString("nomeUsuario"));
                 funcionarioModel.setSenhaFuncionario(rs.getString("senhaUsuario"));
                 funcionarioModel.setPerfilDeAcesso(rs.getString("perfil"));
 
@@ -156,7 +156,7 @@ Connection conexao = null;
             pstm.setString(4, funcionarioModel.getDataNascimento());
             pstm.setString(5, funcionarioModel.getEmail());
             pstm.setString(6, funcionarioModel.getFuncaoFuncionario());
-            pstm.setString(7, funcionarioModel.getNomeFuncionario());
+            pstm.setString(7, funcionarioModel.getNome());
             pstm.setString(8, funcionarioModel.getSenhaFuncionario());
             pstm.setString(9, funcionarioModel.getPerfilDeAcesso());
             pstm.setBoolean(10, funcionarioModel.getStatus());
