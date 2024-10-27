@@ -5,6 +5,7 @@ public class FuncionarioModel extends Pessoa {
     private int idFuncionario;
     private String senhaFuncionario;
     private String dataNascimento;
+    private String naturalidadeFuncionario;
     private String funcaoFuncionario;
     private String perfilDeAcesso;
     private byte[] imagemBytes;
@@ -57,6 +58,16 @@ public class FuncionarioModel extends Pessoa {
     public void setImagemBytes(byte[] imagemBytes) {
         this.imagemBytes = imagemBytes;
     }
+
+    public String getNaturalidadeFuncionario() {
+        return naturalidadeFuncionario;
+    }
+
+    public void setNaturalidadeFuncionario(String naturalidadeFuncionario) {
+        this.naturalidadeFuncionario = naturalidadeFuncionario;
+    }
+    
+    
 
 
 }
