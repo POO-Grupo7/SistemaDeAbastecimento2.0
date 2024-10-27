@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class HidrometroModel {
     private int idHidrometro;
     private String nrHidrometro;
+    private String dataRegisto;
     private boolean status;
     private boolean apagado;
     private ArrayList<LeituraModel> leituras;
@@ -90,5 +91,15 @@ public class HidrometroModel {
     public void setApagado(boolean apagado) {
         this.apagado = apagado;
     }
+
+    public String getDataRegisto() {
+        return dataRegisto;
+    }
+
+    public void setDataRegisto(String dataRegisto) {
+        this.dataRegisto = dataRegisto;
+    }
+    
+    
 
 }
