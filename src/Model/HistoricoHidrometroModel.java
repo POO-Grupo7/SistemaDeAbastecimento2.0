@@ -1,15 +1,20 @@
 package Model;
 
 public class HistoricoHidrometroModel {
-    ClienteModel cliente;
-    HidrometroModel hidrometro;
-    String dataInicial;
-    String dataFinal;
+    private int idHistoricoHidrometro;
+    private ClienteModel cliente;
+    private HidrometroModel hidrometro;
+    private String dataInicial;
+    private String dataFinal;
 
-    public HistoricoHidrometroModel() {
-
+    public int getIdHistoricoHidrometro() {
+        return idHistoricoHidrometro;
     }
 
+    public void setIdHistoricoHidrometro(int idHistoricoHidrometro) {
+        this.idHistoricoHidrometro = idHistoricoHidrometro;
+    }
+    
     public ClienteModel getCliente() {
         return cliente;
     }
@@ -41,7 +46,13 @@ public class HistoricoHidrometroModel {
     public void setDataFinal(String dataFinal) {
         this.dataFinal = dataFinal;
     }
-    
+
+    public String imprimir(){
+        return "Numero do Hidrometro: " + hidrometro.getNrHidrometro() +"\n"
+                + "Data de inicio: " + this.dataInicial +"\n"
+                + "Nome do Cliente: "+ cliente.getNome()+ "\nQt: "+ cliente.getQuarteirao() +"\n" +"Casa Nr: "
+                + cliente.getNrDaCasa() ;
+    }
     
 }
 

@@ -1,27 +1,51 @@
+
 package Model;
 
-public class ClienteModel extends Pessoa {
+import java.util.ArrayList;
 
-    private int id;
+public class ClienteModel extends Pessoa{
+    private int idCliente;
     private double consumo;
-    private int contacto;
     private double saldo;
+    private String bairro;
     private int quarteirao;
     private int nrDaCasa;
     private String dataContracto;
-    private String hidrometro;
-    private String bairro;
+    private ArrayList<HistoricoHidrometroModel> historicosHidrometros;
 
     public ClienteModel() {
+        historicosHidrometros = new ArrayList<>();
+    }
+    
+    //HISTORICO DO HIDROMETRO
+    //metodo para adicionar um historico de hidrometro
+    public void adicionarHistoricoHidrometro(HistoricoHidrometroModel historicoHidrometro) {
+        historicosHidrometros.add(historicoHidrometro);
     }
 
-    public int getId() {
-        return id;
+    //metodo para excluir um historico de hidrometro
+    public void excluirHistoricoHidrometro(HistoricoHidrometroModel historicoHidrometro) {
+        historicosHidrometros.remove(historicoHidrometro);
     }
 
-    public void setId(int id) {
-        this.id = id;
+    //metodo para ver o numero total de historico de hidrometro
+    public int quantidadeHistoricoHidrometro() {
+        return historicosHidrometros.size();
     }
+
+    //metodo para pegar um historico de hidrometro especifico
+    public HistoricoHidrometroModel getHistoricoHidrometro(int posicao) {
+        return historicosHidrometros.get(posicao);
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+        
 
     public double getConsumo() {
         return consumo;
@@ -29,14 +53,6 @@ public class ClienteModel extends Pessoa {
 
     public void setConsumo(double consumo) {
         this.consumo = consumo;
-    }
-
-    public int getContacto() {
-        return contacto;
-    }
-
-    public void setContacto(int contacto) {
-        this.contacto = contacto;
     }
 
     public double getSaldo() {
@@ -71,14 +87,6 @@ public class ClienteModel extends Pessoa {
         this.dataContracto = dataContracto;
     }
 
-    public String getHidrometro() {
-        return hidrometro;
-    }
-
-    public void setHidrometro(String hidrometro) {
-        this.hidrometro = hidrometro;
-    }
-
     public String getBairro() {
         return bairro;
     }
@@ -86,7 +94,8 @@ public class ClienteModel extends Pessoa {
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-
     
+    
+ 
     
 }
