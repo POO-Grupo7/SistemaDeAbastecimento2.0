@@ -16,7 +16,7 @@ public class PagamentoModel {
     private String nomeDoCliente;
     private int nrRecibo;
     private double saldo;
-    private boolean processada=false;
+    private boolean processada=true;
 
     public PagamentoModel() {
     }

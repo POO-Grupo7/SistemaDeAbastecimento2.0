@@ -4,8 +4,10 @@
  */
 package View;
 
+import Controller.ClienteController;
 import Controller.FacturacaoController;
 import Controller.PagamentoController;
+import Model.ClienteModel;
 import Model.PagamentoModel;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.BorderLayout;
@@ -17,15 +19,18 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class PagamentoView extends javax.swing.JFrame {
 
     public PagamentoView() {
         initComponents();
+        listarPagamentos();
         // Obtém a data atual
         Date data = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -40,48 +45,87 @@ public class PagamentoView extends javax.swing.JFrame {
 
         return nomePreenchido && valorAPagarPreenchido;
     }
-    
+
     //Accao para prencher campos
     Vector<Integer> idFactura = new Vector<Integer>();
 
+//    private void AccaoComboxClientes() {
+//        if (cbxFacturas.getSelectedIndex() == 0) {
+//            txtNomeCliente.setText(null);
+//            txtValor.setText(null);
+//            txtPrazoPagamento.setText(null);
+//            return;
+//        }
+//        try {
+//            FacturacaoController facturacaoController = new FacturacaoController();
+//            ResultSet rs = facturacaoController.PrencherDados(idFactura.get(cbxFacturas.getSelectedIndex() - 1));
+//
+//            while (rs.next()) {
+//                txtNomeCliente.setText(rs.getString(2));
+//                txtValor.setText(rs.getString(4));
+//                txtPrazoPagamento.setText(rs.getString(5));
+//                txtDataPagamento.setText(rs.getString(6));
+//            }
+//        } catch (SQLException erro) {
+//            JOptionPane.showMessageDialog(null, "FacturacaoView prencher dados" + erro);
+//        }
+//    }
+    // Ação ao selecionar um item no ComboBox
     private void AccaoComboxClientes() {
         if (cbxFacturas.getSelectedIndex() == 0) {
             txtNomeCliente.setText(null);
             txtValor.setText(null);
             txtPrazoPagamento.setText(null);
+            txtDataPagamento.setText(null);
             return;
         }
-        try {
-            FacturacaoController facturacaoController = new FacturacaoController();
-            ResultSet rs = facturacaoController.PrencherDados(idFactura.get(cbxFacturas.getSelectedIndex() - 1));
 
-            while (rs.next()) {
-                txtNomeCliente.setText(rs.getString(2));
+        try {
+            PagamentoController pagamentoController = new PagamentoController();
+            int selectedId = idFactura.get(cbxFacturas.getSelectedIndex() - 1);
+            ResultSet rs = pagamentoController.PrencherDadosFactura(selectedId);
+
+            if (rs.next()) {
+                txtNomeCliente.setText(rs.getString(3));
                 txtValor.setText(rs.getString(4));
                 txtPrazoPagamento.setText(rs.getString(5));
-                txtDataPagamento.setText(rs.getString(6));
             }
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "FacturacaoView prencher dados" + erro);
+            JOptionPane.showMessageDialog(null, "Erro ao preencher dados: " + erro);
         }
     }
+
     //Metodo que pega clientes activos na BD para jcboxClientes
-
-
+//    private void RestaurarDadosComboBoxTaxa() {
+//        try {
+//            FacturacaoController facturacoController = new FacturacaoController();
+//            ResultSet rs = facturacoController.listarTaxas();
+//
+//            while (rs.next()) {
+//                idFactura.addElement(rs.getInt(1));
+//                cbxFacturas.addItem(rs.getString(4));
+//            }
+//        } catch (SQLException erro) {
+//            JOptionPane.showMessageDialog(null, "FacturacaoView listar nr da leitura na comboBox" + erro);
+//        }
+//    }
+    // Método para restaurar dados no ComboBox
     private void RestaurarDadosComboBoxTaxa() {
+        idFactura.clear();  // Limpa o vetor para evitar duplicação de IDs
+        cbxFacturas.removeAllItems();  // Limpa o ComboBox antes de preencher
+
         try {
             FacturacaoController facturacoController = new FacturacaoController();
             ResultSet rs = facturacoController.listarTaxas();
 
             while (rs.next()) {
                 idFactura.addElement(rs.getInt(1));
-                cbxFacturas.addItem(rs.getString(4));
+                cbxFacturas.addItem(rs.getString(4));  // Exibe o quarto campo no ComboBox
             }
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "FacturacaoView listar nr da leitura na comboBox" + erro);
+            JOptionPane.showMessageDialog(null, "Erro ao listar dados no ComboBox: " + erro);
         }
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,7 +148,7 @@ public class PagamentoView extends javax.swing.JFrame {
         painelSuperiorDados = new javax.swing.JPanel();
         painelEsqDados = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        idFacturacao = new javax.swing.JTextField();
+        txtIdPagamentos = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         cbxFacturas = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
@@ -139,7 +183,7 @@ public class PagamentoView extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabelaPagamentos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -216,11 +260,11 @@ public class PagamentoView extends javax.swing.JFrame {
 
         jLabel15.setText("Id:");
 
-        idFacturacao.setEditable(false);
+        txtIdPagamentos.setEditable(false);
 
         jLabel16.setText("Factura:");
 
-        cbxFacturas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxFacturas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "1234" }));
 
         jLabel17.setText("Nome do Cliente:");
 
@@ -337,7 +381,7 @@ public class PagamentoView extends javax.swing.JFrame {
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(idFacturacao, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdPagamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPrazoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -376,7 +420,7 @@ public class PagamentoView extends javax.swing.JFrame {
             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idFacturacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdPagamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -526,20 +570,28 @@ public class PagamentoView extends javax.swing.JFrame {
 
         tabela.add(botoes, java.awt.BorderLayout.PAGE_START);
 
-        jTable2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTable2.setForeground(new java.awt.Color(255, 255, 255));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaPagamentos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tabelaPagamentos.setForeground(new java.awt.Color(255, 255, 255));
+        tabelaPagamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Factura", "Nome do Cliente", "Valor ", "Prazo de Pagamento", "Multa", "Tota", "Valor Pago", "Trocos", "Saldo Actual", "Numero de Recibo", "Despesas", "Numero da Factura", "Dispesas"
+                "ID", "Nome", "Data de pagamento", "Prazo de Pagamento", "Nr da Factura", "Valor da Factura", "Multa", "Valor Total", "Valor pago", "Trocos", "Saldo", "Nr de Recibo", "Processada"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tabelaPagamentos);
 
         tabela.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
@@ -588,24 +640,28 @@ public class PagamentoView extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         salvarPagamento();
-//        limparCampos();
+        listarPagamentos();
+        limparCampos();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-
-//        limparCampos();
+        actualizarPagamento();
+        listarPagamentos();
+        limparCampos();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-//        CarregarCampos();
+        CarregarCampos();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-
+        limparCampos();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-
+        apagarPagamento();
+        listarPagamentos();
+        limparCampos();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void txtNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeClienteActionPerformed
@@ -681,7 +737,6 @@ public class PagamentoView extends javax.swing.JFrame {
     private javax.swing.JButton btnCalcularValorPAgar;
     private javax.swing.JButton btnVoltarMenu;
     private javax.swing.JComboBox<String> cbxFacturas;
-    private javax.swing.JTextField idFacturacao;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -703,7 +758,6 @@ public class PagamentoView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblCabecalho;
     private javax.swing.JLabel lblIconLogo;
     private javax.swing.JPanel painelContCentral;
@@ -716,7 +770,9 @@ public class PagamentoView extends javax.swing.JFrame {
     private javax.swing.JPanel painelSuperiorDados;
     private javax.swing.JPanel painelVoltarMenu;
     private javax.swing.JPanel tabela;
+    private javax.swing.JTable tabelaPagamentos;
     private javax.swing.JTextField txtDataPagamento;
+    private javax.swing.JTextField txtIdPagamentos;
     private javax.swing.JTextField txtMultas;
     private javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtNrRecibos;
@@ -780,41 +836,224 @@ public class PagamentoView extends javax.swing.JFrame {
 
     //Salvar Leitura
     private void salvarPagamento() {
-        String nome = txtNomeCliente.getText();
-        String datapagamento = txtDataPagamento.getText();
-        String prazoPagamento = txtPrazoPagamento.getText();
-        String nrFact = cbxFacturas.getSelectedItem().toString();
-        int nrFactura = Integer.parseInt(nrFact);
-        double valorfactura = Double.parseDouble(txtValor.getText());
-        double multa = Double.parseDouble(txtMultas.getText());
-        double valorTotal = Double.parseDouble(txtValorApagar.getText());
-        double valorPago = Double.parseDouble(txtTotal.getText());
-        double trocos = Double.parseDouble(txtTrocos.getText());
-        double saldo = Double.parseDouble(txtSaldoActual.getText());
+        try {
+            String nome = txtNomeCliente.getText();
+            String datapagamento = txtDataPagamento.getText();
+            String prazoPagamento = txtPrazoPagamento.getText();
+            String nrFact = cbxFacturas.getSelectedItem().toString();
+            int nrFactura = Integer.parseInt(nrFact);
+            double valorfactura = Double.parseDouble(txtValor.getText());
+            double multa = Double.parseDouble(txtMultas.getText());
+            double valorTotal = Double.parseDouble(txtSaldoActual.getText());
+            double valorPago = Double.parseDouble(txtValorApagar.getText());
+            double trocos = Double.parseDouble(txtTrocos.getText());
+            double saldo = Double.parseDouble(txtTotal.getText());
 
-        Random aleatorio = new Random();
-        //Numero aleatorio para factura
-        int nrReciboPadraoInicial = 20240001;
-        int nrRecibo = nrReciboPadraoInicial + aleatorio.nextInt(10000001);
-        txtNrRecibos.setText(nrRecibo + "");
-        boolean disp = false;
+            Random aleatorio = new Random();
+            int nrReciboPadraoInicial = 20240001;
+            int nrRecibo = nrReciboPadraoInicial + aleatorio.nextInt(10000001);
+            txtNrRecibos.setText(String.valueOf(nrRecibo));
+            boolean disp = true;
 
-        PagamentoModel pagamentoModel = new PagamentoModel();
-        pagamentoModel.setNomeDoCliente(nome);
-        pagamentoModel.setDataPagamento(datapagamento);
-        pagamentoModel.setPrazoPagamento(prazoPagamento);
-        pagamentoModel.setNrDaFactura(nrFactura);
-        pagamentoModel.setValorDaFactura(valorfactura);
-        pagamentoModel.setMulta(multa);
-        pagamentoModel.setValorTotal(valorTotal);
-        pagamentoModel.setValorPago(valorPago);
-        pagamentoModel.setTrocos(trocos);
-        pagamentoModel.setSaldo(saldo);
-        pagamentoModel.setNrRecibo(nrRecibo);
-        pagamentoModel.setStatusPagamento(disp);
+            PagamentoModel pagamentoModel = new PagamentoModel();
+            pagamentoModel.setNomeDoCliente(nome);
+            pagamentoModel.setDataPagamento(datapagamento);
+            pagamentoModel.setPrazoPagamento(prazoPagamento);
+            pagamentoModel.setNrDaFactura(nrFactura);
+            pagamentoModel.setValorDaFactura(valorfactura);
+            pagamentoModel.setMulta(multa);
+            pagamentoModel.setValorTotal(valorTotal);
+            pagamentoModel.setValorPago(valorPago);
+            pagamentoModel.setTrocos(trocos);
+            pagamentoModel.setSaldo(saldo);
+            pagamentoModel.setNrRecibo(nrRecibo);
+            pagamentoModel.setProcessada(disp);
 
-        PagamentoController pagamentoControler = new PagamentoController();
-        pagamentoControler.registarPagamento(pagamentoModel);
+            PagamentoController pagamentoControler = new PagamentoController();
+            pagamentoControler.registarPagamento(pagamentoModel);
+
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.setNome(nome);
+            clienteModel.setSaldo(saldo);
+
+            ClienteController clienteController = new ClienteController();
+            clienteController.ActualizarSaldo(clienteModel);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao converter valores numéricos: " + e.getMessage());
+        }
+    }
+    //Metodo Listar
+
+    private void listarPagamentos() {
+        try {
+            PagamentoController pagamentoController = new PagamentoController();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaPagamentos.getModel();
+            model.setRowCount(0);
+
+            ArrayList<PagamentoModel> lista = pagamentoController.listarPagamento();
+
+            for (PagamentoModel item : lista) {
+                model.addRow(new Object[]{
+                    item.getIdPagamento(),
+                    item.getNomeDoCliente(),
+                    item.getDataPagamento(),
+                    item.getPrazoPagamento(),
+                    item.getNrDaFactura(),
+                    item.getValorDaFactura(),
+                    item.getMulta(),
+                    item.getValorTotal(),
+                    item.getValorPago(),
+                    item.getTrocos(),
+                    item.getSaldo(),
+                    item.getNrRecibo(),
+                    item.getProcessada()
+                });
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "ListarPagamento View" + erro);
+        }
+    }
+
+    //Metodo Limpar Campos
+    private void limparCampos() {
+        txtIdPagamentos.setText("");
+        cbxFacturas.setSelectedIndex(0);
+        txtPrazoPagamento.setText("");
+        txtPrazoPagamento.setText("");
+        txtNomeCliente.setText("");
+        txtSaldoActual.setText("");
+        txtMultas.setText("");
+        txtTotal.setText("");
+        txtValor.setText("");
+        txtTrocos.setText("");
+        txtValorApagar.setText("");
+        txtNrRecibos.setText("");
+
+    }
+
+    //Metodo Carregar Campos
+    private void CarregarCampos() {
+        int setar = tabelaPagamentos.getSelectedRow();
+
+        txtIdPagamentos.setText(tabelaPagamentos.getModel().getValueAt(setar, 0).toString());
+        txtNomeCliente.setText(tabelaPagamentos.getModel().getValueAt(setar, 1).toString());
+        txtDataPagamento.setText(tabelaPagamentos.getModel().getValueAt(setar, 2).toString());
+        txtPrazoPagamento.setText(tabelaPagamentos.getModel().getValueAt(setar, 3).toString());
+        cbxFacturas.setSelectedItem(tabelaPagamentos.getModel().getValueAt(setar, 4).toString());
+        txtSaldoActual.setText(tabelaPagamentos.getModel().getValueAt(setar, 5).toString());
+        txtMultas.setText(tabelaPagamentos.getModel().getValueAt(setar, 6).toString());
+        txtTotal.setText(tabelaPagamentos.getModel().getValueAt(setar, 7).toString());
+        txtValor.setText(tabelaPagamentos.getModel().getValueAt(setar, 8).toString());
+        txtTrocos.setText(tabelaPagamentos.getModel().getValueAt(setar, 9).toString());
+        txtValorApagar.setText(tabelaPagamentos.getModel().getValueAt(setar, 10).toString());
+        txtNrRecibos.setText(tabelaPagamentos.getModel().getValueAt(setar, 11).toString());
+//        txt.setText(tabelaPagamentos.getModel().getValueAt(setar, 12).toString());
+    }
+
+    //Metodo Actualizar Pagamento
+    private void actualizarPagamento() {
+        try {
+            int idPagamento = Integer.parseInt(txtIdPagamentos.getText());
+            String nome = txtNomeCliente.getText();
+            String datapagamento = txtDataPagamento.getText();
+            String prazoPagamento = txtPrazoPagamento.getText();
+            String nrFact = cbxFacturas.getSelectedItem().toString();
+            int nrFactura = Integer.parseInt(nrFact);
+            double valorfactura = Double.parseDouble(txtValor.getText());
+            double multa = Double.parseDouble(txtMultas.getText());
+            double valorTotal = Double.parseDouble(txtSaldoActual.getText());
+            double valorPago = Double.parseDouble(txtValorApagar.getText());
+            double trocos = Double.parseDouble(txtTrocos.getText());
+            double saldo = Double.parseDouble(txtTotal.getText());
+
+            int nrRecibo = Integer.parseInt(txtNrRecibos.getText());
+            boolean disp = true;
+
+            // Criando e configurando o modelo de pagamento
+            PagamentoModel pagamentoModel = new PagamentoModel();
+            pagamentoModel.setIdPagamento(idPagamento);
+            pagamentoModel.setNomeDoCliente(nome);
+            pagamentoModel.setDataPagamento(datapagamento);
+            pagamentoModel.setPrazoPagamento(prazoPagamento);
+            pagamentoModel.setNrDaFactura(nrFactura);
+            pagamentoModel.setValorDaFactura(valorfactura);
+            pagamentoModel.setMulta(multa);
+            pagamentoModel.setValorTotal(valorTotal);
+            pagamentoModel.setValorPago(valorPago);
+            pagamentoModel.setTrocos(trocos);
+            pagamentoModel.setSaldo(saldo);
+            pagamentoModel.setNrRecibo(nrRecibo);
+            pagamentoModel.setStatusPagamento(disp);
+
+            // Atualizando pagamento no banco de dados
+            PagamentoController pagamentoController = new PagamentoController();
+            pagamentoController.ActualizarPagamentos(pagamentoModel);
+
+            // Atualizando saldo na tabela de clientes
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.setNome(nome); // Corrigido para setNome
+            clienteModel.setSaldo(saldo);
+
+            ClienteController clienteController = new ClienteController();
+            clienteController.ActualizarSaldo(clienteModel);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao converter valores numéricos: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar pagamento: " + e.getMessage());
+        }
+    }
+    //Metodo Apagar Pagamento
+
+    private void apagarPagamento() {
+        try {
+            int idPagamento = Integer.parseInt(txtIdPagamentos.getText());
+            String nome = txtNomeCliente.getText();
+            String datapagamento = txtDataPagamento.getText();
+            String prazoPagamento = txtPrazoPagamento.getText();
+            String nrFact = cbxFacturas.getSelectedItem().toString();
+            int nrFactura = Integer.parseInt(nrFact);
+            double valorfactura = Double.parseDouble(txtValor.getText());
+            double multa = Double.parseDouble(txtMultas.getText());
+            double valorTotal = Double.parseDouble(txtSaldoActual.getText());
+            double valorPago = Double.parseDouble(txtValorApagar.getText());
+            double trocos = Double.parseDouble(txtTrocos.getText());
+            double saldo = Double.parseDouble(txtTotal.getText());
+            int nrRecibo = Integer.parseInt(txtNrRecibos.getText());
+            boolean disp = false;
+
+            // Criando e configurando o modelo de pagamento
+            PagamentoModel pagamentoModel = new PagamentoModel();
+            pagamentoModel.setIdPagamento(idPagamento);
+            pagamentoModel.setNomeDoCliente(nome);
+            pagamentoModel.setDataPagamento(datapagamento);
+            pagamentoModel.setPrazoPagamento(prazoPagamento);
+            pagamentoModel.setNrDaFactura(nrFactura);
+            pagamentoModel.setValorDaFactura(valorfactura);
+            pagamentoModel.setMulta(multa);
+            pagamentoModel.setValorTotal(valorTotal);
+            pagamentoModel.setValorPago(valorPago);
+            pagamentoModel.setTrocos(trocos);
+            pagamentoModel.setSaldo(saldo);
+            pagamentoModel.setNrRecibo(nrRecibo);
+            pagamentoModel.setStatusPagamento(disp);
+
+            // Atualizando pagamento no banco de dados
+            PagamentoController pagamentoController = new PagamentoController();
+            pagamentoController.ActualizarPagamentos(pagamentoModel);
+
+            // Atualizando saldo na tabela de clientes
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.setNome(nome); // Corrigido para setNome
+            clienteModel.setSaldo(saldo);
+
+            ClienteController clienteController = new ClienteController();
+            clienteController.ActualizarSaldo(clienteModel);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao converter valores numéricos: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar pagamento: " + e.getMessage());
+        }
     }
 
     //Metodo verificar trocos

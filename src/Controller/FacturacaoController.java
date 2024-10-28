@@ -41,13 +41,13 @@ public class FacturacaoController {
     }
 
     //Metodo que pega valores da BD e preenche nos campos
-    public ResultSet PrencherDados(int idLeitura) {
+    public ResultSet PrencherDados(int idFactura) {
         conexao = new ConexaoController().conectaBaseDados();
-        String sql = "select * from leituras where idLeitura = ?";
+        String sql = "select * from facturacao where idFacturacao = ?";
 
         try {
             pstm = conexao.prepareStatement(sql);
-            pstm.setInt(1, idLeitura);
+            pstm.setInt(1, idFactura);
 
             return pstm.executeQuery();
 

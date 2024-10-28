@@ -187,7 +187,25 @@ public class ClienteController {
             }
         }
     }
+    //Metodo para actualizar Saldo
+    public void ActualizarSaldo(ClienteModel clienteModel) {
+        String sql = "UPDATE clientes SET saldo = ? WHERE nomeCliente = ?";
+        conexao = new ConexaoController().conectaBaseDados();
 
+        try {
+            pstm = conexao.prepareStatement(sql);
+
+            pstm.setDouble(1, clienteModel.getSaldo());
+            pstm.setString(2, clienteModel.getNome());
+
+            pstm.execute();
+            pstm.close();
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Cliente Controller Actuaizar saldo" + erro);
+        }
+    
+}
 }
 
 

@@ -90,39 +90,71 @@ public class PagamentoController {
 
     //METODO PARA CADASTRAR
     public void registarPagamento(PagamentoModel pagamentoModel) {
+    String sql = "insert into pagamentos (nomeCliente, dataPag, prazoPag, nrDaFactura, valorFactura, multa, valorTotal, valorPago , trocos , saldo, nrRecibo, processada) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+    conexao = new ConexaoController().conectaBaseDados();
 
-        String sql = "insert into pagamentos (nomeCliente, dataPag, prazoPag, nrDaFactura, valorFactura, multa, valorTotal, valorPago , trocos , saldo, nrRecibo, processada) values (?,?,?,?,?,?,?,?,?,?,?,?) ";
-        conexao = new ConexaoController().conectaBaseDados();
+    try {
+        pstm = conexao.prepareStatement(sql);
 
+        pstm.setString(1, pagamentoModel.getNomeDoCliente());
+        pstm.setString(2, pagamentoModel.getDataPagamento());
+        pstm.setString(3, pagamentoModel.getPrazoPagamento());
+        pstm.setInt(4, pagamentoModel.getNrDaFactura());
+        pstm.setDouble(5, pagamentoModel.getValorDaFactura());
+        pstm.setDouble(6, pagamentoModel.getMulta());
+        pstm.setDouble(7, pagamentoModel.getValorTotal());
+        pstm.setDouble(8, pagamentoModel.getValorPago());
+        pstm.setDouble(9, pagamentoModel.getTrocos());
+        pstm.setDouble(10, pagamentoModel.getSaldo());
+        pstm.setInt(11, pagamentoModel.getNrRecibo());
+        pstm.setBoolean(12, pagamentoModel.getProcessada());
+
+        pstm.executeUpdate();  // Usar executeUpdate para inserção
+        JOptionPane.showMessageDialog(null, "O Pagamento foi registado com sucesso");
+    } catch (SQLException erro) {
+        JOptionPane.showMessageDialog(null, "Erro ao registrar pagamento: " + erro.getMessage());
+    } finally {
         try {
-            pstm = conexao.prepareStatement(sql);
-
-            pstm.setString(1, pagamentoModel.getNomeDoCliente());
-            pstm.setString(2, pagamentoModel.getDataPagamento());
-            pstm.setString(3, pagamentoModel.getPrazoPagamento());
-            pstm.setInt(4, pagamentoModel.getNrDaFactura());
-            pstm.setDouble(5, pagamentoModel.getValorDaFactura());
-            pstm.setDouble(6, pagamentoModel.getMulta());
-            pstm.setDouble(7, pagamentoModel.getValorTotal());
-            pstm.setDouble(8, pagamentoModel.getValorPago());
-            pstm.setDouble(9, pagamentoModel.getTrocos());
-            pstm.setDouble(10, pagamentoModel.getSaldo());
-            pstm.setInt(11, pagamentoModel.getNrRecibo());
-            pstm.setBoolean(12, pagamentoModel.getProcessada());
-
-            pstm.execute();
-            pstm.close();
-
-            JOptionPane.showMessageDialog(null, "O Pagamento foi registado com sucesso");
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "PagamentoController registar pagamento" + erro);
+            if (pstm != null) pstm.close();
+            if (conexao != null) conexao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+}
+//    public void registarPagamento(PagamentoModel pagamentoModel) {
+//
+//        String sql = "insert into pagamentos (nomeCliente, dataPag, prazoPag, nrDaFactura, valorFactura, multa, valorTotal, valorPago , trocos , saldo, nrRecibo, processada) values (?,?,?,?,?,?,?,?,?,?,?,?) ";
+//        conexao = new ConexaoController().conectaBaseDados();
+//
+//        try {
+//            pstm = conexao.prepareStatement(sql);
+//
+//            pstm.setString(1, pagamentoModel.getNomeDoCliente());
+//            pstm.setString(2, pagamentoModel.getDataPagamento());
+//            pstm.setString(3, pagamentoModel.getPrazoPagamento());
+//            pstm.setInt(4, pagamentoModel.getNrDaFactura());
+//            pstm.setDouble(5, pagamentoModel.getValorDaFactura());
+//            pstm.setDouble(6, pagamentoModel.getMulta());
+//            pstm.setDouble(7, pagamentoModel.getValorTotal());
+//            pstm.setDouble(8, pagamentoModel.getValorPago());
+//            pstm.setDouble(9, pagamentoModel.getTrocos());
+//            pstm.setDouble(10, pagamentoModel.getSaldo());
+//            pstm.setInt(11, pagamentoModel.getNrRecibo());
+//            pstm.setBoolean(12, pagamentoModel.getProcessada());
+//
+//            pstm.execute();
+//            pstm.close();
+//
+//            JOptionPane.showMessageDialog(null, "O Pagamento foi registado com sucesso");
+//        } catch (SQLException erro) {
+//            JOptionPane.showMessageDialog(null, "PagamentoController registar pagamento" + erro);
+//        }
+//    }
     //METODO PARA LISTAR
-
     public ArrayList<PagamentoModel> listarPagamento() {
         ArrayList<PagamentoModel> list = new ArrayList<>();
-        String sql = "select * from pagamentos where processada = 'Sim'";
+        String sql = "select * from pagamentos where processada = 1";
         conexao = new ConexaoController().conectaBaseDados();
 
         try {
@@ -152,6 +184,7 @@ public class PagamentoController {
         }
         return list;
     }
+    
 
     //METODO PARA LISTAR PAGAMENTOS APAGADOS
     public ArrayList<PagamentoModel> listarPagamentoApagados() {
@@ -193,7 +226,7 @@ public class PagamentoController {
 //
 //        try {
 //            pstm = conexao.prepareStatement(sql);
-//            pstm.setString(1, pagamentoModel.getNome());
+//            pstm.setString(1, pagamentoModel.getNomeDoCliente());
 //            pstm.setString(2, pagamentoModel.getDataPagamento());
 //            pstm.setString(3, pagamentoModel.getPrazoPagamento());
 //            pstm.setInt(4, pagamentoModel.getNrDaFactura());
@@ -203,8 +236,8 @@ public class PagamentoController {
 //            pstm.setDouble(8, pagamentoModel.getValorPago());
 //            pstm.setDouble(9, pagamentoModel.getTrocos());
 //            pstm.setDouble(10, pagamentoModel.getSaldo());
-//            pstm.setString(11, pagamentoModel.getStatusPagamento());
-//            pstm.setInt(12, pagamentoModel.getId());
+//            pstm.setBoolean(11, pagamentoModel.getProcessada());
+//            pstm.setInt(12, pagamentoModel.getIdPagamento());
 //
 //            pstm.execute();
 //            pstm.close();
