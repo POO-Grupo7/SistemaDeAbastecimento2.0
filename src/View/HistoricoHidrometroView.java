@@ -1,6 +1,9 @@
 package View;
 
 import Controller.HistoricoHidrometroController;
+import Model.ClienteModel;
+import Model.HidrometroModel;
+import Model.HistoricoHidrometroModel;
 import View.table.TableCustom;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -42,20 +45,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
 
     private void testData(JTable table) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-//        "ID", "Nome", "Apelido", "Naturalidade", "Data Nascimento", "Email", "Função", "Usuario", "Senha", "Perfil", "Activo", "Disp"
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+//        "ID", "Nome", "Apelido", "Naturalidade", "Data Nascimento", "Email", "Função", "Usuario", "Senha", "Perfil", "Activo", "Disp"       
     }
 
     /**
@@ -94,8 +84,8 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         txtNumeroDeCasa = new javax.swing.JTextField();
         lblMesDeReferencia = new javax.swing.JLabel();
         lblDataDeEmissao = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        txtDataInicio = new com.toedter.calendar.JDateChooser();
+        txtDataFim = new com.toedter.calendar.JDateChooser();
         painelDirDados = new javax.swing.JPanel();
         lblNumeroDeHidrometro = new javax.swing.JLabel();
         lblLeituraAnterior = new javax.swing.JLabel();
@@ -320,8 +310,8 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
                                 .addGap(20, 20, 20))
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtDataInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                                    .addComponent(txtDataFim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -353,11 +343,11 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMesDeReferencia)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblDataDeEmissao)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(100, Short.MAX_VALUE))
         );
 
@@ -505,7 +495,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(52, 102, 138));
         jButton6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Cadastrar");
+        jButton6.setText("Salvar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -637,7 +627,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        guardarHistorico();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
@@ -735,8 +725,6 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -774,6 +762,8 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
     private javax.swing.JTable tabelaLeitura;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtConsumoDoMes;
+    private com.toedter.calendar.JDateChooser txtDataFim;
+    private com.toedter.calendar.JDateChooser txtDataInicio;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtLeituraActual;
     private javax.swing.JTextField txtNomeAPesquisar;
@@ -798,7 +788,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ListarClientesView HistoricoHidrom" + erro);
         }
     }
-    
+
     //Metodo que pega hidrometros operacionais na BD para jcboxHidrometro
     private void RestaurarDadosComboBoxHidrometro() {
         try {
@@ -840,7 +830,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "HistoricoHidroView pegar valores de clientes" + erro);
         }
     }
-    
+
 //    private void AccaoComboxHidrometro() {
 //        try {
 //            HistoricoHidrometroController historicoHidrometroController = new HistoricoHidrometroController();
@@ -856,5 +846,39 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(null, "HistoricoHidroView pegar valores de hidrometro" + erro);
 //        }
 //    }
+    
+    //Metodo guardarHistorico
+    private void guardarHistorico() {
+        String nome = cbxNomeDoCliente.getSelectedItem().toString();
+        String bairro = txtBairro.getText().trim();
+        int quarteirao = Integer.parseInt(txtQuarterao.getText().trim());
+        int nr = Integer.parseInt(txtNumeroDeCasa.getText().trim());
+        String dataInicio = txtDataInicio.getToolTipText();
+        String dataFim = txtDataFim.getToolTipText();
+        String nrHidrometro = cbxHidrometro.getSelectedItem().toString();
+
+        // Verificações de campos
+        HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
+        ClienteModel cliente = new ClienteModel();
+        cliente.setNome(nome);
+        cliente.setBairro(bairro);
+        cliente.setQuarteirao(quarteirao);
+        cliente.setNrDaCasa(nr);
+
+//        historicoHidrometroModel.setIdHistoricoHidrometro(idHistoricoInput);
+        historicoHidrometroModel.setCliente(cliente);
+
+        historicoHidrometroModel.setDataInicial(dataInicio);
+        historicoHidrometroModel.setDataFinal(dataFim);
+
+        HidrometroModel hidroometroModel = new HidrometroModel();
+        hidroometroModel.setNrHiodrometro(nrHidrometro);
+        historicoHidrometroModel.setHidrometro(hidroometroModel);
+
+        // Cadastrar cliente através do controlador
+        HistoricoHidrometroController historicoHidrometroControler = new HistoricoHidrometroController();
+        historicoHidrometroControler.cadastrarHistoricoHidometro(historicoHidrometroModel);
+
+    }
 
 }
