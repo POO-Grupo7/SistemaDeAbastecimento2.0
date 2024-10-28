@@ -11,7 +11,7 @@ package Model;
 public class TaxaModel {
     private int id;
     private String nome;
-    private int tipoconsumo;
+    private String tipoconsumo;
     private double valortaxa;
     private String processada;
 
@@ -35,11 +35,11 @@ public class TaxaModel {
         this.nome = nome;
     }
 
-    public int getTipoconsumo() {
+    public String getTipoconsumo() {
         return tipoconsumo;
     }
 
-    public void setTipoconsumo(int tipoconsumo) {
+    public void setTipoconsumo(String tipoconsumo) {
         this.tipoconsumo = tipoconsumo;
     }
 
@@ -59,6 +59,5 @@ public class TaxaModel {
         this.processada = processada;
     }
 
-    
-    
+
 }

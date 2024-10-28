@@ -15,6 +15,8 @@ public class PagamentoModel {
     private double trocos;
     private String nomeDoCliente;
     private int nrRecibo;
+    private double saldo;
+    private boolean processada=false;
 
     public PagamentoModel() {
     }
@@ -122,6 +124,23 @@ public class PagamentoModel {
     public void setNrRecibo(int nrRecibo) {
         this.nrRecibo = nrRecibo;
     }
-    
-    
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public boolean getProcessada() {
+        return processada;
+    }
+
+
+    public void setProcessada(boolean processada) {
+        this.processada = processada;
+    }
+
+   
 }

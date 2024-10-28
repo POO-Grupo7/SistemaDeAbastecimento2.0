@@ -4,15 +4,22 @@
  */
 package View;
 
+import Controller.FacturacaoController;
+import Controller.PagamentoController;
+import Model.PagamentoModel;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.Random;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 public class PagamentoView extends javax.swing.JFrame {
@@ -25,6 +32,56 @@ public class PagamentoView extends javax.swing.JFrame {
         String dataFormatada = formato.format(data);
         txtDataPagamento.setText("" + dataFormatada);
     }
+
+    //Metodo Prencher Campos obrigatorios
+    private boolean camposObrigatoriosPreenchidos() {
+        boolean nomePreenchido = !txtNomeCliente.getText().isEmpty();
+        boolean valorAPagarPreenchido = !txtNomeCliente.getText().isEmpty();
+
+        return nomePreenchido && valorAPagarPreenchido;
+    }
+    
+    //Accao para prencher campos
+    Vector<Integer> idFacturacao = new Vector<Integer>();
+
+    private void AccaoComboxClientes() {
+        if (cbxFacturas.getSelectedIndex() == 0) {
+            txtNomeCliente.setText(null);
+            txtValor.setText(null);
+            txtPrazoPagamento.setText(null);
+            return;
+        }
+        try {
+            PagamentoController pagamentoController = new PagamentoController();
+            ResultSet rs = pagamentoController.PrencherDadosFactura(idFacturacao.get(cbxFacturas.getSelectedIndex() - 1));
+
+            while (rs.next()) {
+                txtNomeCliente.setText(rs.getString(2));
+                txtValor.setText(rs.getString(4));
+                txtPrazoPagamento.setText(rs.getString(5));
+                txtDataPagamento.setText(rs.getString(6));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FacturacaoView prencher dados" + erro);
+        }
+    }
+    //Metodo que pega clientes activos na BD para jcboxClientes
+
+
+    private void RestaurarDadosComboBoxTaxa() {
+        try {
+            FacturacaoController facturacoController = new FacturacaoController();
+            ResultSet rs = facturacoController.listarTaxas();
+
+            while (rs.next()) {
+                idFacturacao.addElement(rs.getInt(1));
+                cbxFacturas.addItem(rs.getString(4));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FacturacaoView listar nr da leitura na comboBox" + erro);
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,9 +108,9 @@ public class PagamentoView extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         cbxFacturas = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
-        jTextField17 = new javax.swing.JTextField();
+        txtNomeCliente = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        txtDividaAntesMulta = new javax.swing.JTextField();
+        txtValor = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         txtPrazoPagamento = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
@@ -62,16 +119,16 @@ public class PagamentoView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtMultas = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtDividaDepoisMulta = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtValorPago = new javax.swing.JTextField();
+        txtValorApagar = new javax.swing.JTextField();
         btnCalcularTrocos = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtTrocos = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtDividaDepoisPagamento = new javax.swing.JTextField();
+        txtSaldoActual = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField32 = new javax.swing.JTextField();
+        txtNrRecibos = new javax.swing.JTextField();
         painelDirDados = new javax.swing.JPanel();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
         tabela = new javax.swing.JPanel();
@@ -167,17 +224,17 @@ public class PagamentoView extends javax.swing.JFrame {
 
         jLabel17.setText("Nome do Cliente:");
 
-        jTextField17.addActionListener(new java.awt.event.ActionListener() {
+        txtNomeCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField17ActionPerformed(evt);
+                txtNomeClienteActionPerformed(evt);
             }
         });
 
         jLabel20.setText("Valor:");
 
-        txtDividaAntesMulta.addActionListener(new java.awt.event.ActionListener() {
+        txtValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDividaAntesMultaActionPerformed(evt);
+                txtValorActionPerformed(evt);
             }
         });
 
@@ -215,17 +272,17 @@ public class PagamentoView extends javax.swing.JFrame {
 
         jLabel3.setText("Total:");
 
-        txtDividaDepoisMulta.addActionListener(new java.awt.event.ActionListener() {
+        txtTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDividaDepoisMultaActionPerformed(evt);
+                txtTotalActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Insira o valor a pagar:");
 
-        txtValorPago.addActionListener(new java.awt.event.ActionListener() {
+        txtValorApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorPagoActionPerformed(evt);
+                txtValorApagarActionPerformed(evt);
             }
         });
 
@@ -247,17 +304,17 @@ public class PagamentoView extends javax.swing.JFrame {
 
         jLabel7.setText("Saldo Actual:");
 
-        txtDividaDepoisPagamento.addActionListener(new java.awt.event.ActionListener() {
+        txtSaldoActual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDividaDepoisPagamentoActionPerformed(evt);
+                txtSaldoActualActionPerformed(evt);
             }
         });
 
         jLabel5.setText("Numero de Recibo:");
 
-        jTextField32.addActionListener(new java.awt.event.ActionListener() {
+        txtNrRecibos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField32ActionPerformed(evt);
+                txtNrRecibosActionPerformed(evt);
             }
         });
 
@@ -279,14 +336,14 @@ public class PagamentoView extends javax.swing.JFrame {
                         .addGap(72, 72, 72)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDividaAntesMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(idFacturacao, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPrazoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCalcularValorPAgar, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtDividaDepoisMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,8 +353,8 @@ public class PagamentoView extends javax.swing.JFrame {
                                 .addGap(80, 80, 80)
                                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtTrocos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDividaDepoisPagamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField32, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtSaldoActual, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNrRecibos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -310,7 +367,7 @@ public class PagamentoView extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelEsqDadosLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtValorPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtValorApagar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btnCalcularTrocos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
@@ -328,11 +385,11 @@ public class PagamentoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
-                    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(txtDividaAntesMulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel23)
@@ -350,11 +407,11 @@ public class PagamentoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(txtDividaDepoisMulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(txtValorPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCalcularTrocos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -364,11 +421,11 @@ public class PagamentoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDividaDepoisPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSaldoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNrRecibos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(74, Short.MAX_VALUE))
         );
 
@@ -530,7 +587,7 @@ public class PagamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
+        salvarPagamento();
 //        limparCampos();
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -551,13 +608,13 @@ public class PagamentoView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jTextField17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField17ActionPerformed
+    private void txtNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField17ActionPerformed
+    }//GEN-LAST:event_txtNomeClienteActionPerformed
 
-    private void txtDividaAntesMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDividaAntesMultaActionPerformed
+    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDividaAntesMultaActionPerformed
+    }//GEN-LAST:event_txtValorActionPerformed
 
     private void txtPrazoPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrazoPagamentoActionPerformed
         // TODO add your handling code here:
@@ -575,13 +632,13 @@ public class PagamentoView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMultasActionPerformed
 
-    private void txtDividaDepoisMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDividaDepoisMultaActionPerformed
+    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDividaDepoisMultaActionPerformed
+    }//GEN-LAST:event_txtTotalActionPerformed
 
-    private void txtValorPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorPagoActionPerformed
+    private void txtValorApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorApagarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorPagoActionPerformed
+    }//GEN-LAST:event_txtValorApagarActionPerformed
 
     private void btnCalcularTrocosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularTrocosActionPerformed
         verificarTrocos();
@@ -591,13 +648,13 @@ public class PagamentoView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTrocosActionPerformed
 
-    private void txtDividaDepoisPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDividaDepoisPagamentoActionPerformed
+    private void txtSaldoActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoActualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDividaDepoisPagamentoActionPerformed
+    }//GEN-LAST:event_txtSaldoActualActionPerformed
 
-    private void jTextField32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField32ActionPerformed
+    private void txtNrRecibosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNrRecibosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField32ActionPerformed
+    }//GEN-LAST:event_txtNrRecibosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -647,8 +704,6 @@ public class PagamentoView extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField32;
     private javax.swing.JLabel lblCabecalho;
     private javax.swing.JLabel lblIconLogo;
     private javax.swing.JPanel painelContCentral;
@@ -662,16 +717,18 @@ public class PagamentoView extends javax.swing.JFrame {
     private javax.swing.JPanel painelVoltarMenu;
     private javax.swing.JPanel tabela;
     private javax.swing.JTextField txtDataPagamento;
-    private javax.swing.JTextField txtDividaAntesMulta;
-    private javax.swing.JTextField txtDividaDepoisMulta;
-    private javax.swing.JTextField txtDividaDepoisPagamento;
     private javax.swing.JTextField txtMultas;
+    private javax.swing.JTextField txtNomeCliente;
+    private javax.swing.JTextField txtNrRecibos;
     private javax.swing.JTextField txtPrazoPagamento;
+    private javax.swing.JTextField txtSaldoActual;
+    private javax.swing.JTextField txtTotal;
     private javax.swing.JTextField txtTrocos;
-    private javax.swing.JTextField txtValorPago;
+    private javax.swing.JTextField txtValor;
+    private javax.swing.JTextField txtValorApagar;
     // End of variables declaration//GEN-END:variables
 
-     private void calcularMultaETotal() {
+    private void calcularMultaETotal() {
         //pegando data na textField
         String dataStringEmissaoFactura = txtPrazoPagamento.getText();
 
@@ -694,7 +751,7 @@ public class PagamentoView extends javax.swing.JFrame {
         System.out.println(diasInt);
 
         //Condicao para multa
-        double valorAntesMultaAReduzir = Double.parseDouble(txtDividaAntesMulta.getText());
+        double valorAntesMultaAReduzir = Double.parseDouble(txtValor.getText());
         BigDecimal bd = new BigDecimal(valorAntesMultaAReduzir).setScale(2, RoundingMode.HALF_UP);
         double valorAntesMulta = bd.doubleValue();
 
@@ -718,24 +775,63 @@ public class PagamentoView extends javax.swing.JFrame {
         }
         BigDecimal bd3 = new BigDecimal(valorDividaDepoisMultaAReduzir).setScale(2, RoundingMode.HALF_UP);
         double valorDividaDepoisMulta = bd3.doubleValue();
-        txtDividaDepoisMulta.setText("" + valorDividaDepoisMulta);
+        txtTotal.setText("" + valorDividaDepoisMulta);
     }
-    
+
+    //Salvar Leitura
+    private void salvarPagamento() {
+        String nome = txtNomeCliente.getText();
+        String datapagamento = txtDataPagamento.getText();
+        String prazoPagamento = txtPrazoPagamento.getText();
+        String nrFact = cbxFacturas.getSelectedItem().toString();
+        int nrFactura = Integer.parseInt(nrFact);
+        double valorfactura = Double.parseDouble(txtValor.getText());
+        double multa = Double.parseDouble(txtMultas.getText());
+        double valorTotal = Double.parseDouble(txtValorApagar.getText());
+        double valorPago = Double.parseDouble(txtTotal.getText());
+        double trocos = Double.parseDouble(txtTrocos.getText());
+        double saldo = Double.parseDouble(txtSaldoActual.getText());
+
+        Random aleatorio = new Random();
+        //Numero aleatorio para factura
+        int nrReciboPadraoInicial = 20240001;
+        int nrRecibo = nrReciboPadraoInicial + aleatorio.nextInt(10000001);
+        txtNrRecibos.setText(nrRecibo + "");
+        boolean disp = false;
+
+        PagamentoModel pagamentoModel = new PagamentoModel();
+        pagamentoModel.setNomeDoCliente(nome);
+        pagamentoModel.setDataPagamento(datapagamento);
+        pagamentoModel.setPrazoPagamento(prazoPagamento);
+        pagamentoModel.setNrDaFactura(nrFactura);
+        pagamentoModel.setValorDaFactura(valorfactura);
+        pagamentoModel.setMulta(multa);
+        pagamentoModel.setValorTotal(valorTotal);
+        pagamentoModel.setValorPago(valorPago);
+        pagamentoModel.setTrocos(trocos);
+        pagamentoModel.setSaldo(saldo);
+        pagamentoModel.setNrRecibo(nrRecibo);
+        pagamentoModel.setStatusPagamento(disp);
+
+        PagamentoController pagamentoControler = new PagamentoController();
+        pagamentoControler.registarPagamento(pagamentoModel);
+    }
+
     //Metodo verificar trocos
     private void verificarTrocos() {
         //verificao de um valor positivo e apenas numeros
-        String valorPag = txtValorPago.getText();
+        String valorPag = txtValorApagar.getText();
         if (valorPag.isEmpty() || !valorPag.matches("\\d+")) {
             JOptionPane.showMessageDialog(null, "Valor inválido.");
             return;
         }
 
         double trocosAReduzir = 0;
-        double valorPagoAReduzir = Double.parseDouble(txtValorPago.getText());
+        double valorPagoAReduzir = Double.parseDouble(txtValorApagar.getText());
         BigDecimal bd = new BigDecimal(valorPagoAReduzir).setScale(2, RoundingMode.HALF_UP);
         double valorPago = bd.doubleValue();
 
-        double valorAPagar = Double.parseDouble(txtDividaDepoisMulta.getText());
+        double valorAPagar = Double.parseDouble(txtTotal.getText());
 
         if (valorPago <= 0) {
             JOptionPane.showMessageDialog(null, "Valor pago deve ser maior que 0.", "Erro na Inserção de Valor", JOptionPane.ERROR_MESSAGE);
@@ -754,7 +850,7 @@ public class PagamentoView extends javax.swing.JFrame {
 
             bd = new BigDecimal(dividaDepoisPagAReduzir).setScale(2, RoundingMode.HALF_EVEN);
             double dividaDepoisPag = bd.doubleValue();
-            txtDividaDepoisPagamento.setText("" + dividaDepoisPag);
+            txtSaldoActual.setText("" + dividaDepoisPag);
         }
     }
 

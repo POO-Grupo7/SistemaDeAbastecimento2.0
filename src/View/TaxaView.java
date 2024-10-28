@@ -28,47 +28,48 @@ public class TaxaView extends javax.swing.JFrame {
         initComponents();
         listarTaxas();
         testData(tabelaTaxas);
-    // getContentPane().setBackground(Color.white);
-        TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);        
+        // getContentPane().setBackground(Color.white);
+        TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
     }
-    // Metodo Cadastrar
+    // Método Cadastrar
+
     private void cadastrarTaxa() {
+        try {
+            String nome = txtNome.getText().trim();
+            String consumo = cbxTipoConsumo.getSelectedItem().toString();
+            double val = Double.parseDouble(txtValorTaxa.getText().trim()); // Campo txtValorTaxa usado para valor
+            String processada = "Sim";
 
-        String nome = txtNome.getText().trim();
-        String consumo = cbxTipoConsumo.getSelectedItem().toString();
-        int cons = Integer.parseInt(consumo);
-        double val = Double.parseDouble(cbxTipoConsumo.getSelectedItem().toString());
-        String processada= "Sim";
-        
-        
-    // Verificações de campos
-        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
-            JOptionPane.showMessageDialog(null, "Nome inválido.");
-            return;
+            // Verificações de campos
+            if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+                JOptionPane.showMessageDialog(null, "Nome inválido.");
+                return;
+            }
+
+            if (consumo.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Selecione o Tipo de Consumo.");
+                return;
+            }
+
+            // Criar o modelo de Taxa
+            TaxaModel taxaModel = new TaxaModel();
+            taxaModel.setNome(nome);
+            taxaModel.setTipoconsumo(consumo);
+            taxaModel.setValortaxa(val);
+            taxaModel.setProcessada(processada);
+
+            // Cadastrar cliente através do controlador
+            TaxaController taxaController = new TaxaController();
+            taxaController.cadastrarTaxa(taxaModel);
+
+//            JOptionPane.showMessageDialog(null, "Taxa cadastrada com sucesso!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Valor da taxa inválido. Verifique se digitou um número.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar taxa: " + e.getMessage());
         }
- 
-             if (consumo.isEmpty()) {
-            JOptionPane.showMessageDialog(null, " Seleccione o Tipo de Consumo.");
-            return;
-        }
-            
-      
-    // Criar o modelo de Taxa
-        TaxaModel taxaModel = new TaxaModel();
-        taxaModel.setNome(nome);
-        taxaModel.setTipoconsumo(cons);
-        taxaModel.setValortaxa(val);
-        taxaModel.setProcessada(processada);
-
-
-    // Cadastrar cliente através do controlador
-        TaxaController taxaControler = new TaxaController();
-        taxaControler.cadastrarTaxa(taxaModel);
-
-        JOptionPane.showMessageDialog(null, " cadastrado com sucesso!");
-        
     }
-    
+
     //Metodo Listar
     private void listarTaxas() {
         try {
@@ -84,109 +85,97 @@ public class TaxaView extends javax.swing.JFrame {
                     item.getId(),
                     item.getNome(),
                     item.getTipoconsumo(),
-                    item.getValortaxa(),
- 
-                });
+                    item.getValortaxa(),});
             }
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "ListarTaxa View" + erro);
             System.out.println("listadas");
         }
     }
-    
+
     //Metodo para actualizar Taxa
     private void ActualizarTaxa() {
 
-    String nome = txtNome.getText().trim();
-    int id = Integer.parseInt(txtId.getText());
-    String consumo = cbxTipoConsumo.getSelectedItem().toString();
-    String processada = "Sim";
-    
-    
-    // Verificações de campos
-    if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
-        JOptionPane.showMessageDialog(null, "Nome inválido.");
-        return;
-    }
-    
-    // Verificar se o tipo de consumo foi selecionado
-    if (cbxTipoConsumo.getSelectedIndex() == -1) {
-        JOptionPane.showMessageDialog(null, "Selecione o Tipo de Consumo.");
-        return;
+        String nome = txtNome.getText().trim();
+        int id = Integer.parseInt(txtId.getText());
+        String consumo = cbxTipoConsumo.getSelectedItem().toString();
+        String processada = "Sim";
+
+        // Verificações de campos
+        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(null, "Nome inválido.");
+            return;
+        }
+
+        // Verificar se o tipo de consumo foi selecionado
+        if (cbxTipoConsumo.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione o Tipo de Consumo.");
+            return;
+        }
+
+        // Verificar se o valor da taxa foi preenchido corretamente (caso haja um campo de valor separado)
+        try {
+            double val = Double.parseDouble(txtValorTaxa.getText().trim());  // Certifique-se de que este campo existe
+
+            // Criar o modelo de Taxa
+            TaxaModel taxaModel = new TaxaModel();
+            taxaModel.setId(id);
+            taxaModel.setNome(nome);
+            taxaModel.setTipoconsumo(consumo);
+            taxaModel.setValortaxa(val);
+            taxaModel.setProcessada(processada);
+
+            // Chamar o método de atualização no controlador
+            TaxaController taxaControler = new TaxaController();
+            taxaControler.AtualizarTaxa(taxaModel);
+
+            JOptionPane.showMessageDialog(null, "A Taxa foi atualizada com sucesso");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Valor da taxa inválido.");
+        }
     }
 
-    // Obter o tipo de consumo como int
-    int cons = Integer.parseInt(consumo);
-
-    // Verificar se o valor da taxa foi preenchido corretamente (caso haja um campo de valor separado)
-    try {
-        double val = Double.parseDouble(txtValorTaxa.getText().trim());  // Certifique-se de que este campo existe
-       
-    // Criar o modelo de Taxa
-        TaxaModel taxaModel = new TaxaModel();
-        taxaModel.setId(id);
-        taxaModel.setNome(nome);
-        taxaModel.setTipoconsumo(cons);
-        taxaModel.setValortaxa(val);
-        taxaModel.setProcessada(processada);
-
-    // Chamar o método de atualização no controlador
-        TaxaController taxaControler = new TaxaController();
-        taxaControler.AtualizarTaxa(taxaModel);
-        
-     
-     JOptionPane.showMessageDialog(null, "A Taxa foi atualizada com sucesso");     
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Valor da taxa inválido.");
-    }
-}
-    
     //Metodo para apagar Taxa
     private void ApagarTaxa() {
 
-    String nome = txtNome.getText().trim();
-    int id = Integer.parseInt(txtId.getText());
-    String consumo = cbxTipoConsumo.getSelectedItem().toString();
-    String processada = "Nao";
-    
-    
-    // Verificações de campos
-    if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
-        JOptionPane.showMessageDialog(null, "Nome inválido.");
-        return;
-    }
-    
-    // Verificar se o tipo de consumo foi selecionado
-    if (cbxTipoConsumo.getSelectedIndex() == -1) {
-        JOptionPane.showMessageDialog(null, "Selecione o Tipo de Consumo.");
-        return;
-    }
+        String nome = txtNome.getText().trim();
+        int id = Integer.parseInt(txtId.getText());
+        String consumo = cbxTipoConsumo.getSelectedItem().toString();
+        String processada = "Nao";
 
-    // Obter o tipo de consumo como int
-    int cons = Integer.parseInt(consumo);
+        // Verificações de campos
+        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(null, "Nome inválido.");
+            return;
+        }
 
-    // Verificar se o valor da taxa foi preenchido corretamente (caso haja um campo de valor separado)
-    try {
-        double val = Double.parseDouble(txtValorTaxa.getText().trim());  // Certifique-se de que este campo existe
-       
-    // Criar o modelo de Taxa
-        TaxaModel taxaModel = new TaxaModel();
-        taxaModel.setId(id);
-        taxaModel.setNome(nome);
-        taxaModel.setTipoconsumo(cons);
-        taxaModel.setValortaxa(val);
-        taxaModel.setProcessada(processada);
+        // Verificar se o tipo de consumo foi selecionado
+        if (cbxTipoConsumo.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione o Tipo de Consumo.");
+            return;
+        }
 
-    // Chamar o método de atualização no controlador
-        TaxaController taxaControler = new TaxaController();
-        taxaControler.AtualizarTaxa(taxaModel);
-        
-     
-    JOptionPane.showMessageDialog(null, "A Taxa foi apagada com sucesso");    
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Valor da taxa inválido.");
+        // Verificar se o valor da taxa foi preenchido corretamente (caso haja um campo de valor separado)
+        try {
+            double val = Double.parseDouble(txtValorTaxa.getText().trim());  // Certifique-se de que este campo existe
+
+            // Criar o modelo de Taxa
+            TaxaModel taxaModel = new TaxaModel();
+            taxaModel.setId(id);
+            taxaModel.setNome(nome);
+            taxaModel.setTipoconsumo(consumo);
+            taxaModel.setValortaxa(val);
+            taxaModel.setProcessada(processada);
+
+            // Chamar o método de atualização no controlador
+            TaxaController taxaControler = new TaxaController();
+            taxaControler.AtualizarTaxa(taxaModel);
+
+            JOptionPane.showMessageDialog(null, "A Taxa foi apagada com sucesso");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Valor da taxa inválido.");
+        }
     }
-}
 
     // Metodo Carregar Campos
     private void CarregarCampos() {
@@ -197,18 +186,17 @@ public class TaxaView extends javax.swing.JFrame {
         txtValorTaxa.setText(tabelaTaxas.getModel().getValueAt(setar, 3).toString());
     }
 
-    
     //Metodo Limpar Campos
     private void limparCampos() {
         txtId.setText("");
         txtNome.setText("");
         txtValorTaxa.setText("");
         cbxTipoConsumo.setSelectedIndex(0);
-      
+
     }
-    
-    private void testData(JTable table){
-     
+
+    private void testData(JTable table) {
+
     }
 
     /**
@@ -300,9 +288,15 @@ public class TaxaView extends javax.swing.JFrame {
 
         lblTipoConsumo.setText("Tipo de Consumo:");
 
-        cbxTipoConsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "23", "45", "67", "45" }));
+        cbxTipoConsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Baixo Escalao", "Medio Escalao", "Alto Escalao" }));
 
         lblDataNascimento.setText("Valor da Taxa");
+
+        txtValorTaxa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorTaxaActionPerformed(evt);
+            }
+        });
 
         txtNomeAPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -516,13 +510,13 @@ public class TaxaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-       limparCampos();
+        limparCampos();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-       ApagarTaxa();
-       listarTaxas();
-       limparCampos();
+        ApagarTaxa();
+        listarTaxas();
+        limparCampos();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -541,6 +535,10 @@ public class TaxaView extends javax.swing.JFrame {
         limparCampos();
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void txtValorTaxaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorTaxaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorTaxaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -549,7 +547,7 @@ public class TaxaView extends javax.swing.JFrame {
 //            FlatCyanLightIJTheme.setup();
 //            UIManager.setLookAndFeel(new FlatIntelliJLaf());
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

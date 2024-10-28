@@ -4,14 +4,382 @@
  */
 package View;
 
+import Controller.ClienteController;
+import Controller.FacturacaoController;
+import Controller.TaxaController;
+import Model.ClienteModel;
+import Model.FacturacaoModel;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class FacturacaoView extends javax.swing.JFrame {
 
     public FacturacaoView() {
         initComponents();
+        listarFacturacao();
+        RestaurarDadosComboBoxTaxa();
+        // Obtém a data atual
+        Date data = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String dataFormatada = formato.format(data);
+        txtDataFactura.setText("" + dataFormatada);
+    }
+
+    int taxaAplicar;
+    //Accao para comboxTaxas
+    Vector<Integer> idTaxas = new Vector<Integer>();
+
+    private void AccaoComboxTaxa() {
+        if (cbxTaxas.getSelectedIndex() == 0) {
+            taxaAplicar = 0;
+            return;
+        }
+        try {
+            TaxaController taxaController = new TaxaController();
+            ResultSet rs = taxaController.PesquisarTaxas(idTaxas.get(cbxTaxas.getSelectedIndex() - 1));
+
+            while (rs.next()) {
+                taxaAplicar = rs.getInt(4);
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "TaxasView pegar valores de Taxas" + erro);
+        }
+    }
+
+    //Accao para prencher campos
+    Vector<Integer> idLeitura = new Vector<Integer>();
+
+    private void AccaoComboxClientes() {
+        if (cbxNrLeitura.getSelectedIndex() == 0) {
+            txtNomeCliente.setText(null);
+            txtMesReferente.setText(null);
+            txtConsumoDoMes.setText(null);
+            txtSaldoAnterior.setText(null);
+            return;
+        }
+        try {
+            FacturacaoController facturacaoController = new FacturacaoController();
+            ResultSet rs = facturacaoController.PrencherDados(idLeitura.get(cbxNrLeitura.getSelectedIndex() - 1));
+
+            while (rs.next()) {
+                txtNomeCliente.setText(rs.getString(2));
+                txtMesReferente.setText(rs.getString(6));
+                txtConsumoDoMes.setText(rs.getString(11));
+                txtSaldoAnterior.setText(rs.getString(14));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FacturacaoView prencher dados" + erro);
+        }
+    }
+    //Metodo que pega clientes activos na BD para jcboxClientes
+
+
+    private void RestaurarDadosComboBoxTaxa() {
+        try {
+            FacturacaoController facturacoController = new FacturacaoController();
+            ResultSet rs = facturacoController.listarTaxas();
+
+            while (rs.next()) {
+                idTaxas.addElement(rs.getInt(1));
+                cbxTaxas.addItem(rs.getString(4));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FacturacaoView listar nr da leitura na comboBox" + erro);
+        }
+    }
+
+    //Metodo processar Factura
+    final Double consumoMinimo = 4.0;
+    double taxaIva = (0.75 * 0.16);
+
+    private void processarFactura() {
+        double calcSubtotal = 0, ivaAReduzir, iva, desconto = 0, totalFactura, saldoActual;
+        double saldoAnterior = Double.parseDouble(txtSaldoAnterior.getText());
+        double consumo = Double.parseDouble(txtConsumoDoMes.getText());
+        //taxa fixa de 100,00 para consumo inferior ao minimo estipulado
+        if (consumo <= consumoMinimo) {
+            calcSubtotal = 100.0;
+        } else if (consumo > consumoMinimo) {
+            calcSubtotal = consumo * taxaAplicar;
+        }
+        //Desconto para consumo acima de 15m3 de consumo
+        if (consumo > 15) {
+            double descontoAReduzir = calcSubtotal * 0.1;
+            BigDecimal bd4 = new BigDecimal(descontoAReduzir).setScale(2, RoundingMode.HALF_UP);
+            desconto = bd4.doubleValue();
+        }
+        BigDecimal bd = new BigDecimal(calcSubtotal).setScale(2, RoundingMode.HALF_UP);
+        double subtotal = bd.doubleValue();
+
+        ivaAReduzir = subtotal * taxaIva;
+        BigDecimal bd2 = new BigDecimal(ivaAReduzir).setScale(2, RoundingMode.HALF_UP);
+        iva = bd2.doubleValue();
+
+        totalFactura = subtotal + iva - desconto;
+        txtSubTotal.setText("" + subtotal);
+        txtIva.setText("" + iva);
+        txtDescontos.setText("" + desconto);
+        txtTotalFactura.setText("" + totalFactura);
+        //Saldo actualizado
+        double saldoActualAReduzir = totalFactura + saldoAnterior;
+        BigDecimal bd5 = new BigDecimal(saldoActualAReduzir).setScale(2, RoundingMode.HALF_UP);
+        saldoActual = bd5.doubleValue();
+        txtSaldoActual.setText("" + saldoActual);
+
+        // prazo de pagamento
+        LocalDate dataEmissao = LocalDate.now();
+        int diasPrazo = 15;
+        LocalDate dataVencimento = dataEmissao.plusDays(diasPrazo);
+        String dataVencimentoString = dataVencimento.toString();
+        txtPrazoDePagamento.setText(dataVencimentoString);
+
+        //Alerta para dividas > 3000Mts
+        if (saldoAnterior > 3000) {
+            JOptionPane.showMessageDialog(null, "O cliente tem uma divida de " + saldoActual + "Mts. Caso não seja o seu 1 Pagam. Efectuar Corte!");
+        }
+    }
+
+    //Salvar Leitura
+    private void salvarFacturacao() {
+
+        String nrLeitura = cbxNrLeitura.getSelectedItem().toString();
+        String nome = txtNomeCliente.getText();
+        String dataEmissao = txtDataFactura.getText();
+        String mes = txtMesReferente.getText();
+        double consumo = Double.parseDouble(txtConsumoDoMes.getText());
+        double subtotal = Double.parseDouble(txtSubTotal.getText());
+        double iva = Double.parseDouble(txtIva.getText());
+        double desconto = Double.parseDouble(txtDescontos.getText());
+        double totalFactura = Double.parseDouble(txtTotalFactura.getText());
+        double saldoAnterior = Double.parseDouble(txtSaldoAnterior.getText());
+        double saldoActual = Double.parseDouble(txtSaldoActual.getText());
+        double taxaa = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
+
+        Random aleatorio = new Random();
+        //Numero aleatorio para factura
+        int nrFacturaPadraoInicial = 202401;
+        int nrFactura = nrFacturaPadraoInicial + aleatorio.nextInt(100001);
+        txtNrFactura.setText(nrFactura + "");
+
+        String prazoPagamento = txtPrazoDePagamento.getText();
+        String disponibilidade = "Sim";
+//        txtDisponibilidade.setText(disponibilidade);
+
+        FacturacaoModel facturacaoModel = new FacturacaoModel();
+        facturacaoModel.setNrLeitura(nrLeitura);
+        facturacaoModel.setNome(nome);
+        facturacaoModel.setDataFacturacao(dataEmissao);
+        facturacaoModel.setMesDeReferencia(mes);
+        facturacaoModel.setConsumoMensal(consumo);
+        facturacaoModel.setTaxa(taxaa);
+        facturacaoModel.setPrazoDePagamento(prazoPagamento);
+        facturacaoModel.setSubTotal(subtotal);
+        facturacaoModel.setIva(iva);
+        facturacaoModel.setDescontos(desconto);
+        facturacaoModel.setTotalFactura(totalFactura);
+        facturacaoModel.setDividaAnterior(saldoAnterior);
+        facturacaoModel.setDividaActual(saldoActual);
+        facturacaoModel.setNrDaFactura(nrFactura);
+        facturacaoModel.setDisp(disponibilidade);
+
+        FacturacaoController facturacaoControler = new FacturacaoController();
+        facturacaoControler.cadastrarFacturamento(facturacaoModel);
+
+        ClienteModel clienteModel = new ClienteModel();
+        clienteModel.setSaldo(saldoActual);
+        clienteModel.setNome(nome);
+
+        ClienteController clienteController = new ClienteController();
+        clienteController.ActualizarCliente(clienteModel);
+    }
+
+    //Metodo Listar
+    private void listarFacturacao() {
+        try {
+            FacturacaoController facturacaoController = new FacturacaoController();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaFacturacao.getModel();
+            model.setRowCount(0);
+
+            ArrayList<FacturacaoModel> lista = facturacaoController.listarFacturacao();
+
+            for (FacturacaoModel item : lista) {
+                model.addRow(new Object[]{
+                    item.getIdFacturacao(),
+                    item.getDataFacturacao(),
+                    item.getNrLeitura(),
+                    item.getMesDeReferencia(),
+                    item.getNome(),
+                    item.getDividaAnterior(),
+                    item.getConsumoMensal(),
+                    item.getTaxa(),
+                    item.getSubTotal(),
+                    item.getIva(),
+                    item.getDescontos(),
+                    item.getTotalFactura(),
+                    item.getDividaActual(),
+                    item.getPrazoDePagamento(),
+                    item.getNrDaFactura(),
+                    item.getDisp()
+                });
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "ListarFacturacao View" + erro);
+        }
+    }
+
+    //Metodo Limpar Campos
+    private void limparCampos() {
+        txtIdFactura.setText("");
+        cbxNrLeitura.setSelectedIndex(0);
+        txtDataFactura.setText("");
+        txtMesReferente.setText("");
+        txtNomeCliente.setText("");
+        txtConsumoDoMes.setText("");
+        cbxTaxas.setSelectedIndex(0);
+        txtPrazoDePagamento.setText("");
+        txtDescontos.setText("");
+        txtTotalFactura.setText("");
+        txtSaldoAnterior.setText("");
+        txtSubTotal.setText("");
+        txtIva.setText("");
+        txtNrFactura.setText("");
+        txtSaldoActual.setText("");
+
+    }
+
+    //Metodo Carregar Campos
+    private void CarregarCampos() {
+        int setar = tabelaFacturacao.getSelectedRow();
+
+        txtIdFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 0).toString());
+        txtDataFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 1).toString());
+        cbxNrLeitura.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 2).toString());
+        txtMesReferente.setText(tabelaFacturacao.getModel().getValueAt(setar, 3).toString());
+        txtNomeCliente.setText(tabelaFacturacao.getModel().getValueAt(setar, 4).toString());
+        txtSaldoAnterior.setText(tabelaFacturacao.getModel().getValueAt(setar, 5).toString());
+        txtConsumoDoMes.setText(tabelaFacturacao.getModel().getValueAt(setar, 6).toString());
+        cbxTaxas.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 7).toString());
+        txtSubTotal.setText(tabelaFacturacao.getModel().getValueAt(setar, 8).toString());
+        txtIva.setText(tabelaFacturacao.getModel().getValueAt(setar, 9).toString());
+        txtDescontos.setText(tabelaFacturacao.getModel().getValueAt(setar, 10).toString());
+        txtTotalFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 11).toString());
+        txtSaldoActual.setText(tabelaFacturacao.getModel().getValueAt(setar, 12).toString());
+        txtPrazoDePagamento.setText(tabelaFacturacao.getModel().getValueAt(setar, 13).toString());
+        txtNrFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 14).toString());
+
+    }
+
+    //Metodo Actualizar Facturacao
+    private void actualizarFacturacao() {
+
+        int idFacturacao = Integer.parseInt(txtIdFactura.getText());
+        String nrLeitura = cbxNrLeitura.getSelectedItem().toString();
+        String nome = txtNomeCliente.getText();
+        String dataEmissao = txtDataFactura.getText();
+        String mes = txtMesReferente.getText();
+        double consumo = Double.parseDouble(txtConsumoDoMes.getText());
+        double subtotal = Double.parseDouble(txtSubTotal.getText());
+        double iva = Double.parseDouble(txtIva.getText());
+        double desconto = Double.parseDouble(txtDescontos.getText());
+        double totalFactura = Double.parseDouble(txtTotalFactura.getText());
+        double saldoAnterior = Double.parseDouble(txtSaldoAnterior.getText());
+        double saldoActual = Double.parseDouble(txtSaldoActual.getText());
+        int nrFactura = Integer.parseInt(txtNrFactura.getText());
+        double taxaa = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
+        String prazoPagamento = txtPrazoDePagamento.getText();
+        String disponibilidade = "Sim";
+
+        FacturacaoModel facturacaoModel = new FacturacaoModel();
+        facturacaoModel.setIdFacturacao(idFacturacao);
+        facturacaoModel.setNrLeitura(nrLeitura);
+        facturacaoModel.setNome(nome);
+        facturacaoModel.setDataFacturacao(dataEmissao);
+        facturacaoModel.setMesDeReferencia(mes);
+        facturacaoModel.setConsumoMensal(consumo);
+        facturacaoModel.setTaxa(taxaa);
+        facturacaoModel.setPrazoDePagamento(prazoPagamento);
+        facturacaoModel.setSubTotal(subtotal);
+        facturacaoModel.setIva(iva);
+        facturacaoModel.setDescontos(desconto);
+        facturacaoModel.setTotalFactura(totalFactura);
+        facturacaoModel.setDividaAnterior(saldoAnterior);
+        facturacaoModel.setDividaActual(saldoActual);
+        facturacaoModel.setNrDaFactura(nrFactura);
+        facturacaoModel.setDisp(disponibilidade);
+
+        FacturacaoController facturacaoController = new FacturacaoController();
+        facturacaoController.ActualizarFacturacao(facturacaoModel);
+
+        ClienteModel clienteModel = new ClienteModel();
+        clienteModel.setSaldo(saldoActual);
+        clienteModel.setNome(nome);
+
+        ClienteController clienteController = new ClienteController();
+        clienteController.ActualizarCliente(clienteModel);
+
+    }
+
+    //Metodo Apagar Facturacao
+    private void ApagarFacturacao() {
+        int idFacturacao = Integer.parseInt(txtIdFactura.getText());
+        String nrLeitura = cbxNrLeitura.getSelectedItem().toString();
+        String nome = txtNomeCliente.getText();
+        String dataEmissao = txtDataFactura.getText();
+        String mes = txtMesReferente.getText();
+        double consumo = Double.parseDouble(txtConsumoDoMes.getText());
+        double subtotal = Double.parseDouble(txtSubTotal.getText());
+        double iva = Double.parseDouble(txtIva.getText());
+        double desconto = Double.parseDouble(txtDescontos.getText());
+        double totalFactura = Double.parseDouble(txtTotalFactura.getText());
+        double saldoAnterior = Double.parseDouble(txtSaldoAnterior.getText());
+        double saldoActual = Double.parseDouble(txtSaldoActual.getText());
+        double taxaa = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
+        int nrFactura = Integer.parseInt(txtNrFactura.getText());
+        String prazoPagamento = txtPrazoDePagamento.getText();
+        String disponibilidade = "Não";
+
+        FacturacaoModel facturacaoModel = new FacturacaoModel();
+        facturacaoModel.setIdFacturacao(idFacturacao);
+        facturacaoModel.setNrLeitura(nrLeitura);
+        facturacaoModel.setNome(nome);
+        facturacaoModel.setDataFacturacao(dataEmissao);
+        facturacaoModel.setMesDeReferencia(mes);
+        facturacaoModel.setConsumoMensal(consumo);
+        facturacaoModel.setTaxa(taxaa);
+        facturacaoModel.setPrazoDePagamento(prazoPagamento);
+        facturacaoModel.setSubTotal(subtotal);
+        facturacaoModel.setIva(iva);
+        facturacaoModel.setDescontos(desconto);
+        facturacaoModel.setTotalFactura(totalFactura);
+        facturacaoModel.setDividaAnterior(saldoAnterior);
+        facturacaoModel.setDividaActual(saldoActual);
+        facturacaoModel.setNrDaFactura(nrFactura);
+        facturacaoModel.setDisp(disponibilidade);
+
+        FacturacaoController facturacaoController = new FacturacaoController();
+        facturacaoController.ActualizarFacturacao(facturacaoModel);
+
+        ClienteModel clienteModel = new ClienteModel();
+        clienteModel.setSaldo(saldoActual);
+        clienteModel.setNome(nome);
+
+        ClienteController clienteController = new ClienteController();
+        clienteController.ActualizarCliente(clienteModel);
+        JOptionPane.showMessageDialog(null, "A Factura apagada com sucesso");
     }
 
     /**
@@ -35,37 +403,41 @@ public class FacturacaoView extends javax.swing.JFrame {
         painelSuperiorDados = new javax.swing.JPanel();
         painelEsqDados = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        txtIdFactura = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxNrLeitura = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
+        txtMesReferente = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
-        jTextField24 = new javax.swing.JTextField();
+        txtNomeCliente = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
-        jTextField22 = new javax.swing.JTextField();
+        txtSaldoAnterior = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        jTextField21 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtConsumoDoMes = new javax.swing.JTextField();
+        btnProcessar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField26 = new javax.swing.JTextField();
+        txtSubTotal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField27 = new javax.swing.JTextField();
+        txtIva = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField28 = new javax.swing.JTextField();
+        txtDescontos = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField29 = new javax.swing.JTextField();
+        txtTotalFactura = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField30 = new javax.swing.JTextField();
+        txtSaldoActual = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField31 = new javax.swing.JTextField();
+        txtPrazoDePagamento = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField33 = new javax.swing.JTextField();
+        txtNrFactura = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtDataFactura = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        cbxTaxas = new javax.swing.JComboBox<>();
         painelDirDados = new javax.swing.JPanel();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
         tabela = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaClientes = new javax.swing.JTable();
+        tabelaFacturacao = new javax.swing.JTable();
         botoes = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -149,100 +521,122 @@ public class FacturacaoView extends javax.swing.JFrame {
 
         jLabel15.setText("Id:");
 
-        jTextField12.setEditable(false);
+        txtIdFactura.setEditable(false);
 
-        jLabel17.setText("Numero da Leitura");
+        jLabel17.setText("Numero da Leitura:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxNrLeitura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
 
         jLabel20.setText("Mes Referente:");
 
-        jTextField16.addActionListener(new java.awt.event.ActionListener() {
+        txtMesReferente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField16ActionPerformed(evt);
+                txtMesReferenteActionPerformed(evt);
             }
         });
 
         jLabel23.setText("Nome do Cliente:");
 
-        jTextField24.addActionListener(new java.awt.event.ActionListener() {
+        txtNomeCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField24ActionPerformed(evt);
+                txtNomeClienteActionPerformed(evt);
             }
         });
 
         jLabel25.setText("Saldo Anterior:");
 
-        jTextField22.addActionListener(new java.awt.event.ActionListener() {
+        txtSaldoAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField22ActionPerformed(evt);
+                txtSaldoAnteriorActionPerformed(evt);
             }
         });
 
-        jLabel24.setText("Consumo do Mes");
+        jLabel24.setText("Consumo do Mes:");
 
-        jTextField21.addActionListener(new java.awt.event.ActionListener() {
+        txtConsumoDoMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField21ActionPerformed(evt);
+                txtConsumoDoMesActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 153, 0));
-        jButton1.setText("Processar");
+        btnProcessar.setBackground(new java.awt.Color(255, 153, 0));
+        btnProcessar.setText("Processar");
+        btnProcessar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcessarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("SubTotal:");
 
-        jTextField26.addActionListener(new java.awt.event.ActionListener() {
+        txtSubTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField26ActionPerformed(evt);
+                txtSubTotalActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Iva:");
 
-        jTextField27.addActionListener(new java.awt.event.ActionListener() {
+        txtIva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField27ActionPerformed(evt);
+                txtIvaActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Descontos:");
 
-        jTextField28.addActionListener(new java.awt.event.ActionListener() {
+        txtDescontos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField28ActionPerformed(evt);
+                txtDescontosActionPerformed(evt);
             }
         });
 
         jLabel5.setText("Total da Factura:");
 
-        jTextField29.addActionListener(new java.awt.event.ActionListener() {
+        txtTotalFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField29ActionPerformed(evt);
+                txtTotalFacturaActionPerformed(evt);
             }
         });
 
-        jLabel6.setText("Saldo da Actual:");
+        jLabel6.setText("Saldo Actual:");
 
-        jTextField30.addActionListener(new java.awt.event.ActionListener() {
+        txtSaldoActual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField30ActionPerformed(evt);
+                txtSaldoActualActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Prazo de Pagamentos:");
 
-        jTextField31.addActionListener(new java.awt.event.ActionListener() {
+        txtPrazoDePagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField31ActionPerformed(evt);
+                txtPrazoDePagamentoActionPerformed(evt);
             }
         });
 
         jLabel7.setText("Numero da Factura:");
 
-        jTextField33.addActionListener(new java.awt.event.ActionListener() {
+        txtNrFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField33ActionPerformed(evt);
+                txtNrFacturaActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Data da Factura:");
+
+        txtDataFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataFacturaActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Taxa:");
+
+        cbxTaxas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxTaxas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxTaxasActionPerformed(evt);
             }
         });
 
@@ -254,97 +648,110 @@ public class FacturacaoView extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5)
                     .addComponent(jLabel7)
                     .addComponent(jLabel4)
                     .addComponent(jLabel6)
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(171, 171, 171)
+                        .addComponent(txtIdFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2)
+                    .addGroup(painelEsqDadosLayout.createSequentialGroup()
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
                             .addComponent(jLabel17)
                             .addComponent(jLabel20)
                             .addComponent(jLabel23)
                             .addComponent(jLabel25)
-                            .addComponent(jLabel24))
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
                         .addGap(75, 75, 75)
-                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField26, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField28, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField30, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField31, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDataFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(btnProcessar, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(txtSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(txtIva, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(txtDescontos, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(txtTotalFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(txtSaldoActual, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(txtPrazoDePagamento, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(txtNrFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(txtConsumoDoMes, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(txtSaldoAnterior, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(txtMesReferente, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(cbxNrLeitura, 0, 236, Short.MAX_VALUE)
+                            .addComponent(txtNomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(cbxTaxas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         painelEsqDadosLayout.setVerticalGroup(
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtDataFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxNrLeitura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMesReferente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel23)
-                    .addComponent(jTextField24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel25)
-                    .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSaldoAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel24)
-                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtConsumoDoMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(cbxTaxas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnProcessar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotalFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSaldoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrazoDePagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                    .addComponent(txtNrFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         painelSuperiorDados.add(painelEsqDados);
@@ -375,26 +782,26 @@ public class FacturacaoView extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(0, 102, 102));
 
-        tabelaClientes.setAutoCreateRowSorter(true);
-        tabelaClientes.setForeground(new java.awt.Color(51, 51, 51));
-        tabelaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaFacturacao.setAutoCreateRowSorter(true);
+        tabelaFacturacao.setForeground(new java.awt.Color(51, 51, 51));
+        tabelaFacturacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Nome", "Bairro", "Quarteirao", "Numero da Casa", "Data de Contrato", "Email Particular", "Numero de Telefone", "Numero de Hidrometro", "Consumo", "Saldo", "Status", "Disp"
+                "Id", "Data da Factura", "Numero da Factura", "Mes Referente", "Nome do Cliente", "Saldo Anterior", "Consumo do mes", "Taxa", "Subtotal", "Iva", "Descontos", "Total da Factura", "Saldo Actual", "Prazo de Pagamentos", "Numero da Factura"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, true, true
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tabelaClientes.setShowGrid(true);
-        jScrollPane2.setViewportView(tabelaClientes);
+        tabelaFacturacao.setShowGrid(true);
+        jScrollPane2.setViewportView(tabelaFacturacao);
 
         tabela.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
@@ -513,70 +920,86 @@ public class FacturacaoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
-//        limparCampos();
+        salvarFacturacao();
+        listarFacturacao();
+        limparCampos();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-
-//        limparCampos();
+        actualizarFacturacao();
+        listarFacturacao();
+        limparCampos();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-//        CarregarCampos();
+        CarregarCampos();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-
+        limparCampos();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-
+        ApagarFacturacao();
+        listarFacturacao();
+        limparCampos();
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jTextField33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField33ActionPerformed
+    private void txtNrFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNrFacturaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField33ActionPerformed
+    }//GEN-LAST:event_txtNrFacturaActionPerformed
 
-    private void jTextField31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField31ActionPerformed
+    private void txtPrazoDePagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrazoDePagamentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField31ActionPerformed
+    }//GEN-LAST:event_txtPrazoDePagamentoActionPerformed
 
-    private void jTextField30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField30ActionPerformed
+    private void txtSaldoActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoActualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField30ActionPerformed
+    }//GEN-LAST:event_txtSaldoActualActionPerformed
 
-    private void jTextField29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField29ActionPerformed
+    private void txtTotalFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalFacturaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField29ActionPerformed
+    }//GEN-LAST:event_txtTotalFacturaActionPerformed
 
-    private void jTextField28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField28ActionPerformed
+    private void txtDescontosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescontosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField28ActionPerformed
+    }//GEN-LAST:event_txtDescontosActionPerformed
 
-    private void jTextField27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField27ActionPerformed
+    private void txtIvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIvaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField27ActionPerformed
+    }//GEN-LAST:event_txtIvaActionPerformed
 
-    private void jTextField26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField26ActionPerformed
+    private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField26ActionPerformed
+    }//GEN-LAST:event_txtSubTotalActionPerformed
 
-    private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField21ActionPerformed
+    private void txtConsumoDoMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConsumoDoMesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField21ActionPerformed
+    }//GEN-LAST:event_txtConsumoDoMesActionPerformed
 
-    private void jTextField22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField22ActionPerformed
+    private void txtSaldoAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoAnteriorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField22ActionPerformed
+    }//GEN-LAST:event_txtSaldoAnteriorActionPerformed
 
-    private void jTextField24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField24ActionPerformed
+    private void txtNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField24ActionPerformed
+    }//GEN-LAST:event_txtNomeClienteActionPerformed
 
-    private void jTextField16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField16ActionPerformed
+    private void txtMesReferenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMesReferenteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField16ActionPerformed
+    }//GEN-LAST:event_txtMesReferenteActionPerformed
+
+    private void txtDataFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataFacturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataFacturaActionPerformed
+
+    private void btnProcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessarActionPerformed
+        processarFactura();
+    }//GEN-LAST:event_btnProcessarActionPerformed
+
+    private void cbxTaxasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTaxasActionPerformed
+        AccaoComboxTaxa();
+    }//GEN-LAST:event_cbxTaxasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -599,14 +1022,15 @@ public class FacturacaoView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botoes;
+    private javax.swing.JButton btnProcessar;
     private javax.swing.JButton btnVoltarMenu;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> cbxNrLeitura;
+    private javax.swing.JComboBox<String> cbxTaxas;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
@@ -620,22 +1044,12 @@ public class FacturacaoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField16;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField24;
-    private javax.swing.JTextField jTextField26;
-    private javax.swing.JTextField jTextField27;
-    private javax.swing.JTextField jTextField28;
-    private javax.swing.JTextField jTextField29;
-    private javax.swing.JTextField jTextField30;
-    private javax.swing.JTextField jTextField31;
-    private javax.swing.JTextField jTextField33;
     private javax.swing.JLabel lblCabecalho;
     private javax.swing.JLabel lblIconLogo;
     private javax.swing.JPanel painelContCentral;
@@ -648,6 +1062,19 @@ public class FacturacaoView extends javax.swing.JFrame {
     private javax.swing.JPanel painelSuperiorDados;
     private javax.swing.JPanel painelVoltarMenu;
     private javax.swing.JPanel tabela;
-    private javax.swing.JTable tabelaClientes;
+    private javax.swing.JTable tabelaFacturacao;
+    private javax.swing.JTextField txtConsumoDoMes;
+    private javax.swing.JTextField txtDataFactura;
+    private javax.swing.JTextField txtDescontos;
+    private javax.swing.JTextField txtIdFactura;
+    private javax.swing.JTextField txtIva;
+    private javax.swing.JTextField txtMesReferente;
+    private javax.swing.JTextField txtNomeCliente;
+    private javax.swing.JTextField txtNrFactura;
+    private javax.swing.JTextField txtPrazoDePagamento;
+    private javax.swing.JTextField txtSaldoActual;
+    private javax.swing.JTextField txtSaldoAnterior;
+    private javax.swing.JTextField txtSubTotal;
+    private javax.swing.JTextField txtTotalFactura;
     // End of variables declaration//GEN-END:variables
 }

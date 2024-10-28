@@ -96,7 +96,7 @@ public class LeituraController {
 //            try {
 //                pstm = conexao.prepareStatement(sql);
 //
-//                pstm.setString(1, leituraModel.getNome());
+//                pstm.setString(1, leituraModel.getHidrometro().a;
 //                pstm.setString(2, leituraModel.getCliente().);
 //                pstm.setInt(3, leituraModel.getQuarteirao());
 //                pstm.setInt(4, leituraModel.getNrDaCasa());
@@ -118,7 +118,7 @@ public class LeituraController {
 //                JOptionPane.showMessageDialog(null, "LeituraController Cadastrar" + erro);
 //            }
 //}
-//    //METODO PARA LISTAR
+    //METODO PARA LISTAR
 //    public ArrayList<LeituraModel> listarLeituras() {
 //        ArrayList<LeituraModel> list = new ArrayList<>();
 //        String sql = "select * from leituras where disp = 'Sim'";

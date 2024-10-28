@@ -256,16 +256,16 @@
                                           <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="txtDataPagamento" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
-                                              <Component id="txtDividaAntesMulta" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
+                                              <Component id="txtValor" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
                                               <Component id="idFacturacao" alignment="0" min="-2" pref="49" max="-2" attributes="0"/>
                                               <Component id="txtPrazoPagamento" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
                                               <Component id="cbxFacturas" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
-                                              <Component id="jTextField17" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
+                                              <Component id="txtNomeCliente" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
                                               <Component id="btnCalcularValorPAgar" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="txtDividaDepoisMulta" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
+                                          <Component id="txtTotal" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
                                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -276,8 +276,8 @@
                                                   <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="txtTrocos" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
-                                                      <Component id="txtDividaDepoisPagamento" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
-                                                      <Component id="jTextField32" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
+                                                      <Component id="txtSaldoActual" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
+                                                      <Component id="txtNrRecibos" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
@@ -294,7 +294,7 @@
                                                       <Group type="102" alignment="1" attributes="0">
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="txtValorPago" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
+                                                              <Component id="txtValorApagar" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
                                                               <Component id="btnCalcularTrocos" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
                                                           </Group>
                                                       </Group>
@@ -323,12 +323,12 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextField17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtNomeCliente" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtDividaAntesMulta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtValor" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -350,12 +350,12 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtDividaDepoisMulta" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTotal" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtValorPago" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtValorApagar" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnCalcularTrocos" min="-2" max="-2" attributes="0"/>
@@ -367,12 +367,12 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel7" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                      <Component id="txtDividaDepoisPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtSaldoActual" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextField32" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtNrRecibos" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="74" max="32767" attributes="0"/>
                               </Group>
@@ -412,9 +412,9 @@
                             <Property name="text" type="java.lang.String" value="Nome do Cliente:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField17">
+                        <Component class="javax.swing.JTextField" name="txtNomeCliente">
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField17ActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeClienteActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel20">
@@ -422,9 +422,9 @@
                             <Property name="text" type="java.lang.String" value="Valor:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtDividaAntesMulta">
+                        <Component class="javax.swing.JTextField" name="txtValor">
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDividaAntesMultaActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtValorActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel23">
@@ -473,9 +473,9 @@
                             <Property name="text" type="java.lang.String" value="Total:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtDividaDepoisMulta">
+                        <Component class="javax.swing.JTextField" name="txtTotal">
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDividaDepoisMultaActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTotalActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel1">
@@ -483,9 +483,9 @@
                             <Property name="text" type="java.lang.String" value="Insira o valor a pagar:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtValorPago">
+                        <Component class="javax.swing.JTextField" name="txtValorApagar">
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtValorPagoActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtValorApagarActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnCalcularTrocos">
@@ -514,9 +514,9 @@
                             <Property name="text" type="java.lang.String" value="Saldo Actual:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtDividaDepoisPagamento">
+                        <Component class="javax.swing.JTextField" name="txtSaldoActual">
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDividaDepoisPagamentoActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSaldoActualActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel5">
@@ -524,9 +524,9 @@
                             <Property name="text" type="java.lang.String" value="Numero de Recibo:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField32">
+                        <Component class="javax.swing.JTextField" name="txtNrRecibos">
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField32ActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNrRecibosActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>

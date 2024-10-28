@@ -7,38 +7,57 @@ public class FacturacaoModel{
     private LeituraModel leitura;
     private BalconistaModel balconista;
     private HistoricoHidrometroModel historicoHidrometro;
-    private static final double TAXA = 55.0;
+    private double taxa;
     private String prazoDePagamento;
     private double descontos, iva,subTotal, totalFactura, dividaAnterior, dividaActual, consumoMensal;
     private String dataFacturacao, mesDeReferencia, processada;
     private int nrDaFactura;
     private String nrLeitura;
+    private String nome, disp;
 
-    public int getNrDaFactura() {
-        return nrDaFactura;
+    public FacturacaoModel()  {
+
     }
 
-    public void setNrDaFactura(int nrDaFactura) {
-        this.nrDaFactura = nrDaFactura;
+    public int getIdFacturacao() {
+        return idFacturacao;
     }
 
-    
-    public double getConsumoMensal() {
-        return consumoMensal;
+    public void setIdFacturacao(int idFacturacao) {
+        this.idFacturacao = idFacturacao;
     }
 
-    public void setConsumoMensal(double consumoMensal) {
-        this.consumoMensal = consumoMensal;
+    public LeituraModel getLeitura() {
+        return leitura;
     }
 
-    public String getMesDeReferencia() {
-        return mesDeReferencia;
+    public void setLeitura(LeituraModel leitura) {
+        this.leitura = leitura;
     }
 
-    public void setMesDeReferencia(String mesDeReferencia) {
-        this.mesDeReferencia = mesDeReferencia;
+    public BalconistaModel getBalconista() {
+        return balconista;
     }
 
+    public void setBalconista(BalconistaModel balconista) {
+        this.balconista = balconista;
+    }
+
+    public HistoricoHidrometroModel getHistoricoHidrometro() {
+        return historicoHidrometro;
+    }
+
+    public void setHistoricoHidrometro(HistoricoHidrometroModel historicoHidrometro) {
+        this.historicoHidrometro = historicoHidrometro;
+    }
+
+    public double getTaxa() {
+        return taxa;
+    }
+
+    public void setTaxa(double taxa) {
+        this.taxa = taxa;
+    }
 
     public String getPrazoDePagamento() {
         return prazoDePagamento;
@@ -46,18 +65,6 @@ public class FacturacaoModel{
 
     public void setPrazoDePagamento(String prazoDePagamento) {
         this.prazoDePagamento = prazoDePagamento;
-    }
-
-    public String getDataFacturacao() {
-        return dataFacturacao;
-    }
-
-    public void setDataFacturacao(String dataFacturacao) {
-        this.dataFacturacao = dataFacturacao;
-    }
-
-    public double getTAXA() {
-        return TAXA;
     }
 
     public double getDescontos() {
@@ -108,12 +115,44 @@ public class FacturacaoModel{
         this.dividaActual = dividaActual;
     }
 
+    public double getConsumoMensal() {
+        return consumoMensal;
+    }
+
+    public void setConsumoMensal(double consumoMensal) {
+        this.consumoMensal = consumoMensal;
+    }
+
+    public String getDataFacturacao() {
+        return dataFacturacao;
+    }
+
+    public void setDataFacturacao(String dataFacturacao) {
+        this.dataFacturacao = dataFacturacao;
+    }
+
+    public String getMesDeReferencia() {
+        return mesDeReferencia;
+    }
+
+    public void setMesDeReferencia(String mesDeReferencia) {
+        this.mesDeReferencia = mesDeReferencia;
+    }
+
     public String getProcessada() {
         return processada;
     }
 
     public void setProcessada(String processada) {
         this.processada = processada;
+    }
+
+    public int getNrDaFactura() {
+        return nrDaFactura;
+    }
+
+    public void setNrDaFactura(int nrDaFactura) {
+        this.nrDaFactura = nrDaFactura;
     }
 
     public String getNrLeitura() {
@@ -124,7 +163,21 @@ public class FacturacaoModel{
         this.nrLeitura = nrLeitura;
     }
 
+    public String getNome() {
+        return nome;
+    }
 
-            
-            
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDisp() {
+        return disp;
+    }
+
+    public void setDisp(String disp) {
+        this.disp = disp;
+    }
+
+        
 }
