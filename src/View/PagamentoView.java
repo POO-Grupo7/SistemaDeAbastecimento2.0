@@ -42,7 +42,7 @@ public class PagamentoView extends javax.swing.JFrame {
     }
     
     //Accao para prencher campos
-    Vector<Integer> idFacturacao = new Vector<Integer>();
+    Vector<Integer> idFactura = new Vector<Integer>();
 
     private void AccaoComboxClientes() {
         if (cbxFacturas.getSelectedIndex() == 0) {
@@ -52,8 +52,8 @@ public class PagamentoView extends javax.swing.JFrame {
             return;
         }
         try {
-            PagamentoController pagamentoController = new PagamentoController();
-            ResultSet rs = pagamentoController.PrencherDadosFactura(idFacturacao.get(cbxFacturas.getSelectedIndex() - 1));
+            FacturacaoController facturacaoController = new FacturacaoController();
+            ResultSet rs = facturacaoController.PrencherDados(idFactura.get(cbxFacturas.getSelectedIndex() - 1));
 
             while (rs.next()) {
                 txtNomeCliente.setText(rs.getString(2));
@@ -74,7 +74,7 @@ public class PagamentoView extends javax.swing.JFrame {
             ResultSet rs = facturacoController.listarTaxas();
 
             while (rs.next()) {
-                idFacturacao.addElement(rs.getInt(1));
+                idFactura.addElement(rs.getInt(1));
                 cbxFacturas.addItem(rs.getString(4));
             }
         } catch (SQLException erro) {
