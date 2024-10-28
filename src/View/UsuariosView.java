@@ -1,5 +1,7 @@
 package View;
 
+import Controller.FuncionarioController;
+import Model.FuncionarioModel;
 import View.table.TableCustom;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -13,6 +15,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -715,4 +718,293 @@ public class UsuariosView extends javax.swing.JFrame {
     private javax.swing.JTextField txtNomeUsuario;
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
+
+//Metodo para Cadastrar Funcionario
+    private void cadastrarUsuario() {
+        String nome = txtNome.getText().trim();
+        String apelido = txtApelido.getText().trim();
+        String naturalidade = cbxNaturalidade.getSelectedItem().toString();
+        String data = txtDataNascimento.getText().trim();
+        String email = txtEmail.getText().trim();
+        String funcao = cbxFuncao.getSelectedItem().toString();
+        String nomeUsuario = txtNomeUsuario.getText().trim();
+        String senha = txtSenha.getText().trim();
+        String perfil = cbxPerfilDeAcesso.getSelectedItem().toString();
+        boolean status, disponibilidade;
+        disponibilidade = true;
+        if (cbxStatus.getItemAt(0) == "Activo") {
+            status = true;
+
+        } else {
+            status = false;
+        }
+
+        // Verificações
+        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(this, "Nome inválido.");
+            return;
+        }
+        if (apelido.isEmpty() || !apelido.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(this, "Apelido inválido.");
+            return;
+        }
+        if (data.isEmpty() || !data.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            JOptionPane.showMessageDialog(this, "Data de nascimento inválida.");
+            return;
+        }
+        if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(this, "Email inválido.");
+            return;
+        }
+        if (nomeUsuario.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nome de usuário não pode estar vazio.");
+            return;
+        }
+        if (senha.isEmpty() || senha.length() < 8) {
+            JOptionPane.showMessageDialog(this, "Senha deve ter pelo menos 8 caracteres.");
+            return;
+        }
+        if (perfil.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Perfil não pode estar vazio.");
+            return;
+        }
+
+        FuncionarioModel funcionarioModel = new FuncionarioModel();
+        funcionarioModel.setNome(nome);
+        funcionarioModel.setApelido(apelido);
+        funcionarioModel.setNaturalidadeFuncionario(naturalidade);
+        funcionarioModel.setDataNascimento(data);
+        funcionarioModel.setEmail(email);
+        funcionarioModel.setFuncaoFuncionario(funcao);
+        funcionarioModel.setNomeFuncionario(nomeUsuario);
+        funcionarioModel.setSenhaFuncionario(senha);
+        funcionarioModel.setPerfilDeAcesso(perfil);
+        funcionarioModel.setStatus(status);
+        funcionarioModel.setDisp(disponibilidade);
+
+        FuncionarioController usuarioControler = new FuncionarioController();
+        usuarioControler.cadastrarFuncionario(funcionarioModel);
+
+    }
+
+    //Metodo Actualizar
+    private void ActualizarUsuario() {
+        int id = Integer.parseInt(txtId.getText());
+        String nome = txtNome.getText().trim();
+        String apelido = txtApelido.getText().trim();
+        String naturalidade = cbxNaturalidade.getSelectedItem().toString();
+        String data = txtDataNascimento.getText().trim();
+        String email = txtEmail.getText().trim();
+        String funcao = cbxFuncao.getSelectedItem().toString();
+        String nomeUsuario = txtNomeUsuario.getText().trim();
+        String senha = txtSenha.getText().trim();
+        String perfil = cbxPerfilDeAcesso.getSelectedItem().toString();
+        boolean status, disponibilidade;
+        disponibilidade = true;
+        if (cbxStatus.getSelectedItem().toString().equals("Activo")) {
+            status = true;
+        } else {
+            status = false;
+        }
+
+        //verificacoes
+        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(this, "Nome inválido.");
+            return;
+        }
+        if (apelido.isEmpty() || !apelido.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(this, "Apelido inválido.");
+            return;
+        }
+        if (data.isEmpty() || !data.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            JOptionPane.showMessageDialog(this, "Data de nascimento inválida.");
+            return;
+        }
+
+        if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(this, "Email inválido.");
+            return;
+        }
+        if (nomeUsuario.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nome de usuário não pode estar vazio.");
+            return;
+        }
+        if (senha.isEmpty() || senha.length() < 8) {
+            JOptionPane.showMessageDialog(this, "Senha deve ter pelo menos 8 caracteres.");
+            return;
+        }
+        if (perfil.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Perfil não pode estar vazio.");
+            return;
+        }
+
+        FuncionarioModel funcionarioModel = new FuncionarioModel();
+        funcionarioModel.setIdFuncionario(id);
+        funcionarioModel.setNome(nome);
+        funcionarioModel.setApelido(apelido);
+        funcionarioModel.setNaturalidadeFuncionario(naturalidade);
+        funcionarioModel.setDataNascimento(data);
+        funcionarioModel.setEmail(email);
+        funcionarioModel.setFuncaoFuncionario(funcao);
+        funcionarioModel.setNomeFuncionario(nomeUsuario);
+        funcionarioModel.setSenhaFuncionario(senha);
+        funcionarioModel.setPerfilDeAcesso(perfil);
+        funcionarioModel.setStatus(status);
+        funcionarioModel.setDisp(disponibilidade);
+
+        FuncionarioController usuarioController = new FuncionarioController();
+        usuarioController.ActualizarUsuario(funcionarioModel);
+
+//        JOptionPane.showMessageDialog(null, "Dados actualizados com Sucesso.");
+    }
+
+    //Metodo Listar
+    private void listarUsuarios() {
+        try {
+            FuncionarioController usuarioController = new FuncionarioController();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaUsuarios.getModel();
+            model.setRowCount(0);
+
+            ArrayList<FuncionarioModel> lista = usuarioController.PesquisarUsuario();
+            System.out.println("Clientes encontrados: " + lista.size());
+            System.out.println(lista.isEmpty());
+
+            for (FuncionarioModel item : lista) {
+                model.addRow(new Object[]{
+                    item.getIdFuncionario(),
+                    item.getNome(),
+                    item.getApelido(),
+                    item.getNaturalidadeFuncionario(),
+                    item.getDataNascimento(),
+                    item.getEmail(),
+                    item.getFuncaoFuncionario(),
+                    item.getNomeFuncionario(),
+                    item.getSenhaFuncionario(),
+                    item.getPerfilDeAcesso(),
+                    item.getStatus(),
+                    item.getDisp()
+                });
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Listar Usuários View" + erro);
+        }
+    }
+
+    //Metodo Carregar Campos
+    private void CarregarCampos() {
+        int setar = tabelaUsuarios.getSelectedRow();
+        txtId.setText(tabelaUsuarios.getModel().getValueAt(setar, 0).toString());
+        txtNome.setText(tabelaUsuarios.getModel().getValueAt(setar, 1).toString());
+        txtApelido.setText(tabelaUsuarios.getModel().getValueAt(setar, 2).toString());
+        cbxNaturalidade.setSelectedItem(tabelaUsuarios.getModel().getValueAt(setar, 3).toString());
+        txtDataNascimento.setText(tabelaUsuarios.getModel().getValueAt(setar, 4).toString());
+        txtEmail.setText(tabelaUsuarios.getModel().getValueAt(setar, 5).toString());
+        cbxFuncao.setSelectedItem(tabelaUsuarios.getModel().getValueAt(setar, 6).toString());
+        txtNomeUsuario.setText(tabelaUsuarios.getModel().getValueAt(setar, 7).toString());
+        txtSenha.setText(tabelaUsuarios.getModel().getValueAt(setar, 8).toString());
+        cbxPerfilDeAcesso.setSelectedItem(tabelaUsuarios.getModel().getValueAt(setar, 9).toString());
+        cbxStatus.setSelectedItem(tabelaUsuarios.getModel().getValueAt(setar, 10).toString());
+
+    }
+
+    //Metodo Prencher Campos obrigatorios
+    private boolean camposObrigatoriosPreenchidos() {
+        boolean nomePreenchido = !txtNome.getText().isEmpty();
+        boolean apelidoPreenchido = !txtApelido.getText().isEmpty();
+        boolean nomeUauario = !txtNomeUsuario.getText().isEmpty();
+        boolean senhaUsuario = !txtSenha.getText().isEmpty();
+
+        return nomePreenchido && apelidoPreenchido && nomeUauario && senhaUsuario;
+    }
+
+    //Metodo Limpar Campos
+    private void limparCampos() {
+        txtId.setText("");
+        txtNome.setText("");
+        txtApelido.setText("");
+        txtDataNascimento.setText("");
+        txtEmail.setText("");
+        txtNomeUsuario.setText("");
+        txtSenha.setText("");
+        cbxStatus.setSelectedIndex(0);
+        cbxFuncao.setSelectedIndex(0);
+        cbxNaturalidade.setSelectedIndex(0);
+        cbxPerfilDeAcesso.setSelectedIndex(0);
+        txtNome.requestFocus();
+    }
+
+    //Apagar 
+    private void ApagarUsuario() {
+         int id = Integer.parseInt(txtId.getText());
+        String nome = txtNome.getText().trim();
+        String apelido = txtApelido.getText().trim();
+        String naturalidade = cbxNaturalidade.getSelectedItem().toString();
+        String data = txtDataNascimento.getText().trim();
+        String email = txtEmail.getText().trim();
+        String funcao = cbxFuncao.getSelectedItem().toString();
+        String nomeUsuario = txtNomeUsuario.getText().trim();
+        String senha = txtSenha.getText().trim();
+        String perfil = cbxPerfilDeAcesso.getSelectedItem().toString();
+        boolean status, disponibilidade;
+        disponibilidade = false;
+        if (cbxStatus.getSelectedItem().toString().equals("Activo")) {
+            status = true;
+        } else {
+            status = false;
+        }
+
+        //verificacoes
+        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(this, "Nome inválido.");
+            return;
+        }
+        if (apelido.isEmpty() || !apelido.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(this, "Apelido inválido.");
+            return;
+        }
+        if (data.isEmpty() || !data.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            JOptionPane.showMessageDialog(this, "Data de nascimento inválida.");
+            return;
+        }
+
+        if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(this, "Email inválido.");
+            return;
+        }
+        if (nomeUsuario.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nome de usuário não pode estar vazio.");
+            return;
+        }
+        if (senha.isEmpty() || senha.length() < 8) {
+            JOptionPane.showMessageDialog(this, "Senha deve ter pelo menos 8 caracteres.");
+            return;
+        }
+        if (perfil.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Perfil não pode estar vazio.");
+            return;
+        }
+
+        FuncionarioModel funcionarioModel = new FuncionarioModel();
+        funcionarioModel.setIdFuncionario(id);
+        funcionarioModel.setNome(nome);
+        funcionarioModel.setApelido(apelido);
+        funcionarioModel.setNaturalidadeFuncionario(naturalidade);
+        funcionarioModel.setDataNascimento(data);
+        funcionarioModel.setEmail(email);
+        funcionarioModel.setFuncaoFuncionario(funcao);
+        funcionarioModel.setNomeFuncionario(nomeUsuario);
+        funcionarioModel.setSenhaFuncionario(senha);
+        funcionarioModel.setPerfilDeAcesso(perfil);
+        funcionarioModel.setStatus(status);
+        funcionarioModel.setDisp(disponibilidade);
+
+        FuncionarioController usuarioController = new FuncionarioController();
+        usuarioController.ActualizarUsuario(funcionarioModel);
+
+        JOptionPane.showMessageDialog(null, "Funcionario apagado com Sucesso.");
+
+        
+    }
+
 }
