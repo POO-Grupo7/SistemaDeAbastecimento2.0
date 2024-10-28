@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author lenovo
+ * @author mac
  */
 public class ClienteController {
 
@@ -56,9 +56,10 @@ public class ClienteController {
         }
         return false;
     }
-
+    
+    // Metodo de cadastro
     public void cadastrarCliente(ClienteModel clienteModel) {
-        String sql = "INSERT INTO clientes (nomeCliente, bairro, quarteirao, numeroCasa, dataContrato, emailCliente, telefone, hidrometro, consumo, saldo, activo, disp) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO clientes (nomeCliente, bairro, quarteirao, numeroCasa, dataContrato, emailCliente, telefone, consumo, saldo, activo, disp) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         conexao = new ConexaoController().conectaBaseDados();
 
@@ -72,8 +73,8 @@ public class ClienteController {
             pstm.setInt(4, clienteModel.getNrDaCasa());           // numeroCasa
             pstm.setString(5, clienteModel.getDataContracto());   // dataContrato
             pstm.setString(6, clienteModel.getEmail());           // emailCliente
-            pstm.setInt(7, clienteModel.getContacto());           // telefone
-            pstm.setString(8, clienteModel.getHidrometro());      // hidrometro
+            pstm.setInt(7, clienteModel.getNrTelefone());           // telefone
+//            pstm.setString(8, clienteModel.getHidrometro());      // hidrometro
             pstm.setDouble(9, clienteModel.getConsumo());         // consumo
             pstm.setDouble(10, clienteModel.getSaldo());          // saldo
             pstm.setBoolean(11, clienteModel.getStatus());        // activo
@@ -88,6 +89,7 @@ public class ClienteController {
         }
     }
 
+    // pesquisar cliente 
     public ArrayList<ClienteModel> PesquisarCliente() {
 //    ArrayList<ClienteModel> list = new ArrayList<>();
         String sql = "SELECT * FROM clientes WHERE disp = 1";  // Ajustado para boolean
@@ -105,15 +107,15 @@ public class ClienteController {
 
             while (rs.next()) {
                 ClienteModel clienteModel = new ClienteModel();
-                clienteModel.setId(rs.getInt("idCliente"));
+                clienteModel.setIdCliente(rs.getInt("idCliente"));
                 clienteModel.setNome(rs.getString("nomeCliente"));
                 clienteModel.setBairro(rs.getString("bairro"));
                 clienteModel.setQuarteirao(rs.getInt("quarteirao"));
                 clienteModel.setNrDaCasa(rs.getInt("numeroCasa"));
                 clienteModel.setDataContracto(rs.getString("dataContrato"));
                 clienteModel.setEmail(rs.getString("emailCliente"));
-                clienteModel.setContacto(rs.getInt("telefone"));  // Ajustado para String se telefone for String
-                clienteModel.setHidrometro(rs.getString("hidrometro"));
+                clienteModel.setNrTelefone(rs.getInt("telefone"));  // Ajustado para String se telefone for String
+//                clienteModel.setHidrometro(rs.getString("hidrometro"));
                 clienteModel.setConsumo(rs.getDouble("consumo"));
                 clienteModel.setSaldo(rs.getDouble("saldo"));
                 clienteModel.setStatus(rs.getBoolean("activo"));
@@ -153,19 +155,21 @@ public class ClienteController {
             conexao = new ConexaoController().conectaBaseDados();
             pstm = conexao.prepareStatement(sql);
 
-            pstm.setString(1, clienteModel.getNome());
-            pstm.setString(2, clienteModel.getEmail());
-            pstm.setString(3, clienteModel.getNrTelefone());
-            pstm.setString(4, clienteModel.getBairro());
-            pstm.setBoolean(5, clienteModel.getStatus());
-            pstm.setBoolean(6, clienteModel.getDisp());
-            pstm.setDouble(7, clienteModel.getConsumo());
-            pstm.setInt(8, clienteModel.getContacto());
-            pstm.setDouble(9, clienteModel.getSaldo());
-            pstm.setInt(10, clienteModel.getQuarteirao());
-            pstm.setInt(11, clienteModel.getNrDaCasa());
-            pstm.setString(12, clienteModel.getDataContracto());
-            pstm.setInt(13, clienteModel.getId());
+            // Ordem correta dos parâmetros de acordo com o SQL
+            
+            pstm.setString(1, clienteModel.getNome());            // nomeCliente
+            pstm.setString(2, clienteModel.getBairro());          // bairro
+            pstm.setInt(3, clienteModel.getQuarteirao());         // quarteirao
+            pstm.setInt(4, clienteModel.getNrDaCasa());           // numeroCasa
+            pstm.setString(5, clienteModel.getDataContracto());   // dataContrato
+            pstm.setString(6, clienteModel.getEmail());           // emailCliente
+            pstm.setInt(7, clienteModel.getNrTelefone());           // telefone
+//            pstm.setString(8, clienteModel.getHidrometro());      // hidrometro
+            pstm.setDouble(9, clienteModel.getConsumo());         // consumo
+            pstm.setDouble(10, clienteModel.getSaldo());          // saldo
+            pstm.setBoolean(11, clienteModel.getStatus());        // activo
+            pstm.setBoolean(12, clienteModel.getDisp()); 
+            pstm.setInt(13, clienteModel.getIdCliente());// disp
 
             pstm.executeUpdate();
         } catch (SQLException erro) {
@@ -192,6 +196,9 @@ create table clientes ( idCliente int AUTO_INCREMENT PRIMARY KEY, nomeCliente va
 quarteirao int(50), numeroCasa int, dataContrato varchar(45), emailCliente varchar(45), telefone int, hidrometro varchar(45),
 consumo int, saldo double, activo varchar(45), disp varchar(45) );
 
+reate table clientes ( idCliente int AUTO_INCREMENT PRIMARY KEY, nomeCliente varchar(45), bairro varchar(45), 
+quarteirao int(50), numeroCasa int, dataContrato varchar(45), emailCliente varchar(45), telefone int,
+consumo int, saldo double, activo varchar(45), disp varchar(45) );
 
 
  */
