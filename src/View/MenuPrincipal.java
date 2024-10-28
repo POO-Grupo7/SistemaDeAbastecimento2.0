@@ -624,7 +624,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHidrometroMouseExited
 
     private void btnHidrometroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHidrometroActionPerformed
-        new HidrometroView().setVisible(true);
+        new HistoricoHidrometroView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHidrometroActionPerformed
 
