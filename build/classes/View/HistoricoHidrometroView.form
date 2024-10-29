@@ -531,7 +531,7 @@
                                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-<<<<<<<< HEAD:build/classes/View/UsuariosView.form
+<<<<<<<< HEAD:src/View/UsuariosView.form
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="lblSenha" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
@@ -547,7 +547,7 @@
 ========
                                           <Component id="txtConsumoDoMes" pref="225" max="32767" attributes="0"/>
                                           <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
->>>>>>>> main:build/classes/View/HistoricoHidrometroView.form
+>>>>>>>> main:src/View/HistoricoHidrometroView.form
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="btnApagados" max="32767" attributes="0"/>
@@ -574,7 +574,7 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-<<<<<<<< HEAD:build/classes/View/UsuariosView.form
+<<<<<<<< HEAD:src/View/UsuariosView.form
                                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
@@ -618,7 +618,7 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblNumeroDeHidrometro" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="cbxHidrometro" alignment="3" min="-2" max="-2" attributes="0"/>
->>>>>>>> main:build/classes/View/HistoricoHidrometroView.form
+>>>>>>>> main:src/View/HistoricoHidrometroView.form
                                   </Group>
                                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -703,7 +703,7 @@
                             <Property name="text" type="java.lang.String" value="Numero da Leitura:"/>
                           </Properties>
                         </Component>
-<<<<<<<< HEAD:build/classes/View/UsuariosView.form
+<<<<<<<< HEAD:src/View/UsuariosView.form
                         <Component class="javax.swing.JComboBox" name="cbxPerfilAcesso">
 ========
                         <Component class="javax.swing.JTextField" name="txtNumeroDaLeitura">
@@ -727,7 +727,7 @@
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JComboBox" name="cbxMesDeReferencia">
->>>>>>>> main:build/classes/View/HistoricoHidrometroView.form
+>>>>>>>> main:src/View/HistoricoHidrometroView.form
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="13">
@@ -810,11 +810,11 @@
                             </Constraint>
                           </Constraints>
                           <SubComponents>
-<<<<<<<< HEAD:build/classes/View/UsuariosView.form
+<<<<<<<< HEAD:src/View/UsuariosView.form
                             <Component class="javax.swing.JButton" name="btnCadastrarUsuario1">
 ========
                             <Component class="javax.swing.JButton" name="btnSalvar">
->>>>>>>> main:build/classes/View/HistoricoHidrometroView.form
+>>>>>>>> main:src/View/HistoricoHidrometroView.form
                               <Properties>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="8a" green="66" red="34" type="rgb"/>
@@ -828,11 +828,11 @@
                                 <Property name="text" type="java.lang.String" value="Salvar"/>
                               </Properties>
                               <Events>
-<<<<<<<< HEAD:build/classes/View/UsuariosView.form
+<<<<<<<< HEAD:src/View/UsuariosView.form
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarUsuario1ActionPerformed"/>
 ========
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
->>>>>>>> main:build/classes/View/HistoricoHidrometroView.form
+>>>>>>>> main:src/View/HistoricoHidrometroView.form
                               </Events>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -906,11 +906,11 @@
                                 </Constraint>
                               </Constraints>
                             </Component>
-<<<<<<<< HEAD:build/classes/View/UsuariosView.form
+<<<<<<<< HEAD:src/View/UsuariosView.form
                             <Component class="javax.swing.JButton" name="btnApagarUsuario">
 ========
                             <Component class="javax.swing.JButton" name="btnApagar">
->>>>>>>> main:build/classes/View/HistoricoHidrometroView.form
+>>>>>>>> main:src/View/HistoricoHidrometroView.form
                               <Properties>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="8a" green="66" red="34" type="rgb"/>
@@ -924,11 +924,11 @@
                                 <Property name="text" type="java.lang.String" value="Apagar"/>
                               </Properties>
                               <Events>
-<<<<<<<< HEAD:build/classes/View/UsuariosView.form
+<<<<<<<< HEAD:src/View/UsuariosView.form
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnApagarUsuarioActionPerformed"/>
 ========
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnApagarActionPerformed"/>
->>>>>>>> main:build/classes/View/HistoricoHidrometroView.form
+>>>>>>>> main:src/View/HistoricoHidrometroView.form
                               </Events>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -1031,7 +1031,7 @@
                                 <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                               </StatementProvider>
                               <Parameters>
-<<<<<<<< HEAD:build/classes/View/UsuariosView.form
+<<<<<<<< HEAD:src/View/UsuariosView.form
                                 <CodeExpression id="7_btnCadastrarUsuario1">
                                   <CodeVariable name="btnCadastrarUsuario1" type="8194" declaredType="javax.swing.JButton"/>
                                   <ExpressionOrigin>
@@ -1043,7 +1043,7 @@
                                   <ExpressionOrigin>
                                     <ExpressionProvider type="ComponentRef">
                                       <ComponentRef name="btnSalvar"/>
->>>>>>>> main:build/classes/View/HistoricoHidrometroView.form
+>>>>>>>> main:src/View/HistoricoHidrometroView.form
                                     </ExpressionProvider>
                                   </ExpressionOrigin>
                                 </CodeExpression>
@@ -1219,7 +1219,7 @@
                                 <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                               </StatementProvider>
                               <Parameters>
-<<<<<<<< HEAD:build/classes/View/UsuariosView.form
+<<<<<<<< HEAD:src/View/UsuariosView.form
                                 <CodeExpression id="19_btnApagarUsuario">
                                   <CodeVariable name="btnApagarUsuario" type="8194" declaredType="javax.swing.JButton"/>
                                   <ExpressionOrigin>
@@ -1231,7 +1231,7 @@
                                   <ExpressionOrigin>
                                     <ExpressionProvider type="ComponentRef">
                                       <ComponentRef name="btnApagar"/>
->>>>>>>> main:build/classes/View/HistoricoHidrometroView.form
+>>>>>>>> main:src/View/HistoricoHidrometroView.form
                                     </ExpressionProvider>
                                   </ExpressionOrigin>
                                 </CodeExpression>
