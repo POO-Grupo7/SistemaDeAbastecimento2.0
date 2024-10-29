@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controller;
 
 import Model.ClienteModel;
@@ -13,10 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author lenovo
- */
 public class ClienteController {
 
     Connection conexao;
@@ -56,7 +48,8 @@ public class ClienteController {
         }
         return false;
     }
-
+    
+    // Metodo de cadastro
     public void cadastrarCliente(ClienteModel clienteModel) {
         String sql = "INSERT INTO clientes (nomeCliente, bairro, quarteirao, numeroCasa, dataContrato, emailCliente, telefone, consumo, saldo, activo, disp) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -74,10 +67,10 @@ public class ClienteController {
             pstm.setString(6, clienteModel.getEmail());           // emailCliente
             pstm.setInt(7, clienteModel.getNrTelefone());           // telefone
 //            pstm.setString(8, clienteModel.getHidrometro());      // hidrometro
-            pstm.setDouble(8, clienteModel.getConsumo());         // consumo
-            pstm.setDouble(9, clienteModel.getSaldo());          // saldo
-            pstm.setBoolean(10, clienteModel.getStatus());        // activo
-            pstm.setBoolean(11, clienteModel.getDisp());          // disp
+            pstm.setDouble(9, clienteModel.getConsumo());         // consumo
+            pstm.setDouble(10, clienteModel.getSaldo());          // saldo
+            pstm.setBoolean(11, clienteModel.getStatus());        // activo
+            pstm.setBoolean(12, clienteModel.getDisp());          // disp
 
             pstm.execute();
             pstm.close();
@@ -88,6 +81,7 @@ public class ClienteController {
         }
     }
 
+    // pesquisar cliente 
     public ArrayList<ClienteModel> PesquisarCliente() {
 //    ArrayList<ClienteModel> list = new ArrayList<>();
         String sql = "SELECT * FROM clientes WHERE disp = 1";  // Ajustado para boolean
@@ -153,21 +147,6 @@ public class ClienteController {
             conexao = new ConexaoController().conectaBaseDados();
             pstm = conexao.prepareStatement(sql);
 
-<<<<<<< Updated upstream
-            pstm.setString(1, clienteModel.getNome());
-            pstm.setString(2, clienteModel.getEmail());
-            pstm.setString(3, clienteModel.getNrTelefone());
-            pstm.setString(4, clienteModel.getBairro());
-            pstm.setBoolean(5, clienteModel.getStatus());
-            pstm.setBoolean(6, clienteModel.getDisp());
-            pstm.setDouble(7, clienteModel.getConsumo());
-            pstm.setInt(8, clienteModel.getContacto());
-            pstm.setDouble(9, clienteModel.getSaldo());
-            pstm.setInt(10, clienteModel.getQuarteirao());
-            pstm.setInt(11, clienteModel.getNrDaCasa());
-            pstm.setString(12, clienteModel.getDataContracto());
-            pstm.setInt(13, clienteModel.getId());
-=======
             // Ordem correta dos parâmetros de acordo com o SQL
             
             pstm.setString(1, clienteModel.getNome());            // nomeCliente
@@ -178,12 +157,11 @@ public class ClienteController {
             pstm.setString(6, clienteModel.getEmail());           // emailCliente
             pstm.setInt(7, clienteModel.getNrTelefone());           // telefone
 //            pstm.setString(8, clienteModel.getHidrometro());      // hidrometro
-            pstm.setDouble(8, clienteModel.getConsumo());         // consumo
-            pstm.setDouble(9, clienteModel.getSaldo());          // saldo
-            pstm.setBoolean(10, clienteModel.getStatus());        // activo
-            pstm.setBoolean(11, clienteModel.getDisp()); 
-            pstm.setInt(12, clienteModel.getIdCliente());// disp
->>>>>>> Stashed changes
+            pstm.setDouble(9, clienteModel.getConsumo());         // consumo
+            pstm.setDouble(10, clienteModel.getSaldo());          // saldo
+            pstm.setBoolean(11, clienteModel.getStatus());        // activo
+            pstm.setBoolean(12, clienteModel.getDisp()); 
+            pstm.setInt(13, clienteModel.getIdCliente());// disp
 
             pstm.executeUpdate();
         } catch (SQLException erro) {
@@ -201,7 +179,25 @@ public class ClienteController {
             }
         }
     }
+    //Metodo para actualizar Saldo
+    public void ActualizarSaldo(ClienteModel clienteModel) {
+        String sql = "UPDATE clientes SET saldo = ? WHERE nomeCliente = ?";
+        conexao = new ConexaoController().conectaBaseDados();
 
+        try {
+            pstm = conexao.prepareStatement(sql);
+
+            pstm.setDouble(1, clienteModel.getSaldo());
+            pstm.setString(2, clienteModel.getNome());
+
+            pstm.execute();
+            pstm.close();
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Cliente Controller Actuaizar saldo" + erro);
+        }
+    
+}
 }
 
 
@@ -210,8 +206,9 @@ create table clientes ( idCliente int AUTO_INCREMENT PRIMARY KEY, nomeCliente va
 quarteirao int(50), numeroCasa int, dataContrato varchar(45), emailCliente varchar(45), telefone int, hidrometro varchar(45),
 consumo int, saldo double, activo varchar(45), disp varchar(45) );
 
-create table clientes ( idCliente int AUTO_INCREMENT PRIMARY KEY, nomeCliente varchar(45), bairro varchar(45), 
+reate table clientes ( idCliente int AUTO_INCREMENT PRIMARY KEY, nomeCliente varchar(45), bairro varchar(45), 
 quarteirao int(50), numeroCasa int, dataContrato varchar(45), emailCliente varchar(45), telefone int,
 consumo int, saldo double, activo varchar(45), disp varchar(45) );
+
 
  */

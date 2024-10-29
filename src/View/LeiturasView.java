@@ -1,5 +1,7 @@
 package View;
 
+import Controller.HistoricoHidrometroController;
+import Controller.LeituraController;
 import View.table.TableCustom;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -10,9 +12,13 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +28,7 @@ public class LeiturasView extends javax.swing.JFrame {
 
     public LeiturasView() {
         initComponents();
+        restaurarDadosComboBoxHidrometro();
         testData(tabelaLeitura);
         getContentPane().setBackground(Color.white);
         TableCustom.apply(jScrollPane1, TableCustom.TableType.MULTI_LINE);
@@ -30,25 +37,13 @@ public class LeiturasView extends javax.swing.JFrame {
 //        painelEsqDados.add(txtId, "wrap");
 //        painelEsqDados.add(lblNome);
 //        painelEsqDados.add(txtNome, "wrap, pushx, growx");
-        
+
     }
-    
-    private void testData(JTable table){
+
+    private void testData(JTable table) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
 //        "ID", "Nome", "Apelido", "Naturalidade", "Data Nascimento", "Email", "Função", "Usuario", "Senha", "Perfil", "Activo", "Disp"
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});   
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
+        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
     }
 
     /**
@@ -77,7 +72,7 @@ public class LeiturasView extends javax.swing.JFrame {
         painelEsqDados = new javax.swing.JPanel();
         lblId = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        cbxNomeDoCliente = new javax.swing.JComboBox<>();
+        cbxNrHidrometro = new javax.swing.JComboBox<>();
         lblNomeDoCliente = new javax.swing.JLabel();
         lblBairro = new javax.swing.JLabel();
         txtBairro = new javax.swing.JTextField();
@@ -89,6 +84,8 @@ public class LeiturasView extends javax.swing.JFrame {
         cbxMesDeReferencia = new javax.swing.JComboBox<>();
         txtDataDeEmissao = new javax.swing.JTextField();
         lblDataDeEmissao = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtNomeCliente = new javax.swing.JTextField();
         painelDirDados = new javax.swing.JPanel();
         lblNumeroDeHidrometro = new javax.swing.JLabel();
         txtNumeroDeHidrometro = new javax.swing.JTextField();
@@ -149,7 +146,7 @@ public class LeiturasView extends javax.swing.JFrame {
             painelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCabecalhoLayout.createSequentialGroup()
                 .addComponent(lblCabecalho)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1056, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1071, Short.MAX_VALUE)
                 .addComponent(txtNomeAPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -234,25 +231,29 @@ public class LeiturasView extends javax.swing.JFrame {
 
         lblId.setText("Id:");
 
+        txtId.setEditable(false);
         txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdActionPerformed(evt);
             }
         });
 
-        cbxNomeDoCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
-        cbxNomeDoCliente.addActionListener(new java.awt.event.ActionListener() {
+        cbxNrHidrometro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxNrHidrometro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxNomeDoClienteActionPerformed(evt);
+                cbxNrHidrometroActionPerformed(evt);
             }
         });
 
-        lblNomeDoCliente.setText("Nome do Cliente:*");
+        lblNomeDoCliente.setText("Hidrometro:*");
 
         lblBairro.setText("Bairro:*");
 
+        txtBairro.setEditable(false);
+
         lblQuarterao.setText("Quarteirao:*");
 
+        txtQuarterao.setEditable(false);
         txtQuarterao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtQuarteraoActionPerformed(evt);
@@ -261,6 +262,7 @@ public class LeiturasView extends javax.swing.JFrame {
 
         lblNumeroDaCasa.setText("Numero da Casa:*");
 
+        txtNumeroDeCasa.setEditable(false);
         txtNumeroDeCasa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumeroDeCasaActionPerformed(evt);
@@ -278,39 +280,42 @@ public class LeiturasView extends javax.swing.JFrame {
 
         lblDataDeEmissao.setText("Data de Emissao:");
 
+        jLabel2.setText("Cliente");
+
+        txtNomeCliente.setEditable(false);
+
         javax.swing.GroupLayout painelEsqDadosLayout = new javax.swing.GroupLayout(painelEsqDados);
         painelEsqDados.setLayout(painelEsqDadosLayout);
         painelEsqDadosLayout.setHorizontalGroup(
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNomeDoCliente)
-                            .addComponent(lblBairro)
-                            .addComponent(lblId))
+                            .addComponent(lblId)
+                            .addComponent(jLabel2))
                         .addGap(61, 61, 61)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxNomeDoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbxNrHidrometro, 0, 403, Short.MAX_VALUE)))
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBairro)
                             .addComponent(lblQuarterao)
                             .addComponent(lblMesDeReferencia)
                             .addComponent(lblDataDeEmissao)
                             .addComponent(lblNumeroDaCasa))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDataDeEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtQuarterao, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(20, 20, 20))
-                            .addComponent(cbxMesDeReferencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(27, 27, 27)
+                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDataDeEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxMesDeReferencia, 0, 403, Short.MAX_VALUE)
+                            .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQuarterao))))
+                .addGap(42, 42, 42))
         );
         painelEsqDadosLayout.setVerticalGroup(
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,12 +329,16 @@ public class LeiturasView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNomeDoCliente)
-                    .addComponent(cbxNomeDoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(cbxNrHidrometro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBairro)
                     .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(15, 15, 15)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblQuarterao)
                     .addComponent(txtQuarterao, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -345,7 +354,7 @@ public class LeiturasView extends javax.swing.JFrame {
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDataDeEmissao)
                     .addComponent(txtDataDeEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         painelSuperiorDados.add(painelEsqDados);
@@ -355,6 +364,7 @@ public class LeiturasView extends javax.swing.JFrame {
 
         lblNumeroDeHidrometro.setText("Numero de Hidrometro:");
 
+        txtNumeroDeHidrometro.setEditable(false);
         txtNumeroDeHidrometro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumeroDeHidrometroActionPerformed(evt);
@@ -470,7 +480,7 @@ public class LeiturasView extends javax.swing.JFrame {
                     .addComponent(txtSaldoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addComponent(btnApagados)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         painelSuperiorDados.add(painelDirDados);
@@ -622,9 +632,9 @@ public class LeiturasView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeAPesquisarActionPerformed
 
-    private void cbxNomeDoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNomeDoClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxNomeDoClienteActionPerformed
+    private void cbxNrHidrometroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNrHidrometroActionPerformed
+        accaoComboxHidrometro();
+    }//GEN-LAST:event_cbxNrHidrometroActionPerformed
 
     private void txtQuarteraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuarteraoActionPerformed
         // TODO add your handling code here:
@@ -663,7 +673,7 @@ public class LeiturasView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdActionPerformed
 
     private void btnVoltarMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenu1MouseClicked
-        btnVoltarMenu1.setBackground(new Color(52,102,138));
+        btnVoltarMenu1.setBackground(new Color(52, 102, 138));
     }//GEN-LAST:event_btnVoltarMenu1MouseClicked
 
     private void btnVoltarMenu1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenu1MouseEntered
@@ -671,7 +681,7 @@ public class LeiturasView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenu1MouseEntered
 
     private void btnVoltarMenu1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenu1MouseExited
-        btnVoltarMenu1.setBackground(new Color(52,102,138));
+        btnVoltarMenu1.setBackground(new Color(52, 102, 138));
     }//GEN-LAST:event_btnVoltarMenu1MouseExited
 
     private void btnVoltarMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenu1ActionPerformed
@@ -687,7 +697,7 @@ public class LeiturasView extends javax.swing.JFrame {
             FlatCyanLightIJTheme.setup();
 //            UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -701,13 +711,14 @@ public class LeiturasView extends javax.swing.JFrame {
     private javax.swing.JButton btnApagados;
     private javax.swing.JButton btnVoltarMenu1;
     private javax.swing.JComboBox<String> cbxMesDeReferencia;
-    private javax.swing.JComboBox<String> cbxNomeDoCliente;
+    private javax.swing.JComboBox<String> cbxNrHidrometro;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
@@ -748,6 +759,7 @@ public class LeiturasView extends javax.swing.JFrame {
     private javax.swing.JTextField txtLeituraActual;
     private javax.swing.JTextField txtLeituraAnterior;
     private javax.swing.JTextField txtNomeAPesquisar;
+    private javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtNumeroDaLeitura;
     private javax.swing.JTextField txtNumeroDeCasa;
     private javax.swing.JTextField txtNumeroDeHidrometro;
@@ -755,4 +767,47 @@ public class LeiturasView extends javax.swing.JFrame {
     private javax.swing.JTextField txtQuarterao;
     private javax.swing.JTextField txtSaldoActual;
     // End of variables declaration//GEN-END:variables
+
+    //Accao para o JcomboxClientes
+//    Vector<Integer> idCliente = new Vector<Integer>();
+    Vector<Integer> idHistoricoHidrometro = new Vector<Integer>();
+    //Metodo que pega clientes activos na BD para jcboxClientes
+    private void restaurarDadosComboBoxHidrometro() {
+        try {
+            LeituraController leituraController = new LeituraController();
+            ResultSet rs = leituraController.listarHidrometros();
+
+            while (rs.next()) {
+                idHistoricoHidrometro.addElement(rs.getInt(1));
+                cbxNrHidrometro.addItem(rs.getString(8));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "ListarHidrometros na LeiturasView" + erro);
+        }
+    }
+
+    private void accaoComboxHidrometro() {
+        if (cbxNrHidrometro.getSelectedIndex() == 0) {
+            txtNomeCliente.setText("");
+            txtBairro.setText("");
+            txtQuarterao.setText("");
+            txtNumeroDeCasa.setText("");
+            txtSaldoActual.setText("");
+            return;
+        }
+        try {
+            LeituraController leituraController = new LeituraController();
+            ResultSet rs = leituraController.PesquisarHidrometro(idHistoricoHidrometro.get(cbxNrHidrometro.getSelectedIndex() - 1));
+
+            while (rs.next()) {
+                txtNomeCliente.setText(rs.getString(2));
+                txtBairro.setText(rs.getString(3));
+                txtQuarterao.setText(rs.getString(4));
+                txtNumeroDeCasa.setText(rs.getString(5));
+//                txtSaldoActual.setText(rs.getString(10));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "LeituraView pegar valores do NrHidrometro na tabela HistHidrom" + erro);
+        }
+    }
 }

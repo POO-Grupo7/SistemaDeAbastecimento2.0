@@ -1,5 +1,7 @@
 package View;
 
+import Controller.TaxaController;
+import Model.TaxaModel;
 import View.table.TableCustom;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -10,9 +12,11 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -22,16 +26,177 @@ public class TaxaView extends javax.swing.JFrame {
 
     public TaxaView() {
         initComponents();
-        testData(jTable2);
-//        getContentPane().setBackground(Color.white);
-        TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);        
+        listarTaxas();
+        testData(tabelaTaxas);
+        // getContentPane().setBackground(Color.white);
+        TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
     }
-    
-    private void testData(JTable table){
-        DefaultTableModel model = (DefaultTableModel) table.getModel();        
-        model.addRow(new Object[]{1,"Alto Escalao",200});
-        model.addRow(new Object[]{2,"Alto Escalao",200});
-        model.addRow(new Object[]{3,"Alto Escalao",200});
+    // Método Cadastrar
+
+    private void cadastrarTaxa() {
+        try {
+            String nome = txtNome.getText().trim();
+            String consumo = cbxTipoConsumo.getSelectedItem().toString();
+            double val = Double.parseDouble(txtValorTaxa.getText().trim()); // Campo txtValorTaxa usado para valor
+            String processada = "Sim";
+
+            // Verificações de campos
+            if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+                JOptionPane.showMessageDialog(null, "Nome inválido.");
+                return;
+            }
+
+            if (consumo.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Selecione o Tipo de Consumo.");
+                return;
+            }
+
+            // Criar o modelo de Taxa
+            TaxaModel taxaModel = new TaxaModel();
+            taxaModel.setNome(nome);
+            taxaModel.setTipoconsumo(consumo);
+            taxaModel.setValortaxa(val);
+            taxaModel.setProcessada(processada);
+
+            // Cadastrar cliente através do controlador
+            TaxaController taxaController = new TaxaController();
+            taxaController.cadastrarTaxa(taxaModel);
+
+//            JOptionPane.showMessageDialog(null, "Taxa cadastrada com sucesso!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Valor da taxa inválido. Verifique se digitou um número.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar taxa: " + e.getMessage());
+        }
+    }
+
+    //Metodo Listar
+    private void listarTaxas() {
+        try {
+            TaxaController taxaController = new TaxaController();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaTaxas.getModel();
+            model.setRowCount(0);
+
+            ArrayList<TaxaModel> lista = taxaController.listarTaxa();
+
+            for (TaxaModel item : lista) {
+                model.addRow(new Object[]{
+                    item.getId(),
+                    item.getNome(),
+                    item.getTipoconsumo(),
+                    item.getValortaxa(),});
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "ListarTaxa View" + erro);
+            System.out.println("listadas");
+        }
+    }
+
+    //Metodo para actualizar Taxa
+    private void ActualizarTaxa() {
+
+        String nome = txtNome.getText().trim();
+        int id = Integer.parseInt(txtId.getText());
+        String consumo = cbxTipoConsumo.getSelectedItem().toString();
+        String processada = "Sim";
+
+        // Verificações de campos
+        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(null, "Nome inválido.");
+            return;
+        }
+
+        // Verificar se o tipo de consumo foi selecionado
+        if (cbxTipoConsumo.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione o Tipo de Consumo.");
+            return;
+        }
+
+        // Verificar se o valor da taxa foi preenchido corretamente (caso haja um campo de valor separado)
+        try {
+            double val = Double.parseDouble(txtValorTaxa.getText().trim());  // Certifique-se de que este campo existe
+
+            // Criar o modelo de Taxa
+            TaxaModel taxaModel = new TaxaModel();
+            taxaModel.setId(id);
+            taxaModel.setNome(nome);
+            taxaModel.setTipoconsumo(consumo);
+            taxaModel.setValortaxa(val);
+            taxaModel.setProcessada(processada);
+
+            // Chamar o método de atualização no controlador
+            TaxaController taxaControler = new TaxaController();
+            taxaControler.AtualizarTaxa(taxaModel);
+
+            JOptionPane.showMessageDialog(null, "A Taxa foi atualizada com sucesso");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Valor da taxa inválido.");
+        }
+    }
+
+    //Metodo para apagar Taxa
+    private void ApagarTaxa() {
+
+        String nome = txtNome.getText().trim();
+        int id = Integer.parseInt(txtId.getText());
+        String consumo = cbxTipoConsumo.getSelectedItem().toString();
+        String processada = "Nao";
+
+        // Verificações de campos
+        if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
+            JOptionPane.showMessageDialog(null, "Nome inválido.");
+            return;
+        }
+
+        // Verificar se o tipo de consumo foi selecionado
+        if (cbxTipoConsumo.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione o Tipo de Consumo.");
+            return;
+        }
+
+        // Verificar se o valor da taxa foi preenchido corretamente (caso haja um campo de valor separado)
+        try {
+            double val = Double.parseDouble(txtValorTaxa.getText().trim());  // Certifique-se de que este campo existe
+
+            // Criar o modelo de Taxa
+            TaxaModel taxaModel = new TaxaModel();
+            taxaModel.setId(id);
+            taxaModel.setNome(nome);
+            taxaModel.setTipoconsumo(consumo);
+            taxaModel.setValortaxa(val);
+            taxaModel.setProcessada(processada);
+
+            // Chamar o método de atualização no controlador
+            TaxaController taxaControler = new TaxaController();
+            taxaControler.AtualizarTaxa(taxaModel);
+
+            JOptionPane.showMessageDialog(null, "A Taxa foi apagada com sucesso");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Valor da taxa inválido.");
+        }
+    }
+
+    // Metodo Carregar Campos
+    private void CarregarCampos() {
+        int setar = tabelaTaxas.getSelectedRow();
+        txtId.setText(tabelaTaxas.getModel().getValueAt(setar, 0).toString());
+        txtNome.setText(tabelaTaxas.getModel().getValueAt(setar, 1).toString());
+        cbxTipoConsumo.setSelectedItem(tabelaTaxas.getModel().getValueAt(setar, 2).toString());
+        txtValorTaxa.setText(tabelaTaxas.getModel().getValueAt(setar, 3).toString());
+    }
+
+    //Metodo Limpar Campos
+    private void limparCampos() {
+        txtId.setText("");
+        txtNome.setText("");
+        txtValorTaxa.setText("");
+        cbxTipoConsumo.setSelectedIndex(0);
+
+    }
+
+    private void testData(JTable table) {
+
     }
 
     /**
@@ -58,7 +223,7 @@ public class TaxaView extends javax.swing.JFrame {
         lblTipoConsumo = new javax.swing.JLabel();
         cbxTipoConsumo = new javax.swing.JComboBox<>();
         lblDataNascimento = new javax.swing.JLabel();
-        txtDataNascimento = new javax.swing.JTextField();
+        txtValorTaxa = new javax.swing.JTextField();
         txtNomeAPesquisar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
@@ -70,11 +235,10 @@ public class TaxaView extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabelaTaxas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("TAXAS DE CONSUMO DE ÁGUA");
-        setAlwaysOnTop(true);
         setBackground(new java.awt.Color(0, 0, 0));
         setMaximumSize(new java.awt.Dimension(500, 400));
         setMinimumSize(new java.awt.Dimension(500, 400));
@@ -124,9 +288,15 @@ public class TaxaView extends javax.swing.JFrame {
 
         lblTipoConsumo.setText("Tipo de Consumo:");
 
-        cbxTipoConsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxTipoConsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Baixo Escalao", "Medio Escalao", "Alto Escalao" }));
 
         lblDataNascimento.setText("Valor da Taxa");
+
+        txtValorTaxa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorTaxaActionPerformed(evt);
+            }
+        });
 
         txtNomeAPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,7 +331,7 @@ public class TaxaView extends javax.swing.JFrame {
                                 .addComponent(lblTipoConsumo)
                                 .addGap(18, 18, 18)
                                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtValorTaxa, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbxTipoConsumo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                         .addComponent(txtNomeAPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,11 +360,11 @@ public class TaxaView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDataNascimento)
-                    .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorTaxa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        painelEsqDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbxTipoConsumo, lblDataNascimento, lblId, lblNome, lblTipoConsumo, txtDataNascimento, txtId, txtNome});
+        painelEsqDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbxTipoConsumo, lblDataNascimento, lblId, lblNome, lblTipoConsumo, txtId, txtNome, txtValorTaxa});
 
         painelSuperiorDados.add(painelEsqDados);
 
@@ -231,6 +401,11 @@ public class TaxaView extends javax.swing.JFrame {
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Actualizar");
         jButton7.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -286,32 +461,32 @@ public class TaxaView extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(0, 102, 102));
 
-        jTable2.setAutoCreateRowSorter(true);
-        jTable2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTable2.setForeground(new java.awt.Color(51, 51, 51));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaTaxas.setAutoCreateRowSorter(true);
+        tabelaTaxas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tabelaTaxas.setForeground(new java.awt.Color(51, 51, 51));
+        tabelaTaxas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Tipo de Consumo", "Valor da taxa"
+                "Id", "Nome", "Tipo de Consumo", "Valor da Taxa"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.setToolTipText("");
-        jTable2.setRowSelectionAllowed(false);
-        jTable2.setShowGrid(true);
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tabelaTaxas.setToolTipText("");
+        tabelaTaxas.setRowSelectionAllowed(false);
+        tabelaTaxas.setShowGrid(true);
+        jScrollPane2.setViewportView(tabelaTaxas);
+        if (tabelaTaxas.getColumnModel().getColumnCount() > 0) {
+            tabelaTaxas.getColumnModel().getColumn(0).setPreferredWidth(35);
+            tabelaTaxas.getColumnModel().getColumn(1).setPreferredWidth(100);
         }
 
         tabela.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -331,24 +506,38 @@ public class TaxaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        CarregarCampos();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        limparCampos();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        ApagarTaxa();
+        listarTaxas();
+        limparCampos();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        cadastrarTaxa();
+        listarTaxas();
+        limparCampos();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeAPesquisarActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        ActualizarTaxa();
+        listarTaxas();
+        limparCampos();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void txtValorTaxaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorTaxaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorTaxaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -358,7 +547,7 @@ public class TaxaView extends javax.swing.JFrame {
 //            FlatCyanLightIJTheme.setup();
 //            UIManager.setLookAndFeel(new FlatIntelliJLaf());
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -377,7 +566,6 @@ public class TaxaView extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblCabecalho;
     private javax.swing.JLabel lblDataNascimento;
     private javax.swing.JLabel lblId;
@@ -391,9 +579,10 @@ public class TaxaView extends javax.swing.JFrame {
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JPanel painelSuperiorDados;
     private javax.swing.JPanel tabela;
-    private javax.swing.JTextField txtDataNascimento;
+    private javax.swing.JTable tabelaTaxas;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNomeAPesquisar;
+    private javax.swing.JTextField txtValorTaxa;
     // End of variables declaration//GEN-END:variables
 }
