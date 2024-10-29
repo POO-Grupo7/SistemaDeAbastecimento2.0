@@ -15,10 +15,6 @@ public class FacturacaoModel{
     private String nrLeitura;
     private String nome, disp;
 
-    public FacturacaoModel()  {
-
-    }
-
     public int getIdFacturacao() {
         return idFacturacao;
     }

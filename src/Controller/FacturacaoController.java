@@ -163,7 +163,7 @@ public class FacturacaoController {
 //Listar Taxas na ComboBox
     public ResultSet listarTaxas() {
         conexao = new ConexaoController().conectaBaseDados();
-        String sql = "select * from taxas where processada = 'Sim'";
+        String sql = "select * from taxa where processada = 'Sim'";
 
         try {
             pstm = conexao.prepareStatement(sql);

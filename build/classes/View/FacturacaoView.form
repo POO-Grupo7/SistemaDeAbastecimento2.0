@@ -49,7 +49,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-25,0,0,4,-20"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-23,0,0,4,-20"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -237,7 +237,7 @@
                           </Border>
                         </Property>
                         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                          <Dimension value="[497, 400]"/>
+                          <Dimension value="[497, 415]"/>
                         </Property>
                       </Properties>
 
@@ -247,49 +247,58 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
                                           <Component id="txtIdFactura" min="-2" pref="49" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="177" pref="177" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="txtSubTotal" alignment="0" pref="236" max="32767" attributes="0"/>
+                                                      <Component id="txtIva" alignment="0" pref="236" max="32767" attributes="0"/>
+                                                      <Component id="txtDescontos" alignment="0" pref="236" max="32767" attributes="0"/>
+                                                      <Component id="txtTotalFactura" alignment="0" pref="236" max="32767" attributes="0"/>
+                                                      <Component id="txtSaldoActual" alignment="0" pref="236" max="32767" attributes="0"/>
+                                                      <Component id="txtPrazoDePagamento" alignment="0" pref="236" max="32767" attributes="0"/>
+                                                      <Component id="txtNrFactura" alignment="0" pref="236" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
                                           </Group>
-                                          <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtDataFactura" pref="236" max="32767" attributes="0"/>
-                                              <Component id="btnProcessar" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="txtSubTotal" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="txtIva" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="txtDescontos" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="txtTotalFactura" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="txtSaldoActual" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="txtPrazoDePagamento" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="txtNrFactura" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="txtConsumoDoMes" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="txtSaldoAnterior" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="txtMesReferente" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="cbxNrLeitura" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="txtNomeCliente" alignment="0" pref="236" max="32767" attributes="0"/>
-                                              <Component id="cbxTaxas" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="txtDataFactura" max="32767" attributes="0"/>
+                                                  <Component id="txtConsumoDoMes" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtSaldoAnterior" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtMesReferente" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="cbxNrLeitura" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtNomeCliente" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="cbxTaxas" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="btnProcessar" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="58" max="32767" attributes="0"/>
+                                  <EmptySpace pref="67" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -336,7 +345,7 @@
                                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                       <Component id="cbxTaxas" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnProcessar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -373,7 +382,7 @@
                                       <Component id="jLabel7" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                       <Component id="txtNrFactura" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace pref="25" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>

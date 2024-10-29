@@ -24,33 +24,33 @@ public class LeituraController {
     ArrayList<LeituraModel> lista = new ArrayList<>();
 
     //Listar Clientes na ComboBox
-    public ResultSet listarClientes() {
+    public ResultSet listarHidrometros() {
         conexao = new ConexaoController().conectaBaseDados();
-        String sql = "select * from clientes WHERE activo = 'Sim' and disp = 'Sim' ORDER BY nomeCliente;";
+        String sql = "select * from historicohidrometro WHERE apagado = '0'";
 
         try {
             pstm = conexao.prepareStatement(sql);
             return pstm.executeQuery();
 
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "LeituraController pesquisar clientes" + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "LeituraController listar hidrometros" + erro.getMessage());
             return null;
         }
     }
 
     //Metodo que pega valores da BD e preenche nos campos
-    public ResultSet PesquisarClientes(int idCliente) {
+    public ResultSet PesquisarHidrometro(int idHistoricoHidrometro) {
         conexao = new ConexaoController().conectaBaseDados();
-        String sql = "select * from clientes where idCliente = ?";
+        String sql = "select * from historicohidrometro where idHistoricoHidrometro = ?";
 
         try {
             pstm = conexao.prepareStatement(sql);
-            pstm.setInt(1, idCliente);
+            pstm.setInt(1, idHistoricoHidrometro);
 
             return pstm.executeQuery();
 
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "LeituraController pesquisar cliente dados a prencher" + erro);
+            JOptionPane.showMessageDialog(null, "LeituraController pesquisarHidrometros dados a prencher" + erro);
         }
         return null;
     }
@@ -87,7 +87,7 @@ public class LeituraController {
         return false;
     }}
 
-//    //METODO PARA CADASTRAR
+    //METODO PARA CADASTRAR
 //    public void cadastrarLeitura(LeituraModel leituraModel) {
 //
 //        String sql = "insert into leituras (nomeCliente, bairro, quarteirao, numeroCasa, mesRef, dataLeitura, hidrometro, leitAnterior, leitActual, consumo, ocorrencia, nrLeitura, saldo, disp ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
