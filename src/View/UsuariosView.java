@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -25,7 +26,7 @@ public class UsuariosView extends javax.swing.JFrame {
 
     public UsuariosView() {
         initComponents();
-        testData(jTable2);
+//        testData(jTabl);
         getContentPane().setBackground(Color.white);
         TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
 //        painelEsqDados.setLayout(new MigLayout());
@@ -39,19 +40,6 @@ public class UsuariosView extends javax.swing.JFrame {
     private void testData(JTable table){
         DefaultTableModel model = (DefaultTableModel) table.getModel();
 //        "ID", "Nome", "Apelido", "Naturalidade", "Data Nascimento", "Email", "Função", "Usuario", "Senha", "Perfil", "Activo", "Disp"
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});   
-        model.addRow(new Object[]{1, "Ussene Carlos","Matato","Maputo","12/11/1999","ussene.c.matat@gmail.com","Administrador","Ussas","Ussas","Admin","Sim","Sim"});
     }
 
     /**
@@ -98,31 +86,28 @@ public class UsuariosView extends javax.swing.JFrame {
         lblSenha = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jTextField18 = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxPerfilAcesso = new javax.swing.JComboBox<>();
+        cbxStatus = new javax.swing.JComboBox<>();
         lblFoto = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        txtPassword = new javax.swing.JPasswordField();
+        txtSenha = new javax.swing.JPasswordField();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
         tabela = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabelaUsuarios = new javax.swing.JTable();
         botoes = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnCadastrarUsuario1 = new javax.swing.JButton();
+        btnActualizar1 = new javax.swing.JButton();
+        btnCarregarCampos1 = new javax.swing.JButton();
+        btnLimparCampos1 = new javax.swing.JButton();
+        btnApagarUsuario = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("USUÁRIOS");
-        setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(1180, 650));
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
@@ -353,15 +338,11 @@ public class UsuariosView extends javax.swing.JFrame {
 
         jLabel28.setText("Estado:");
 
-        jLabel29.setText("Disponibilidade:");
-
-        jTextField18.setEditable(false);
-
         jCheckBox1.setText("Ver Senha");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Admistrador ", "Gestor", "Leitor", "Balconista" }));
+        cbxPerfilAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Admistrador ", "Gestor", "Leitor", "Balconista" }));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
+        cbxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
 
         lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_account_128px.png"))); // NOI18N
         lblFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 102, 138), 2));
@@ -387,19 +368,15 @@ public class UsuariosView extends javax.swing.JFrame {
                             .addComponent(jLabel28))
                         .addGap(28, 28, 28)
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxPerfilAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jCheckBox1)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(painelDirDadosLayout.createSequentialGroup()
-                        .addComponent(jLabel29)
-                        .addGap(29, 29, 29)
-                        .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painelDirDadosLayout.createSequentialGroup()
                         .addComponent(lblNomeUsuario)
                         .addGap(18, 18, 18)
                         .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 45, Short.MAX_VALUE)
+                .addGap(18, 38, Short.MAX_VALUE)
                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFoto))
@@ -414,7 +391,7 @@ public class UsuariosView extends javax.swing.JFrame {
                         .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(95, Short.MAX_VALUE))
                     .addGroup(painelDirDadosLayout.createSequentialGroup()
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNomeUsuario)
@@ -422,31 +399,24 @@ public class UsuariosView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblSenha)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelDirDadosLayout.createSequentialGroup()
                                 .addGap(48, 48, 48)
                                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel26)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cbxPerfilAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel28)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(painelDirDadosLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jCheckBox1)))
-                        .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelDirDadosLayout.createSequentialGroup()
-                                .addGap(87, 87, 87)
-                                .addComponent(jLabel29))
-                            .addGroup(painelDirDadosLayout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 8, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
-        painelDirDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCheckBox1, jLabel26, jLabel28, jLabel29, lblNomeUsuario, lblSenha});
+        painelDirDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCheckBox1, jLabel26, jLabel28, lblNomeUsuario, lblSenha});
 
         painelSuperiorDados.add(painelDirDados);
 
@@ -460,9 +430,9 @@ public class UsuariosView extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(0, 102, 102));
 
-        jTable2.setAutoCreateRowSorter(true);
-        jTable2.setForeground(new java.awt.Color(51, 51, 51));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaUsuarios.setAutoCreateRowSorter(true);
+        tabelaUsuarios.setForeground(new java.awt.Color(51, 51, 51));
+        tabelaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -471,22 +441,22 @@ public class UsuariosView extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.setShowGrid(true);
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(100);
-            jTable2.getColumnModel().getColumn(4).setPreferredWidth(100);
-            jTable2.getColumnModel().getColumn(5).setPreferredWidth(180);
-            jTable2.getColumnModel().getColumn(10).setPreferredWidth(40);
-            jTable2.getColumnModel().getColumn(11).setPreferredWidth(40);
+        tabelaUsuarios.setShowGrid(true);
+        jScrollPane2.setViewportView(tabelaUsuarios);
+        if (tabelaUsuarios.getColumnModel().getColumnCount() > 0) {
+            tabelaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(35);
+            tabelaUsuarios.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabelaUsuarios.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tabelaUsuarios.getColumnModel().getColumn(5).setPreferredWidth(180);
+            tabelaUsuarios.getColumnModel().getColumn(10).setPreferredWidth(40);
+            tabelaUsuarios.getColumnModel().getColumn(11).setPreferredWidth(40);
         }
 
         tabela.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -497,65 +467,70 @@ public class UsuariosView extends javax.swing.JFrame {
         botoesLayout.rowHeights = new int[] {0};
         botoes.setLayout(botoesLayout);
 
-        jButton6.setBackground(new java.awt.Color(52, 102, 138));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Cadastrar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarUsuario1.setBackground(new java.awt.Color(52, 102, 138));
+        btnCadastrarUsuario1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCadastrarUsuario1.setForeground(new java.awt.Color(255, 255, 255));
+        btnCadastrarUsuario1.setText("Cadastrar");
+        btnCadastrarUsuario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnCadastrarUsuario1ActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton6, gridBagConstraints);
+        botoes.add(btnCadastrarUsuario1, gridBagConstraints);
 
-        jButton7.setBackground(new java.awt.Color(52, 102, 138));
-        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("Actualizar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton7, gridBagConstraints);
-
-        jButton8.setBackground(new java.awt.Color(52, 102, 138));
-        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("Carregar Campos");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar1.setBackground(new java.awt.Color(52, 102, 138));
+        btnActualizar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnActualizar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar1.setText("Actualizar");
+        btnActualizar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnActualizar1ActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton8, gridBagConstraints);
+        botoes.add(btnActualizar1, gridBagConstraints);
 
-        jButton9.setBackground(new java.awt.Color(52, 102, 138));
-        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setText("Limpar Campos");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        btnCarregarCampos1.setBackground(new java.awt.Color(52, 102, 138));
+        btnCarregarCampos1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCarregarCampos1.setForeground(new java.awt.Color(255, 255, 255));
+        btnCarregarCampos1.setText("Carregar Campos");
+        btnCarregarCampos1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                btnCarregarCampos1ActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton9, gridBagConstraints);
+        botoes.add(btnCarregarCampos1, gridBagConstraints);
 
-        jButton10.setBackground(new java.awt.Color(52, 102, 138));
-        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jButton10.setText("Apagar");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btnLimparCampos1.setBackground(new java.awt.Color(52, 102, 138));
+        btnLimparCampos1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLimparCampos1.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimparCampos1.setText("Limpar Campos");
+        btnLimparCampos1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btnLimparCampos1ActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton10, gridBagConstraints);
+        botoes.add(btnLimparCampos1, gridBagConstraints);
+
+        btnApagarUsuario.setBackground(new java.awt.Color(52, 102, 138));
+        btnApagarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnApagarUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        btnApagarUsuario.setText("Apagar");
+        btnApagarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarUsuarioActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
+        botoes.add(btnApagarUsuario, gridBagConstraints);
 
         tabela.add(botoes, java.awt.BorderLayout.PAGE_START);
 
@@ -597,9 +572,11 @@ public class UsuariosView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+    private void btnApagarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarUsuarioActionPerformed
+        ApagarUsuario();
+        limparCampos();
+        listarUsuarios();
+    }//GEN-LAST:event_btnApagarUsuarioActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -644,6 +621,26 @@ public class UsuariosView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnVoltarMenu1ActionPerformed
 
+    private void btnCadastrarUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarUsuario1ActionPerformed
+        cadastrarUsuario();
+        limparCampos();
+        listarUsuarios();
+    }//GEN-LAST:event_btnCadastrarUsuario1ActionPerformed
+
+    private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
+        ActualizarUsuario();
+        limparCampos();
+        listarUsuarios();
+    }//GEN-LAST:event_btnActualizar1ActionPerformed
+
+    private void btnCarregarCampos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarCampos1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCarregarCampos1ActionPerformed
+
+    private void btnLimparCampos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCampos1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimparCampos1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -663,28 +660,25 @@ public class UsuariosView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botoes;
+    private javax.swing.JButton btnActualizar1;
+    private javax.swing.JButton btnApagarUsuario;
+    private javax.swing.JButton btnCadastrarUsuario1;
+    private javax.swing.JButton btnCarregarCampos1;
+    private javax.swing.JButton btnLimparCampos1;
     private javax.swing.JButton btnVoltarMenu1;
     private javax.swing.JComboBox<String> cbxFuncao;
     private javax.swing.JComboBox<String> cbxNaturalidade;
+    private javax.swing.JComboBox<String> cbxPerfilAcesso;
+    private javax.swing.JComboBox<String> cbxStatus;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField18;
     private javax.swing.JLabel lblApelido;
     private javax.swing.JLabel lblCabecalho;
     private javax.swing.JLabel lblCabecalho1;
@@ -709,6 +703,7 @@ public class UsuariosView extends javax.swing.JFrame {
     private javax.swing.JPanel painelSuperiorDados;
     private javax.swing.JPanel painelVoltarMenu;
     private javax.swing.JPanel tabela;
+    private javax.swing.JTable tabelaUsuarios;
     private javax.swing.JTextField txtApelido;
     private javax.swing.JTextField txtDataNascimento;
     private javax.swing.JTextField txtEmail;
@@ -716,7 +711,7 @@ public class UsuariosView extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNomeAPesquisar;
     private javax.swing.JTextField txtNomeUsuario;
-    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 
 //Metodo para Cadastrar Funcionario
@@ -729,7 +724,7 @@ public class UsuariosView extends javax.swing.JFrame {
         String funcao = cbxFuncao.getSelectedItem().toString();
         String nomeUsuario = txtNomeUsuario.getText().trim();
         String senha = txtSenha.getText().trim();
-        String perfil = cbxPerfilDeAcesso.getSelectedItem().toString();
+        String perfil = cbxPerfilAcesso.getSelectedItem().toString();
         boolean status, disponibilidade;
         disponibilidade = true;
         if (cbxStatus.getItemAt(0) == "Activo") {
@@ -772,11 +767,11 @@ public class UsuariosView extends javax.swing.JFrame {
         FuncionarioModel funcionarioModel = new FuncionarioModel();
         funcionarioModel.setNome(nome);
         funcionarioModel.setApelido(apelido);
-        funcionarioModel.setNaturalidadeFuncionario(naturalidade);
+        funcionarioModel.setNaturalidade(naturalidade);
         funcionarioModel.setDataNascimento(data);
         funcionarioModel.setEmail(email);
         funcionarioModel.setFuncaoFuncionario(funcao);
-        funcionarioModel.setNomeFuncionario(nomeUsuario);
+        funcionarioModel.setNome(nomeUsuario);
         funcionarioModel.setSenhaFuncionario(senha);
         funcionarioModel.setPerfilDeAcesso(perfil);
         funcionarioModel.setStatus(status);
@@ -798,7 +793,7 @@ public class UsuariosView extends javax.swing.JFrame {
         String funcao = cbxFuncao.getSelectedItem().toString();
         String nomeUsuario = txtNomeUsuario.getText().trim();
         String senha = txtSenha.getText().trim();
-        String perfil = cbxPerfilDeAcesso.getSelectedItem().toString();
+        String perfil = cbxPerfilAcesso.getSelectedItem().toString();
         boolean status, disponibilidade;
         disponibilidade = true;
         if (cbxStatus.getSelectedItem().toString().equals("Activo")) {
@@ -842,11 +837,11 @@ public class UsuariosView extends javax.swing.JFrame {
         funcionarioModel.setIdFuncionario(id);
         funcionarioModel.setNome(nome);
         funcionarioModel.setApelido(apelido);
-        funcionarioModel.setNaturalidadeFuncionario(naturalidade);
+        funcionarioModel.setNaturalidade(naturalidade);
         funcionarioModel.setDataNascimento(data);
         funcionarioModel.setEmail(email);
         funcionarioModel.setFuncaoFuncionario(funcao);
-        funcionarioModel.setNomeFuncionario(nomeUsuario);
+        funcionarioModel.setNome(nomeUsuario);
         funcionarioModel.setSenhaFuncionario(senha);
         funcionarioModel.setPerfilDeAcesso(perfil);
         funcionarioModel.setStatus(status);
@@ -875,11 +870,11 @@ public class UsuariosView extends javax.swing.JFrame {
                     item.getIdFuncionario(),
                     item.getNome(),
                     item.getApelido(),
-                    item.getNaturalidadeFuncionario(),
+                    item.getNaturalidade(),
                     item.getDataNascimento(),
                     item.getEmail(),
                     item.getFuncaoFuncionario(),
-                    item.getNomeFuncionario(),
+                    item.getNome(),
                     item.getSenhaFuncionario(),
                     item.getPerfilDeAcesso(),
                     item.getStatus(),
@@ -903,7 +898,7 @@ public class UsuariosView extends javax.swing.JFrame {
         cbxFuncao.setSelectedItem(tabelaUsuarios.getModel().getValueAt(setar, 6).toString());
         txtNomeUsuario.setText(tabelaUsuarios.getModel().getValueAt(setar, 7).toString());
         txtSenha.setText(tabelaUsuarios.getModel().getValueAt(setar, 8).toString());
-        cbxPerfilDeAcesso.setSelectedItem(tabelaUsuarios.getModel().getValueAt(setar, 9).toString());
+        cbxPerfilAcesso.setSelectedItem(tabelaUsuarios.getModel().getValueAt(setar, 9).toString());
         cbxStatus.setSelectedItem(tabelaUsuarios.getModel().getValueAt(setar, 10).toString());
 
     }
@@ -930,7 +925,7 @@ public class UsuariosView extends javax.swing.JFrame {
         cbxStatus.setSelectedIndex(0);
         cbxFuncao.setSelectedIndex(0);
         cbxNaturalidade.setSelectedIndex(0);
-        cbxPerfilDeAcesso.setSelectedIndex(0);
+        cbxPerfilAcesso.setSelectedIndex(0);
         txtNome.requestFocus();
     }
 
@@ -945,7 +940,7 @@ public class UsuariosView extends javax.swing.JFrame {
         String funcao = cbxFuncao.getSelectedItem().toString();
         String nomeUsuario = txtNomeUsuario.getText().trim();
         String senha = txtSenha.getText().trim();
-        String perfil = cbxPerfilDeAcesso.getSelectedItem().toString();
+        String perfil = cbxPerfilAcesso.getSelectedItem().toString();
         boolean status, disponibilidade;
         disponibilidade = false;
         if (cbxStatus.getSelectedItem().toString().equals("Activo")) {
@@ -989,11 +984,11 @@ public class UsuariosView extends javax.swing.JFrame {
         funcionarioModel.setIdFuncionario(id);
         funcionarioModel.setNome(nome);
         funcionarioModel.setApelido(apelido);
-        funcionarioModel.setNaturalidadeFuncionario(naturalidade);
+        funcionarioModel.setNaturalidade(naturalidade);
         funcionarioModel.setDataNascimento(data);
         funcionarioModel.setEmail(email);
         funcionarioModel.setFuncaoFuncionario(funcao);
-        funcionarioModel.setNomeFuncionario(nomeUsuario);
+        funcionarioModel.setNome(nomeUsuario);
         funcionarioModel.setSenhaFuncionario(senha);
         funcionarioModel.setPerfilDeAcesso(perfil);
         funcionarioModel.setStatus(status);
