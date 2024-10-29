@@ -26,6 +26,7 @@ public class UsuariosView extends javax.swing.JFrame {
 
     public UsuariosView() {
         initComponents();
+        listarUsuarios();
 //        testData(jTabl);
         getContentPane().setBackground(Color.white);
         TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
