@@ -635,11 +635,11 @@ public class UsuariosView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizar1ActionPerformed
 
     private void btnCarregarCampos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarCampos1ActionPerformed
-        // TODO add your handling code here:
+        CarregarCampos();
     }//GEN-LAST:event_btnCarregarCampos1ActionPerformed
 
     private void btnLimparCampos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCampos1ActionPerformed
-        // TODO add your handling code here:
+        limparCampos();
     }//GEN-LAST:event_btnLimparCampos1ActionPerformed
 
     /**
