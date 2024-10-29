@@ -158,7 +158,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         painelConteudo = new javax.swing.JPanel();
         painelConteudoEsquerdo = new javax.swing.JPanel();
         lblIconLogo = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        painelVoltarMenu = new javax.swing.JPanel();
         btnVoltarMenu = new javax.swing.JButton();
         lblCabecalho = new javax.swing.JLabel();
         painelContCentral = new javax.swing.JPanel();
@@ -198,7 +198,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         lblIconLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_combo_chart_256px.png"))); // NOI18N
         painelConteudoEsquerdo.add(lblIconLogo, java.awt.BorderLayout.CENTER);
 
-        jPanel1.setBackground(new java.awt.Color(52, 102, 138));
+        painelVoltarMenu.setBackground(new java.awt.Color(52, 102, 138));
 
         btnVoltarMenu.setBackground(new java.awt.Color(52, 102, 138));
         btnVoltarMenu.setForeground(new java.awt.Color(52, 102, 138));
@@ -226,16 +226,16 @@ public class RelatoriosView extends javax.swing.JFrame {
                 btnVoltarMenuActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVoltarMenu);
+        painelVoltarMenu.add(btnVoltarMenu);
         btnVoltarMenu.getAccessibleContext().setAccessibleName("btnVoltarMenu");
 
         lblCabecalho.setBackground(new java.awt.Color(52, 102, 138));
         lblCabecalho.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         lblCabecalho.setForeground(new java.awt.Color(255, 255, 255));
-        lblCabecalho.setText("Relatórios");
-        jPanel1.add(lblCabecalho);
+        lblCabecalho.setText("Voltar");
+        painelVoltarMenu.add(lblCabecalho);
 
-        painelConteudoEsquerdo.add(jPanel1, java.awt.BorderLayout.NORTH);
+        painelConteudoEsquerdo.add(painelVoltarMenu, java.awt.BorderLayout.NORTH);
 
         painelConteudo.add(painelConteudoEsquerdo, java.awt.BorderLayout.WEST);
 
@@ -459,7 +459,6 @@ public class RelatoriosView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCabecalho;
     private javax.swing.JLabel lblIconLogo;
@@ -474,6 +473,7 @@ public class RelatoriosView extends javax.swing.JFrame {
     private javax.swing.JPanel painelConteudoEsquerdo;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JPanel painelSuperio;
+    private javax.swing.JPanel painelVoltarMenu;
     private javax.swing.JPanel panelBarChart;
     private javax.swing.JPanel panelLineChart;
     private rojeru_san.complementos.RSTableMetro rSTableMetro1;

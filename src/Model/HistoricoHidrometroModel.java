@@ -6,6 +6,11 @@ public class HistoricoHidrometroModel {
     private HidrometroModel hidrometro;
     private String dataInicial;
     private String dataFinal;
+    private boolean apagado;
+
+    public HistoricoHidrometroModel() {
+        this.apagado = false;
+    }
 
     public int getIdHistoricoHidrometro() {
         return idHistoricoHidrometro;
@@ -45,6 +50,14 @@ public class HistoricoHidrometroModel {
 
     public void setDataFinal(String dataFinal) {
         this.dataFinal = dataFinal;
+    }
+
+    public boolean getApagado() {
+        return apagado;
+    }
+
+    public void setApagado(boolean apagado) {
+        this.apagado = apagado;
     }
 
     public String imprimir(){
