@@ -58,11 +58,6 @@ public class HidrometroView extends javax.swing.JFrame {
         txtNomeAPesquisar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         painelConteudo = new javax.swing.JPanel();
-        painelConteudoEsquerdo = new javax.swing.JPanel();
-        painelVoltarMenu1 = new javax.swing.JPanel();
-        btnVoltarMenu = new javax.swing.JButton();
-        lblCabecalho1 = new javax.swing.JLabel();
-        lblIconLogo = new javax.swing.JLabel();
         painelContCentral = new javax.swing.JPanel();
         painelSuperiorDados = new javax.swing.JPanel();
         painelEsqDados = new javax.swing.JPanel();
@@ -74,7 +69,6 @@ public class HidrometroView extends javax.swing.JFrame {
         lbStatus = new javax.swing.JLabel();
         cbxStatus = new javax.swing.JComboBox<>();
         txtDataRegisto = new com.toedter.calendar.JDateChooser();
-        painelDirDados = new javax.swing.JPanel();
         btnApagados = new javax.swing.JButton();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
         tabela = new javax.swing.JPanel();
@@ -86,17 +80,16 @@ public class HidrometroView extends javax.swing.JFrame {
         btnApagar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaHidrometro = new javax.swing.JTable();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("HIDROMETRO");
-        setMinimumSize(new java.awt.Dimension(1180, 650));
-        setPreferredSize(new java.awt.Dimension(1260, 700));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("HIDROMETROS");
+        setMinimumSize(new java.awt.Dimension(600, 500));
+        setPreferredSize(new java.awt.Dimension(600, 500));
+        setResizable(false);
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        painelPrincipal.setPreferredSize(new java.awt.Dimension(1260, 720));
+        painelPrincipal.setMinimumSize(new java.awt.Dimension(500, 250));
+        painelPrincipal.setPreferredSize(new java.awt.Dimension(500, 250));
         painelPrincipal.setLayout(new java.awt.BorderLayout());
 
         painelCabecalho.setBackground(new java.awt.Color(52, 102, 138));
@@ -120,7 +113,7 @@ public class HidrometroView extends javax.swing.JFrame {
             painelCabecalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCabecalhoLayout.createSequentialGroup()
                 .addComponent(lblCabecalho)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 836, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                 .addComponent(txtNomeAPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -147,58 +140,6 @@ public class HidrometroView extends javax.swing.JFrame {
         painelConteudo.setInheritsPopupMenu(true);
         painelConteudo.setLayout(new java.awt.BorderLayout(10, 10));
 
-        painelConteudoEsquerdo.setBackground(new java.awt.Color(52, 102, 138));
-        painelConteudoEsquerdo.setLayout(new java.awt.BorderLayout());
-
-        painelVoltarMenu1.setBackground(new java.awt.Color(52, 102, 138));
-        painelVoltarMenu1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                painelVoltarMenu1KeyPressed(evt);
-            }
-        });
-
-        btnVoltarMenu.setBackground(new java.awt.Color(52, 102, 138));
-        btnVoltarMenu.setForeground(new java.awt.Color(52, 102, 138));
-        btnVoltarMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8-menu-48.png"))); // NOI18N
-        btnVoltarMenu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 102), 2, true));
-        btnVoltarMenu.setContentAreaFilled(false);
-        btnVoltarMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnVoltarMenu.setDisabledIcon(null);
-        btnVoltarMenu.setDisabledSelectedIcon(null);
-        btnVoltarMenu.setOpaque(true);
-        btnVoltarMenu.setSelected(true);
-        btnVoltarMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnVoltarMenuMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnVoltarMenuMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnVoltarMenuMouseExited(evt);
-            }
-        });
-        btnVoltarMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarMenuActionPerformed(evt);
-            }
-        });
-        painelVoltarMenu1.add(btnVoltarMenu);
-
-        lblCabecalho1.setBackground(new java.awt.Color(52, 102, 138));
-        lblCabecalho1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        lblCabecalho1.setForeground(new java.awt.Color(255, 255, 255));
-        lblCabecalho1.setText("Voltar");
-        painelVoltarMenu1.add(lblCabecalho1);
-
-        painelConteudoEsquerdo.add(painelVoltarMenu1, java.awt.BorderLayout.NORTH);
-
-        lblIconLogo.setBackground(new java.awt.Color(52, 102, 138));
-        lblIconLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_speed_256px.png"))); // NOI18N
-        painelConteudoEsquerdo.add(lblIconLogo, java.awt.BorderLayout.CENTER);
-
-        painelConteudo.add(painelConteudoEsquerdo, java.awt.BorderLayout.WEST);
-
         painelContCentral.setBackground(new java.awt.Color(255, 255, 255));
         painelContCentral.setLayout(new java.awt.BorderLayout());
 
@@ -207,6 +148,8 @@ public class HidrometroView extends javax.swing.JFrame {
 
         painelEsqDados.setBackground(new java.awt.Color(255, 255, 255));
         painelEsqDados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 43, 64)));
+        painelEsqDados.setMaximumSize(new java.awt.Dimension(500, 250));
+        painelEsqDados.setPreferredSize(new java.awt.Dimension(500, 250));
 
         lblId.setText("Id:");
 
@@ -234,22 +177,16 @@ public class HidrometroView extends javax.swing.JFrame {
 
         txtDataRegisto.setDateFormatString("dd/MM/yyyy");
 
+        btnApagados.setBackground(new java.awt.Color(255, 0, 51));
+        btnApagados.setText("Ver Apagados");
+
         javax.swing.GroupLayout painelEsqDadosLayout = new javax.swing.GroupLayout(painelEsqDados);
         painelEsqDados.setLayout(painelEsqDadosLayout);
         painelEsqDadosLayout.setHorizontalGroup(
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                        .addComponent(lblNumeroDeHidrometro)
-                        .addGap(32, 32, 32)
-                        .addComponent(txtNumeroDeHidrometro))
-                    .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                        .addComponent(lbStatus)
-                        .addGap(117, 117, 117)
-                        .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 187, Short.MAX_VALUE))
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblId)
@@ -257,8 +194,18 @@ public class HidrometroView extends javax.swing.JFrame {
                         .addGap(79, 79, 79)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDataRegisto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(19, 19, 19))
+                            .addComponent(txtDataRegisto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(painelEsqDadosLayout.createSequentialGroup()
+                        .addComponent(lblNumeroDeHidrometro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelEsqDadosLayout.createSequentialGroup()
+                        .addComponent(lbStatus)
+                        .addGap(117, 117, 117)
+                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnApagados, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(163, 163, Short.MAX_VALUE))
         );
         painelEsqDadosLayout.setVerticalGroup(
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,35 +228,12 @@ public class HidrometroView extends javax.swing.JFrame {
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbStatus)
                     .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addComponent(btnApagados)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelSuperiorDados.add(painelEsqDados);
-
-        painelDirDados.setBackground(new java.awt.Color(255, 255, 255));
-        painelDirDados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 43, 64)));
-
-        btnApagados.setBackground(new java.awt.Color(255, 0, 51));
-        btnApagados.setText("Ver Apagados");
-
-        javax.swing.GroupLayout painelDirDadosLayout = new javax.swing.GroupLayout(painelDirDados);
-        painelDirDados.setLayout(painelDirDadosLayout);
-        painelDirDadosLayout.setHorizontalGroup(
-            painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDirDadosLayout.createSequentialGroup()
-                .addGap(159, 159, 159)
-                .addComponent(btnApagados, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                .addGap(139, 139, 139))
-        );
-        painelDirDadosLayout.setVerticalGroup(
-            painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelDirDadosLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(btnApagados)
-                .addContainerGap(326, Short.MAX_VALUE))
-        );
-
-        painelSuperiorDados.add(painelDirDados);
 
         painelContCentral.add(painelSuperiorDados, java.awt.BorderLayout.PAGE_START);
 
@@ -320,6 +244,7 @@ public class HidrometroView extends javax.swing.JFrame {
         tabela.setLayout(new java.awt.BorderLayout());
 
         botoes.setBackground(new java.awt.Color(255, 255, 255));
+        botoes.setPreferredSize(new java.awt.Dimension(500, 77));
         java.awt.GridBagLayout botoesLayout = new java.awt.GridBagLayout();
         botoesLayout.columnWidths = new int[] {0};
         botoesLayout.rowHeights = new int[] {0};
@@ -329,19 +254,19 @@ public class HidrometroView extends javax.swing.JFrame {
         btnCadastrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCadastrar.setForeground(new java.awt.Color(255, 255, 255));
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setMargin(new java.awt.Insets(3, 8, 3, 8));
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(btnCadastrar, gridBagConstraints);
+        botoes.add(btnCadastrar, new java.awt.GridBagConstraints());
 
         btnActualizar.setBackground(new java.awt.Color(52, 102, 138));
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
+        btnActualizar.setMargin(new java.awt.Insets(3, 8, 3, 8));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
@@ -355,6 +280,7 @@ public class HidrometroView extends javax.swing.JFrame {
         btnCarregarCampos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCarregarCampos.setForeground(new java.awt.Color(255, 255, 255));
         btnCarregarCampos.setText("Carregar Campos");
+        btnCarregarCampos.setMargin(new java.awt.Insets(3, 8, 3, 8));
         btnCarregarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCarregarCamposActionPerformed(evt);
@@ -368,6 +294,7 @@ public class HidrometroView extends javax.swing.JFrame {
         btnLimparCampos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnLimparCampos.setForeground(new java.awt.Color(255, 255, 255));
         btnLimparCampos.setText("Limpar Campos");
+        btnLimparCampos.setMargin(new java.awt.Insets(3, 8, 3, 8));
         btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimparCamposActionPerformed(evt);
@@ -381,6 +308,7 @@ public class HidrometroView extends javax.swing.JFrame {
         btnApagar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnApagar.setForeground(new java.awt.Color(255, 255, 255));
         btnApagar.setText("Apagar");
+        btnApagar.setMargin(new java.awt.Insets(3, 8, 3, 8));
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApagarActionPerformed(evt);
@@ -440,18 +368,6 @@ public class HidrometroView extends javax.swing.JFrame {
 
         getContentPane().add(painelPrincipal, java.awt.BorderLayout.CENTER);
 
-        jMenuBar1.setAlignmentY(0.5F);
-        jMenuBar1.setBorderPainted(false);
-        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-
-        jMenu2.setText("File");
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Edit");
-        jMenuBar1.add(jMenu3);
-
-        setJMenuBar(jMenuBar1);
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -488,27 +404,6 @@ public class HidrometroView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
 
-    private void btnVoltarMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenuMouseClicked
-        btnVoltarMenu.setBackground(new Color(52, 102, 138));
-    }//GEN-LAST:event_btnVoltarMenuMouseClicked
-
-    private void btnVoltarMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenuMouseEntered
-        btnVoltarMenu.setBackground(new Color(45, 45, 45));
-    }//GEN-LAST:event_btnVoltarMenuMouseEntered
-
-    private void btnVoltarMenuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenuMouseExited
-        btnVoltarMenu.setBackground(new Color(52, 102, 138));
-    }//GEN-LAST:event_btnVoltarMenuMouseExited
-
-    private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
-        new MenuPrincipal().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnVoltarMenuActionPerformed
-
-    private void painelVoltarMenu1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_painelVoltarMenu1KeyPressed
-
-    }//GEN-LAST:event_painelVoltarMenu1KeyPressed
-
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         actualizarHidrometro();
         listarHidrometro();
@@ -540,30 +435,21 @@ public class HidrometroView extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCarregarCampos;
     private javax.swing.JButton btnLimparCampos;
-    private javax.swing.JButton btnVoltarMenu;
     private javax.swing.JComboBox<String> cbxStatus;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbStatus;
     private javax.swing.JLabel lblCabecalho;
-    private javax.swing.JLabel lblCabecalho1;
     private javax.swing.JLabel lblDataRegisto;
-    private javax.swing.JLabel lblIconLogo;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblNumeroDeHidrometro;
     private javax.swing.JPanel painelCabecalho;
     private javax.swing.JPanel painelContCentral;
     private javax.swing.JPanel painelConteudo;
-    private javax.swing.JPanel painelConteudoEsquerdo;
-    private javax.swing.JPanel painelDirDados;
     private javax.swing.JPanel painelEsqDados;
     private javax.swing.JPanel painelInferiorBotoesTabela;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JPanel painelSuperiorDados;
-    private javax.swing.JPanel painelVoltarMenu1;
     private javax.swing.JPanel tabela;
     private javax.swing.JTable tabelaHidrometro;
     private com.toedter.calendar.JDateChooser txtDataRegisto;

@@ -82,7 +82,7 @@ public class FuncionarioController {
 
                 pstm.setString(1, funcionarioModel.getNome());
                 pstm.setString(2, funcionarioModel.getApelido());
-                pstm.setString(3, funcionarioModel.getNaturalidadeFuncionario());
+                pstm.setString(3, funcionarioModel.getNaturalidade());
                 pstm.setString(4, funcionarioModel.getDataNascimento());
                 pstm.setString(5, funcionarioModel.getEmail());
                 pstm.setString(6, funcionarioModel.getFuncaoFuncionario());
@@ -117,7 +117,7 @@ public class FuncionarioController {
                 funcionarioModel.setIdFuncionario(rs.getInt("idFuncionario")); // Confirme se o nome da coluna está correto
                 funcionarioModel.setNome(rs.getString("nome"));
                 funcionarioModel.setApelido(rs.getString("apelidoFuncionario"));
-                funcionarioModel.setNaturalidadeFuncionario(rs.getString("naturalidadeFuncionario"));
+                funcionarioModel.setNaturalidade(rs.getString("naturalidadeFuncionario"));
                 funcionarioModel.setDataNascimento(rs.getString("dataNascimentoFuncionario"));
                 funcionarioModel.setEmail(rs.getString("emailFuncionario"));
                 funcionarioModel.setFuncaoFuncionario(rs.getString("funcaoFuncionario"));
@@ -152,7 +152,7 @@ Connection conexao = null;
 
             pstm.setString(1, funcionarioModel.getNome());
             pstm.setString(2, funcionarioModel.getApelido());
-            pstm.setString(3, funcionarioModel.getNaturalidadeFuncionario());
+            pstm.setString(3, funcionarioModel.getNaturalidade());
             pstm.setString(4, funcionarioModel.getDataNascimento());
             pstm.setString(5, funcionarioModel.getEmail());
             pstm.setString(6, funcionarioModel.getFuncaoFuncionario());

@@ -4,8 +4,8 @@ package Model;
 public class LeituraModel {
 
     private int idLeitura;
-    private HidrometroModel hidrometro;
-    private FuncionarioModel funcionario;
+    private HistoricoHidrometroModel historicoHidrometro;
+//    private FuncionarioModel funcionario;
     private double leituraActual;
     private double leituraAnterior;
     private double consumoMes;
@@ -23,20 +23,12 @@ public class LeituraModel {
         this.idLeitura = idLeitura;
     }
 
-    public HidrometroModel getHidrometro() {
-        return hidrometro;
+    public HistoricoHidrometroModel getHistoricoHidrometro() {
+        return historicoHidrometro;
     }
 
-    public void setHidrometro(HidrometroModel hidrometro) {
-        this.hidrometro = hidrometro;
-    }
-
-    public FuncionarioModel getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(FuncionarioModel funcionario) {
-        this.funcionario = funcionario;
+    public void setHistoricoHidrometro(HistoricoHidrometroModel historicoHidrometro) {
+        this.historicoHidrometro = historicoHidrometro;
     }
 
     public double getLeituraActual() {

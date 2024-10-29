@@ -322,7 +322,7 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="txtNomeCliente" min="-2" max="-2" attributes="0"/>
                                               <Component id="txtId" min="-2" max="-2" attributes="0"/>
-                                              <Component id="cbxNomeDoCliente" pref="403" max="32767" attributes="0"/>
+                                              <Component id="cbxNrHidrometro" pref="403" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -361,7 +361,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="lblNomeDoCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cbxNomeDoCliente" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                      <Component id="cbxNrHidrometro" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -412,7 +412,7 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtIdActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="cbxNomeDoCliente">
+                        <Component class="javax.swing.JComboBox" name="cbxNrHidrometro">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="1">
@@ -421,7 +421,7 @@
                             </Property>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxNomeDoClienteActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxNrHidrometroActionPerformed"/>
                           </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

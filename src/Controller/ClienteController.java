@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controller;
 
 import Model.ClienteModel;
@@ -13,10 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author mac
- */
 public class ClienteController {
 
     Connection conexao;
@@ -187,7 +179,25 @@ public class ClienteController {
             }
         }
     }
+    //Metodo para actualizar Saldo
+    public void ActualizarSaldo(ClienteModel clienteModel) {
+        String sql = "UPDATE clientes SET saldo = ? WHERE nomeCliente = ?";
+        conexao = new ConexaoController().conectaBaseDados();
 
+        try {
+            pstm = conexao.prepareStatement(sql);
+
+            pstm.setDouble(1, clienteModel.getSaldo());
+            pstm.setString(2, clienteModel.getNome());
+
+            pstm.execute();
+            pstm.close();
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Cliente Controller Actuaizar saldo" + erro);
+        }
+    
+}
 }
 
 

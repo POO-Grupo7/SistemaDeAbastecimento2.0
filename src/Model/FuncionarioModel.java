@@ -3,9 +3,9 @@ package Model;
 
 public class FuncionarioModel extends Pessoa {
     private int idFuncionario;
+    private String naturalidade;
     private String senhaFuncionario;
     private String dataNascimento;
-    private String naturalidadeFuncionario;
     private String funcaoFuncionario;
     private String perfilDeAcesso;
     private byte[] imagemBytes;
@@ -59,12 +59,12 @@ public class FuncionarioModel extends Pessoa {
         this.imagemBytes = imagemBytes;
     }
 
-    public String getNaturalidadeFuncionario() {
-        return naturalidadeFuncionario;
+    public String getNaturalidade() {
+        return naturalidade;
     }
 
-    public void setNaturalidadeFuncionario(String naturalidadeFuncionario) {
-        this.naturalidadeFuncionario = naturalidadeFuncionario;
+    public void setNaturalidade(String naturalidade) {
+        this.naturalidade = naturalidade;
     }
     
     

@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.ClienteModel;
+import Model.HidrometroModel;
 import Model.HistoricoHidrometroModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,137 +49,170 @@ public class HistoricoHidrometroController {
 //        }
 //        return false;
 //    }
-//    // Metodo de cadastro
-//    public void cadastrarHistoricoHidometro(HistoricoHidrometroModel historicoHidrometroModel) {
-//        String sql = "INSERT INTO historicoHidometros (nomeHistoricoHidometro, bairro, quarteirao, numeroCasa, dataContrato, emailHistoricoHidometro, telefone, consumo, saldo, activo, disp) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-//
-//        conexao = new ConexaoController().conectaBaseDados();
-//
-//        try {
-//            pstm = conexao.prepareStatement(sql);
-//
-//            // Ordem correta dos parâmetros de acordo com o SQL
-//            pstm.setString(1, historicoHidometroModel.getNome());            // nomeHistoricoHidometro
-//            pstm.setString(2, historicoHidometroModel.getBairro());          // bairro
-//            pstm.setInt(3, historicoHidometroModel.getQuarteirao());         // quarteirao
-//            pstm.setInt(4, historicoHidometroModel.getNrDaCasa());           // numeroCasa
-//            pstm.setString(5, historicoHidometroModel.getDataContracto());   // dataContrato
-//            pstm.setString(6, historicoHidometroModel.getEmail());           // emailHistoricoHidometro
-//            pstm.setInt(7, historicoHidometroModel.getNrTelefone());           // telefone
-////            pstm.setString(8, historicoHidometroModel.getHidrometro());      // hidrometro
-//            pstm.setDouble(9, historicoHidometroModel.getConsumo());         // consumo
-//            pstm.setDouble(10, historicoHidometroModel.getSaldo());          // saldo
-//            pstm.setBoolean(11, historicoHidometroModel.getStatus());        // activo
-//            pstm.setBoolean(12, historicoHidometroModel.getDisp());          // disp
-//
-//            pstm.execute();
-//            pstm.close();
-//
-//            JOptionPane.showMessageDialog(null, "O Cadastro foi efetuado com sucesso");
-//        } catch (SQLException erro) {
-//            JOptionPane.showMessageDialog(null, "Erro ao cadastrar historicoHidometro: " + erro.getMessage());
-//        }
-//    }
-//
-//    // pesquisar historicoHidometro 
-//    public ArrayList<HistoricoHidrometroModel> listarHistoricoHidometro() {
-////    ArrayList<HistoricoHidometroModel> list = new ArrayList<>();
-//        String sql = "SELECT * FROM historicoHidometros WHERE disp = 1";  // Ajustado para boolean
-//
-//        conexao = new ConexaoController().conectaBaseDados();
-//
-//        try {
-//            if (conexao == null) {
-//                JOptionPane.showMessageDialog(null, "Conexão com o banco de dados falhou.");
-//                return lista;
-//            }
-//
-//            pstm = conexao.prepareStatement(sql);
-//            rs = pstm.executeQuery();
-//
-//            while (rs.next()) {
-//                HistoricoHidrometroModel historicoHidometroModel = new HistoricoHidrometroModel();
-//                historicoHidometroModel.setIdHistoricoHidometro(rs.getInt("idHistoricoHidometro"));
-//                historicoHidometroModel.setNome(rs.getString("nomeHistoricoHidometro"));
-//                historicoHidometroModel.setBairro(rs.getString("bairro"));
-//                historicoHidometroModel.setQuarteirao(rs.getInt("quarteirao"));
-//                historicoHidometroModel.setNrDaCasa(rs.getInt("numeroCasa"));
-//                historicoHidometroModel.setDataContracto(rs.getString("dataContrato"));
-//                historicoHidometroModel.setEmail(rs.getString("emailHistoricoHidometro"));
-//                historicoHidometroModel.setNrTelefone(rs.getInt("telefone"));  // Ajustado para String se telefone for String
-////                historicoHidometroModel.setHidrometro(rs.getString("hidrometro"));
-//                historicoHidometroModel.setConsumo(rs.getDouble("consumo"));
-//                historicoHidometroModel.setSaldo(rs.getDouble("saldo"));
-//                historicoHidometroModel.setStatus(rs.getBoolean("activo"));
-//                historicoHidometroModel.setDisp(rs.getBoolean("disp"));  // Já tratado como booleano
-//
-//                lista.add(historicoHidometroModel);
-//            }
-//
-//        } catch (SQLException erro) {
-//            JOptionPane.showMessageDialog(null, "Erro ao pesquisar historicoHidometros: " + erro.getMessage());
-//            erro.printStackTrace();  // Para depurar o erro
-//        } finally {
-//            try {
-//                if (rs != null) {
-//                    rs.close();
-//                }
-//                if (pstm != null) {
-//                    pstm.close();
-//                }
-//                if (conexao != null) {
-//                    conexao.close();
-//                }
-//            } catch (SQLException e) {
-//                JOptionPane.showMessageDialog(null, "Erro ao fechar recursos: " + e.getMessage());
-//            }
-//        }
-//        return lista;
-//    }
+    // Metodo de cadastro
+    public void cadastrarHistoricoHidometro(HistoricoHidrometroModel historicoHidrometroModel) {
+        String sql = "INSERT INTO historicoHidrometro (nomeCliente , bairro, quarteirao, numeroCasa, dataInicioUso, dataFimUso, nrHidrometro, apagado) VALUES (?,?,?,?,?,?,?,?)";
 
-//    //Metodo para actualizar historicoHidometros
-//    public void ActualizarHistoricoHidometro(HistoricoHidrometroModel historicoHidometroModel) {
-//        String sql = "update historicoHidometros set nomeHistoricoHidometro = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, dataContrato = ?, emailHistoricoHidometro = ?, telefone = ?, hidrometro = ?, consumo = ?, saldo = ?, activo = ?, disp = ? where idHistoricoHidometro = ?";
-//        Connection conexao = null;
-//        PreparedStatement pstm = null;
-//
-//        try {
-//            conexao = new ConexaoController().conectaBaseDados();
-//            pstm = conexao.prepareStatement(sql);
-//
-//            // Ordem correta dos parâmetros de acordo com o SQL
-//            pstm.setString(1, historicoHidometroModel.getNome());            // nomeHistoricoHidometro
-//            pstm.setString(2, historicoHidometroModel.getBairro());          // bairro
-//            pstm.setInt(3, historicoHidometroModel.getQuarteirao());         // quarteirao
-//            pstm.setInt(4, historicoHidometroModel.getNrDaCasa());           // numeroCasa
-//            pstm.setString(5, historicoHidometroModel.getDataContracto());   // dataContrato
-//            pstm.setString(6, historicoHidometroModel.getEmail());           // emailHistoricoHidometro
-//            pstm.setInt(7, historicoHidometroModel.getNrTelefone());           // telefone
-////            pstm.setString(8, historicoHidometroModel.getHidrometro());      // hidrometro
-//            pstm.setDouble(9, historicoHidometroModel.getConsumo());         // consumo
-//            pstm.setDouble(10, historicoHidometroModel.getSaldo());          // saldo
-//            pstm.setBoolean(11, historicoHidometroModel.getStatus());        // activo
-//            pstm.setBoolean(12, historicoHidometroModel.getDisp());
-//            pstm.setInt(13, historicoHidometroModel.getIdHistoricoHidometro());// disp
-//
-//            pstm.executeUpdate();
-//        } catch (SQLException erro) {
-//            JOptionPane.showMessageDialog(null, "HistoricoHidrometro Controller Atualizar HistoricoHidometro: " + erro);
-//        } finally {
-//            try {
-//                if (pstm != null) {
-//                    pstm.close();
-//                }
-//                if (conexao != null) {
-//                    conexao.close();
-//                }
-//            } catch (SQLException erro) {
-//                JOptionPane.showMessageDialog(null, "Erro ao fechar a conexão: " + erro);
-//            }
-//        }
-//    }
+        conexao = new ConexaoController().conectaBaseDados();
+
+        try {
+            pstm = conexao.prepareStatement(sql);
+
+            pstm.setString(1, historicoHidrometroModel.getCliente().getNome());            // nomeHistoricoHidometro
+            pstm.setString(2, historicoHidrometroModel.getCliente().getBairro());          // bairro
+            pstm.setInt(3, historicoHidrometroModel.getCliente().getQuarteirao());         // quarteirao
+            pstm.setInt(4, historicoHidrometroModel.getCliente().getNrDaCasa());           // numeroCasa
+            pstm.setString(5, historicoHidrometroModel.getDataInicial());   // dataContrato
+            pstm.setString(6, historicoHidrometroModel.getDataFinal());           // emailHistoricoHidometro
+            pstm.setString(7, historicoHidrometroModel.getHidrometro().getNrHidrometro());           // telefone
+            pstm.setBoolean(8, historicoHidrometroModel.getApagado());          // disp
+
+            pstm.execute();
+            pstm.close();
+
+            JOptionPane.showMessageDialog(null, "Historico salvo com sucesso");
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar historicoHidometro: " + erro.getMessage());
+        }
+    }
+
+    // listar historicoHidometro 
+    public ArrayList<HistoricoHidrometroModel> listarHistoricoHidometro() {
+        String sql = "SELECT * FROM historicoHidrometro WHERE apagado = 0";
+
+        conexao = new ConexaoController().conectaBaseDados();
+
+        try {
+            if (conexao == null) {
+                JOptionPane.showMessageDialog(null, "Conexão com o banco de dados falhou.");
+                return lista;
+            }
+
+            pstm = conexao.prepareStatement(sql);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
+                historicoHidrometroModel.setIdHistoricoHidrometro(rs.getInt("idHistoricoHidrometro"));
+                ClienteModel cliente = new ClienteModel();
+                cliente.setNome(rs.getString("nomeCliente"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setQuarteirao(rs.getInt("quarteirao"));
+                cliente.setNrDaCasa(rs.getInt("numeroCasa"));
+                historicoHidrometroModel.setCliente(cliente);
+
+                historicoHidrometroModel.setDataInicial(rs.getString("dataInicioUso"));
+                historicoHidrometroModel.setDataFinal(rs.getString("dataFimUso"));
+
+                HidrometroModel hidrometroModel = new HidrometroModel();
+                hidrometroModel.setNrHiodrometro(rs.getString("nrHidrometro"));
+                historicoHidrometroModel.setHidrometro(hidrometroModel);
+
+                historicoHidrometroModel.setApagado(rs.getBoolean("apagado"));
+
+                lista.add(historicoHidrometroModel);
+            }
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar historicoHidrometros: " + erro.getMessage());
+            erro.printStackTrace();  // Para depurar o erro
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar recursos: " + e.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    //Metodo para actualizar historicoHidometros
+    public void actualizarHistoricoHidometro(HistoricoHidrometroModel historicoHidrometroModel) {
+        String sql = "update historicoHidrometro set nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, dataInicioUso = ?, dataFimUso = ?, nrHidrometro = ?, apagado = ? where idHistoricoHidrometro = ?";
+        Connection conexao = null;
+        PreparedStatement pstm = null;
+
+        try {
+            conexao = new ConexaoController().conectaBaseDados();
+            pstm = conexao.prepareStatement(sql);
+
+            // Ordem correta dos parâmetros de acordo com o SQL
+            pstm.setString(1, historicoHidrometroModel.getCliente().getNome());
+            pstm.setString(2, historicoHidrometroModel.getCliente().getBairro());
+            pstm.setInt(3, historicoHidrometroModel.getCliente().getQuarteirao());
+            pstm.setInt(4, historicoHidrometroModel.getCliente().getNrDaCasa());
+            pstm.setString(5, historicoHidrometroModel.getDataInicial());
+            pstm.setString(6, historicoHidrometroModel.getDataFinal());
+            pstm.setString(7, historicoHidrometroModel.getHidrometro().getNrHidrometro());
+            pstm.setBoolean(8, historicoHidrometroModel.getApagado());
+            pstm.setInt(9, historicoHidrometroModel.getIdHistoricoHidrometro());
+
+            pstm.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Historico actualizado com sucesso");
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "HistoricoHidrometro Controller Atualizar HistoricoHidometro: " + erro);
+        } finally {
+            try {
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException erro) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar a conexão: " + erro);
+            }
+        }
+    }
     
-        //Listar Clientes na ComboBox
+        //Metodo para actualizar historicoHidometros
+    public void apagarHistoricoHidometro(HistoricoHidrometroModel historicoHidrometroModel) {
+        String sql = "update historicoHidrometro set nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, dataInicioUso = ?, dataFimUso = ?, nrHidrometro = ?, apagado = ? where idHistoricoHidrometro = ?";
+        Connection conexao = null;
+        PreparedStatement pstm = null;
+
+        try {
+            conexao = new ConexaoController().conectaBaseDados();
+            pstm = conexao.prepareStatement(sql);
+
+            // Ordem correta dos parâmetros de acordo com o SQL
+            pstm.setString(1, historicoHidrometroModel.getCliente().getNome());
+            pstm.setString(2, historicoHidrometroModel.getCliente().getBairro());
+            pstm.setInt(3, historicoHidrometroModel.getCliente().getQuarteirao());
+            pstm.setInt(4, historicoHidrometroModel.getCliente().getNrDaCasa());
+            pstm.setString(5, historicoHidrometroModel.getDataInicial());
+            pstm.setString(6, historicoHidrometroModel.getDataFinal());
+            pstm.setString(7, historicoHidrometroModel.getHidrometro().getNrHidrometro());
+            pstm.setBoolean(8, historicoHidrometroModel.getApagado());
+            pstm.setInt(9, historicoHidrometroModel.getIdHistoricoHidrometro());
+
+            pstm.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Historico apagado com sucesso");
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "HistoricoHidrometro Controller apagar HistoricoHidometro: " + erro);
+        } finally {
+            try {
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException erro) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar a conexão: " + erro);
+            }
+        }
+    }
+
+    //Listar Clientes na ComboBox
     public ResultSet listarClientes() {
         conexao = new ConexaoController().conectaBaseDados();
         String sql = "select * from clientes WHERE activo = '1' and disp = '1' ORDER BY nomeCliente;";
@@ -191,7 +226,8 @@ public class HistoricoHidrometroController {
             return null;
         }
     }
-        //Listar Hidrometros na ComboBox
+    //Listar Hidrometros na ComboBox
+
     public ResultSet listarHidrometros() {
         conexao = new ConexaoController().conectaBaseDados();
         String sql = "select * from hidrometro WHERE estado = 'Operacional' and apagado = '0' ORDER BY idHidrometro;";
@@ -222,6 +258,7 @@ public class HistoricoHidrometroController {
         }
         return null;
     }
+
     //Metodo que pega valores da BD e preenche nos campos
     public ResultSet pesquisarHidrometro(int idHidrometro) {
         conexao = new ConexaoController().conectaBaseDados();
@@ -238,4 +275,10 @@ public class HistoricoHidrometroController {
         }
         return null;
     }
+
 }
+
+/*
+create table historicoHidrometro (idHistoricoHidrometro int AUTO_INCREMENT PRIMARY KEY, nomeCliente varchar(45), bairro varchar(45), 
+quarteirao int(50), numeroCasa int, dataInicioUso varchar(45), dataFimUso varchar(45), nrHidrometro varchar(45), apagado tinyint);
+ */

@@ -1,6 +1,10 @@
 package View;
 
+import Controller.ClienteController;
 import Controller.HistoricoHidrometroController;
+import Model.ClienteModel;
+import Model.HidrometroModel;
+import Model.HistoricoHidrometroModel;
 import View.table.TableCustom;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -13,6 +17,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -29,33 +37,16 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         initComponents();
         RestaurarDadosComboBoxCliente();
         RestaurarDadosComboBoxHidrometro();
-        testData(tabelaLeitura);
+        listarHistoricoHidrometro();
+        testData(tabelaHistorico);
         getContentPane().setBackground(Color.white);
         TableCustom.apply(jScrollPane1, TableCustom.TableType.MULTI_LINE);
-//        painelEsqDados.setLayout(new MigLayout());
-//        painelEsqDados.add(lblId);
-//        painelEsqDados.add(txtId, "wrap");
-//        painelEsqDados.add(lblNome);
-//        painelEsqDados.add(txtNome, "wrap, pushx, growx");
 
     }
 
     private void testData(JTable table) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-//        "ID", "Nome", "Apelido", "Naturalidade", "Data Nascimento", "Email", "Função", "Usuario", "Senha", "Perfil", "Activo", "Disp"
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
+//        "ID", "Nome", "Apelido", "Naturalidade", "Data Nascimento", "Email", "Função", "Usuario", "Senha", "Perfil", "Activo", "Disp"       
     }
 
     /**
@@ -94,8 +85,8 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         txtNumeroDeCasa = new javax.swing.JTextField();
         lblMesDeReferencia = new javax.swing.JLabel();
         lblDataDeEmissao = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        txtDataInicio = new com.toedter.calendar.JDateChooser();
+        txtDataFim = new com.toedter.calendar.JDateChooser();
         painelDirDados = new javax.swing.JPanel();
         lblNumeroDeHidrometro = new javax.swing.JLabel();
         lblLeituraAnterior = new javax.swing.JLabel();
@@ -115,13 +106,13 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         painelInferiorBotoesTabela = new javax.swing.JPanel();
         tabela = new javax.swing.JPanel();
         botoes = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnCarregarCampos = new javax.swing.JButton();
+        btnLimparCampos = new javax.swing.JButton();
+        btnApagar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaLeitura = new javax.swing.JTable();
+        tabelaHistorico = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -286,6 +277,10 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
 
         lblDataDeEmissao.setText("Data de Fim:");
 
+        txtDataInicio.setDateFormatString("dd/MM/yyyy");
+
+        txtDataFim.setDateFormatString("dd/MM/yyyy");
+
         javax.swing.GroupLayout painelEsqDadosLayout = new javax.swing.GroupLayout(painelEsqDados);
         painelEsqDados.setLayout(painelEsqDadosLayout);
         painelEsqDadosLayout.setHorizontalGroup(
@@ -320,8 +315,8 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
                                 .addGap(20, 20, 20))
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtDataInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                                    .addComponent(txtDataFim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -353,11 +348,11 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMesDeReferencia)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblDataDeEmissao)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(100, Short.MAX_VALUE))
         );
 
@@ -502,90 +497,95 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         botoesLayout.rowHeights = new int[] {0};
         botoes.setLayout(botoesLayout);
 
-        jButton6.setBackground(new java.awt.Color(52, 102, 138));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Cadastrar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setBackground(new java.awt.Color(52, 102, 138));
+        btnSalvar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton6, gridBagConstraints);
+        botoes.add(btnSalvar, gridBagConstraints);
 
-        jButton7.setBackground(new java.awt.Color(52, 102, 138));
-        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("Actualizar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton7, gridBagConstraints);
-
-        jButton8.setBackground(new java.awt.Color(52, 102, 138));
-        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("Carregar Campos");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setBackground(new java.awt.Color(52, 102, 138));
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton8, gridBagConstraints);
+        botoes.add(btnActualizar, gridBagConstraints);
 
-        jButton9.setBackground(new java.awt.Color(52, 102, 138));
-        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setText("Limpar Campos");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        btnCarregarCampos.setBackground(new java.awt.Color(52, 102, 138));
+        btnCarregarCampos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCarregarCampos.setForeground(new java.awt.Color(255, 255, 255));
+        btnCarregarCampos.setText("Carregar Campos");
+        btnCarregarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                btnCarregarCamposActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton9, gridBagConstraints);
+        botoes.add(btnCarregarCampos, gridBagConstraints);
 
-        jButton10.setBackground(new java.awt.Color(52, 102, 138));
-        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jButton10.setText("Apagar");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btnLimparCampos.setBackground(new java.awt.Color(52, 102, 138));
+        btnLimparCampos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLimparCampos.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimparCampos.setText("Limpar Campos");
+        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btnLimparCamposActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton10, gridBagConstraints);
+        botoes.add(btnLimparCampos, gridBagConstraints);
+
+        btnApagar.setBackground(new java.awt.Color(52, 102, 138));
+        btnApagar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnApagar.setForeground(new java.awt.Color(255, 255, 255));
+        btnApagar.setText("Apagar");
+        btnApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
+        botoes.add(btnApagar, gridBagConstraints);
 
         tabela.add(botoes, java.awt.BorderLayout.PAGE_START);
 
-        tabelaLeitura.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tabelaLeitura.setForeground(new java.awt.Color(255, 255, 255));
-        tabelaLeitura.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaHistorico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tabelaHistorico.setForeground(new java.awt.Color(255, 255, 255));
+        tabelaHistorico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nome do cliente", "Quarterao", "Numero da casa", "Mes de Referencia", "Data de Emissao ", "Numero de Hidrometro", "Leitura Anterior", "Leitura Actual", "Consumo do mes", "Ocorrencia", "Numero de Leitura", "Saldo Actual"
+                "Id", "Nome do cliente", "Bairro", "Quarterao", "Numero da casa", "Data de Inicio", "Data de Fim", "Numero de Hidrometro"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tabelaLeitura);
+        jScrollPane1.setViewportView(tabelaHistorico);
 
         tabela.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -624,21 +624,31 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void btnCarregarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarCamposActionPerformed
+        carregarCampos();
+    }//GEN-LAST:event_btnCarregarCamposActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_btnLimparCamposActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que apagar?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            apagarHistoricoHidrometro();
+            limparCampos();
+            listarHistoricoHidrometro();
+        }
+    }//GEN-LAST:event_btnApagarActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que salvar?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            guardarHistorico();
+            listarHistoricoHidrometro();
+            limparCampos();
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
         // TODO add your handling code here:
@@ -706,6 +716,15 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
 //        dispose();
     }//GEN-LAST:event_jMenu2ActionPerformed
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja actualizar?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            actualizarHistoricoHidrometro();
+            listarHistoricoHidrometro();
+            limparCampos();
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -725,18 +744,16 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botoes;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnApagados;
+    private javax.swing.JButton btnApagar;
+    private javax.swing.JButton btnCarregarCampos;
+    private javax.swing.JButton btnLimparCampos;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltarMenu;
     private javax.swing.JComboBox<String> cbxHidrometro;
     private javax.swing.JComboBox<String> cbxMesDeReferencia;
     private javax.swing.JComboBox<String> cbxNomeDoCliente;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -771,9 +788,11 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
     private javax.swing.JPanel painelSuperiorDados;
     private javax.swing.JPanel painelVoltarMenu1;
     private javax.swing.JPanel tabela;
-    private javax.swing.JTable tabelaLeitura;
+    private javax.swing.JTable tabelaHistorico;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtConsumoDoMes;
+    private com.toedter.calendar.JDateChooser txtDataFim;
+    private com.toedter.calendar.JDateChooser txtDataInicio;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtLeituraActual;
     private javax.swing.JTextField txtNomeAPesquisar;
@@ -798,7 +817,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ListarClientesView HistoricoHidrom" + erro);
         }
     }
-    
+
     //Metodo que pega hidrometros operacionais na BD para jcboxHidrometro
     private void RestaurarDadosComboBoxHidrometro() {
         try {
@@ -840,7 +859,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "HistoricoHidroView pegar valores de clientes" + erro);
         }
     }
-    
+
 //    private void AccaoComboxHidrometro() {
 //        try {
 //            HistoricoHidrometroController historicoHidrometroController = new HistoricoHidrometroController();
@@ -856,5 +875,199 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(null, "HistoricoHidroView pegar valores de hidrometro" + erro);
 //        }
 //    }
+    //Metodo guardarHistorico
+    private void guardarHistorico() {
+        String nome = cbxNomeDoCliente.getSelectedItem().toString();
+        String bairro = txtBairro.getText().trim();
+        int quarteirao = Integer.parseInt(txtQuarterao.getText().trim());
+        int nr = Integer.parseInt(txtNumeroDeCasa.getText().trim());
 
+        Date selectedDate = txtDataInicio.getDate();
+        Date selectedDateOfEnd = txtDataFim.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dataInicio = dateFormat.format(selectedDate);
+        String dataFim = dateFormat.format(selectedDateOfEnd);
+
+        String nrHidrometro = cbxHidrometro.getSelectedItem().toString();
+
+        // Verificações de campos
+        HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
+        ClienteModel cliente = new ClienteModel();
+        cliente.setNome(nome);
+        cliente.setBairro(bairro);
+        cliente.setQuarteirao(quarteirao);
+        cliente.setNrDaCasa(nr);
+
+        historicoHidrometroModel.setCliente(cliente);
+
+        historicoHidrometroModel.setDataInicial(dataInicio);
+        historicoHidrometroModel.setDataFinal(dataFim);
+
+        HidrometroModel hidroometroModel = new HidrometroModel();
+        hidroometroModel.setNrHiodrometro(nrHidrometro);
+        historicoHidrometroModel.setHidrometro(hidroometroModel);
+
+        // Cadastrar cliente através do controlador
+        HistoricoHidrometroController historicoHidrometroControler = new HistoricoHidrometroController();
+        historicoHidrometroControler.cadastrarHistoricoHidometro(historicoHidrometroModel);
+
+    }
+
+    //Metodo para Listar HistoricoHidrometro
+    private void listarHistoricoHidrometro() {
+        try {
+            HistoricoHidrometroController historicoHidrometroController = new HistoricoHidrometroController();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaHistorico.getModel();
+            model.setRowCount(0); // Limpar a tabela antes de listar novamente
+
+//            tabelaClientes.setModel(model);
+            ArrayList<HistoricoHidrometroModel> lista = historicoHidrometroController.listarHistoricoHidometro();
+            System.out.println("historico encontrados: " + lista.size());
+            System.out.println(lista.isEmpty());
+
+            // Preencher a tabela com os dados dos clientes
+            for (HistoricoHidrometroModel item : lista) {
+                model.addRow(new Object[]{
+                    item.getIdHistoricoHidrometro(),
+                    item.getCliente().getNome(),
+                    item.getCliente().getBairro(),
+                    item.getCliente().getQuarteirao(), // Certifique-se de usar o índice correto
+                    item.getCliente().getNrDaCasa(), // Certifique-se de usar o índice correto
+                    item.getDataInicial(),
+                    item.getDataFinal(),
+                    item.getHidrometro().getNrHidrometro()
+                });
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar clientes: " + erro.getMessage());
+        }
+    }
+
+    //Metodo Carregar Campos
+    private void carregarCampos() {
+        int setar = tabelaHistorico.getSelectedRow();
+        txtId.setText(tabelaHistorico.getModel().getValueAt(setar, 0).toString());
+        cbxNomeDoCliente.setSelectedItem(tabelaHistorico.getModel().getValueAt(setar, 1).toString());
+        txtBairro.setText(tabelaHistorico.getModel().getValueAt(setar, 2).toString());
+        txtQuarterao.setText(tabelaHistorico.getModel().getValueAt(setar, 3).toString());
+        txtNumeroDeCasa.setText(tabelaHistorico.getModel().getValueAt(setar, 4).toString());
+
+        // Carregar txtDataInicio
+        String dataInicioStr = tabelaHistorico.getModel().getValueAt(setar, 5).toString();
+        try {
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // Formato da data no seu banco de dados
+            Date dataInicio = formato.parse(dataInicioStr);
+            txtDataInicio.setDate(dataInicio);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao formatar data de início.");
+        }
+
+        // Carregar txtDataFim
+        String dataFimStr = tabelaHistorico.getModel().getValueAt(setar, 6).toString();
+        try {
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataFim = formato.parse(dataFimStr);
+            txtDataFim.setDate(dataFim);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao formatar data de fim.");
+        }
+
+        cbxHidrometro.setSelectedItem(tabelaHistorico.getModel().getValueAt(setar, 7).toString());
+    }
+
+    //Metodo Limpar Campos
+    private void limparCampos() {
+        txtId.setText("");
+        cbxNomeDoCliente.setSelectedIndex(0);
+        txtBairro.setText("");
+        txtQuarterao.setText("");
+        txtNumeroDeCasa.setText("");
+        txtDataInicio.setDate(null);
+        txtDataFim.setDate(null);
+        cbxHidrometro.setSelectedIndex(0);
+    }
+
+    //Metodo Actualizar Historico
+    private void actualizarHistoricoHidrometro() {
+        int id = Integer.parseInt(txtId.getText());
+        String nomeCliente = cbxNomeDoCliente.getSelectedItem().toString();
+        String bairro = txtBairro.getText().trim();
+        int quarteirao = Integer.parseInt(txtQuarterao.getText().trim());
+        int nr = Integer.parseInt(txtNumeroDeCasa.getText().trim());
+
+        Date selectedDate = txtDataInicio.getDate();
+        Date selectedDateOfEnd = txtDataFim.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dataInicio = dateFormat.format(selectedDate);
+        String dataFim = dateFormat.format(selectedDateOfEnd);
+
+        String nrHidrometro = cbxHidrometro.getSelectedItem().toString();
+
+        // Verificações
+        HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
+        historicoHidrometroModel.setIdHistoricoHidrometro(id);
+
+        ClienteModel cliente = new ClienteModel();
+
+        cliente.setNome(nomeCliente);
+        cliente.setBairro(bairro);
+        cliente.setQuarteirao(quarteirao);
+        cliente.setNrDaCasa(nr);
+
+        historicoHidrometroModel.setCliente(cliente);
+
+        historicoHidrometroModel.setDataInicial(dataInicio);
+        historicoHidrometroModel.setDataFinal(dataFim);
+
+        HidrometroModel hidroometroModel = new HidrometroModel();
+        hidroometroModel.setNrHiodrometro(nrHidrometro);
+        historicoHidrometroModel.setHidrometro(hidroometroModel);
+
+        HistoricoHidrometroController historicoHidrometroControler = new HistoricoHidrometroController();
+        historicoHidrometroControler.actualizarHistoricoHidometro(historicoHidrometroModel);
+    }
+
+    //Metodo Actualizar Historico
+    private void apagarHistoricoHidrometro() {
+        int id = Integer.parseInt(txtId.getText());
+        String nomeCliente = cbxNomeDoCliente.getSelectedItem().toString();
+        String bairro = txtBairro.getText().trim();
+        int quarteirao = Integer.parseInt(txtQuarterao.getText().trim());
+        int nr = Integer.parseInt(txtNumeroDeCasa.getText().trim());
+
+        Date selectedDate = txtDataInicio.getDate();
+        Date selectedDateOfEnd = txtDataFim.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dataInicio = dateFormat.format(selectedDate);
+        String dataFim = dateFormat.format(selectedDateOfEnd);
+
+        String nrHidrometro = cbxHidrometro.getSelectedItem().toString();
+
+        // Verificações
+        HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
+        historicoHidrometroModel.setIdHistoricoHidrometro(id);
+
+        ClienteModel cliente = new ClienteModel();
+
+        cliente.setNome(nomeCliente);
+        cliente.setBairro(bairro);
+        cliente.setQuarteirao(quarteirao);
+        cliente.setNrDaCasa(nr);
+
+        historicoHidrometroModel.setCliente(cliente);
+
+        historicoHidrometroModel.setDataInicial(dataInicio);
+        historicoHidrometroModel.setDataFinal(dataFim);
+
+        HidrometroModel hidroometroModel = new HidrometroModel();
+        hidroometroModel.setNrHiodrometro(nrHidrometro);
+        historicoHidrometroModel.setHidrometro(hidroometroModel);
+        historicoHidrometroModel.setApagado(true);
+
+        HistoricoHidrometroController historicoHidrometroControler = new HistoricoHidrometroController();
+        historicoHidrometroControler.apagarHistoricoHidometro(historicoHidrometroModel);
+    }
 }

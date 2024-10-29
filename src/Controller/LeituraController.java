@@ -24,33 +24,33 @@ public class LeituraController {
     ArrayList<LeituraModel> lista = new ArrayList<>();
 
     //Listar Clientes na ComboBox
-    public ResultSet listarClientes() {
+    public ResultSet listarHidrometros() {
         conexao = new ConexaoController().conectaBaseDados();
-        String sql = "select * from clientes WHERE activo = 'Sim' and disp = 'Sim' ORDER BY nomeCliente;";
+        String sql = "select * from historicohidrometro WHERE apagado = '0'";
 
         try {
             pstm = conexao.prepareStatement(sql);
             return pstm.executeQuery();
 
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "LeituraController pesquisar clientes" + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "LeituraController listar hidrometros" + erro.getMessage());
             return null;
         }
     }
 
     //Metodo que pega valores da BD e preenche nos campos
-    public ResultSet PesquisarClientes(int idCliente) {
+    public ResultSet PesquisarHidrometro(int idHistoricoHidrometro) {
         conexao = new ConexaoController().conectaBaseDados();
-        String sql = "select * from clientes where idCliente = ?";
+        String sql = "select * from historicohidrometro where idHistoricoHidrometro = ?";
 
         try {
             pstm = conexao.prepareStatement(sql);
-            pstm.setInt(1, idCliente);
+            pstm.setInt(1, idHistoricoHidrometro);
 
             return pstm.executeQuery();
 
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "LeituraController pesquisar cliente dados a prencher" + erro);
+            JOptionPane.showMessageDialog(null, "LeituraController pesquisarHidrometros dados a prencher" + erro);
         }
         return null;
     }
@@ -85,40 +85,39 @@ public class LeituraController {
             }
         }
         return false;
-    }}
+    }
 
-//    //METODO PARA CADASTRAR
-//    public void cadastrarLeitura(LeituraModel leituraModel) {
-//
-//        String sql = "insert into leituras (nomeCliente, bairro, quarteirao, numeroCasa, mesRef, dataLeitura, hidrometro, leitAnterior, leitActual, consumo, ocorrencia, nrLeitura, saldo, disp ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
-//        conexao = new ConexaoController().conectaBaseDados();
-//        
-//            try {
-//                pstm = conexao.prepareStatement(sql);
-//
-//                pstm.setString(1, leituraModel.getNome());
-//                pstm.setString(2, leituraModel.getCliente().);
-//                pstm.setInt(3, leituraModel.getQuarteirao());
-//                pstm.setInt(4, leituraModel.getNrDaCasa());
-//                pstm.setString(5, leituraModel.getMesReferencia());
-//                pstm.setString(6, leituraModel.getDataEmissao());
-//                pstm.setString(7, leituraModel.getHidrometro());
-//                pstm.setDouble(8, leituraModel.getLeituraAnterior());
-//                pstm.setDouble(9, leituraModel.getLeituraActual());
-//                pstm.setDouble(10, leituraModel.getConsumoMes());
-//                pstm.setString(11, leituraModel.getOcorrencia());
-//                pstm.setString(12, leituraModel.getNrLeitura());
-//                pstm.setDouble(13, leituraModel.getSaldo());
-//                pstm.setString(14, leituraModel.getDisp());
-//
-//                pstm.execute();
-//                pstm.close();
-//                JOptionPane.showMessageDialog(null, "Leitura Salva com sucesso.");
-//            } catch (SQLException erro) {
-//                JOptionPane.showMessageDialog(null, "LeituraController Cadastrar" + erro);
-//            }
-//}
-//    //METODO PARA LISTAR
+    //METODO PARA CADASTRAR
+    public void cadastrarLeitura(LeituraModel leituraModel) {
+
+        String sql = "insert into leituras (nrHidrometro, nomeCliente, bairro, quarteirao, numeroCasa, mesRef, dataLeitura, hidrometro, leitAnterior, leitActual, consumo, ocorrencia, nrLeitura, saldo, disp ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+        conexao = new ConexaoController().conectaBaseDados();
+
+        try {
+            pstm = conexao.prepareStatement(sql);
+
+            pstm.setString(1, leituraModel.getHistoricoHidrometro().getHidrometro().getNrHidrometro());
+            pstm.setString(2, leituraModel.getHistoricoHidrometro().getCliente().getNome());
+            pstm.setString(3, leituraModel.getHistoricoHidrometro().getCliente().getBairro());
+            pstm.setInt(4, leituraModel.getHistoricoHidrometro().getCliente().getQuarteirao());
+            pstm.setInt(5, leituraModel.getHistoricoHidrometro().getCliente().getNrDaCasa());
+            pstm.setString(6, leituraModel.getMesReferencia());
+            pstm.setString(7, leituraModel.getDataEmissao());
+            pstm.setDouble(8, leituraModel.getLeituraAnterior());
+            pstm.setDouble(9, leituraModel.getLeituraActual());
+            pstm.setDouble(10, leituraModel.getConsumoMes());
+            pstm.setString(11, leituraModel.getOcorrencia());
+            pstm.setString(12, leituraModel.getNrLeitura());
+//            pstm.setString(14, leituraModel.getDisp());
+
+            pstm.execute();
+            pstm.close();
+            JOptionPane.showMessageDialog(null, "Leitura Salva com sucesso.");
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "LeituraController Cadastrar" + erro);
+        }
+    }
+    //METODO PARA LISTAR
 //    public ArrayList<LeituraModel> listarLeituras() {
 //        ArrayList<LeituraModel> list = new ArrayList<>();
 //        String sql = "select * from leituras where disp = 'Sim'";
@@ -242,9 +241,9 @@ public class LeituraController {
 //        }
 //    }
 //
-//}
+}
 
-/*
+    /*
     create table leituras (idLeitura int AUTO_INCREMENT PRIMARY KEY,
                        nomeCliente varchar(45), 
                        bairro varchar(45), 
@@ -264,4 +263,4 @@ public class LeituraController {
 
 alterar nome da coluna e tipo de variavel
 ALTER TABLE leituras CHANGE COLUMN activo disp VARCHAR(45);
- */
+     */

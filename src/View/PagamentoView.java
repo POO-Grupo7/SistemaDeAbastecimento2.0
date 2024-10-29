@@ -4,26 +4,127 @@
  */
 package View;
 
+import Controller.ClienteController;
+import Controller.FacturacaoController;
+import Controller.PagamentoController;
+import Model.ClienteModel;
+import Model.PagamentoModel;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class PagamentoView extends javax.swing.JFrame {
 
     public PagamentoView() {
         initComponents();
+        listarPagamentos();
         // Obtém a data atual
         Date data = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         String dataFormatada = formato.format(data);
         txtDataPagamento.setText("" + dataFormatada);
+    }
+
+    //Metodo Prencher Campos obrigatorios
+    private boolean camposObrigatoriosPreenchidos() {
+        boolean nomePreenchido = !txtNomeCliente.getText().isEmpty();
+        boolean valorAPagarPreenchido = !txtNomeCliente.getText().isEmpty();
+
+        return nomePreenchido && valorAPagarPreenchido;
+    }
+
+    //Accao para prencher campos
+    Vector<Integer> idFactura = new Vector<Integer>();
+
+//    private void AccaoComboxClientes() {
+//        if (cbxFacturas.getSelectedIndex() == 0) {
+//            txtNomeCliente.setText(null);
+//            txtValor.setText(null);
+//            txtPrazoPagamento.setText(null);
+//            return;
+//        }
+//        try {
+//            FacturacaoController facturacaoController = new FacturacaoController();
+//            ResultSet rs = facturacaoController.PrencherDados(idFactura.get(cbxFacturas.getSelectedIndex() - 1));
+//
+//            while (rs.next()) {
+//                txtNomeCliente.setText(rs.getString(2));
+//                txtValor.setText(rs.getString(4));
+//                txtPrazoPagamento.setText(rs.getString(5));
+//                txtDataPagamento.setText(rs.getString(6));
+//            }
+//        } catch (SQLException erro) {
+//            JOptionPane.showMessageDialog(null, "FacturacaoView prencher dados" + erro);
+//        }
+//    }
+    // Ação ao selecionar um item no ComboBox
+    private void AccaoComboxClientes() {
+        if (cbxFacturas.getSelectedIndex() == 0) {
+            txtNomeCliente.setText(null);
+            txtValor.setText(null);
+            txtPrazoPagamento.setText(null);
+            txtDataPagamento.setText(null);
+            return;
+        }
+
+        try {
+            PagamentoController pagamentoController = new PagamentoController();
+            int selectedId = idFactura.get(cbxFacturas.getSelectedIndex() - 1);
+            ResultSet rs = pagamentoController.PrencherDadosFactura(selectedId);
+
+            if (rs.next()) {
+                txtNomeCliente.setText(rs.getString(3));
+                txtValor.setText(rs.getString(4));
+                txtPrazoPagamento.setText(rs.getString(5));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao preencher dados: " + erro);
+        }
+    }
+
+    //Metodo que pega clientes activos na BD para jcboxClientes
+//    private void RestaurarDadosComboBoxTaxa() {
+//        try {
+//            FacturacaoController facturacoController = new FacturacaoController();
+//            ResultSet rs = facturacoController.listarTaxas();
+//
+//            while (rs.next()) {
+//                idFactura.addElement(rs.getInt(1));
+//                cbxFacturas.addItem(rs.getString(4));
+//            }
+//        } catch (SQLException erro) {
+//            JOptionPane.showMessageDialog(null, "FacturacaoView listar nr da leitura na comboBox" + erro);
+//        }
+//    }
+    // Método para restaurar dados no ComboBox
+    private void RestaurarDadosComboBoxTaxa() {
+        idFactura.clear();  // Limpa o vetor para evitar duplicação de IDs
+        cbxFacturas.removeAllItems();  // Limpa o ComboBox antes de preencher
+
+        try {
+            FacturacaoController facturacoController = new FacturacaoController();
+            ResultSet rs = facturacoController.listarTaxas();
+
+            while (rs.next()) {
+                idFactura.addElement(rs.getInt(1));
+                cbxFacturas.addItem(rs.getString(4));  // Exibe o quarto campo no ComboBox
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar dados no ComboBox: " + erro);
+        }
     }
 
     /**
@@ -47,13 +148,13 @@ public class PagamentoView extends javax.swing.JFrame {
         painelSuperiorDados = new javax.swing.JPanel();
         painelEsqDados = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        idFacturacao = new javax.swing.JTextField();
+        txtIdPagamentos = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         cbxFacturas = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
-        jTextField17 = new javax.swing.JTextField();
+        txtNomeCliente = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        txtDividaAntesMulta = new javax.swing.JTextField();
+        txtValor = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         txtPrazoPagamento = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
@@ -62,16 +163,16 @@ public class PagamentoView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtMultas = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtDividaDepoisMulta = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtValorPago = new javax.swing.JTextField();
+        txtValorApagar = new javax.swing.JTextField();
         btnCalcularTrocos = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtTrocos = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtDividaDepoisPagamento = new javax.swing.JTextField();
+        txtSaldoActual = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField32 = new javax.swing.JTextField();
+        txtNrRecibos = new javax.swing.JTextField();
         painelDirDados = new javax.swing.JPanel();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
         tabela = new javax.swing.JPanel();
@@ -82,7 +183,7 @@ public class PagamentoView extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabelaPagamentos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -159,25 +260,25 @@ public class PagamentoView extends javax.swing.JFrame {
 
         jLabel15.setText("Id:");
 
-        idFacturacao.setEditable(false);
+        txtIdPagamentos.setEditable(false);
 
         jLabel16.setText("Factura:");
 
-        cbxFacturas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxFacturas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "1234" }));
 
         jLabel17.setText("Nome do Cliente:");
 
-        jTextField17.addActionListener(new java.awt.event.ActionListener() {
+        txtNomeCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField17ActionPerformed(evt);
+                txtNomeClienteActionPerformed(evt);
             }
         });
 
         jLabel20.setText("Valor:");
 
-        txtDividaAntesMulta.addActionListener(new java.awt.event.ActionListener() {
+        txtValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDividaAntesMultaActionPerformed(evt);
+                txtValorActionPerformed(evt);
             }
         });
 
@@ -215,17 +316,17 @@ public class PagamentoView extends javax.swing.JFrame {
 
         jLabel3.setText("Total:");
 
-        txtDividaDepoisMulta.addActionListener(new java.awt.event.ActionListener() {
+        txtTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDividaDepoisMultaActionPerformed(evt);
+                txtTotalActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Insira o valor a pagar:");
 
-        txtValorPago.addActionListener(new java.awt.event.ActionListener() {
+        txtValorApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorPagoActionPerformed(evt);
+                txtValorApagarActionPerformed(evt);
             }
         });
 
@@ -247,17 +348,17 @@ public class PagamentoView extends javax.swing.JFrame {
 
         jLabel7.setText("Saldo Actual:");
 
-        txtDividaDepoisPagamento.addActionListener(new java.awt.event.ActionListener() {
+        txtSaldoActual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDividaDepoisPagamentoActionPerformed(evt);
+                txtSaldoActualActionPerformed(evt);
             }
         });
 
         jLabel5.setText("Numero de Recibo:");
 
-        jTextField32.addActionListener(new java.awt.event.ActionListener() {
+        txtNrRecibos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField32ActionPerformed(evt);
+                txtNrRecibosActionPerformed(evt);
             }
         });
 
@@ -279,14 +380,14 @@ public class PagamentoView extends javax.swing.JFrame {
                         .addGap(72, 72, 72)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDividaAntesMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(idFacturacao, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdPagamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPrazoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCalcularValorPAgar, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtDividaDepoisMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,8 +397,8 @@ public class PagamentoView extends javax.swing.JFrame {
                                 .addGap(80, 80, 80)
                                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtTrocos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDividaDepoisPagamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField32, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtSaldoActual, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNrRecibos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -310,7 +411,7 @@ public class PagamentoView extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelEsqDadosLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtValorPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtValorApagar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btnCalcularTrocos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
@@ -319,7 +420,7 @@ public class PagamentoView extends javax.swing.JFrame {
             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idFacturacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdPagamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,11 +429,11 @@ public class PagamentoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
-                    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(txtDividaAntesMulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel23)
@@ -350,11 +451,11 @@ public class PagamentoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(txtDividaDepoisMulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(txtValorPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCalcularTrocos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -364,11 +465,11 @@ public class PagamentoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDividaDepoisPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSaldoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNrRecibos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(74, Short.MAX_VALUE))
         );
 
@@ -469,20 +570,28 @@ public class PagamentoView extends javax.swing.JFrame {
 
         tabela.add(botoes, java.awt.BorderLayout.PAGE_START);
 
-        jTable2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTable2.setForeground(new java.awt.Color(255, 255, 255));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaPagamentos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tabelaPagamentos.setForeground(new java.awt.Color(255, 255, 255));
+        tabelaPagamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Factura", "Nome do Cliente", "Valor ", "Prazo de Pagamento", "Multa", "Tota", "Valor Pago", "Trocos", "Saldo Actual", "Numero de Recibo", "Despesas", "Numero da Factura", "Dispesas"
+                "ID", "Nome", "Data de pagamento", "Prazo de Pagamento", "Nr da Factura", "Valor da Factura", "Multa", "Valor Total", "Valor pago", "Trocos", "Saldo", "Nr de Recibo", "Processada"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tabelaPagamentos);
 
         tabela.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
@@ -530,34 +639,38 @@ public class PagamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
-//        limparCampos();
+        salvarPagamento();
+        listarPagamentos();
+        limparCampos();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-
-//        limparCampos();
+        actualizarPagamento();
+        listarPagamentos();
+        limparCampos();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-//        CarregarCampos();
+        CarregarCampos();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-
+        limparCampos();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-
+        apagarPagamento();
+        listarPagamentos();
+        limparCampos();
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jTextField17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField17ActionPerformed
+    private void txtNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField17ActionPerformed
+    }//GEN-LAST:event_txtNomeClienteActionPerformed
 
-    private void txtDividaAntesMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDividaAntesMultaActionPerformed
+    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDividaAntesMultaActionPerformed
+    }//GEN-LAST:event_txtValorActionPerformed
 
     private void txtPrazoPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrazoPagamentoActionPerformed
         // TODO add your handling code here:
@@ -575,13 +688,13 @@ public class PagamentoView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMultasActionPerformed
 
-    private void txtDividaDepoisMultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDividaDepoisMultaActionPerformed
+    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDividaDepoisMultaActionPerformed
+    }//GEN-LAST:event_txtTotalActionPerformed
 
-    private void txtValorPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorPagoActionPerformed
+    private void txtValorApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorApagarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorPagoActionPerformed
+    }//GEN-LAST:event_txtValorApagarActionPerformed
 
     private void btnCalcularTrocosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularTrocosActionPerformed
         verificarTrocos();
@@ -591,13 +704,13 @@ public class PagamentoView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTrocosActionPerformed
 
-    private void txtDividaDepoisPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDividaDepoisPagamentoActionPerformed
+    private void txtSaldoActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoActualActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDividaDepoisPagamentoActionPerformed
+    }//GEN-LAST:event_txtSaldoActualActionPerformed
 
-    private void jTextField32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField32ActionPerformed
+    private void txtNrRecibosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNrRecibosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField32ActionPerformed
+    }//GEN-LAST:event_txtNrRecibosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -624,7 +737,6 @@ public class PagamentoView extends javax.swing.JFrame {
     private javax.swing.JButton btnCalcularValorPAgar;
     private javax.swing.JButton btnVoltarMenu;
     private javax.swing.JComboBox<String> cbxFacturas;
-    private javax.swing.JTextField idFacturacao;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -646,9 +758,6 @@ public class PagamentoView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField32;
     private javax.swing.JLabel lblCabecalho;
     private javax.swing.JLabel lblIconLogo;
     private javax.swing.JPanel painelContCentral;
@@ -661,17 +770,21 @@ public class PagamentoView extends javax.swing.JFrame {
     private javax.swing.JPanel painelSuperiorDados;
     private javax.swing.JPanel painelVoltarMenu;
     private javax.swing.JPanel tabela;
+    private javax.swing.JTable tabelaPagamentos;
     private javax.swing.JTextField txtDataPagamento;
-    private javax.swing.JTextField txtDividaAntesMulta;
-    private javax.swing.JTextField txtDividaDepoisMulta;
-    private javax.swing.JTextField txtDividaDepoisPagamento;
+    private javax.swing.JTextField txtIdPagamentos;
     private javax.swing.JTextField txtMultas;
+    private javax.swing.JTextField txtNomeCliente;
+    private javax.swing.JTextField txtNrRecibos;
     private javax.swing.JTextField txtPrazoPagamento;
+    private javax.swing.JTextField txtSaldoActual;
+    private javax.swing.JTextField txtTotal;
     private javax.swing.JTextField txtTrocos;
-    private javax.swing.JTextField txtValorPago;
+    private javax.swing.JTextField txtValor;
+    private javax.swing.JTextField txtValorApagar;
     // End of variables declaration//GEN-END:variables
 
-     private void calcularMultaETotal() {
+    private void calcularMultaETotal() {
         //pegando data na textField
         String dataStringEmissaoFactura = txtPrazoPagamento.getText();
 
@@ -694,7 +807,7 @@ public class PagamentoView extends javax.swing.JFrame {
         System.out.println(diasInt);
 
         //Condicao para multa
-        double valorAntesMultaAReduzir = Double.parseDouble(txtDividaAntesMulta.getText());
+        double valorAntesMultaAReduzir = Double.parseDouble(txtValor.getText());
         BigDecimal bd = new BigDecimal(valorAntesMultaAReduzir).setScale(2, RoundingMode.HALF_UP);
         double valorAntesMulta = bd.doubleValue();
 
@@ -718,24 +831,246 @@ public class PagamentoView extends javax.swing.JFrame {
         }
         BigDecimal bd3 = new BigDecimal(valorDividaDepoisMultaAReduzir).setScale(2, RoundingMode.HALF_UP);
         double valorDividaDepoisMulta = bd3.doubleValue();
-        txtDividaDepoisMulta.setText("" + valorDividaDepoisMulta);
+        txtTotal.setText("" + valorDividaDepoisMulta);
     }
-    
+
+    //Salvar Leitura
+    private void salvarPagamento() {
+        try {
+            String nome = txtNomeCliente.getText();
+            String datapagamento = txtDataPagamento.getText();
+            String prazoPagamento = txtPrazoPagamento.getText();
+            String nrFact = cbxFacturas.getSelectedItem().toString();
+            int nrFactura = Integer.parseInt(nrFact);
+            double valorfactura = Double.parseDouble(txtValor.getText());
+            double multa = Double.parseDouble(txtMultas.getText());
+            double valorTotal = Double.parseDouble(txtSaldoActual.getText());
+            double valorPago = Double.parseDouble(txtValorApagar.getText());
+            double trocos = Double.parseDouble(txtTrocos.getText());
+            double saldo = Double.parseDouble(txtTotal.getText());
+
+            Random aleatorio = new Random();
+            int nrReciboPadraoInicial = 20240001;
+            int nrRecibo = nrReciboPadraoInicial + aleatorio.nextInt(10000001);
+            txtNrRecibos.setText(String.valueOf(nrRecibo));
+            boolean disp = true;
+
+            PagamentoModel pagamentoModel = new PagamentoModel();
+            pagamentoModel.setNomeDoCliente(nome);
+            pagamentoModel.setDataPagamento(datapagamento);
+            pagamentoModel.setPrazoPagamento(prazoPagamento);
+            pagamentoModel.setNrDaFactura(nrFactura);
+            pagamentoModel.setValorDaFactura(valorfactura);
+            pagamentoModel.setMulta(multa);
+            pagamentoModel.setValorTotal(valorTotal);
+            pagamentoModel.setValorPago(valorPago);
+            pagamentoModel.setTrocos(trocos);
+            pagamentoModel.setSaldo(saldo);
+            pagamentoModel.setNrRecibo(nrRecibo);
+            pagamentoModel.setProcessada(disp);
+
+            PagamentoController pagamentoControler = new PagamentoController();
+            pagamentoControler.registarPagamento(pagamentoModel);
+
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.setNome(nome);
+            clienteModel.setSaldo(saldo);
+
+            ClienteController clienteController = new ClienteController();
+            clienteController.ActualizarSaldo(clienteModel);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao converter valores numéricos: " + e.getMessage());
+        }
+    }
+    //Metodo Listar
+
+    private void listarPagamentos() {
+        try {
+            PagamentoController pagamentoController = new PagamentoController();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaPagamentos.getModel();
+            model.setRowCount(0);
+
+            ArrayList<PagamentoModel> lista = pagamentoController.listarPagamento();
+
+            for (PagamentoModel item : lista) {
+                model.addRow(new Object[]{
+                    item.getIdPagamento(),
+                    item.getNomeDoCliente(),
+                    item.getDataPagamento(),
+                    item.getPrazoPagamento(),
+                    item.getNrDaFactura(),
+                    item.getValorDaFactura(),
+                    item.getMulta(),
+                    item.getValorTotal(),
+                    item.getValorPago(),
+                    item.getTrocos(),
+                    item.getSaldo(),
+                    item.getNrRecibo(),
+                    item.getProcessada()
+                });
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "ListarPagamento View" + erro);
+        }
+    }
+
+    //Metodo Limpar Campos
+    private void limparCampos() {
+        txtIdPagamentos.setText("");
+        cbxFacturas.setSelectedIndex(0);
+        txtPrazoPagamento.setText("");
+        txtPrazoPagamento.setText("");
+        txtNomeCliente.setText("");
+        txtSaldoActual.setText("");
+        txtMultas.setText("");
+        txtTotal.setText("");
+        txtValor.setText("");
+        txtTrocos.setText("");
+        txtValorApagar.setText("");
+        txtNrRecibos.setText("");
+
+    }
+
+    //Metodo Carregar Campos
+    private void CarregarCampos() {
+        int setar = tabelaPagamentos.getSelectedRow();
+
+        txtIdPagamentos.setText(tabelaPagamentos.getModel().getValueAt(setar, 0).toString());
+        txtNomeCliente.setText(tabelaPagamentos.getModel().getValueAt(setar, 1).toString());
+        txtDataPagamento.setText(tabelaPagamentos.getModel().getValueAt(setar, 2).toString());
+        txtPrazoPagamento.setText(tabelaPagamentos.getModel().getValueAt(setar, 3).toString());
+        cbxFacturas.setSelectedItem(tabelaPagamentos.getModel().getValueAt(setar, 4).toString());
+        txtSaldoActual.setText(tabelaPagamentos.getModel().getValueAt(setar, 5).toString());
+        txtMultas.setText(tabelaPagamentos.getModel().getValueAt(setar, 6).toString());
+        txtTotal.setText(tabelaPagamentos.getModel().getValueAt(setar, 7).toString());
+        txtValor.setText(tabelaPagamentos.getModel().getValueAt(setar, 8).toString());
+        txtTrocos.setText(tabelaPagamentos.getModel().getValueAt(setar, 9).toString());
+        txtValorApagar.setText(tabelaPagamentos.getModel().getValueAt(setar, 10).toString());
+        txtNrRecibos.setText(tabelaPagamentos.getModel().getValueAt(setar, 11).toString());
+//        txt.setText(tabelaPagamentos.getModel().getValueAt(setar, 12).toString());
+    }
+
+    //Metodo Actualizar Pagamento
+    private void actualizarPagamento() {
+        try {
+            int idPagamento = Integer.parseInt(txtIdPagamentos.getText());
+            String nome = txtNomeCliente.getText();
+            String datapagamento = txtDataPagamento.getText();
+            String prazoPagamento = txtPrazoPagamento.getText();
+            String nrFact = cbxFacturas.getSelectedItem().toString();
+            int nrFactura = Integer.parseInt(nrFact);
+            double valorfactura = Double.parseDouble(txtValor.getText());
+            double multa = Double.parseDouble(txtMultas.getText());
+            double valorTotal = Double.parseDouble(txtSaldoActual.getText());
+            double valorPago = Double.parseDouble(txtValorApagar.getText());
+            double trocos = Double.parseDouble(txtTrocos.getText());
+            double saldo = Double.parseDouble(txtTotal.getText());
+
+            int nrRecibo = Integer.parseInt(txtNrRecibos.getText());
+            boolean disp = true;
+
+            // Criando e configurando o modelo de pagamento
+            PagamentoModel pagamentoModel = new PagamentoModel();
+            pagamentoModel.setIdPagamento(idPagamento);
+            pagamentoModel.setNomeDoCliente(nome);
+            pagamentoModel.setDataPagamento(datapagamento);
+            pagamentoModel.setPrazoPagamento(prazoPagamento);
+            pagamentoModel.setNrDaFactura(nrFactura);
+            pagamentoModel.setValorDaFactura(valorfactura);
+            pagamentoModel.setMulta(multa);
+            pagamentoModel.setValorTotal(valorTotal);
+            pagamentoModel.setValorPago(valorPago);
+            pagamentoModel.setTrocos(trocos);
+            pagamentoModel.setSaldo(saldo);
+            pagamentoModel.setNrRecibo(nrRecibo);
+            pagamentoModel.setStatusPagamento(disp);
+
+            // Atualizando pagamento no banco de dados
+            PagamentoController pagamentoController = new PagamentoController();
+            pagamentoController.ActualizarPagamentos(pagamentoModel);
+
+            // Atualizando saldo na tabela de clientes
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.setNome(nome); // Corrigido para setNome
+            clienteModel.setSaldo(saldo);
+
+            ClienteController clienteController = new ClienteController();
+            clienteController.ActualizarSaldo(clienteModel);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao converter valores numéricos: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar pagamento: " + e.getMessage());
+        }
+    }
+    //Metodo Apagar Pagamento
+
+    private void apagarPagamento() {
+        try {
+            int idPagamento = Integer.parseInt(txtIdPagamentos.getText());
+            String nome = txtNomeCliente.getText();
+            String datapagamento = txtDataPagamento.getText();
+            String prazoPagamento = txtPrazoPagamento.getText();
+            String nrFact = cbxFacturas.getSelectedItem().toString();
+            int nrFactura = Integer.parseInt(nrFact);
+            double valorfactura = Double.parseDouble(txtValor.getText());
+            double multa = Double.parseDouble(txtMultas.getText());
+            double valorTotal = Double.parseDouble(txtSaldoActual.getText());
+            double valorPago = Double.parseDouble(txtValorApagar.getText());
+            double trocos = Double.parseDouble(txtTrocos.getText());
+            double saldo = Double.parseDouble(txtTotal.getText());
+            int nrRecibo = Integer.parseInt(txtNrRecibos.getText());
+            boolean disp = false;
+
+            // Criando e configurando o modelo de pagamento
+            PagamentoModel pagamentoModel = new PagamentoModel();
+            pagamentoModel.setIdPagamento(idPagamento);
+            pagamentoModel.setNomeDoCliente(nome);
+            pagamentoModel.setDataPagamento(datapagamento);
+            pagamentoModel.setPrazoPagamento(prazoPagamento);
+            pagamentoModel.setNrDaFactura(nrFactura);
+            pagamentoModel.setValorDaFactura(valorfactura);
+            pagamentoModel.setMulta(multa);
+            pagamentoModel.setValorTotal(valorTotal);
+            pagamentoModel.setValorPago(valorPago);
+            pagamentoModel.setTrocos(trocos);
+            pagamentoModel.setSaldo(saldo);
+            pagamentoModel.setNrRecibo(nrRecibo);
+            pagamentoModel.setStatusPagamento(disp);
+
+            // Atualizando pagamento no banco de dados
+            PagamentoController pagamentoController = new PagamentoController();
+            pagamentoController.ActualizarPagamentos(pagamentoModel);
+
+            // Atualizando saldo na tabela de clientes
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.setNome(nome); // Corrigido para setNome
+            clienteModel.setSaldo(saldo);
+
+            ClienteController clienteController = new ClienteController();
+            clienteController.ActualizarSaldo(clienteModel);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao converter valores numéricos: " + e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar pagamento: " + e.getMessage());
+        }
+    }
+
     //Metodo verificar trocos
     private void verificarTrocos() {
         //verificao de um valor positivo e apenas numeros
-        String valorPag = txtValorPago.getText();
+        String valorPag = txtValorApagar.getText();
         if (valorPag.isEmpty() || !valorPag.matches("\\d+")) {
             JOptionPane.showMessageDialog(null, "Valor inválido.");
             return;
         }
 
         double trocosAReduzir = 0;
-        double valorPagoAReduzir = Double.parseDouble(txtValorPago.getText());
+        double valorPagoAReduzir = Double.parseDouble(txtValorApagar.getText());
         BigDecimal bd = new BigDecimal(valorPagoAReduzir).setScale(2, RoundingMode.HALF_UP);
         double valorPago = bd.doubleValue();
 
-        double valorAPagar = Double.parseDouble(txtDividaDepoisMulta.getText());
+        double valorAPagar = Double.parseDouble(txtTotal.getText());
 
         if (valorPago <= 0) {
             JOptionPane.showMessageDialog(null, "Valor pago deve ser maior que 0.", "Erro na Inserção de Valor", JOptionPane.ERROR_MESSAGE);
@@ -754,7 +1089,7 @@ public class PagamentoView extends javax.swing.JFrame {
 
             bd = new BigDecimal(dividaDepoisPagAReduzir).setScale(2, RoundingMode.HALF_EVEN);
             double dividaDepoisPag = bd.doubleValue();
-            txtDividaDepoisPagamento.setText("" + dividaDepoisPag);
+            txtSaldoActual.setText("" + dividaDepoisPag);
         }
     }
 
