@@ -4,6 +4,9 @@
  */
 package View;
 
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mac
@@ -160,6 +163,11 @@ public class RecebimentosView extends javax.swing.JFrame {
         jTextField28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField28ActionPerformed(evt);
+            }
+        });
+        jTextField28.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField28KeyTyped(evt);
             }
         });
 
@@ -488,6 +496,18 @@ public class RecebimentosView extends javax.swing.JFrame {
         new MenuPrincipal().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField28KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField28KeyTyped
+  char c = evt.getKeyChar();
+
+    // Verifica se a tecla pressionada não é um dígito ou backspace
+    if (!Character.isDigit(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+        evt.consume(); // Previne a entrada de caracteres inválidos
+
+        // Exibe mensagem de erro (opcional)
+        JOptionPane.showMessageDialog(null, "Apenas números são permitidos!");
+    }
+    }//GEN-LAST:event_jTextField28KeyTyped
 
     /**
      * @param args the command line arguments

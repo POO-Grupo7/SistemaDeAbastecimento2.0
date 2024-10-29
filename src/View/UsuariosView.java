@@ -8,12 +8,15 @@ import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import net.miginfocom.swing.MigLayout;
@@ -22,7 +25,7 @@ public class UsuariosView extends javax.swing.JFrame {
 
     public UsuariosView() {
         initComponents();
-        testData(jTable2);
+//        testData(jTable2);
         getContentPane().setBackground(Color.white);
         TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
 //        painelEsqDados.setLayout(new MigLayout());
@@ -95,23 +98,21 @@ public class UsuariosView extends javax.swing.JFrame {
         lblSenha = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jTextField18 = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxPerfilDeAcesso = new javax.swing.JComboBox<>();
+        cbxStatus = new javax.swing.JComboBox<>();
         lblFoto = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        txtPassword = new javax.swing.JPasswordField();
+        txtSenha = new javax.swing.JPasswordField();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
         tabela = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabelaUsuarios = new javax.swing.JTable();
         botoes = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnCarregarCampos = new javax.swing.JButton();
+        btnLimparCampos = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -119,7 +120,6 @@ public class UsuariosView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("USUÁRIOS");
-        setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(1180, 650));
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
@@ -237,7 +237,19 @@ public class UsuariosView extends javax.swing.JFrame {
 
         lblNome.setText("Nome:");
 
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeKeyPressed(evt);
+            }
+        });
+
         lblApelido.setText("Apelido:");
+
+        txtApelido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtApelidoKeyPressed(evt);
+            }
+        });
 
         lblNaturalidade.setText("Naturalidade:");
 
@@ -247,6 +259,11 @@ public class UsuariosView extends javax.swing.JFrame {
 
         lblEmail.setText("Email institucional:");
 
+        txtEmail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtEmailMouseExited(evt);
+            }
+        });
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEmailActionPerformed(evt);
@@ -343,6 +360,11 @@ public class UsuariosView extends javax.swing.JFrame {
                 txtNomeUsuarioActionPerformed(evt);
             }
         });
+        txtNomeUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeUsuarioKeyPressed(evt);
+            }
+        });
 
         lblSenha.setText("Senha:");
 
@@ -350,15 +372,11 @@ public class UsuariosView extends javax.swing.JFrame {
 
         jLabel28.setText("Estado:");
 
-        jLabel29.setText("Disponibilidade:");
-
-        jTextField18.setEditable(false);
-
         jCheckBox1.setText("Ver Senha");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Admistrador ", "Gestor", "Leitor", "Balconista" }));
+        cbxPerfilDeAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Admistrador ", "Gestor", "Leitor", "Balconista" }));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
+        cbxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
 
         lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8_account_128px.png"))); // NOI18N
         lblFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(52, 102, 138), 2));
@@ -384,19 +402,15 @@ public class UsuariosView extends javax.swing.JFrame {
                             .addComponent(jLabel28))
                         .addGap(28, 28, 28)
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxPerfilDeAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jCheckBox1)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(painelDirDadosLayout.createSequentialGroup()
-                        .addComponent(jLabel29)
-                        .addGap(29, 29, 29)
-                        .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painelDirDadosLayout.createSequentialGroup()
                         .addComponent(lblNomeUsuario)
                         .addGap(18, 18, 18)
                         .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 45, Short.MAX_VALUE)
+                .addGap(18, 38, Short.MAX_VALUE)
                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFoto))
@@ -411,7 +425,7 @@ public class UsuariosView extends javax.swing.JFrame {
                         .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(95, Short.MAX_VALUE))
                     .addGroup(painelDirDadosLayout.createSequentialGroup()
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNomeUsuario)
@@ -419,31 +433,24 @@ public class UsuariosView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblSenha)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelDirDadosLayout.createSequentialGroup()
                                 .addGap(48, 48, 48)
                                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel26)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cbxPerfilDeAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel28)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(painelDirDadosLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jCheckBox1)))
-                        .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelDirDadosLayout.createSequentialGroup()
-                                .addGap(87, 87, 87)
-                                .addComponent(jLabel29))
-                            .addGroup(painelDirDadosLayout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 8, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
-        painelDirDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCheckBox1, jLabel26, jLabel28, jLabel29, lblNomeUsuario, lblSenha});
+        painelDirDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jCheckBox1, jLabel26, jLabel28, lblNomeUsuario, lblSenha});
 
         painelSuperiorDados.add(painelDirDados);
 
@@ -457,9 +464,9 @@ public class UsuariosView extends javax.swing.JFrame {
 
         jScrollPane2.setBackground(new java.awt.Color(0, 102, 102));
 
-        jTable2.setAutoCreateRowSorter(true);
-        jTable2.setForeground(new java.awt.Color(51, 51, 51));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaUsuarios.setAutoCreateRowSorter(true);
+        tabelaUsuarios.setForeground(new java.awt.Color(51, 51, 51));
+        tabelaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -468,22 +475,21 @@ public class UsuariosView extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.setShowGrid(true);
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(35);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(100);
-            jTable2.getColumnModel().getColumn(4).setPreferredWidth(100);
-            jTable2.getColumnModel().getColumn(5).setPreferredWidth(180);
-            jTable2.getColumnModel().getColumn(10).setPreferredWidth(40);
-            jTable2.getColumnModel().getColumn(11).setPreferredWidth(40);
+        jScrollPane2.setViewportView(tabelaUsuarios);
+        if (tabelaUsuarios.getColumnModel().getColumnCount() > 0) {
+            tabelaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(35);
+            tabelaUsuarios.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tabelaUsuarios.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tabelaUsuarios.getColumnModel().getColumn(5).setPreferredWidth(180);
+            tabelaUsuarios.getColumnModel().getColumn(10).setPreferredWidth(40);
+            tabelaUsuarios.getColumnModel().getColumn(11).setPreferredWidth(40);
         }
 
         tabela.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -494,52 +500,57 @@ public class UsuariosView extends javax.swing.JFrame {
         botoesLayout.rowHeights = new int[] {0};
         botoes.setLayout(botoesLayout);
 
-        jButton6.setBackground(new java.awt.Color(52, 102, 138));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Cadastrar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setBackground(new java.awt.Color(52, 102, 138));
+        btnCadastrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCadastrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton6, gridBagConstraints);
+        botoes.add(btnCadastrar, gridBagConstraints);
 
-        jButton7.setBackground(new java.awt.Color(52, 102, 138));
-        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("Actualizar");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton7, gridBagConstraints);
-
-        jButton8.setBackground(new java.awt.Color(52, 102, 138));
-        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("Carregar Campos");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setBackground(new java.awt.Color(52, 102, 138));
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton8, gridBagConstraints);
+        botoes.add(btnActualizar, gridBagConstraints);
 
-        jButton9.setBackground(new java.awt.Color(52, 102, 138));
-        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setText("Limpar Campos");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        btnCarregarCampos.setBackground(new java.awt.Color(52, 102, 138));
+        btnCarregarCampos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCarregarCampos.setForeground(new java.awt.Color(255, 255, 255));
+        btnCarregarCampos.setText("Carregar Campos");
+        btnCarregarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                btnCarregarCamposActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
-        botoes.add(jButton9, gridBagConstraints);
+        botoes.add(btnCarregarCampos, gridBagConstraints);
+
+        btnLimparCampos.setBackground(new java.awt.Color(52, 102, 138));
+        btnLimparCampos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLimparCampos.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimparCampos.setText("Limpar Campos");
+        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCamposActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
+        botoes.add(btnLimparCampos, gridBagConstraints);
 
         jButton10.setBackground(new java.awt.Color(52, 102, 138));
         jButton10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -641,6 +652,96 @@ public class UsuariosView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnVoltarMenu1ActionPerformed
 
+    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
+        char c = evt.getKeyChar();
+    if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+        evt.consume();
+        new Thread(() -> {
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(200);
+                    txtNome.setBackground(Color.RED);
+                    Thread.sleep(200);
+                    txtNome.setBackground(Color.WHITE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        SwingUtilities.invokeLater(() -> 
+            JOptionPane.showMessageDialog(null, "Apenas letras são permitidas!")
+        );
+    }
+    }//GEN-LAST:event_txtNomeKeyPressed
+
+    private void txtApelidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApelidoKeyPressed
+       char c = evt.getKeyChar();
+    if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+        evt.consume();
+        new Thread(() -> {
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(200);
+                    txtApelido.setBackground(Color.RED);
+                    Thread.sleep(200);
+                    txtApelido.setBackground(Color.WHITE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        SwingUtilities.invokeLater(() -> 
+            JOptionPane.showMessageDialog(null, "Apenas letras são permitidas!")
+        );
+    }
+    }//GEN-LAST:event_txtApelidoKeyPressed
+
+    private void txtNomeUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeUsuarioKeyPressed
+char c = evt.getKeyChar();
+    
+    if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+        evt.consume();
+        new Thread(() -> {
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(200);
+                    txtNomeUsuario.setBackground(Color.RED);
+                    Thread.sleep(200);
+                    txtNomeUsuario.setBackground(Color.WHITE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        SwingUtilities.invokeLater(() -> 
+            JOptionPane.showMessageDialog(null, "Apenas letras são permitidas!")
+        );
+    }
+    }//GEN-LAST:event_txtNomeUsuarioKeyPressed
+
+    private void txtEmailMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEmailMouseExited
+        String email = txtEmail.getText();
+    if (!email.contains("@")) {
+        new Thread(() -> {
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(200);
+                    txtEmail.setBackground(Color.RED);
+                    Thread.sleep(200);
+                    txtEmail.setBackground(Color.WHITE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        
+        SwingUtilities.invokeLater(() -> 
+            JOptionPane.showMessageDialog(null, "O email deve conter '@'!")
+        );
+        txtEmail.setText("");
+    }
+    }//GEN-LAST:event_txtEmailMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -660,28 +761,25 @@ public class UsuariosView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botoes;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnCarregarCampos;
+    private javax.swing.JButton btnLimparCampos;
     private javax.swing.JButton btnVoltarMenu1;
     private javax.swing.JComboBox<String> cbxFuncao;
     private javax.swing.JComboBox<String> cbxNaturalidade;
+    private javax.swing.JComboBox<String> cbxPerfilDeAcesso;
+    private javax.swing.JComboBox<String> cbxStatus;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField18;
     private javax.swing.JLabel lblApelido;
     private javax.swing.JLabel lblCabecalho;
     private javax.swing.JLabel lblCabecalho1;
@@ -706,6 +804,7 @@ public class UsuariosView extends javax.swing.JFrame {
     private javax.swing.JPanel painelSuperiorDados;
     private javax.swing.JPanel painelVoltarMenu;
     private javax.swing.JPanel tabela;
+    private javax.swing.JTable tabelaUsuarios;
     private javax.swing.JTextField txtApelido;
     private javax.swing.JTextField txtDataNascimento;
     private javax.swing.JTextField txtEmail;
@@ -713,6 +812,6 @@ public class UsuariosView extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNomeAPesquisar;
     private javax.swing.JTextField txtNomeUsuario;
-    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }

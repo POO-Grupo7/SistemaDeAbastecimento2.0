@@ -363,6 +363,7 @@
         <Component class="javax.swing.JTextField" name="jTextField28">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField28ActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField28KeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField31">

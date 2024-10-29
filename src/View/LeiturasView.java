@@ -8,11 +8,13 @@ import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -363,9 +365,19 @@ public class LeiturasView extends javax.swing.JFrame {
 
         lblLeituraAnterior.setText("Leitura Anterior:");
 
+        txtLeituraActual.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                txtLeituraActualMouseMoved(evt);
+            }
+        });
         txtLeituraActual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLeituraActualActionPerformed(evt);
+            }
+        });
+        txtLeituraActual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLeituraActualKeyTyped(evt);
             }
         });
 
@@ -678,6 +690,21 @@ public class LeiturasView extends javax.swing.JFrame {
         new MenuPrincipal().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnVoltarMenu1ActionPerformed
+
+    private void txtLeituraActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLeituraActualKeyTyped
+        char c = evt.getKeyChar();
+    
+    // Verifica se a tecla pressionada não é um dígito ou backspace
+    if (!Character.isDigit(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+        // Previne a entrada de caracteres inválidos
+        evt.consume();
+        
+            JOptionPane.showMessageDialog(null, "Apenas números são permitidos!");} 
+    }//GEN-LAST:event_txtLeituraActualKeyTyped
+
+    private void txtLeituraActualMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLeituraActualMouseMoved
+ 
+    }//GEN-LAST:event_txtLeituraActualMouseMoved
 
     /**
      * @param args the command line arguments

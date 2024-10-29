@@ -8,11 +8,13 @@ import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -381,6 +383,11 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
                 txtLeituraActualActionPerformed(evt);
             }
         });
+        txtLeituraActual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLeituraActualKeyTyped(evt);
+            }
+        });
 
         lblLeituraActual.setText("Leitura Actual:*");
 
@@ -706,6 +713,17 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
     private void cbxMesDeReferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMesDeReferenciaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxMesDeReferenciaActionPerformed
+
+    private void txtLeituraActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLeituraActualKeyTyped
+        char c = evt.getKeyChar();
+    
+    // Verifica se a tecla pressionada não é um dígito ou backspace
+    if (!Character.isDigit(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+        // Previne a entrada de caracteres inválidos
+        evt.consume();
+        
+            JOptionPane.showMessageDialog(null, "Apenas números são permitidos!");}
+    }//GEN-LAST:event_txtLeituraActualKeyTyped
 
     /**
      * @param args the command line arguments

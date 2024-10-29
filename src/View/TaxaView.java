@@ -8,12 +8,16 @@ import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import net.miginfocom.swing.MigLayout;
@@ -94,7 +98,7 @@ public class TaxaView extends javax.swing.JFrame {
         lblCabecalho.setForeground(new java.awt.Color(255, 255, 255));
         lblCabecalho.setText("TAXAS");
         painelCabecalho.add(lblCabecalho);
-        lblCabecalho.setBounds(260, 10, 81, 28);
+        lblCabecalho.setBounds(260, 10, 81, 29);
 
         painelPrincipal.add(painelCabecalho, java.awt.BorderLayout.NORTH);
 
@@ -122,12 +126,53 @@ public class TaxaView extends javax.swing.JFrame {
 
         lblNome.setText("Nome:");
 
+        txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNomeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNomeFocusLost(evt);
+            }
+        });
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeKeyPressed(evt);
+            }
+        });
+
         lblTipoConsumo.setText("Tipo de Consumo:");
 
         cbxTipoConsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblDataNascimento.setText("Valor da Taxa");
 
+        txtDataNascimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDataNascimentoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDataNascimentoFocusLost(evt);
+            }
+        });
+        txtDataNascimento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDataNascimentoKeyTyped(evt);
+            }
+        });
+
+        txtNomeAPesquisar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNomeAPesquisarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNomeAPesquisarFocusLost(evt);
+            }
+        });
         txtNomeAPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeAPesquisarActionPerformed(evt);
@@ -307,7 +352,6 @@ public class TaxaView extends javax.swing.JFrame {
         });
         jTable2.setToolTipText("");
         jTable2.setRowSelectionAllowed(false);
-        jTable2.setShowGrid(true);
         jScrollPane2.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
             jTable2.getColumnModel().getColumn(0).setPreferredWidth(35);
@@ -349,6 +393,42 @@ public class TaxaView extends javax.swing.JFrame {
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeAPesquisarActionPerformed
+
+    private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
+        txtNome.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+    }//GEN-LAST:event_txtNomeFocusGained
+
+    private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
+     txtNome.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+    }//GEN-LAST:event_txtNomeFocusLost
+
+    private void txtDataNascimentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataNascimentoFocusGained
+        txtDataNascimento.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+    }//GEN-LAST:event_txtDataNascimentoFocusGained
+
+    private void txtDataNascimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataNascimentoFocusLost
+        txtDataNascimento.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+    }//GEN-LAST:event_txtDataNascimentoFocusLost
+
+    private void txtNomeAPesquisarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarFocusGained
+        txtNomeAPesquisar.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+    }//GEN-LAST:event_txtNomeAPesquisarFocusGained
+
+    private void txtNomeAPesquisarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarFocusLost
+       txtDataNascimento.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1)); 
+    }//GEN-LAST:event_txtNomeAPesquisarFocusLost
+
+    private void txtDataNascimentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataNascimentoKeyTyped
+
+    }//GEN-LAST:event_txtDataNascimentoKeyTyped
+
+    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
+    
+    }//GEN-LAST:event_txtNomeKeyPressed
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
 
     /**
      * @param args the command line arguments
