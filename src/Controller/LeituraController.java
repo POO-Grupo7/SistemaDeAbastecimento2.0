@@ -108,7 +108,7 @@ public class LeituraController {
             pstm.setDouble(10, leituraModel.getConsumoMes());
             pstm.setString(11, leituraModel.getOcorrencia());
             pstm.setString(12, leituraModel.getNrLeitura());
-            pstm.setString(14, leituraModel.getDisp());
+//            pstm.setString(14, leituraModel.getDisp());
 
             pstm.execute();
             pstm.close();
@@ -241,7 +241,7 @@ public class LeituraController {
 //        }
 //    }
 //
-//}
+}
 
     /*
     create table leituras (idLeitura int AUTO_INCREMENT PRIMARY KEY,
