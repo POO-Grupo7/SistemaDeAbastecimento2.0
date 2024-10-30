@@ -24,35 +24,34 @@ public class FacturacaoController {
     ResultSet rs;
     ArrayList<FacturacaoModel> lista = new ArrayList<>();
 
-    //Listar Clientes na ComboBox
-    //Listar Clientes na ComboBox
-    public ResultSet listarClientes() {
+    //Listar Leituras na ComboBox
+    public ResultSet listarLeituras() {
         conexao = new ConexaoController().conectaBaseDados();
-        String sql = "select * from leituras WHERE disp = 'Sim' ORDER BY nomeCliente;";
+        String sql = "select * from leituras WHERE status = '1' ORDER BY nrLeitura;";
 
         try {
             pstm = conexao.prepareStatement(sql);
             return pstm.executeQuery();
 
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "LeituraController pesquisar clientes" + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "FacturacaoController listar leituras" + erro.getMessage());
             return null;
         }
     }
 
-    //Metodo que pega valores da BD e preenche nos campos
-    public ResultSet PrencherDados(int idFactura) {
+    //Metodo que pega valores da BD e preenche nos campos atraves da leitura
+    public ResultSet prencherDadosLeitura(int idLeitura) {
         conexao = new ConexaoController().conectaBaseDados();
-        String sql = "select * from facturacao where idFacturacao = ?";
+        String sql = "select * from leituras where idLeitura = ?";
 
         try {
             pstm = conexao.prepareStatement(sql);
-            pstm.setInt(1, idFactura);
+            pstm.setInt(1, idLeitura);
 
             return pstm.executeQuery();
 
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "FacturacaoController pegar dados a prencher" + erro);
+            JOptionPane.showMessageDialog(null, "FacturacaoController pegar dados a  na leitura" + erro);
         }
         return null;
     }
@@ -163,7 +162,7 @@ public class FacturacaoController {
 //Listar Taxas na ComboBox
     public ResultSet listarTaxas() {
         conexao = new ConexaoController().conectaBaseDados();
-        String sql = "select * from taxa where processada = 'Sim'";
+        String sql = "select * from taxas where processada = 'Sim'";
 
         try {
             pstm = conexao.prepareStatement(sql);

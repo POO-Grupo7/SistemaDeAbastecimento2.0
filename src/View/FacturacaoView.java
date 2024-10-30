@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package View;
 
 import Controller.ClienteController;
@@ -30,6 +27,7 @@ public class FacturacaoView extends javax.swing.JFrame {
     public FacturacaoView() {
         initComponents();
         listarFacturacao();
+        RestaurarDadosComboBoxLeituras();
         RestaurarDadosComboBoxTaxa();
         // Obtém a data atual
         Date data = new Date();
@@ -62,7 +60,7 @@ public class FacturacaoView extends javax.swing.JFrame {
     //Accao para prencher campos
     Vector<Integer> idLeitura = new Vector<Integer>();
 
-    private void AccaoComboxClientes() {
+    private void AccaoComboBoxLeituras() {
         if (cbxNrLeitura.getSelectedIndex() == 0) {
             txtNomeCliente.setText(null);
             txtMesReferente.setText(null);
@@ -72,21 +70,34 @@ public class FacturacaoView extends javax.swing.JFrame {
         }
         try {
             FacturacaoController facturacaoController = new FacturacaoController();
-            ResultSet rs = facturacaoController.PrencherDados(idLeitura.get(cbxNrLeitura.getSelectedIndex() - 1));
+            ResultSet rs = facturacaoController.prencherDadosLeitura(idLeitura.get(cbxNrLeitura.getSelectedIndex() - 1));
 
             while (rs.next()) {
-                txtNomeCliente.setText(rs.getString(2));
-                txtMesReferente.setText(rs.getString(6));
+                txtNomeCliente.setText(rs.getString(3));
+                txtMesReferente.setText(rs.getString(7));
                 txtConsumoDoMes.setText(rs.getString(11));
-                txtSaldoAnterior.setText(rs.getString(14));
+//                txtSaldoAnterior.setText(rs.getString(14));
             }
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "FacturacaoView prencher dados" + erro);
+            JOptionPane.showMessageDialog(null, "FacturacaoView prencher dados leitura" + erro);
         }
     }
+    
+        private void RestaurarDadosComboBoxLeituras() {
+        try {
+            FacturacaoController facturacoController = new FacturacaoController();
+            ResultSet rs = facturacoController.listarLeituras();
+
+            while (rs.next()) {
+                idLeitura.addElement(rs.getInt(1));
+                cbxNrLeitura.addItem(rs.getString(13));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FacturacaoView listar nr da leitura na comboBox" + erro);
+        }
+    }
+    
     //Metodo que pega clientes activos na BD para jcboxClientes
-
-
     private void RestaurarDadosComboBoxTaxa() {
         try {
             FacturacaoController facturacoController = new FacturacaoController();
@@ -102,7 +113,7 @@ public class FacturacaoView extends javax.swing.JFrame {
     }
 
     //Metodo processar Factura
-    final Double consumoMinimo = 4.0;
+    final Double consumoMinimo = 5.0;
     double taxaIva = (0.75 * 0.16);
 
     private void processarFactura() {
@@ -526,6 +537,11 @@ public class FacturacaoView extends javax.swing.JFrame {
         jLabel17.setText("Numero da Leitura:");
 
         cbxNrLeitura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxNrLeitura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxNrLeituraActionPerformed(evt);
+            }
+        });
 
         jLabel20.setText("Mes Referente:");
 
@@ -1005,6 +1021,10 @@ public class FacturacaoView extends javax.swing.JFrame {
     private void cbxTaxasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTaxasActionPerformed
         AccaoComboxTaxa();
     }//GEN-LAST:event_cbxTaxasActionPerformed
+
+    private void cbxNrLeituraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNrLeituraActionPerformed
+        AccaoComboBoxLeituras();
+    }//GEN-LAST:event_cbxNrLeituraActionPerformed
 
     /**
      * @param args the command line arguments
