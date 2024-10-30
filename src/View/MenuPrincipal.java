@@ -585,12 +585,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRelatoriosActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        new UsuariosView().setVisible(true);
+        new UsuariosView11().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        new ClientesView().setVisible(true);
+        new ClientesView11().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnClientesActionPerformed
 
@@ -600,7 +600,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLeiturasActionPerformed
 
     private void btnGestaoInternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestaoInternaActionPerformed
-        new GestaoInternaView().setVisible(true);
+        new GestaoInternaView11().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnGestaoInternaActionPerformed
 
