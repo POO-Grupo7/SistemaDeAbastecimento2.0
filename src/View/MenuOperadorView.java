@@ -219,6 +219,9 @@ public class MenuOperadorView extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnUsuariosMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnUsuariosMousePressed(evt);
+            }
         });
         btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,6 +342,9 @@ public class MenuOperadorView extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnGestaoInternaMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnGestaoInternaMousePressed(evt);
+            }
         });
         btnGestaoInterna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -359,6 +365,9 @@ public class MenuOperadorView extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnRelatoriosMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnRelatoriosMousePressed(evt);
             }
         });
         btnRelatorios.addActionListener(new java.awt.event.ActionListener() {
@@ -579,13 +588,13 @@ public class MenuOperadorView extends javax.swing.JFrame {
     }//GEN-LAST:event_lblImagemMouseClicked
 
     private void btnRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatoriosActionPerformed
-        new RelatoriosView().setVisible(true);
-        dispose();
+//        new RelatoriosView().setVisible(true);
+//        dispose();
     }//GEN-LAST:event_btnRelatoriosActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        new UsuariosView().setVisible(true);
-        dispose();
+//        new UsuariosView().setVisible(true);
+//        dispose();
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
@@ -599,8 +608,8 @@ public class MenuOperadorView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLeiturasActionPerformed
 
     private void btnGestaoInternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestaoInternaActionPerformed
-        new GestaoInternaView().setVisible(true);
-        dispose();
+//        new GestaoInternaView().setVisible(true);
+//        dispose();
     }//GEN-LAST:event_btnGestaoInternaActionPerformed
 
     private void btnRecebimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecebimentosActionPerformed
@@ -624,6 +633,27 @@ public class MenuOperadorView extends javax.swing.JFrame {
         new HistoricoHidrometroView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHidrometroActionPerformed
+
+    private void btnUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMousePressed
+        // Exibe uma mensagem informando que o gestor não tem acesso a este campo
+
+        JOptionPane.showMessageDialog(null, "Acesso Negado: Você não tem permissão para acessar este campo.", "Erro", JOptionPane.ERROR_MESSAGE);
+        btnUsuarios.setEnabled(false);
+    }//GEN-LAST:event_btnUsuariosMousePressed
+
+    private void btnGestaoInternaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestaoInternaMousePressed
+               // Exibe uma mensagem informando que o gestor não tem acesso a este campo
+
+        JOptionPane.showMessageDialog(null, "Acesso Negado: Você não tem permissão para acessar este campo.", "Erro", JOptionPane.ERROR_MESSAGE);
+        btnGestaoInterna.setEnabled(false);
+    }//GEN-LAST:event_btnGestaoInternaMousePressed
+
+    private void btnRelatoriosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRelatoriosMousePressed
+        // Exibe uma mensagem informando que o gestor não tem acesso a este campo
+
+        JOptionPane.showMessageDialog(null, "Acesso Negado: Você não tem permissão para acessar este campo.", "Erro", JOptionPane.ERROR_MESSAGE);
+        btnRelatorios.setEnabled(false);
+    }//GEN-LAST:event_btnRelatoriosMousePressed
 
     /**
      * @param args the command line arguments

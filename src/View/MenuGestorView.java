@@ -4,6 +4,12 @@
  */
 package View;
 
+import ViewGestor.ClientesGestorView;
+import ViewGestor.FacturacaoGestorView;
+import ViewGestor.GestaoInternaGestorView;
+import ViewGestor.HistoricoHidrometroGestorView;
+import ViewGestor.PagamentoGestorView;
+import ViewGestor.RelatoriosGestorView;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -219,10 +225,18 @@ public class MenuGestorView extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnUsuariosMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnUsuariosMousePressed(evt);
+            }
         });
         btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUsuariosActionPerformed(evt);
+            }
+        });
+        btnUsuarios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnUsuariosKeyPressed(evt);
             }
         });
         painelCentralDireitoBotoesMenu.add(btnUsuarios);
@@ -482,7 +496,7 @@ public class MenuGestorView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFacturacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturacaoActionPerformed
-        new FacturacaoView().setVisible(true);
+        new FacturacaoGestorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnFacturacaoActionPerformed
 
@@ -497,7 +511,7 @@ public class MenuGestorView extends javax.swing.JFrame {
 
     private void btnUsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMouseExited
         // TODO add your handling code here:
-        btnUsuarios.setBackground(Color.white);
+        btnUsuarios.setBackground(Color.WHITE);
     }//GEN-LAST:event_btnUsuariosMouseExited
 
     private void btnClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientesMouseEntered
@@ -579,17 +593,17 @@ public class MenuGestorView extends javax.swing.JFrame {
     }//GEN-LAST:event_lblImagemMouseClicked
 
     private void btnRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatoriosActionPerformed
-        new RelatoriosView().setVisible(true);
+        new RelatoriosGestorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnRelatoriosActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        new UsuariosView().setVisible(true);
-        dispose();
+//        new UsuariosView().setVisible(true);
+//        dispose();
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        new ClientesView().setVisible(true);
+        new ClientesGestorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnClientesActionPerformed
 
@@ -599,12 +613,12 @@ public class MenuGestorView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLeiturasActionPerformed
 
     private void btnGestaoInternaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestaoInternaActionPerformed
-        new GestaoInternaView().setVisible(true);
+        new GestaoInternaGestorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnGestaoInternaActionPerformed
 
     private void btnRecebimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecebimentosActionPerformed
-        new PagamentoView().setVisible(true);
+        new PagamentoGestorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnRecebimentosActionPerformed
 
@@ -621,9 +635,21 @@ public class MenuGestorView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHidrometroMouseExited
 
     private void btnHidrometroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHidrometroActionPerformed
-        new HistoricoHidrometroView().setVisible(true);
+        new HistoricoHidrometroGestorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHidrometroActionPerformed
+
+    private void btnUsuariosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnUsuariosKeyPressed
+
+    }//GEN-LAST:event_btnUsuariosKeyPressed
+
+    private void btnUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMousePressed
+        // Exibe uma mensagem informando que o gestor não tem acesso a este campo
+
+        JOptionPane.showMessageDialog(null, "Acesso Negado: Você não tem permissão para acessar este campo.", "Erro", JOptionPane.ERROR_MESSAGE);
+        btnUsuarios.setEnabled(false);
+
+    }//GEN-LAST:event_btnUsuariosMousePressed
 
     /**
      * @param args the command line arguments
