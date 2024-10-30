@@ -585,9 +585,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRelatoriosActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        
         new UsuariosView().setVisible(true);
-         
         dispose();
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
@@ -607,7 +605,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestaoInternaActionPerformed
 
     private void btnRecebimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecebimentosActionPerformed
-        new RecebimentosView().setVisible(true);
+        new PagamentoView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnRecebimentosActionPerformed
 
@@ -624,7 +622,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHidrometroMouseExited
 
     private void btnHidrometroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHidrometroActionPerformed
-        new HidrometroView().setVisible(true);
+        new HistoricoHidrometroView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHidrometroActionPerformed
 

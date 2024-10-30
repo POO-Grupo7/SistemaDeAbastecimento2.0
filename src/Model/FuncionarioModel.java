@@ -3,6 +3,7 @@ package Model;
 
 public class FuncionarioModel extends Pessoa {
     private int idFuncionario;
+    private String naturalidade;
     private String senhaFuncionario;
     private String dataNascimento;
     private String funcaoFuncionario;
@@ -57,6 +58,16 @@ public class FuncionarioModel extends Pessoa {
     public void setImagemBytes(byte[] imagemBytes) {
         this.imagemBytes = imagemBytes;
     }
+
+    public String getNaturalidade() {
+        return naturalidade;
+    }
+
+    public void setNaturalidade(String naturalidade) {
+        this.naturalidade = naturalidade;
+    }
+    
+    
 
 
 }
