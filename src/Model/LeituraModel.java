@@ -15,6 +15,10 @@ public class LeituraModel {
     private String nrLeitura;
     private boolean statusLeitura;
 
+    public LeituraModel() {
+        this.statusLeitura = true;
+    }
+    
     public int getIdLeitura() {
         return idLeitura;
     }
@@ -87,7 +91,7 @@ public class LeituraModel {
         this.nrLeitura = nrLeitura;
     }
 
-    public boolean isStatusLeitura() {
+    public boolean getStatusLeitura() {
         return statusLeitura;
     }
 

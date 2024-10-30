@@ -2,6 +2,10 @@ package View;
 
 import Controller.HistoricoHidrometroController;
 import Controller.LeituraController;
+import Model.ClienteModel;
+import Model.HidrometroModel;
+import Model.HistoricoHidrometroModel;
+import Model.LeituraModel;
 import View.table.TableCustom;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -12,8 +16,12 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -28,7 +36,11 @@ public class LeiturasView extends javax.swing.JFrame {
 
     public LeiturasView() {
         initComponents();
+        txtLeituraActual.requestFocus();
+        LocalDate dataLocal = LocalDate.now();
+        txtDataDeEmissao.setText("" + dataLocal);
         restaurarDadosComboBoxHidrometro();
+        listarLeituras();
         testData(tabelaLeitura);
         getContentPane().setBackground(Color.white);
         TableCustom.apply(jScrollPane1, TableCustom.TableType.MULTI_LINE);
@@ -42,8 +54,6 @@ public class LeiturasView extends javax.swing.JFrame {
 
     private void testData(JTable table) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-//        "ID", "Nome", "Apelido", "Naturalidade", "Data Nascimento", "Email", "Função", "Usuario", "Senha", "Perfil", "Activo", "Disp"
-        model.addRow(new Object[]{1, "Ussene Carlos", "Matato", "Maputo", "12/11/1999", "ussene.c.matat@gmail.com", "Administrador", "Ussas", "Ussas", "Admin", "Sim", "Sim"});
     }
 
     /**
@@ -87,8 +97,6 @@ public class LeiturasView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtNomeCliente = new javax.swing.JTextField();
         painelDirDados = new javax.swing.JPanel();
-        lblNumeroDeHidrometro = new javax.swing.JLabel();
-        txtNumeroDeHidrometro = new javax.swing.JTextField();
         lblLeituraAnterior = new javax.swing.JLabel();
         txtLeituraAnterior = new javax.swing.JTextField();
         txtLeituraActual = new javax.swing.JTextField();
@@ -362,15 +370,6 @@ public class LeiturasView extends javax.swing.JFrame {
         painelDirDados.setBackground(new java.awt.Color(255, 255, 255));
         painelDirDados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 43, 64)));
 
-        lblNumeroDeHidrometro.setText("Numero de Hidrometro:");
-
-        txtNumeroDeHidrometro.setEditable(false);
-        txtNumeroDeHidrometro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumeroDeHidrometroActionPerformed(evt);
-            }
-        });
-
         lblLeituraAnterior.setText("Leitura Anterior:");
 
         txtLeituraActual.addActionListener(new java.awt.event.ActionListener() {
@@ -383,6 +382,7 @@ public class LeiturasView extends javax.swing.JFrame {
 
         lblConsumoDoMes.setText("Consumo do mes:");
 
+        txtConsumoDoMes.setEditable(false);
         txtConsumoDoMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtConsumoDoMesActionPerformed(evt);
@@ -399,6 +399,7 @@ public class LeiturasView extends javax.swing.JFrame {
 
         lblNumeroDaLeitura.setText("Numero da Leitura:");
 
+        txtNumeroDaLeitura.setEditable(false);
         txtNumeroDaLeitura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumeroDaLeituraActionPerformed(evt);
@@ -418,43 +419,32 @@ public class LeiturasView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelDirDadosLayout.createSequentialGroup()
+                        .addComponent(lblLeituraAnterior)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                        .addComponent(txtLeituraAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDirDadosLayout.createSequentialGroup()
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelDirDadosLayout.createSequentialGroup()
-                                .addComponent(lblLeituraAnterior)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtLeituraAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDirDadosLayout.createSequentialGroup()
-                                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblLeituraActual)
-                                    .addComponent(lblNumeroDaLeitura)
-                                    .addComponent(lblSaldoActual)
-                                    .addComponent(lblConsumoDoMes)
-                                    .addComponent(lblOcorrencia))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtLeituraActual, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                                        .addComponent(txtOcorrencia)
-                                        .addComponent(txtNumeroDaLeitura)
-                                        .addComponent(txtConsumoDoMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtSaldoActual, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnApagados, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGap(179, 179, 179))
-                    .addGroup(painelDirDadosLayout.createSequentialGroup()
-                        .addComponent(lblNumeroDeHidrometro)
+                            .addComponent(lblLeituraActual)
+                            .addComponent(lblNumeroDaLeitura)
+                            .addComponent(lblSaldoActual)
+                            .addComponent(lblConsumoDoMes)
+                            .addComponent(lblOcorrencia))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(288, 288, 288))))
+                        .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtLeituraActual, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                                .addComponent(txtOcorrencia)
+                                .addComponent(txtNumeroDaLeitura)
+                                .addComponent(txtConsumoDoMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtSaldoActual, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnApagados, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addGap(179, 179, 179))
         );
         painelDirDadosLayout.setVerticalGroup(
             painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDirDadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNumeroDeHidrometro)
-                    .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLeituraAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLeituraAnterior))
@@ -480,7 +470,7 @@ public class LeiturasView extends javax.swing.JFrame {
                     .addComponent(txtSaldoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addComponent(btnApagados)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         painelSuperiorDados.add(painelDirDados);
@@ -516,6 +506,11 @@ public class LeiturasView extends javax.swing.JFrame {
         jButton7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Actualizar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
         botoes.add(jButton7, gridBagConstraints);
@@ -571,11 +566,11 @@ public class LeiturasView extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nome do cliente", "Quarterao", "Numero da casa", "Mes de Referencia", "Data de Emissao ", "Numero de Hidrometro", "Leitura Anterior", "Leitura Actual", "Consumo do mes", "Ocorrencia", "Numero de Leitura", "Saldo Actual"
+                "Id", "Numero de Hidrometro", "Nome do cliente", "Bairro", "Quarterao", "Numero da casa", "Mes de Referencia", "Data de Emissao ", "Leitura Anterior", "Leitura Actual", "Consumo do mes", "Ocorrencia", "Numero de Leitura"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -613,19 +608,26 @@ public class LeiturasView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        CarregarCampos();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        limparCampos();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que apagar?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            apagarLeitura();
+            listarLeituras();
+            limparCampos();
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        salvarLeitura();
+        listarLeituras();
+        limparCampos();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
@@ -647,10 +649,6 @@ public class LeiturasView extends javax.swing.JFrame {
     private void cbxMesDeReferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxMesDeReferenciaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxMesDeReferenciaActionPerformed
-
-    private void txtNumeroDeHidrometroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroDeHidrometroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumeroDeHidrometroActionPerformed
 
     private void txtLeituraActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLeituraActualActionPerformed
         // TODO add your handling code here:
@@ -688,6 +686,12 @@ public class LeiturasView extends javax.swing.JFrame {
         new MenuPrincipal().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnVoltarMenu1ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        actualizarLeitura();
+        limparCampos();
+        listarLeituras();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -736,7 +740,6 @@ public class LeiturasView extends javax.swing.JFrame {
     private javax.swing.JLabel lblNomeDoCliente;
     private javax.swing.JLabel lblNumeroDaCasa;
     private javax.swing.JLabel lblNumeroDaLeitura;
-    private javax.swing.JLabel lblNumeroDeHidrometro;
     private javax.swing.JLabel lblOcorrencia;
     private javax.swing.JLabel lblQuarterao;
     private javax.swing.JLabel lblSaldoActual;
@@ -762,7 +765,6 @@ public class LeiturasView extends javax.swing.JFrame {
     private javax.swing.JTextField txtNomeCliente;
     private javax.swing.JTextField txtNumeroDaLeitura;
     private javax.swing.JTextField txtNumeroDeCasa;
-    private javax.swing.JTextField txtNumeroDeHidrometro;
     private javax.swing.JTextField txtOcorrencia;
     private javax.swing.JTextField txtQuarterao;
     private javax.swing.JTextField txtSaldoActual;
@@ -771,6 +773,7 @@ public class LeiturasView extends javax.swing.JFrame {
     //Accao para o JcomboxClientes
 //    Vector<Integer> idCliente = new Vector<Integer>();
     Vector<Integer> idHistoricoHidrometro = new Vector<Integer>();
+
     //Metodo que pega clientes activos na BD para jcboxClientes
     private void restaurarDadosComboBoxHidrometro() {
         try {
@@ -810,4 +813,238 @@ public class LeiturasView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "LeituraView pegar valores do NrHidrometro na tabela HistHidrom" + erro);
         }
     }
+
+    //Salvar Leitura
+    private void salvarLeitura() {
+        String nrHidrometro = cbxNrHidrometro.getSelectedItem().toString();
+        String nomeCliente = txtNomeCliente.getText();
+        String bairro = txtBairro.getText();
+        int quarteirao = Integer.parseInt(txtQuarterao.getText());
+        int nrDaCasa = Integer.parseInt(txtNumeroDeCasa.getText());
+        String mes = cbxMesDeReferencia.getSelectedItem().toString();
+        String data = txtDataDeEmissao.getText();
+        double leitAnterior = Double.parseDouble(txtLeituraAnterior.getText());
+        double leituraActual = Double.parseDouble(txtLeituraActual.getText());
+        if (leituraActual < leitAnterior) {
+            JOptionPane.showMessageDialog(null, "A leitura actual não pode ser inferior a anterior. Preencha correctamente o campo!");
+//            limparCampos();
+        }
+        double calculoConsumoMes = (leituraActual - leitAnterior);
+        BigDecimal bd = new BigDecimal(calculoConsumoMes).setScale(3, RoundingMode.HALF_UP);
+        double consumoMes = bd.doubleValue();
+        txtConsumoDoMes.setText(consumoMes + "");
+
+        String ocorrencia = txtOcorrencia.getText();
+
+        // Define o número da  leitura
+        String nrLeitura = mes + "/" + nrHidrometro;
+
+        LeituraModel leituraModel = new LeituraModel();
+
+        ClienteModel cliente = new ClienteModel();
+        cliente.setNome(nomeCliente);
+        cliente.setBairro(bairro);
+        cliente.setQuarteirao(quarteirao);
+        cliente.setNrDaCasa(nrDaCasa);
+
+        HidrometroModel hidrometroModel = new HidrometroModel();
+        hidrometroModel.setNrHidrometro(nrHidrometro);
+
+        HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
+        historicoHidrometroModel.setCliente(cliente);
+        historicoHidrometroModel.setHidrometro(hidrometroModel);
+        leituraModel.setHistoricoHidrometro(historicoHidrometroModel);
+        leituraModel.setMesReferencia(mes);
+        leituraModel.setDataEmissao(data);
+        leituraModel.setLeituraAnterior(leitAnterior);
+        leituraModel.setLeituraActual(leituraActual);
+        leituraModel.setConsumoMes(consumoMes);
+        leituraModel.setOcorrencia(ocorrencia);
+        leituraModel.setNrLeitura(nrLeitura);
+        LeituraController leituraControler = new LeituraController();
+        leituraControler.cadastrarLeitura(leituraModel);
+    }
+
+    //Metodo para Listar Leituras
+    private void listarLeituras() {
+        try {
+            LeituraController leituraController = new LeituraController();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaLeitura.getModel();
+            model.setRowCount(0);
+
+            ArrayList<LeituraModel> lista = leituraController.listarLeituras();
+            System.out.println("leituras encontrados: " + lista.size());
+            System.out.println(lista.isEmpty());
+
+            for (LeituraModel item : lista) {
+                model.addRow(new Object[]{
+                    item.getIdLeitura(),
+                    item.getHistoricoHidrometro().getHidrometro().getNrHidrometro(),
+                    item.getHistoricoHidrometro().getCliente().getNome(),
+                    item.getHistoricoHidrometro().getCliente().getBairro(),
+                    item.getHistoricoHidrometro().getCliente().getQuarteirao(), // Certifique-se de usar o índice correto
+                    item.getHistoricoHidrometro().getCliente().getNrDaCasa(), // Certifique-se de usar o índice correto
+                    item.getMesReferencia(),
+                    item.getDataEmissao(),
+                    item.getLeituraAnterior(),
+                    item.getLeituraActual(),
+                    item.getConsumoMes(),
+                    item.getOcorrencia(),
+                    item.getNrLeitura(),
+                    item.getStatusLeitura()
+                });
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar leituras: " + erro.getMessage());
+        }
+    }
+
+    //Metodo Limpar Campos
+    private void limparCampos() {
+        txtId.setText("");
+        cbxNrHidrometro.setSelectedIndex(0);
+        txtNomeCliente.setText("");
+        txtBairro.setText("");
+        txtQuarterao.setText("");
+        txtNumeroDeCasa.setText("");
+        cbxMesDeReferencia.setSelectedIndex(0);
+        txtDataDeEmissao.setText("");
+        txtLeituraAnterior.setText("");
+        txtLeituraActual.setText("");
+        txtConsumoDoMes.setText("");
+        txtOcorrencia.setText("");
+        txtNumeroDaLeitura.setText("");
+        txtLeituraActual.requestFocus();
+    }
+
+    //Metodo Carregar Campos
+    private void CarregarCampos() {
+        int setar = tabelaLeitura.getSelectedRow();
+
+        txtId.setText(tabelaLeitura.getModel().getValueAt(setar, 0).toString());
+        cbxNrHidrometro.setSelectedItem(tabelaLeitura.getModel().getValueAt(setar, 1).toString());
+        txtNomeCliente.setText(tabelaLeitura.getModel().getValueAt(setar, 2).toString());
+        txtBairro.setText(tabelaLeitura.getModel().getValueAt(setar, 3).toString());
+        txtQuarterao.setText(tabelaLeitura.getModel().getValueAt(setar, 4).toString());
+        txtNumeroDeCasa.setText(tabelaLeitura.getModel().getValueAt(setar, 5).toString());
+        cbxMesDeReferencia.setSelectedItem(tabelaLeitura.getModel().getValueAt(setar, 6).toString());
+        txtDataDeEmissao.setText(tabelaLeitura.getModel().getValueAt(setar, 7).toString());
+        txtLeituraAnterior.setText(tabelaLeitura.getModel().getValueAt(setar, 8).toString());
+        txtLeituraActual.setText(tabelaLeitura.getModel().getValueAt(setar, 9).toString());
+        txtConsumoDoMes.setText(tabelaLeitura.getModel().getValueAt(setar, 10).toString());
+        txtOcorrencia.setText(tabelaLeitura.getModel().getValueAt(setar, 11).toString());
+        txtNumeroDaLeitura.setText(tabelaLeitura.getModel().getValueAt(setar, 12).toString());
+    }
+
+    //Metodo Actualizar Leitura
+    private void actualizarLeitura() {
+        int idLeitura = Integer.parseInt(txtId.getText());
+        String nrHidrometro = cbxNrHidrometro.getSelectedItem().toString();
+        String nomeCliente = txtNomeCliente.getText();
+        String bairro = txtBairro.getText();
+        int quarteirao = Integer.parseInt(txtQuarterao.getText());
+        int nrDaCasa = Integer.parseInt(txtNumeroDeCasa.getText());
+        String mes = cbxMesDeReferencia.getSelectedItem().toString();
+        String data = txtDataDeEmissao.getText();
+        double leitAnterior = Double.parseDouble(txtLeituraAnterior.getText());
+        double leituraActual = Double.parseDouble(txtLeituraActual.getText());
+        if (leituraActual < leitAnterior) {
+            JOptionPane.showMessageDialog(null, "A leitura actual não pode ser inferior a anterior. Preencha correctamente o campo!");
+            limparCampos();
+        }
+        double calculoConsumoMes = (leituraActual - leitAnterior);
+        BigDecimal bd = new BigDecimal(calculoConsumoMes).setScale(3, RoundingMode.HALF_UP);
+        double consumoMes = bd.doubleValue();
+        txtConsumoDoMes.setText(consumoMes + "");
+
+        String ocorrencia = txtOcorrencia.getText();
+
+        // Define o número da  leitura
+        String nrLeitura = mes + "/" + nrHidrometro;
+
+        LeituraModel leituraModel = new LeituraModel();
+        leituraModel.setIdLeitura(idLeitura);
+
+        ClienteModel cliente = new ClienteModel();
+        cliente.setNome(nomeCliente);
+        cliente.setBairro(bairro);
+        cliente.setQuarteirao(quarteirao);
+        cliente.setNrDaCasa(nrDaCasa);
+
+        HidrometroModel hidrometroModel = new HidrometroModel();
+        hidrometroModel.setNrHidrometro(nrHidrometro);
+
+        HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
+        historicoHidrometroModel.setCliente(cliente);
+        historicoHidrometroModel.setHidrometro(hidrometroModel);
+        leituraModel.setHistoricoHidrometro(historicoHidrometroModel);
+        leituraModel.setMesReferencia(mes);
+        leituraModel.setDataEmissao(data);
+        leituraModel.setLeituraAnterior(leitAnterior);
+        leituraModel.setLeituraActual(leituraActual);
+        leituraModel.setConsumoMes(consumoMes);
+        leituraModel.setOcorrencia(ocorrencia);
+        leituraModel.setNrLeitura(nrLeitura);
+        leituraModel.setStatusLeitura(true);
+
+        LeituraController leituraControler = new LeituraController();
+        leituraControler.actualizarLeitura(leituraModel);
+    }
+    //Metodo Apagar Leitura
+
+    private void apagarLeitura() {
+        int idLeitura = Integer.parseInt(txtId.getText());
+        String nrHidrometro = cbxNrHidrometro.getSelectedItem().toString();
+        String nomeCliente = txtNomeCliente.getText();
+        String bairro = txtBairro.getText();
+        int quarteirao = Integer.parseInt(txtQuarterao.getText());
+        int nrDaCasa = Integer.parseInt(txtNumeroDeCasa.getText());
+        String mes = cbxMesDeReferencia.getSelectedItem().toString();
+        String data = txtDataDeEmissao.getText();
+        double leitAnterior = Double.parseDouble(txtLeituraAnterior.getText());
+        double leituraActual = Double.parseDouble(txtLeituraActual.getText());
+        if (leituraActual < leitAnterior) {
+            JOptionPane.showMessageDialog(null, "A leitura actual não pode ser inferior a anterior. Preencha correctamente o campo!");
+            limparCampos();
+        }
+        double calculoConsumoMes = (leituraActual - leitAnterior);
+        BigDecimal bd = new BigDecimal(calculoConsumoMes).setScale(3, RoundingMode.HALF_UP);
+        double consumoMes = bd.doubleValue();
+        txtConsumoDoMes.setText(consumoMes + "");
+
+        String ocorrencia = txtOcorrencia.getText();
+
+        // Define o número da  leitura
+        String nrLeitura = mes + "/" + nrHidrometro;
+
+        LeituraModel leituraModel = new LeituraModel();
+        leituraModel.setIdLeitura(idLeitura);
+
+        ClienteModel cliente = new ClienteModel();
+        cliente.setNome(nomeCliente);
+        cliente.setBairro(bairro);
+        cliente.setQuarteirao(quarteirao);
+        cliente.setNrDaCasa(nrDaCasa);
+
+        HidrometroModel hidrometroModel = new HidrometroModel();
+        hidrometroModel.setNrHidrometro(nrHidrometro);
+
+        HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
+        historicoHidrometroModel.setCliente(cliente);
+        historicoHidrometroModel.setHidrometro(hidrometroModel);
+        leituraModel.setHistoricoHidrometro(historicoHidrometroModel);
+        leituraModel.setMesReferencia(mes);
+        leituraModel.setDataEmissao(data);
+        leituraModel.setLeituraAnterior(leitAnterior);
+        leituraModel.setLeituraActual(leituraActual);
+        leituraModel.setConsumoMes(consumoMes);
+        leituraModel.setOcorrencia(ocorrencia);
+        leituraModel.setNrLeitura(nrLeitura);
+        leituraModel.setStatusLeitura(false);
+
+        LeituraController leituraControler = new LeituraController();
+        leituraControler.apagarLeitura(leituraModel);
+    }
+
 }
