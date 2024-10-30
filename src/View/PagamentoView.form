@@ -395,7 +395,13 @@
                             <Property name="text" type="java.lang.String" value="Factura:"/>
                           </Properties>
                         </Component>
+<<<<<<< HEAD
+<<<<<<<< HEAD:src/View/PagamentoView.form
 <<<<<<< HEAD:build/classes/View/UsuariosView.form
+=======
+<<<<<<<< HEAD:build/classes/View/PagamentoView.form
+<<<<<<< HEAD:src/View/UsuariosView.form
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                         <Component class="javax.swing.JTextField" name="txtNome">
                           <Events>
                             <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNomeKeyPressed"/>
@@ -419,7 +425,17 @@
                         <Component class="javax.swing.JComboBox" name="cbxNaturalidade">
 =======
                         <Component class="javax.swing.JComboBox" name="cbxFacturas">
+<<<<<<< HEAD
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:src/View/PagamentoView.form
+========
+                        <Component class="javax.swing.JComboBox" name="cbxFacturas">
+>>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:build/classes/View/PagamentoView.form
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:build/classes/View/PagamentoView.form
+========
+                        <Component class="javax.swing.JComboBox" name="cbxFacturas">
+>>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:src/View/PagamentoView.form
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="2">
@@ -439,12 +455,28 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNomeCliente">
                           <Events>
+<<<<<<< HEAD
+<<<<<<<< HEAD:src/View/PagamentoView.form
 <<<<<<< HEAD:build/classes/View/UsuariosView.form
+=======
+<<<<<<<< HEAD:build/classes/View/PagamentoView.form
+<<<<<<< HEAD:src/View/UsuariosView.form
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtEmailMouseExited"/>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEmailActionPerformed"/>
 =======
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeClienteActionPerformed"/>
+<<<<<<< HEAD
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:src/View/PagamentoView.form
+========
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeClienteActionPerformed"/>
+>>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:build/classes/View/PagamentoView.form
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:build/classes/View/PagamentoView.form
+========
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeClienteActionPerformed"/>
+>>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:src/View/PagamentoView.form
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel20">
@@ -587,7 +619,13 @@
                           </Group>
                         </DimensionLayout>
                       </Layout>
+<<<<<<< HEAD
+<<<<<<<< HEAD:src/View/PagamentoView.form
 <<<<<<< HEAD:build/classes/View/UsuariosView.form
+=======
+<<<<<<<< HEAD:build/classes/View/PagamentoView.form
+<<<<<<< HEAD:src/View/UsuariosView.form
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                       <SubComponents>
                         <Component class="javax.swing.JLabel" name="lblNomeUsuario">
                           <Properties>
@@ -675,7 +713,15 @@
                         </Component>
                       </SubComponents>
 =======
+<<<<<<< HEAD
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:src/View/PagamentoView.form
+========
+>>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:build/classes/View/PagamentoView.form
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:build/classes/View/PagamentoView.form
+========
+>>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:src/View/PagamentoView.form
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                     </Container>
                   </SubComponents>
                 </Container>
@@ -707,7 +753,13 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                       <SubComponents>
+<<<<<<< HEAD
+<<<<<<<< HEAD:src/View/PagamentoView.form
 <<<<<<< HEAD:build/classes/View/UsuariosView.form
+=======
+<<<<<<<< HEAD:build/classes/View/PagamentoView.form
+<<<<<<< HEAD:src/View/UsuariosView.form
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
                           <Properties>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -819,7 +871,15 @@
                           </SubComponents>
                         </Container>
 =======
+<<<<<<< HEAD
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:src/View/PagamentoView.form
+========
+>>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:build/classes/View/PagamentoView.form
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:build/classes/View/PagamentoView.form
+========
+>>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c:src/View/PagamentoView.form
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                         <Container class="javax.swing.JPanel" name="botoes">
                           <Properties>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">

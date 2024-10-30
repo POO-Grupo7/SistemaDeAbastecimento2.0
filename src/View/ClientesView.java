@@ -12,7 +12,11 @@ import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
 import java.awt.Color;
 import java.awt.Image;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.awt.event.KeyEvent;
+=======
+import java.awt.event.ActionListener;
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 =======
 import java.awt.event.ActionListener;
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
@@ -167,8 +171,11 @@ public class ClientesView extends javax.swing.JFrame {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //<<<<<<< Updated upstream
 
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 =======
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
     //Metodo Actualizar Cliente
@@ -345,7 +352,10 @@ public class ClientesView extends javax.swing.JFrame {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //>>>>>>> Stashed changes
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 =======
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
     //Metodo para Listar Clientes
@@ -619,6 +629,7 @@ public class ClientesView extends javax.swing.JFrame {
 
         lblDataDeContrato.setText("Data do Contrato:*");
 <<<<<<< HEAD
+<<<<<<< HEAD
         painelEsqDados.add(lblDataDeContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 174, -1, 22));
 
         txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -638,6 +649,8 @@ public class ClientesView extends javax.swing.JFrame {
             }
         });
         painelEsqDados.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 54, 350, -1));
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 =======
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 
@@ -660,6 +673,7 @@ public class ClientesView extends javax.swing.JFrame {
                 txtQuarteraoActionPerformed(evt);
             }
         });
+<<<<<<< HEAD
 <<<<<<< HEAD
         painelEsqDados.add(txtQuarterao, new org.netbeans.lib.awtextra.AbsoluteConstraints(327, 94, 70, -1));
 
@@ -728,6 +742,17 @@ public class ClientesView extends javax.swing.JFrame {
         });
 
         lbNumeroDeTelefone.setText("Numero de Telefone:*");
+=======
+
+        jTextField3.setEditable(false);
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
+        lbNumeroDeTelefone.setText("Numero de Telefone:*");
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 
         javax.swing.GroupLayout painelEsqDadosLayout = new javax.swing.GroupLayout(painelEsqDados);
         painelEsqDados.setLayout(painelEsqDadosLayout);
@@ -814,6 +839,9 @@ public class ClientesView extends javax.swing.JFrame {
                         .addComponent(lbNumeroDeTelefone))
                     .addComponent(TxtNumeroDeTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+<<<<<<< HEAD
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
+=======
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 
         painelSuperiorDados.add(painelEsqDados);

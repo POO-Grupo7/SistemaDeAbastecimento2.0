@@ -730,6 +730,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
             limparCampos();
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
+<<<<<<< HEAD
 
     private void txtLeituraActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLeituraActualKeyTyped
         char c = evt.getKeyChar();
@@ -741,6 +742,8 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         
             JOptionPane.showMessageDialog(null, "Apenas números são permitidos!");}
     }//GEN-LAST:event_txtLeituraActualKeyTyped
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 
     /**
      * @param args the command line arguments

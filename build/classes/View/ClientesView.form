@@ -423,6 +423,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNome">
 <<<<<<< HEAD
+<<<<<<< HEAD
                           <Events>
                             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNomeFocusGained"/>
                             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNomeFocusLost"/>
@@ -434,6 +435,8 @@
                               <AbsoluteConstraints x="163" y="54" width="350" height="-1"/>
                             </Constraint>
                           </Constraints>
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 =======
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                         </Component>
@@ -470,6 +473,7 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNumeroDeCasa">
 <<<<<<< HEAD
+<<<<<<< HEAD
                           <Events>
                             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNumeroDeCasaFocusGained"/>
                             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNumeroDeCasaFocusLost"/>
@@ -482,6 +486,8 @@
                             </Constraint>
                           </Constraints>
 =======
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                         </Component>
                         <Component class="javax.swing.JTextField" name="jTextField3">
                           <Properties>
@@ -490,6 +496,9 @@
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField3ActionPerformed"/>
                           </Events>
+<<<<<<< HEAD
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
+=======
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                         </Component>
                         <Component class="javax.swing.JLabel" name="lbNumeroDeTelefone">
@@ -498,6 +507,7 @@
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtEmailParticular">
+<<<<<<< HEAD
 <<<<<<< HEAD
                           <Events>
                             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEmailParticularFocusGained"/>
@@ -527,6 +537,11 @@
                         <Component class="javax.swing.JTextField" name="TxtNumeroDeTelefone">
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                         </Component>
+=======
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="TxtNumeroDeTelefone">
+                        </Component>
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
                         <Component class="rojeru_san.componentes.RSDateChooser" name="txtDataDeContrato">
                         </Component>
                       </SubComponents>

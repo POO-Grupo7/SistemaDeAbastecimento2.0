@@ -315,6 +315,7 @@ public class TaxaView extends javax.swing.JFrame {
         lblDataNascimento.setText("Valor da Taxa");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         txtDataNascimento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtDataNascimentoFocusGained(evt);
@@ -338,12 +339,17 @@ public class TaxaView extends javax.swing.JFrame {
             }
         });
 =======
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
         txtValorTaxa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtValorTaxaActionPerformed(evt);
             }
         });
 
+<<<<<<< HEAD
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
+=======
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
         txtNomeAPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -528,6 +534,7 @@ public class TaxaView extends javax.swing.JFrame {
             }
         });
 <<<<<<< HEAD
+<<<<<<< HEAD
         jTable2.setToolTipText("");
         jTable2.setRowSelectionAllowed(false);
         jScrollPane2.setViewportView(jTable2);
@@ -535,6 +542,8 @@ public class TaxaView extends javax.swing.JFrame {
             jTable2.getColumnModel().getColumn(0).setPreferredWidth(35);
             jTable2.getColumnModel().getColumn(1).setPreferredWidth(100);
 =======
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
         tabelaTaxas.setToolTipText("");
         tabelaTaxas.setRowSelectionAllowed(false);
         tabelaTaxas.setShowGrid(true);
@@ -542,6 +551,9 @@ public class TaxaView extends javax.swing.JFrame {
         if (tabelaTaxas.getColumnModel().getColumnCount() > 0) {
             tabelaTaxas.getColumnModel().getColumn(0).setPreferredWidth(35);
             tabelaTaxas.getColumnModel().getColumn(1).setPreferredWidth(100);
+<<<<<<< HEAD
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
+=======
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
         }
 
@@ -586,6 +598,7 @@ public class TaxaView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeAPesquisarActionPerformed
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
         txtNome.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
     }//GEN-LAST:event_txtNomeFocusGained
@@ -622,6 +635,8 @@ public class TaxaView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeActionPerformed
 =======
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         ActualizarTaxa();
         listarTaxas();
@@ -631,6 +646,9 @@ public class TaxaView extends javax.swing.JFrame {
     private void txtValorTaxaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorTaxaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorTaxaActionPerformed
+<<<<<<< HEAD
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
+=======
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 
     /**

@@ -29,7 +29,12 @@ public class UsuariosView extends javax.swing.JFrame {
     public UsuariosView() {
         initComponents();
 <<<<<<< HEAD
+<<<<<<< HEAD
 //        testData(jTable2);
+=======
+        listarUsuarios();
+//        testData(jTabl);
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 =======
         listarUsuarios();
 //        testData(jTabl);
@@ -95,7 +100,11 @@ public class UsuariosView extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
 <<<<<<< HEAD
+<<<<<<< HEAD
         cbxPerfilDeAcesso = new javax.swing.JComboBox<>();
+=======
+        cbxPerfilAcesso = new javax.swing.JComboBox<>();
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 =======
         cbxPerfilAcesso = new javax.swing.JComboBox<>();
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
@@ -109,17 +118,23 @@ public class UsuariosView extends javax.swing.JFrame {
         tabelaUsuarios = new javax.swing.JTable();
         botoes = new javax.swing.JPanel();
 <<<<<<< HEAD
+<<<<<<< HEAD
         btnCadastrar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnCarregarCampos = new javax.swing.JButton();
         btnLimparCampos = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
 =======
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
         btnCadastrarUsuario1 = new javax.swing.JButton();
         btnActualizar1 = new javax.swing.JButton();
         btnCarregarCampos1 = new javax.swing.JButton();
         btnLimparCampos1 = new javax.swing.JButton();
         btnApagarUsuario = new javax.swing.JButton();
+<<<<<<< HEAD
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
+=======
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -382,7 +397,11 @@ public class UsuariosView extends javax.swing.JFrame {
         jCheckBox1.setText("Ver Senha");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         cbxPerfilDeAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Admistrador ", "Gestor", "Leitor", "Balconista" }));
+=======
+        cbxPerfilAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Admistrador ", "Gestor", "Leitor", "Balconista" }));
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 =======
         cbxPerfilAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Admistrador ", "Gestor", "Leitor", "Balconista" }));
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
@@ -414,7 +433,11 @@ public class UsuariosView extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 <<<<<<< HEAD
+<<<<<<< HEAD
                             .addComponent(cbxPerfilDeAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+=======
+                            .addComponent(cbxPerfilAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 =======
                             .addComponent(cbxPerfilAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
@@ -455,7 +478,11 @@ public class UsuariosView extends javax.swing.JFrame {
                                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel26)
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     .addComponent(cbxPerfilDeAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+=======
+                                    .addComponent(cbxPerfilAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 =======
                                     .addComponent(cbxPerfilAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
@@ -502,6 +529,10 @@ public class UsuariosView extends javax.swing.JFrame {
             }
         });
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        tabelaUsuarios.setShowGrid(true);
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 =======
         tabelaUsuarios.setShowGrid(true);
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
@@ -524,6 +555,7 @@ public class UsuariosView extends javax.swing.JFrame {
         botoes.setLayout(botoesLayout);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         btnCadastrar.setBackground(new java.awt.Color(52, 102, 138));
         btnCadastrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCadastrar.setForeground(new java.awt.Color(255, 255, 255));
@@ -540,10 +572,20 @@ public class UsuariosView extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarUsuario1ActionPerformed(evt);
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
+=======
+        btnCadastrarUsuario1.setBackground(new java.awt.Color(52, 102, 138));
+        btnCadastrarUsuario1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCadastrarUsuario1.setForeground(new java.awt.Color(255, 255, 255));
+        btnCadastrarUsuario1.setText("Cadastrar");
+        btnCadastrarUsuario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarUsuario1ActionPerformed(evt);
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
+<<<<<<< HEAD
 <<<<<<< HEAD
         botoes.add(btnCadastrar, gridBagConstraints);
 
@@ -565,10 +607,22 @@ public class UsuariosView extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizar1ActionPerformed(evt);
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
+=======
+        botoes.add(btnCadastrarUsuario1, gridBagConstraints);
+
+        btnActualizar1.setBackground(new java.awt.Color(52, 102, 138));
+        btnActualizar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnActualizar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar1.setText("Actualizar");
+        btnActualizar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizar1ActionPerformed(evt);
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
+<<<<<<< HEAD
 <<<<<<< HEAD
         botoes.add(btnActualizar, gridBagConstraints);
 
@@ -590,10 +644,22 @@ public class UsuariosView extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCarregarCampos1ActionPerformed(evt);
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
+=======
+        botoes.add(btnActualizar1, gridBagConstraints);
+
+        btnCarregarCampos1.setBackground(new java.awt.Color(52, 102, 138));
+        btnCarregarCampos1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCarregarCampos1.setForeground(new java.awt.Color(255, 255, 255));
+        btnCarregarCampos1.setText("Carregar Campos");
+        btnCarregarCampos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarregarCampos1ActionPerformed(evt);
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
+<<<<<<< HEAD
 <<<<<<< HEAD
         botoes.add(btnCarregarCampos, gridBagConstraints);
 
@@ -604,10 +670,22 @@ public class UsuariosView extends javax.swing.JFrame {
         btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimparCamposActionPerformed(evt);
+=======
+        botoes.add(btnCarregarCampos1, gridBagConstraints);
+
+        btnLimparCampos1.setBackground(new java.awt.Color(52, 102, 138));
+        btnLimparCampos1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLimparCampos1.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimparCampos1.setText("Limpar Campos");
+        btnLimparCampos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCampos1ActionPerformed(evt);
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
+<<<<<<< HEAD
         botoes.add(btnLimparCampos, gridBagConstraints);
 =======
         botoes.add(btnCarregarCampos1, gridBagConstraints);
@@ -624,6 +702,8 @@ public class UsuariosView extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(25, 10, 25, 10);
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
         botoes.add(btnLimparCampos1, gridBagConstraints);
 
         btnApagarUsuario.setBackground(new java.awt.Color(52, 102, 138));
@@ -729,6 +809,7 @@ public class UsuariosView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenu1ActionPerformed
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
         char c = evt.getKeyChar();
     if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
@@ -819,6 +900,8 @@ char c = evt.getKeyChar();
     }
     }//GEN-LAST:event_txtEmailMouseExited
 =======
+=======
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
     private void btnCadastrarUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarUsuario1ActionPerformed
         cadastrarUsuario();
         limparCampos();
@@ -838,6 +921,9 @@ char c = evt.getKeyChar();
     private void btnLimparCampos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCampos1ActionPerformed
         limparCampos();
     }//GEN-LAST:event_btnLimparCampos1ActionPerformed
+<<<<<<< HEAD
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
+=======
 >>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 
     /**
@@ -860,6 +946,7 @@ char c = evt.getKeyChar();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botoes;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCarregarCampos;
@@ -871,6 +958,19 @@ char c = evt.getKeyChar();
     private javax.swing.JComboBox<String> cbxStatus;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+=======
+    private javax.swing.JButton btnActualizar1;
+    private javax.swing.JButton btnApagarUsuario;
+    private javax.swing.JButton btnCadastrarUsuario1;
+    private javax.swing.JButton btnCarregarCampos1;
+    private javax.swing.JButton btnLimparCampos1;
+    private javax.swing.JButton btnVoltarMenu1;
+    private javax.swing.JComboBox<String> cbxFuncao;
+    private javax.swing.JComboBox<String> cbxNaturalidade;
+    private javax.swing.JComboBox<String> cbxPerfilAcesso;
+    private javax.swing.JComboBox<String> cbxStatus;
+    private javax.swing.JButton jButton1;
+>>>>>>> 49d05a0b44f524444579f1e57bc632981379c60c
 =======
     private javax.swing.JButton btnActualizar1;
     private javax.swing.JButton btnApagarUsuario;
