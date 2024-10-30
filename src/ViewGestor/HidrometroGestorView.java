@@ -396,7 +396,7 @@ public class HidrometroGestorView extends javax.swing.JFrame {
 
         HidrometroModel hidrometroModel = new HidrometroModel();
         hidrometroModel.setDataRegisto(formattedDate);
-        hidrometroModel.setNrHiodrometro(nrHidrometro);
+        hidrometroModel.setNrHidrometro(nrHidrometro);
         hidrometroModel.setEstado(estado);
 
         HidrometroController hidrometroController = new HidrometroController();
@@ -449,7 +449,7 @@ public class HidrometroGestorView extends javax.swing.JFrame {
         HidrometroModel hidrometroModel = new HidrometroModel();
         hidrometroModel.setIdHidrometro(id);
         hidrometroModel.setDataRegisto(formattedDate);
-        hidrometroModel.setNrHiodrometro(nrHidrometro);
+        hidrometroModel.setNrHidrometro(nrHidrometro);
         hidrometroModel.setEstado(estado);
 
         HidrometroController hidrometroControler = new HidrometroController();

@@ -920,7 +920,7 @@ public class FacturacaoOperadorView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenuMouseClicked
 
     private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
-        new MenuPrincipal().setVisible(true);
+        new MenuOperadorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 

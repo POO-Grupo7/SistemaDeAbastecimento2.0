@@ -626,28 +626,22 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCarregarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarCamposActionPerformed
-        carregarCampos();
+//        carregarCampos();
     }//GEN-LAST:event_btnCarregarCamposActionPerformed
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
-        limparCampos();
+//        limparCampos();
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
-        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que apagar?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
-        if (confirmacao == JOptionPane.YES_OPTION) {
-            apagarHistoricoHidrometro();
-            limparCampos();
-            listarHistoricoHidrometro();
-        }
+
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que salvar?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
-        if (confirmacao == JOptionPane.YES_OPTION) {
-            guardarHistorico();
-            listarHistoricoHidrometro();
-            limparCampos();
+        try {
+            tabelaHistorico.print();
+        } catch (Exception e) {
+
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -704,7 +698,7 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenuMouseExited
 
     private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
-        new MenuPrincipal().setVisible(true);
+        new MenuGestorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
@@ -718,12 +712,7 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja actualizar?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
-        if (confirmacao == JOptionPane.YES_OPTION) {
-            actualizarHistoricoHidrometro();
-            listarHistoricoHidrometro();
-            limparCampos();
-        }
+        btnActualizar.setEnabled(false);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
@@ -905,7 +894,7 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
         historicoHidrometroModel.setDataFinal(dataFim);
 
         HidrometroModel hidroometroModel = new HidrometroModel();
-        hidroometroModel.setNrHiodrometro(nrHidrometro);
+        hidroometroModel.setNrHidrometro(nrHidrometro);
         historicoHidrometroModel.setHidrometro(hidroometroModel);
 
         // Cadastrar cliente através do controlador
@@ -1024,7 +1013,7 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
         historicoHidrometroModel.setDataFinal(dataFim);
 
         HidrometroModel hidroometroModel = new HidrometroModel();
-        hidroometroModel.setNrHiodrometro(nrHidrometro);
+        hidroometroModel.setNrHidrometro(nrHidrometro);
         historicoHidrometroModel.setHidrometro(hidroometroModel);
 
         HistoricoHidrometroController historicoHidrometroControler = new HistoricoHidrometroController();
@@ -1064,7 +1053,7 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
         historicoHidrometroModel.setDataFinal(dataFim);
 
         HidrometroModel hidroometroModel = new HidrometroModel();
-        hidroometroModel.setNrHiodrometro(nrHidrometro);
+        hidroometroModel.setNrHidrometro(nrHidrometro);
         historicoHidrometroModel.setHidrometro(hidroometroModel);
         historicoHidrometroModel.setApagado(true);
 

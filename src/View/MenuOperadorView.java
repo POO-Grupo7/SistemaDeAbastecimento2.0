@@ -4,6 +4,11 @@
  */
 package View;
 
+import ViewGestor.ClientesGestorView;
+import ViewOperador.ClientesOperadorView;
+import ViewOperador.HistoricoHidrometroOperadorView;
+import ViewOperador.LeiturasOperadorView;
+import ViewOperador.PagamentoOperadorView;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -598,12 +603,12 @@ public class MenuOperadorView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        new ClientesView().setVisible(true);
+        new ClientesOperadorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnLeiturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeiturasActionPerformed
-        new LeiturasView().setVisible(true);
+        new LeiturasOperadorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnLeiturasActionPerformed
 
@@ -613,7 +618,7 @@ public class MenuOperadorView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestaoInternaActionPerformed
 
     private void btnRecebimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecebimentosActionPerformed
-        new PagamentoView().setVisible(true);
+        new PagamentoOperadorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnRecebimentosActionPerformed
 
@@ -630,7 +635,7 @@ public class MenuOperadorView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHidrometroMouseExited
 
     private void btnHidrometroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHidrometroActionPerformed
-        new HistoricoHidrometroView().setVisible(true);
+        new HistoricoHidrometroOperadorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHidrometroActionPerformed
 

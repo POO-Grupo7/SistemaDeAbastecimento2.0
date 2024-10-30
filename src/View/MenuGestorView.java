@@ -8,6 +8,7 @@ import ViewGestor.ClientesGestorView;
 import ViewGestor.FacturacaoGestorView;
 import ViewGestor.GestaoInternaGestorView;
 import ViewGestor.HistoricoHidrometroGestorView;
+import ViewGestor.LeiturasGestorView;
 import ViewGestor.PagamentoGestorView;
 import ViewGestor.RelatoriosGestorView;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
@@ -608,7 +609,7 @@ public class MenuGestorView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnLeiturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeiturasActionPerformed
-        new LeiturasView().setVisible(true);
+        new LeiturasGestorView().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnLeiturasActionPerformed
 
