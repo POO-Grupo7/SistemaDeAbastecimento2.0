@@ -540,44 +540,34 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
+                                          <Component id="lblLeituraAnterior" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace pref="89" max="32767" attributes="0"/>
+                                          <Component id="txtLeituraAnterior" min="-2" pref="223" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="lblLeituraAnterior" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="txtLeituraAnterior" min="-2" pref="223" max="-2" attributes="0"/>
+                                              <Component id="lblLeituraActual" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblNumeroDaLeitura" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblSaldoActual" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblConsumoDoMes" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblOcorrencia" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="txtLeituraActual" alignment="0" pref="223" max="32767" attributes="0"/>
+                                                  <Component id="txtOcorrencia" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtNumeroDaLeitura" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="txtConsumoDoMes" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="lblLeituraActual" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblNumeroDaLeitura" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblSaldoActual" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblConsumoDoMes" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="lblOcorrencia" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                          <Component id="txtLeituraActual" alignment="0" pref="223" max="32767" attributes="0"/>
-                                                          <Component id="txtOcorrencia" alignment="0" max="32767" attributes="0"/>
-                                                          <Component id="txtNumeroDaLeitura" alignment="0" max="32767" attributes="0"/>
-                                                          <Component id="txtConsumoDoMes" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                          <Component id="txtSaldoActual" alignment="0" max="32767" attributes="0"/>
-                                                          <Component id="btnApagados" alignment="0" max="32767" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="txtSaldoActual" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="btnApagados" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lblNumeroDeHidrometro" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="txtNumeroDeHidrometro" min="-2" pref="114" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="288" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -585,11 +575,6 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblNumeroDeHidrometro" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtNumeroDeHidrometro" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="txtLeituraAnterior" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblLeituraAnterior" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -621,25 +606,12 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   <Component id="btnApagados" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                                  <EmptySpace pref="70" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JLabel" name="lblNumeroDeHidrometro">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Numero de Hidrometro:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="txtNumeroDeHidrometro">
-                          <Properties>
-                            <Property name="editable" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNumeroDeHidrometroActionPerformed"/>
-                          </Events>
-                        </Component>
                         <Component class="javax.swing.JLabel" name="lblLeituraAnterior">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Leitura Anterior:"/>
@@ -663,6 +635,9 @@
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtConsumoDoMes">
+                          <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
+                          </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtConsumoDoMesActionPerformed"/>
                           </Events>
@@ -683,6 +658,9 @@
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNumeroDaLeitura">
+                          <Properties>
+                            <Property name="editable" type="boolean" value="false"/>
+                          </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNumeroDaLeituraActionPerformed"/>
                           </Events>
@@ -781,6 +759,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Actualizar"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+                              </Events>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                                   <GridBagConstraints gridX="-1" gridY="-1" gridWidth="1" gridHeight="1" fill="0" ipadX="0" ipadY="0" insetsTop="25" insetsLeft="10" insetsBottom="25" insetsRight="10" anchor="10" weightX="0.0" weightY="0.0"/>
@@ -1166,19 +1147,88 @@
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                                   <Table columnCount="13" rowCount="4">
                                     <Column editable="true" title="Id" type="java.lang.Integer"/>
+                                    <Column editable="true" title="Numero de Hidrometro" type="java.lang.Object"/>
                                     <Column editable="true" title="Nome do cliente" type="java.lang.String"/>
+                                    <Column editable="true" title="Bairro" type="java.lang.Object"/>
                                     <Column editable="true" title="Quarterao" type="java.lang.String"/>
                                     <Column editable="true" title="Numero da casa" type="java.lang.Object"/>
                                     <Column editable="true" title="Mes de Referencia" type="java.lang.Object"/>
                                     <Column editable="true" title="Data de Emissao " type="java.lang.Object"/>
-                                    <Column editable="true" title="Numero de Hidrometro" type="java.lang.Object"/>
                                     <Column editable="true" title="Leitura Anterior" type="java.lang.Object"/>
                                     <Column editable="true" title="Leitura Actual" type="java.lang.Object"/>
                                     <Column editable="true" title="Consumo do mes" type="java.lang.Object"/>
                                     <Column editable="true" title="Ocorrencia" type="java.lang.Object"/>
                                     <Column editable="true" title="Numero de Leitura" type="java.lang.Object"/>
-                                    <Column editable="true" title="Saldo Actual" type="java.lang.Object"/>
                                   </Table>
+                                </Property>
+                                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                                  <TableColumnModel selectionModel="0">
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
+                                  </TableColumnModel>
                                 </Property>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>

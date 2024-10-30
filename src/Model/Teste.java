@@ -25,12 +25,12 @@ public class Teste {
         //Hidrometro 1
         HidrometroModel hidro1 = new HidrometroModel();
         hidro1.setIdHidrometro(01);
-        hidro1.setNrHiodrometro("202001");
+        hidro1.setNrHidrometro("202001");
 
         //Hidrometro 2
         HidrometroModel hidro2 = new HidrometroModel();
         hidro2.setIdHidrometro(02);
-        hidro2.setNrHiodrometro("202015");
+        hidro2.setNrHidrometro("202015");
 
         //Historico do hidrometro 1
         HistoricoHidrometroModel histHidro1 = new HistoricoHidrometroModel();

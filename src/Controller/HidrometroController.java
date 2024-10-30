@@ -91,7 +91,7 @@ public class HidrometroController {
                 HidrometroModel hidrometroModel = new HidrometroModel();
                 hidrometroModel.setIdHidrometro(rs.getInt("idHidrometro"));
                 hidrometroModel.setDataRegisto(rs.getString("dataRegisto"));
-                hidrometroModel.setNrHiodrometro(rs.getString("numeroHidrometro"));
+                hidrometroModel.setNrHidrometro(rs.getString("numeroHidrometro"));
                 hidrometroModel.setEstado(rs.getString("estado"));
                 hidrometroModel.setApagado(rs.getBoolean("apagado"));
 

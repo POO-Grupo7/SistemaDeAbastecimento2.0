@@ -105,7 +105,7 @@ public class HistoricoHidrometroController {
                 historicoHidrometroModel.setDataFinal(rs.getString("dataFimUso"));
 
                 HidrometroModel hidrometroModel = new HidrometroModel();
-                hidrometroModel.setNrHiodrometro(rs.getString("nrHidrometro"));
+                hidrometroModel.setNrHidrometro(rs.getString("nrHidrometro"));
                 historicoHidrometroModel.setHidrometro(hidrometroModel);
 
                 historicoHidrometroModel.setApagado(rs.getBoolean("apagado"));

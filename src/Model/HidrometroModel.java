@@ -73,7 +73,7 @@ public class HidrometroModel {
         return nrHidrometro;
     }
 
-    public void setNrHiodrometro(String nrHidrometro) {
+    public void setNrHidrometro(String nrHidrometro) {
         this.nrHidrometro = nrHidrometro;
     }
 
