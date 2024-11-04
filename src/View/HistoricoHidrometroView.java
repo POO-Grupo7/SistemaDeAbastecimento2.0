@@ -889,6 +889,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         String dataFim = dateFormat.format(selectedDateOfEnd);
 
         String nrHidrometro = cbxHidrometro.getSelectedItem().toString();
+        double saldoCliente = Double.parseDouble(txtSaldoActual.getText());
 
         // Verificações de campos
         HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
@@ -897,6 +898,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         cliente.setBairro(bairro);
         cliente.setQuarteirao(quarteirao);
         cliente.setNrDaCasa(nr);
+        cliente.setSaldo(saldoCliente);
 
         historicoHidrometroModel.setCliente(cliente);
 
@@ -934,6 +936,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
                     item.getCliente().getBairro(),
                     item.getCliente().getQuarteirao(), // Certifique-se de usar o índice correto
                     item.getCliente().getNrDaCasa(), // Certifique-se de usar o índice correto
+//                    item.getCliente().getSaldo(), // Certifique-se de usar o índice correto
                     item.getDataInicial(),
                     item.getDataFinal(),
                     item.getHidrometro().getNrHidrometro()
@@ -1045,6 +1048,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         String dataFim = dateFormat.format(selectedDateOfEnd);
 
         String nrHidrometro = cbxHidrometro.getSelectedItem().toString();
+        double saldoCliente = Double.parseDouble(txtSaldoActual.getText());
 
         // Verificações
         HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
@@ -1056,6 +1060,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         cliente.setBairro(bairro);
         cliente.setQuarteirao(quarteirao);
         cliente.setNrDaCasa(nr);
+        cliente.setSaldo(saldoCliente);
 
         historicoHidrometroModel.setCliente(cliente);
 

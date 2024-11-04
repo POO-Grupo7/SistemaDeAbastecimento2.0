@@ -560,17 +560,17 @@ public class LeiturasView extends javax.swing.JFrame {
         tabelaLeitura.setForeground(new java.awt.Color(255, 255, 255));
         tabelaLeitura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Numero de Hidrometro", "Nome do cliente", "Bairro", "Quarterao", "Numero da casa", "Mes de Referencia", "Data de Emissao ", "Leitura Anterior", "Leitura Actual", "Consumo do mes", "Ocorrencia", "Numero de Leitura"
+                "Id", "Numero de Hidrometro", "Nome do cliente", "Bairro", "Quarterao", "Numero da casa", "Divida Cliente", "Mes de Referencia", "Data de Emissao ", "Leitura Anterior", "Leitura Actual", "Consumo do mes", "Ocorrencia", "Numero de Leitura"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -782,7 +782,7 @@ public class LeiturasView extends javax.swing.JFrame {
 
             while (rs.next()) {
                 idHistoricoHidrometro.addElement(rs.getInt(1));
-                cbxNrHidrometro.addItem(rs.getString(8));
+                cbxNrHidrometro.addItem(rs.getString(9));
             }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "ListarHidrometros na LeiturasView" + erro);
@@ -807,7 +807,7 @@ public class LeiturasView extends javax.swing.JFrame {
                 txtBairro.setText(rs.getString(3));
                 txtQuarterao.setText(rs.getString(4));
                 txtNumeroDeCasa.setText(rs.getString(5));
-//                txtSaldoActual.setText(rs.getString(10));
+                txtSaldoActual.setText(rs.getString(6));
             }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "LeituraView pegar valores do NrHidrometro na tabela HistHidrom" + erro);
@@ -821,6 +821,7 @@ public class LeiturasView extends javax.swing.JFrame {
         String bairro = txtBairro.getText();
         int quarteirao = Integer.parseInt(txtQuarterao.getText());
         int nrDaCasa = Integer.parseInt(txtNumeroDeCasa.getText());
+        double saldoCliente = Double.parseDouble(txtSaldoActual.getText());
         String mes = cbxMesDeReferencia.getSelectedItem().toString();
         String data = txtDataDeEmissao.getText();
         double leitAnterior = Double.parseDouble(txtLeituraAnterior.getText());
@@ -846,6 +847,7 @@ public class LeiturasView extends javax.swing.JFrame {
         cliente.setBairro(bairro);
         cliente.setQuarteirao(quarteirao);
         cliente.setNrDaCasa(nrDaCasa);
+        cliente.setSaldo(saldoCliente);
 
         HidrometroModel hidrometroModel = new HidrometroModel();
         hidrometroModel.setNrHidrometro(nrHidrometro);
@@ -885,6 +887,7 @@ public class LeiturasView extends javax.swing.JFrame {
                     item.getHistoricoHidrometro().getCliente().getBairro(),
                     item.getHistoricoHidrometro().getCliente().getQuarteirao(), // Certifique-se de usar o índice correto
                     item.getHistoricoHidrometro().getCliente().getNrDaCasa(), // Certifique-se de usar o índice correto
+                    item.getHistoricoHidrometro().getCliente().getSaldo(), // Certifique-se de usar o índice correto
                     item.getMesReferencia(),
                     item.getDataEmissao(),
                     item.getLeituraAnterior(),
@@ -908,6 +911,7 @@ public class LeiturasView extends javax.swing.JFrame {
         txtBairro.setText("");
         txtQuarterao.setText("");
         txtNumeroDeCasa.setText("");
+        txtSaldoActual.setText("");
         cbxMesDeReferencia.setSelectedIndex(0);
         txtDataDeEmissao.setText("");
         txtLeituraAnterior.setText("");
@@ -928,13 +932,14 @@ public class LeiturasView extends javax.swing.JFrame {
         txtBairro.setText(tabelaLeitura.getModel().getValueAt(setar, 3).toString());
         txtQuarterao.setText(tabelaLeitura.getModel().getValueAt(setar, 4).toString());
         txtNumeroDeCasa.setText(tabelaLeitura.getModel().getValueAt(setar, 5).toString());
-        cbxMesDeReferencia.setSelectedItem(tabelaLeitura.getModel().getValueAt(setar, 6).toString());
-        txtDataDeEmissao.setText(tabelaLeitura.getModel().getValueAt(setar, 7).toString());
-        txtLeituraAnterior.setText(tabelaLeitura.getModel().getValueAt(setar, 8).toString());
-        txtLeituraActual.setText(tabelaLeitura.getModel().getValueAt(setar, 9).toString());
-        txtConsumoDoMes.setText(tabelaLeitura.getModel().getValueAt(setar, 10).toString());
-        txtOcorrencia.setText(tabelaLeitura.getModel().getValueAt(setar, 11).toString());
-        txtNumeroDaLeitura.setText(tabelaLeitura.getModel().getValueAt(setar, 12).toString());
+        txtSaldoActual.setText(tabelaLeitura.getModel().getValueAt(setar, 6).toString());
+        cbxMesDeReferencia.setSelectedItem(tabelaLeitura.getModel().getValueAt(setar, 7).toString());
+        txtDataDeEmissao.setText(tabelaLeitura.getModel().getValueAt(setar, 8).toString());
+        txtLeituraAnterior.setText(tabelaLeitura.getModel().getValueAt(setar, 9).toString());
+        txtLeituraActual.setText(tabelaLeitura.getModel().getValueAt(setar, 10).toString());
+        txtConsumoDoMes.setText(tabelaLeitura.getModel().getValueAt(setar, 11).toString());
+        txtOcorrencia.setText(tabelaLeitura.getModel().getValueAt(setar, 12).toString());
+        txtNumeroDaLeitura.setText(tabelaLeitura.getModel().getValueAt(setar, 13).toString());
     }
 
     //Metodo Actualizar Leitura
@@ -945,6 +950,7 @@ public class LeiturasView extends javax.swing.JFrame {
         String bairro = txtBairro.getText();
         int quarteirao = Integer.parseInt(txtQuarterao.getText());
         int nrDaCasa = Integer.parseInt(txtNumeroDeCasa.getText());
+        double saldoCliente = Double.parseDouble(txtSaldoActual.getText());
         String mes = cbxMesDeReferencia.getSelectedItem().toString();
         String data = txtDataDeEmissao.getText();
         double leitAnterior = Double.parseDouble(txtLeituraAnterior.getText());
@@ -971,6 +977,7 @@ public class LeiturasView extends javax.swing.JFrame {
         cliente.setBairro(bairro);
         cliente.setQuarteirao(quarteirao);
         cliente.setNrDaCasa(nrDaCasa);
+        cliente.setSaldo(saldoCliente);
 
         HidrometroModel hidrometroModel = new HidrometroModel();
         hidrometroModel.setNrHidrometro(nrHidrometro);
@@ -1000,6 +1007,7 @@ public class LeiturasView extends javax.swing.JFrame {
         String bairro = txtBairro.getText();
         int quarteirao = Integer.parseInt(txtQuarterao.getText());
         int nrDaCasa = Integer.parseInt(txtNumeroDeCasa.getText());
+        double saldoCliente = Double.parseDouble(txtSaldoActual.getText());
         String mes = cbxMesDeReferencia.getSelectedItem().toString();
         String data = txtDataDeEmissao.getText();
         double leitAnterior = Double.parseDouble(txtLeituraAnterior.getText());
@@ -1026,6 +1034,7 @@ public class LeiturasView extends javax.swing.JFrame {
         cliente.setBairro(bairro);
         cliente.setQuarteirao(quarteirao);
         cliente.setNrDaCasa(nrDaCasa);
+        cliente.setSaldo(saldoCliente);
 
         HidrometroModel hidrometroModel = new HidrometroModel();
         hidrometroModel.setNrHidrometro(nrHidrometro);

@@ -1,4 +1,3 @@
-
 package View;
 
 import Controller.ClienteController;
@@ -74,29 +73,29 @@ public class FacturacaoView extends javax.swing.JFrame {
 
             while (rs.next()) {
                 txtNomeCliente.setText(rs.getString(3));
-                txtMesReferente.setText(rs.getString(7));
+                txtMesReferente.setText(rs.getString(8));
                 txtConsumoDoMes.setText(rs.getString(11));
-//                txtSaldoAnterior.setText(rs.getString(14));
+                txtSaldoAntesProcesso.setText(rs.getString(7));
             }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "FacturacaoView prencher dados leitura" + erro);
         }
     }
-    
-        private void RestaurarDadosComboBoxLeituras() {
+
+    private void RestaurarDadosComboBoxLeituras() {
         try {
             FacturacaoController facturacoController = new FacturacaoController();
             ResultSet rs = facturacoController.listarLeituras();
 
             while (rs.next()) {
                 idLeitura.addElement(rs.getInt(1));
-                cbxNrLeitura.addItem(rs.getString(13));
+                cbxNrLeitura.addItem(rs.getString(14));
             }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "FacturacaoView listar nr da leitura na comboBox" + erro);
         }
     }
-    
+
     //Metodo que pega clientes activos na BD para jcboxClientes
     private void RestaurarDadosComboBoxTaxa() {
         try {
@@ -120,6 +119,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         double calcSubtotal = 0, ivaAReduzir, iva, desconto = 0, totalFactura, saldoActual;
         double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
         double consumo = Double.parseDouble(txtConsumoDoMes.getText());
+        double taxaAplicar = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
         //taxa fixa de 100,00 para consumo inferior ao minimo estipulado
         if (consumo <= consumoMinimo) {
             calcSubtotal = 100.0;
@@ -283,6 +283,13 @@ public class FacturacaoView extends javax.swing.JFrame {
         txtNomeCliente.setText(tabelaFacturacao.getModel().getValueAt(setar, 4).toString());
         txtSaldoAntesProcesso.setText(tabelaFacturacao.getModel().getValueAt(setar, 5).toString());
         txtConsumoDoMes.setText(tabelaFacturacao.getModel().getValueAt(setar, 6).toString());
+//        Object taxaValue = tabelaFacturacao.getModel().getValueAt(setar, 7);
+//        if (taxaValue != null) {
+//            cbxTaxas.setSelectedItem(taxaValue.toString());
+//        } else {
+//            cbxTaxas.setSelectedItem(null); // ou algum valor padrão
+//        }
+
         cbxTaxas.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 7).toString());
         txtSubTotal.setText(tabelaFacturacao.getModel().getValueAt(setar, 8).toString());
         txtIva.setText(tabelaFacturacao.getModel().getValueAt(setar, 9).toString());

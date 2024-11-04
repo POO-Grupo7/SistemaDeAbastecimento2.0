@@ -93,7 +93,7 @@ public class LeituraController {
     //METODO PARA CADASTRAR
     public void cadastrarLeitura(LeituraModel leituraModel) {
 
-        String sql = "insert into leituras (nrHidrometro, nomeCliente, bairro, quarteirao, numeroCasa, mesRef, dataLeitura, leitAnterior, leitActual, consumo, ocorrencia, nrLeitura, status ) values (?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+        String sql = "insert into leituras (nrHidrometro, nomeCliente, bairro, quarteirao, numeroCasa, saldoCliente, mesRef, dataLeitura, leitAnterior, leitActual, consumo, ocorrencia, nrLeitura, status ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
         conexao = new ConexaoController().conectaBaseDados();
 
 //        HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
@@ -105,14 +105,15 @@ public class LeituraController {
             pstm.setString(3, leituraModel.getHistoricoHidrometro().getCliente().getBairro());
             pstm.setInt(4, leituraModel.getHistoricoHidrometro().getCliente().getQuarteirao());
             pstm.setInt(5, leituraModel.getHistoricoHidrometro().getCliente().getNrDaCasa());
-            pstm.setString(6, leituraModel.getMesReferencia());
-            pstm.setString(7, leituraModel.getDataEmissao());
-            pstm.setDouble(8, leituraModel.getLeituraAnterior());
-            pstm.setDouble(9, leituraModel.getLeituraActual());
-            pstm.setDouble(10, leituraModel.getConsumoMes());
-            pstm.setString(11, leituraModel.getOcorrencia());
-            pstm.setString(12, leituraModel.getNrLeitura());
-            pstm.setBoolean(13, leituraModel.getStatusLeitura());
+            pstm.setDouble(6, leituraModel.getHistoricoHidrometro().getCliente().getSaldo());
+            pstm.setString(7, leituraModel.getMesReferencia());
+            pstm.setString(8, leituraModel.getDataEmissao());
+            pstm.setDouble(9, leituraModel.getLeituraAnterior());
+            pstm.setDouble(10, leituraModel.getLeituraActual());
+            pstm.setDouble(11, leituraModel.getConsumoMes());
+            pstm.setString(12, leituraModel.getOcorrencia());
+            pstm.setString(13, leituraModel.getNrLeitura());
+            pstm.setBoolean(14, leituraModel.getStatusLeitura());
 
             pstm.execute();
             pstm.close();
@@ -144,6 +145,7 @@ public class LeituraController {
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setQuarteirao(rs.getInt("quarteirao"));
                 cliente.setNrDaCasa(rs.getInt("numeroCasa"));
+                cliente.setSaldo(rs.getDouble("saldoCliente"));
 
                 HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
                 historicoHidrometroModel.setCliente(cliente);
@@ -208,7 +210,7 @@ public class LeituraController {
 
     public void actualizarLeitura(LeituraModel leituraModel) {
 
-        String sql = "update leituras set nrHidrometro = ?, nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, mesRef = ? ,dataLeitura = ?, leitAnterior =?, leitActual = ?, consumo = ?, ocorrencia = ?, nrLeitura = ?, status = ? where idLeitura =?";
+        String sql = "update leituras set nrHidrometro = ?, nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, saldoCliente = ?, mesRef = ? ,dataLeitura = ?, leitAnterior =?, leitActual = ?, consumo = ?, ocorrencia = ?, nrLeitura = ?, status = ? where idLeitura =?";
         conexao = new ConexaoController().conectaBaseDados();
 
         try {
@@ -218,14 +220,15 @@ public class LeituraController {
             pstm.setString(3, leituraModel.getHistoricoHidrometro().getCliente().getBairro());
             pstm.setInt(4, leituraModel.getHistoricoHidrometro().getCliente().getQuarteirao());
             pstm.setInt(5, leituraModel.getHistoricoHidrometro().getCliente().getNrDaCasa());
-            pstm.setString(6, leituraModel.getMesReferencia());
-            pstm.setString(7, leituraModel.getDataEmissao());
-            pstm.setDouble(8, leituraModel.getLeituraAnterior());
-            pstm.setDouble(9, leituraModel.getLeituraActual());
-            pstm.setDouble(10, leituraModel.getConsumoMes());
-            pstm.setString(11, leituraModel.getOcorrencia());
-            pstm.setString(12, leituraModel.getNrLeitura());
-            pstm.setBoolean(13, leituraModel.getStatusLeitura());
+            pstm.setDouble(6, leituraModel.getHistoricoHidrometro().getCliente().getSaldo());
+            pstm.setString(7, leituraModel.getMesReferencia());
+            pstm.setString(8, leituraModel.getDataEmissao());
+            pstm.setDouble(9, leituraModel.getLeituraAnterior());
+            pstm.setDouble(10, leituraModel.getLeituraActual());
+            pstm.setDouble(11, leituraModel.getConsumoMes());
+            pstm.setString(12, leituraModel.getOcorrencia());
+            pstm.setString(13, leituraModel.getNrLeitura());
+            pstm.setBoolean(14, leituraModel.getStatusLeitura());
             pstm.setInt(14, leituraModel.getIdLeitura());
 
             pstm.execute();
@@ -240,7 +243,7 @@ public class LeituraController {
 
     public void apagarLeitura(LeituraModel leituraModel) {
 
-        String sql = "update leituras set nrHidrometro = ?, nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, mesRef = ? ,dataLeitura = ?, leitAnterior =?, leitActual = ?, consumo = ?, ocorrencia = ?, nrLeitura = ?, status = ? where idLeitura =?";
+        String sql = "update leituras set nrHidrometro = ?, nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, saldoCliente = ?, mesRef = ? ,dataLeitura = ?, leitAnterior =?, leitActual = ?, consumo = ?, ocorrencia = ?, nrLeitura = ?, status = ? where idLeitura =?";
         conexao = new ConexaoController().conectaBaseDados();
 
         try {
@@ -250,15 +253,16 @@ public class LeituraController {
             pstm.setString(3, leituraModel.getHistoricoHidrometro().getCliente().getBairro());
             pstm.setInt(4, leituraModel.getHistoricoHidrometro().getCliente().getQuarteirao());
             pstm.setInt(5, leituraModel.getHistoricoHidrometro().getCliente().getNrDaCasa());
-            pstm.setString(6, leituraModel.getMesReferencia());
-            pstm.setString(7, leituraModel.getDataEmissao());
-            pstm.setDouble(8, leituraModel.getLeituraAnterior());
-            pstm.setDouble(9, leituraModel.getLeituraActual());
-            pstm.setDouble(10, leituraModel.getConsumoMes());
-            pstm.setString(11, leituraModel.getOcorrencia());
-            pstm.setString(12, leituraModel.getNrLeitura());
-            pstm.setBoolean(13, leituraModel.getStatusLeitura());
-            pstm.setInt(14, leituraModel.getIdLeitura());
+            pstm.setDouble(6, leituraModel.getHistoricoHidrometro().getCliente().getSaldo());
+            pstm.setString(7, leituraModel.getMesReferencia());
+            pstm.setString(8, leituraModel.getDataEmissao());
+            pstm.setDouble(9, leituraModel.getLeituraAnterior());
+            pstm.setDouble(10, leituraModel.getLeituraActual());
+            pstm.setDouble(11, leituraModel.getConsumoMes());
+            pstm.setString(12, leituraModel.getOcorrencia());
+            pstm.setString(13, leituraModel.getNrLeitura());
+            pstm.setBoolean(14, leituraModel.getStatusLeitura());
+            pstm.setInt(15, leituraModel.getIdLeitura());
 
             pstm.execute();
             pstm.close();
@@ -309,6 +313,10 @@ ALTER TABLE leituras CHANGE COLUMN activo disp VARCHAR(45);
                        ocorrencia  varchar(45),
                        nrLeitura varchar(45),
                        status tinyint);
+
+
+ALTER TABLE leituras
+ADD COLUMN saldoCliente double NOT NULL DEFAULT 0 AFTER numeroCasa;
 
 
  */
