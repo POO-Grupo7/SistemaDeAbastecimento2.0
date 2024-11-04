@@ -197,7 +197,7 @@ public class ClientesView extends javax.swing.JFrame {
         ClienteController clienteControler = new ClienteController();
         clienteControler.cadastrarCliente(clienteModel);
 
-        JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
+//        JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
         
     }
 
