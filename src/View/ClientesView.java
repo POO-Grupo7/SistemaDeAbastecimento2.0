@@ -37,7 +37,7 @@ public class ClientesView extends javax.swing.JFrame {
         cbxDespesasIniciais.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atualizarSaldo();
+                
             }
         });
 
@@ -47,19 +47,61 @@ public class ClientesView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
 //       
     }
-// Função para atualizar o saldo com base na seleção
-
-    private void atualizarSaldo() {
-        String selectedOption = cbxDespesasIniciais.getSelectedItem().toString();
-
-        if (selectedOption.equals("Ligação")) {
-            txtSaldo.setText("3000");
-        } else {
-            txtSaldo.setText("8000");
-        }
+//
+//        private void AccaoComboxDespesas() {
+//        if (cbxDespesasIniciais.getSelectedIndex() == 0) {
+//            txtNome.setText(null);
+//            txtSaldo.setText(null);
+//
+//            return;
+//        }
+//        try {
+//            int setar = tabelaClientes.getSelectedRow();
+//            if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
+//                txtSaldo.setText(String.valueOf(3000));
+//            } else if (cbxDespesasIniciais.getSelectedItem().toString().equals("Instalação + Ligaçao")) {
+//                txtSaldo.setText(String.valueOf(8000));
+//            } else {
+//                txtSaldo.setText("" + 0);
+//            }
+//        } catch (Exception erro) {
+//            JOptionPane.showMessageDialog(null, "Clientes View prencher saldo" + erro);
+//        }
+//    }
+    private void AccaoComboxDespesas() {
+    // Limpa os campos se a primeira opção (geralmente "Selecione") for escolhida
+    if (cbxDespesasIniciais.getSelectedIndex() == 0) {
+        txtNome.setText(null);
+        txtSaldo.setText(null);
+        return;
     }
 
-    //Metodo Cadastrar
+    // Tenta obter o índice da linha selecionada na tabela
+    try {
+        int setar = tabelaClientes.getSelectedRow();
+        
+        // Verifica se uma linha está realmente selecionada
+        if (setar != -1) {
+            // Define o saldo baseado na opção selecionada na caixa de combinação
+            if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
+                txtSaldo.setText(String.valueOf(3000));
+            } else if (cbxDespesasIniciais.getSelectedItem().toString().equals("Instalação + Ligação")) {
+                txtSaldo.setText(String.valueOf(8000));
+            } else {
+                txtSaldo.setText("0");
+            }
+        } else {
+            // Se nenhuma linha estiver selecionada, você pode querer limpar ou definir um valor padrão
+            txtSaldo.setText("0"); // ou qualquer outro valor padrão que faça sentido
+        }
+    } catch (Exception erro) {
+        JOptionPane.showMessageDialog(null, "Erro ao preencher o saldo: " + erro);
+    }
+}
+
+
+
+ //Metodo Cadastrar
     private void cadastrarCliente() {
 
         String nome = txtNome.getText().trim();
@@ -128,7 +170,7 @@ public class ClientesView extends javax.swing.JFrame {
 
         // Define o número do hidrômetro
         String nrHidrometro = quarteirao + "/" + nrDaCasa;
-        txtNumeroDeHidrometro.setText(nrHidrometro);
+//        txtNumeroDeHidrometro.setText(nrHidrometro);
         // Define o saldo automaticamente
         saldo = Double.parseDouble(txtSaldo.getText());
         txtSaldo.setText(String.valueOf(saldo));
@@ -146,7 +188,7 @@ public class ClientesView extends javax.swing.JFrame {
         clienteModel.setEmail(email);
         clienteModel.setNrTelefone(nrtelefone);
 //        clienteModel.setHidrometro(nrHidrometro);
-        clienteModel.setConsumo(0); // Consumo inicial
+//        clienteModel.setConsumo(0); // Consumo inicial
         clienteModel.setSaldo(saldo);
         clienteModel.setStatus(status);
         clienteModel.setDisp(disponibilidade);
@@ -156,7 +198,7 @@ public class ClientesView extends javax.swing.JFrame {
         clienteControler.cadastrarCliente(clienteModel);
 
         JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
-        listarClientes();
+        
     }
 
     //Metodo Actualizar Cliente
@@ -169,7 +211,7 @@ public class ClientesView extends javax.swing.JFrame {
         String data = txtDataDeContrato.getToolTipText().trim();
         String email = txtEmailParticular.getText().trim();
         String nrTel = TxtNumeroDeTelefone.getText().trim();
-        String cons = txtConsumo.getText();
+//        String cons = txtConsumo.getText();
         boolean status;
         if (cbxStatus.getItemAt(0) == "Sim") {
             status = true;
@@ -208,11 +250,11 @@ public class ClientesView extends javax.swing.JFrame {
         }
         int nrtelefone = Integer.parseInt(nrTel);
 
-        double consumo = Double.parseDouble(cons);
+//        double consumo = Double.parseDouble(cons);
 
-        // Define o número do hidrômetro
-        String nrHidrometro = quarteirao + "/" + nrDaCasa;
-        txtNumeroDeHidrometro.setText(nrHidrometro);
+//        // Define o número do hidrômetro
+//        String nrHidrometro = quarteirao + "/" + nrDaCasa;
+//        txtNumeroDeHidrometro.setText(nrHidrometro);
 
         // Define o saldo automaticamente
         double saldo;
@@ -234,7 +276,7 @@ public class ClientesView extends javax.swing.JFrame {
         clienteModel.setEmail(email);
         clienteModel.setNrTelefone(nrtelefone);
 //        clienteModel.setHidrometro(nrHidrometro);
-        clienteModel.setConsumo(consumo);
+//        clienteModel.setConsumo(consumo);
         clienteModel.setSaldo(saldo);
         clienteModel.setStatus(status);
         clienteModel.setDisp(disponibilidade);
@@ -256,7 +298,7 @@ public class ClientesView extends javax.swing.JFrame {
         String data = txtDataDeContrato.getToolTipText().trim();
         String email = txtEmailParticular.getText().trim();
         String nrTel = TxtNumeroDeTelefone.getText().trim();
-        String cons = txtConsumo.getText();
+//        String cons = txtConsumo.getText();
         boolean status;
         if (cbxStatus.getItemAt(0) == "Sim") {
             status = true;
@@ -295,20 +337,17 @@ public class ClientesView extends javax.swing.JFrame {
         }
         int nrtelefone = Integer.parseInt(nrTel);
 
-        double consumo = Double.parseDouble(cons);
+//        double consumo = Double.parseDouble(cons);
 
-        // Define o número do hidrômetro
-        String nrHidrometro = quarteirao + "/" + nrDaCasa;
-        txtNumeroDeHidrometro.setText(nrHidrometro);
+//        // Define o número do hidrômetro
+//        String nrHidrometro = quarteirao + "/" + nrDaCasa;
+//        txtNumeroDeHidrometro.setText(nrHidrometro);
 
         // Define o saldo automaticamente
-        double saldo;
-        if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
-            saldo = 3000;
-        } else {
-            saldo = 8000;
-        }
-        txtSaldo.setText(String.valueOf(saldo));
+       
+        double saldo = Double.parseDouble(txtSaldo.getText());
+        
+       
         boolean disponibilidade = false;
 
         ClienteModel clienteModel = new ClienteModel();
@@ -321,7 +360,7 @@ public class ClientesView extends javax.swing.JFrame {
         clienteModel.setEmail(email);
         clienteModel.setNrTelefone(nrtelefone);
 //        clienteModel.setHidrometro(nrHidrometro);
-        clienteModel.setConsumo(consumo);
+//        clienteModel.setConsumo(consumo);
         clienteModel.setSaldo(saldo);
         clienteModel.setStatus(status);
         clienteModel.setDisp(disponibilidade);
@@ -356,8 +395,6 @@ public class ClientesView extends javax.swing.JFrame {
                     item.getDataContracto(),
                     item.getEmail(),
                     item.getNrTelefone(),
-//                    item.getHidrometro(),
-                    item.getConsumo(),
                     item.getSaldo(),
                     item.getStatus(),
                     item.getDisp() // Verifique se este campo existe no modelo
@@ -367,26 +404,15 @@ public class ClientesView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao listar clientes: " + erro.getMessage());
         }
     }
+    
+     //Metodo Prencher Campos obrigatorios
+    private boolean camposObrigatoriosPreenchidos() {
+        boolean nomePreenchido = !txtNome.getText().isEmpty();
+        boolean apelidoPreenchido = !txtEmailParticular.getText().isEmpty();
+        boolean nomeUauario = !txtNumeroDeCasa.getText().isEmpty();
+        boolean senhaUsuario = !txtQuarterao.getText().isEmpty();
 
-    private void AccaoComboxDespesas() {
-        if (cbxDespesasIniciais.getSelectedIndex() == 0) {
-            txtNome.setText(null);
-            txtSaldo.setText(null);
-
-            return;
-        }
-        try {
-            int setar = tabelaClientes.getSelectedRow();
-            if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
-                txtSaldo.setText(String.valueOf(3000));
-            } else if (cbxDespesasIniciais.getSelectedItem().toString().equals("Instalação + Ligaçao")) {
-                txtSaldo.setText(String.valueOf(8000));
-            } else {
-                txtSaldo.setText("" + 0);
-            }
-        } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null, "Clientes View prencher saldo" + erro);
-        }
+        return nomePreenchido && apelidoPreenchido && nomeUauario && senhaUsuario;
     }
 
     //Metodo Carregar Campos
@@ -401,10 +427,10 @@ public class ClientesView extends javax.swing.JFrame {
         txtDataDeContrato.setToolTipText(tabelaClientes.getModel().getValueAt(setar, 5).toString());
         txtEmailParticular.setText(tabelaClientes.getModel().getValueAt(setar, 6).toString());
         TxtNumeroDeTelefone.setText(tabelaClientes.getModel().getValueAt(setar, 7).toString());
-        txtNumeroDeHidrometro.setText(tabelaClientes.getModel().getValueAt(setar, 8).toString());
-        txtConsumo.setText(tabelaClientes.getModel().getValueAt(setar, 9).toString());
-        txtSaldo.setText(tabelaClientes.getModel().getValueAt(setar, 10).toString());
-        cbxStatus.setSelectedItem(tabelaClientes.getModel().getValueAt(setar, 11).toString());
+//        txtNumeroDeHidrometro.setText(tabelaClientes.getModel().getValueAt(setar, 8).toString());
+//        txtConsumo.setText(tabelaClientes.getModel().getValueAt(setar, 8).toString());
+        txtSaldo.setText(tabelaClientes.getModel().getValueAt(setar, 8).toString());
+        cbxStatus.setSelectedItem(tabelaClientes.getModel().getValueAt(setar, 9).toString());
     }
 
     //Metodo Limpar Campos
@@ -416,8 +442,7 @@ public class ClientesView extends javax.swing.JFrame {
         txtDataDeContrato.setToolTipText("");
         txtEmailParticular.setText("");
         TxtNumeroDeTelefone.setText("");
-        txtNumeroDeHidrometro.setText("");
-        txtConsumo.setText("");
+//        txtNumeroDeHidrometro.setText("");
         cbxDespesasIniciais.setSelectedIndex(0);
         cbxBairro.setSelectedIndex(0);
         cbxStatus.setSelectedIndex(0);
@@ -426,10 +451,7 @@ public class ClientesView extends javax.swing.JFrame {
         System.out.println("Campos Limpos");
     }
 
-//    private void testData(JTable table) {
-//        DefaultTableModel model = (DefaultTableModel) table.getModel();
-////       
-//    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -470,15 +492,11 @@ public class ClientesView extends javax.swing.JFrame {
         TxtNumeroDeTelefone = new javax.swing.JTextField();
         txtDataDeContrato = new rojeru_san.componentes.RSDateChooser();
         painelDirDados = new javax.swing.JPanel();
-        lbNumeroDeHidrometro = new javax.swing.JLabel();
-        txtNumeroDeHidrometro = new javax.swing.JTextField();
         lbDespesasIniciais = new javax.swing.JLabel();
-        lbConsumo = new javax.swing.JLabel();
         lbSaldo = new javax.swing.JLabel();
         lbStatus = new javax.swing.JLabel();
         cbxStatus = new javax.swing.JComboBox<>();
         cbxDespesasIniciais = new javax.swing.JComboBox<>();
-        txtConsumo = new javax.swing.JTextField();
         txtSaldo = new javax.swing.JTextField();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
         tabela = new javax.swing.JPanel();
@@ -715,18 +733,7 @@ public class ClientesView extends javax.swing.JFrame {
         painelDirDados.setBackground(new java.awt.Color(255, 255, 255));
         painelDirDados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 43, 64)));
 
-        lbNumeroDeHidrometro.setText("Numero de Hidrometro:*");
-
-        txtNumeroDeHidrometro.setEditable(false);
-        txtNumeroDeHidrometro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumeroDeHidrometroActionPerformed(evt);
-            }
-        });
-
         lbDespesasIniciais.setText("Despesas Iniciais:*");
-
-        lbConsumo.setText("Consumo:");
 
         lbSaldo.setText("Saldo:");
 
@@ -738,12 +745,6 @@ public class ClientesView extends javax.swing.JFrame {
         cbxDespesasIniciais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxDespesasIniciaisActionPerformed(evt);
-            }
-        });
-
-        txtConsumo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtConsumoActionPerformed(evt);
             }
         });
 
@@ -765,36 +766,22 @@ public class ClientesView extends javax.swing.JFrame {
                     .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(painelDirDadosLayout.createSequentialGroup()
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbNumeroDeHidrometro)
                             .addComponent(lbDespesasIniciais)
-                            .addComponent(lbConsumo)
                             .addComponent(lbSaldo))
-                        .addGap(18, 18, 18)
+                        .addGap(47, 47, 47)
                         .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNumeroDeHidrometro)
-                                    .addComponent(cbxDespesasIniciais, 0, 346, Short.MAX_VALUE)))
+                            .addComponent(cbxDespesasIniciais, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSaldo))))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         painelDirDadosLayout.setVerticalGroup(
             painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDirDadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNumeroDeHidrometro)
-                    .addComponent(txtNumeroDeHidrometro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbDespesasIniciais)
                     .addComponent(cbxDespesasIniciais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbConsumo)
-                    .addComponent(txtConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbSaldo)
                     .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -802,10 +789,10 @@ public class ClientesView extends javax.swing.JFrame {
                 .addComponent(lbStatus)
                 .addGap(18, 18, 18)
                 .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
 
-        painelDirDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lbConsumo, lbDespesasIniciais, lbNumeroDeHidrometro, lbSaldo});
+        painelDirDadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lbDespesasIniciais, lbSaldo});
 
         painelSuperiorDados.add(painelDirDados);
 
@@ -826,11 +813,11 @@ public class ClientesView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Bairro", "Quarteirao", "Numero da Casa", "Data de Contrato", "Email Particular", "Numero de Telefone", "Numero de Hidrometro", "Consumo", "Saldo", "Status", "Disp"
+                "Id", "Nome", "Bairro", "Quarteirao", "Numero da Casa", "Data de Contrato", "Email Particular", "Numero de Telefone", "Saldo", "Status", "Disp"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, true, true
+                false, false, false, false, false, false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -941,10 +928,6 @@ public class ClientesView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNumeroDeHidrometroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroDeHidrometroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumeroDeHidrometroActionPerformed
-
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         CarregarCampos();
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -960,9 +943,13 @@ public class ClientesView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        if(camposObrigatoriosPreenchidos()){;
         cadastrarCliente();
         listarClientes();
-        limparCampos();
+//        limparCampos();
+        }else{
+        JOptionPane.showMessageDialog(null, "Preencha todos campos Obrigatorios!");
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
@@ -980,10 +967,6 @@ public class ClientesView extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void txtConsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConsumoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtConsumoActionPerformed
 
     private void txtSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoActionPerformed
         // TODO add your handling code here:
@@ -1041,13 +1024,11 @@ public class ClientesView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lbBairro;
-    private javax.swing.JLabel lbConsumo;
     private javax.swing.JLabel lbDespesasIniciais;
     private javax.swing.JLabel lbEmailParticular;
     private javax.swing.JLabel lbId;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbNumeroDaCasa;
-    private javax.swing.JLabel lbNumeroDeHidrometro;
     private javax.swing.JLabel lbNumeroDeTelefone;
     private javax.swing.JLabel lbSaldo;
     private javax.swing.JLabel lbStatus;
@@ -1065,14 +1046,12 @@ public class ClientesView extends javax.swing.JFrame {
     private javax.swing.JPanel painelSuperiorDados;
     private javax.swing.JPanel tabela;
     private javax.swing.JTable tabelaClientes;
-    private javax.swing.JTextField txtConsumo;
     private rojeru_san.componentes.RSDateChooser txtDataDeContrato;
     private javax.swing.JTextField txtEmailParticular;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNomeAPesquisar;
     private javax.swing.JTextField txtNumeroDeCasa;
-    private javax.swing.JTextField txtNumeroDeHidrometro;
     private javax.swing.JTextField txtQuarterao;
     private javax.swing.JTextField txtSaldo;
     // End of variables declaration//GEN-END:variables
