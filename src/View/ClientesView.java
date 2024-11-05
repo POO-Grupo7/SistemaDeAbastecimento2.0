@@ -14,7 +14,9 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -37,7 +39,7 @@ public class ClientesView extends javax.swing.JFrame {
         cbxDespesasIniciais.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                
+
             }
         });
 
@@ -45,76 +47,48 @@ public class ClientesView extends javax.swing.JFrame {
 
     private void testData(JTable table) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-//       
     }
-//
-//        private void AccaoComboxDespesas() {
-//        if (cbxDespesasIniciais.getSelectedIndex() == 0) {
-//            txtNome.setText(null);
-//            txtSaldo.setText(null);
-//
-//            return;
-//        }
-//        try {
-//            int setar = tabelaClientes.getSelectedRow();
-//            if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
-//                txtSaldo.setText(String.valueOf(3000));
-//            } else if (cbxDespesasIniciais.getSelectedItem().toString().equals("Instalação + Ligaçao")) {
-//                txtSaldo.setText(String.valueOf(8000));
-//            } else {
-//                txtSaldo.setText("" + 0);
-//            }
-//        } catch (Exception erro) {
-//            JOptionPane.showMessageDialog(null, "Clientes View prencher saldo" + erro);
-//        }
-//    }
+
     private void AccaoComboxDespesas() {
-    // Limpa os campos se a primeira opção (geralmente "Selecione") for escolhida
-    if (cbxDespesasIniciais.getSelectedIndex() == 0) {
-        txtNome.setText(null);
-        txtSaldo.setText(null);
-        return;
-    }
-
-    // Tenta obter o índice da linha selecionada na tabela
-    try {
-        int setar = tabelaClientes.getSelectedRow();
-        
-        // Verifica se uma linha está realmente selecionada
-        if (setar != -1) {
-            // Define o saldo baseado na opção selecionada na caixa de combinação
-            if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
-                txtSaldo.setText(String.valueOf(3000));
-            } else if (cbxDespesasIniciais.getSelectedItem().toString().equals("Instalação + Ligação")) {
-                txtSaldo.setText(String.valueOf(8000));
-            } else {
-                txtSaldo.setText("0");
-            }
-        } else {
-            // Se nenhuma linha estiver selecionada, você pode querer limpar ou definir um valor padrão
-            txtSaldo.setText("0"); // ou qualquer outro valor padrão que faça sentido
+        if (cbxDespesasIniciais.getSelectedIndex() == 0) {
+            txtSaldo.setText(null);
+            return;
         }
-    } catch (Exception erro) {
-        JOptionPane.showMessageDialog(null, "Erro ao preencher o saldo: " + erro);
+        try {
+            if (cbxDespesasIniciais.getSelectedIndex() == 1) {
+                txtSaldo.setText("" + 0);
+            } else if (cbxDespesasIniciais.getSelectedIndex() == 2) {
+                txtSaldo.setText("" + 3000);
+            } else {
+                txtSaldo.setText("" + 8000);
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Clientes View prencher saldo" + erro);
+        }
     }
-}
 
-
-
- //Metodo Cadastrar
+    //Metodo Cadastrar
     private void cadastrarCliente() {
 
         String nome = txtNome.getText().trim();
         String bairro = cbxBairro.getSelectedItem().toString();
         String quarteiraoText = txtQuarterao.getText().trim();
         String nr = txtNumeroDeCasa.getText().trim();
-        String data = txtDataDeContrato.getToolTipText().trim();
+
+        Date selectedDate = txtDataContracto.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String data = dateFormat.format(selectedDate);
+
         String email = txtEmailParticular.getText().trim();
         String nrTel = TxtNumeroDeTelefone.getText().trim();
+        int nrtelefone = Integer.parseInt(nrTel);
+        int nrDaCasa = Integer.parseInt(nr);
+        int quarteirao = Integer.parseInt(quarteiraoText);
+        double saldo = Double.parseDouble(txtSaldo.getText());
+        boolean disponibilidade = true;
         boolean status;
         if (cbxStatus.getItemAt(0) == "Sim") {
             status = true;
-
         } else {
             status = false;
         }
@@ -144,40 +118,6 @@ public class ClientesView extends javax.swing.JFrame {
             return;
         }
 
-        // Conversão de valores numéricos com tratamento de exceção
-        int nrtelefone;
-        int nrDaCasa;
-        int quarteirao;
-//        double saldo;
-        try {
-            nrtelefone = Integer.parseInt(nrTel);
-            nrDaCasa = Integer.parseInt(nr);
-            quarteirao = Integer.parseInt(quarteiraoText);
-//            saldo = Double.parseDouble(txtSaldo.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao converter número de telefone, número da casa, quarteirão ou saldo.");
-            return;
-        }
-
-        // Define o saldo automaticamente
-        double saldo;
-        if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
-            saldo = 3000;
-        } else {
-            saldo = 8000;
-        }
-        txtSaldo.setText(String.valueOf(saldo));
-
-        // Define o número do hidrômetro
-        String nrHidrometro = quarteirao + "/" + nrDaCasa;
-//        txtNumeroDeHidrometro.setText(nrHidrometro);
-        // Define o saldo automaticamente
-        saldo = Double.parseDouble(txtSaldo.getText());
-        txtSaldo.setText(String.valueOf(saldo));
-        boolean disponibilidade = true;
-
-//        // Status: Verifica o item selecionado corretamente
-//        boolean status = cbxStatus.getSelectedItem().toString().equalsIgnoreCase("Activo");
         // Criar o modelo de cliente
         ClienteModel clienteModel = new ClienteModel();
         clienteModel.setNome(nome);
@@ -187,18 +127,12 @@ public class ClientesView extends javax.swing.JFrame {
         clienteModel.setDataContracto(data);
         clienteModel.setEmail(email);
         clienteModel.setNrTelefone(nrtelefone);
-//        clienteModel.setHidrometro(nrHidrometro);
-//        clienteModel.setConsumo(0); // Consumo inicial
         clienteModel.setSaldo(saldo);
         clienteModel.setStatus(status);
         clienteModel.setDisp(disponibilidade);
 
-        // Cadastrar cliente através do controlador
         ClienteController clienteControler = new ClienteController();
         clienteControler.cadastrarCliente(clienteModel);
-
-//        JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
-        
     }
 
     //Metodo Actualizar Cliente
@@ -208,10 +142,14 @@ public class ClientesView extends javax.swing.JFrame {
         String bairro = cbxBairro.getSelectedItem().toString();
         String quarteiraoText = txtQuarterao.getText().trim();
         String nr = txtNumeroDeCasa.getText().trim();
-        String data = txtDataDeContrato.getToolTipText().trim();
+
+        Date selectedDate = txtDataContracto.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String data = dateFormat.format(selectedDate);
+
         String email = txtEmailParticular.getText().trim();
         String nrTel = TxtNumeroDeTelefone.getText().trim();
-//        String cons = txtConsumo.getText();
+        double saldo = Double.parseDouble(txtSaldo.getText());
         boolean status;
         if (cbxStatus.getItemAt(0) == "Sim") {
             status = true;
@@ -249,21 +187,6 @@ public class ClientesView extends javax.swing.JFrame {
             return;
         }
         int nrtelefone = Integer.parseInt(nrTel);
-
-//        double consumo = Double.parseDouble(cons);
-
-//        // Define o número do hidrômetro
-//        String nrHidrometro = quarteirao + "/" + nrDaCasa;
-//        txtNumeroDeHidrometro.setText(nrHidrometro);
-
-        // Define o saldo automaticamente
-        double saldo;
-        if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
-            saldo = 3000;
-        } else {
-            saldo = 8000;
-        }
-        txtSaldo.setText(String.valueOf(saldo));
         boolean disponibilidade = true;
 
         ClienteModel clienteModel = new ClienteModel();
@@ -275,30 +198,29 @@ public class ClientesView extends javax.swing.JFrame {
         clienteModel.setDataContracto(data);
         clienteModel.setEmail(email);
         clienteModel.setNrTelefone(nrtelefone);
-//        clienteModel.setHidrometro(nrHidrometro);
-//        clienteModel.setConsumo(consumo);
         clienteModel.setSaldo(saldo);
         clienteModel.setStatus(status);
         clienteModel.setDisp(disponibilidade);
 
         ClienteController clienteControler = new ClienteController();
         clienteControler.ActualizarCliente(clienteModel);
-
-        JOptionPane.showMessageDialog(null, "Cliente actualizado com sucesso");
     }
 
     //Metodo Apagar Cliente
     private void ApagarCliente() {
-
         int id = Integer.parseInt(txtId.getText());
         String nome = txtNome.getText().trim();
         String bairro = cbxBairro.getSelectedItem().toString();
         String quarteiraoText = txtQuarterao.getText().trim();
         String nr = txtNumeroDeCasa.getText().trim();
-        String data = txtDataDeContrato.getToolTipText().trim();
+
+        Date selectedDate = txtDataContracto.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String data = dateFormat.format(selectedDate);
+
         String email = txtEmailParticular.getText().trim();
         String nrTel = TxtNumeroDeTelefone.getText().trim();
-//        String cons = txtConsumo.getText();
+        double saldo = Double.parseDouble(txtSaldo.getText());
         boolean status;
         if (cbxStatus.getItemAt(0) == "Sim") {
             status = true;
@@ -306,7 +228,6 @@ public class ClientesView extends javax.swing.JFrame {
         } else {
             status = false;
         }
-
         // Verificações
         if (nome.isEmpty() || !nome.matches("[a-zA-Z\\s]+")) {
             JOptionPane.showMessageDialog(null, "Nome inválido.");
@@ -336,18 +257,6 @@ public class ClientesView extends javax.swing.JFrame {
             return;
         }
         int nrtelefone = Integer.parseInt(nrTel);
-
-//        double consumo = Double.parseDouble(cons);
-
-//        // Define o número do hidrômetro
-//        String nrHidrometro = quarteirao + "/" + nrDaCasa;
-//        txtNumeroDeHidrometro.setText(nrHidrometro);
-
-        // Define o saldo automaticamente
-       
-        double saldo = Double.parseDouble(txtSaldo.getText());
-        
-       
         boolean disponibilidade = false;
 
         ClienteModel clienteModel = new ClienteModel();
@@ -359,8 +268,6 @@ public class ClientesView extends javax.swing.JFrame {
         clienteModel.setDataContracto(data);
         clienteModel.setEmail(email);
         clienteModel.setNrTelefone(nrtelefone);
-//        clienteModel.setHidrometro(nrHidrometro);
-//        clienteModel.setConsumo(consumo);
         clienteModel.setSaldo(saldo);
         clienteModel.setStatus(status);
         clienteModel.setDisp(disponibilidade);
@@ -404,8 +311,8 @@ public class ClientesView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao listar clientes: " + erro.getMessage());
         }
     }
-    
-     //Metodo Prencher Campos obrigatorios
+
+    //Metodo Prencher Campos obrigatorios
     private boolean camposObrigatoriosPreenchidos() {
         boolean nomePreenchido = !txtNome.getText().isEmpty();
         boolean apelidoPreenchido = !txtEmailParticular.getText().isEmpty();
@@ -424,11 +331,9 @@ public class ClientesView extends javax.swing.JFrame {
         cbxBairro.setSelectedItem(tabelaClientes.getModel().getValueAt(setar, 2).toString());
         txtQuarterao.setText(tabelaClientes.getModel().getValueAt(setar, 3).toString());
         txtNumeroDeCasa.setText(tabelaClientes.getModel().getValueAt(setar, 4).toString());
-        txtDataDeContrato.setToolTipText(tabelaClientes.getModel().getValueAt(setar, 5).toString());
+        txtDataContracto.setToolTipText(tabelaClientes.getModel().getValueAt(setar, 5).toString());
         txtEmailParticular.setText(tabelaClientes.getModel().getValueAt(setar, 6).toString());
-        TxtNumeroDeTelefone.setText(tabelaClientes.getModel().getValueAt(setar, 7).toString());
-//        txtNumeroDeHidrometro.setText(tabelaClientes.getModel().getValueAt(setar, 8).toString());
-//        txtConsumo.setText(tabelaClientes.getModel().getValueAt(setar, 8).toString());
+        TxtNumeroDeTelefone.setText(tabelaClientes.getModel().getValueAt(setar, 7).toString());;
         txtSaldo.setText(tabelaClientes.getModel().getValueAt(setar, 8).toString());
         cbxStatus.setSelectedItem(tabelaClientes.getModel().getValueAt(setar, 9).toString());
     }
@@ -439,10 +344,9 @@ public class ClientesView extends javax.swing.JFrame {
         txtNome.setText("");
         txtQuarterao.setText("");
         txtNumeroDeCasa.setText("");
-        txtDataDeContrato.setToolTipText("");
+        txtDataContracto.setToolTipText("");
         txtEmailParticular.setText("");
         TxtNumeroDeTelefone.setText("");
-//        txtNumeroDeHidrometro.setText("");
         cbxDespesasIniciais.setSelectedIndex(0);
         cbxBairro.setSelectedIndex(0);
         cbxStatus.setSelectedIndex(0);
@@ -450,7 +354,6 @@ public class ClientesView extends javax.swing.JFrame {
         txtNome.requestFocus();
         System.out.println("Campos Limpos");
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -469,8 +372,10 @@ public class ClientesView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         painelConteudo = new javax.swing.JPanel();
         painelConteudoEsquerdo = new javax.swing.JPanel();
-        btnVoltarMenu = new javax.swing.JButton();
         lblIconLogo = new javax.swing.JLabel();
+        painelVoltarMenu = new javax.swing.JPanel();
+        btnVoltarMenu = new javax.swing.JButton();
+        lblCabecalho1 = new javax.swing.JLabel();
         painelContCentral = new javax.swing.JPanel();
         painelSuperiorDados = new javax.swing.JPanel();
         painelEsqDados = new javax.swing.JPanel();
@@ -490,7 +395,7 @@ public class ClientesView extends javax.swing.JFrame {
         lbNumeroDeTelefone = new javax.swing.JLabel();
         txtEmailParticular = new javax.swing.JTextField();
         TxtNumeroDeTelefone = new javax.swing.JTextField();
-        txtDataDeContrato = new rojeru_san.componentes.RSDateChooser();
+        txtDataContracto = new com.toedter.calendar.JDateChooser();
         painelDirDados = new javax.swing.JPanel();
         lbDespesasIniciais = new javax.swing.JLabel();
         lbSaldo = new javax.swing.JLabel();
@@ -571,26 +476,47 @@ public class ClientesView extends javax.swing.JFrame {
         painelConteudoEsquerdo.setBackground(new java.awt.Color(52, 102, 138));
         painelConteudoEsquerdo.setLayout(new java.awt.BorderLayout());
 
+        lblIconLogo.setBackground(new java.awt.Color(52, 102, 138));
+        lblIconLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/images/social-media.png"))); // NOI18N
+        painelConteudoEsquerdo.add(lblIconLogo, java.awt.BorderLayout.CENTER);
+
+        painelVoltarMenu.setBackground(new java.awt.Color(52, 102, 138));
+
         btnVoltarMenu.setBackground(new java.awt.Color(52, 102, 138));
         btnVoltarMenu.setForeground(new java.awt.Color(52, 102, 138));
         btnVoltarMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/icons8-menu-48.png"))); // NOI18N
         btnVoltarMenu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 102), 2, true));
         btnVoltarMenu.setContentAreaFilled(false);
         btnVoltarMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnVoltarMenu.setDefaultCapable(false);
+        btnVoltarMenu.setDisabledIcon(null);
+        btnVoltarMenu.setDisabledSelectedIcon(null);
         btnVoltarMenu.setOpaque(true);
         btnVoltarMenu.setSelected(true);
+        btnVoltarMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVoltarMenuMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnVoltarMenuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnVoltarMenuMouseExited(evt);
+            }
+        });
         btnVoltarMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarMenuActionPerformed(evt);
             }
         });
-        painelConteudoEsquerdo.add(btnVoltarMenu, java.awt.BorderLayout.NORTH);
-        btnVoltarMenu.getAccessibleContext().setAccessibleName("btnVoltarMenu");
+        painelVoltarMenu.add(btnVoltarMenu);
 
-        lblIconLogo.setBackground(new java.awt.Color(52, 102, 138));
-        lblIconLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/images/social-media.png"))); // NOI18N
-        painelConteudoEsquerdo.add(lblIconLogo, java.awt.BorderLayout.CENTER);
+        lblCabecalho1.setBackground(new java.awt.Color(52, 102, 138));
+        lblCabecalho1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        lblCabecalho1.setForeground(new java.awt.Color(255, 255, 255));
+        lblCabecalho1.setText("Voltar");
+        painelVoltarMenu.add(lblCabecalho1);
+
+        painelConteudoEsquerdo.add(painelVoltarMenu, java.awt.BorderLayout.NORTH);
 
         painelConteudo.add(painelConteudoEsquerdo, java.awt.BorderLayout.WEST);
 
@@ -662,7 +588,7 @@ public class ClientesView extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(TxtNumeroDeTelefone))
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                                 .addComponent(lbId)
                                 .addGap(137, 137, 137)
@@ -675,16 +601,16 @@ public class ClientesView extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addGap(9, 9, 9)
                                 .addComponent(txtQuarterao, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                .addComponent(lbNumeroDaCasa)
-                                .addGap(54, 54, 54)
-                                .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                .addComponent(lblDataDeContrato)
+                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbNumeroDaCasa)
+                                    .addComponent(lblDataDeContrato))
                                 .addGap(51, 51, 51)
-                                .addComponent(txtDataDeContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 110, Short.MAX_VALUE)))
+                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDataContracto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 116, Short.MAX_VALUE)))
                 .addGap(79, 79, 79))
         );
         painelEsqDadosLayout.setVerticalGroup(
@@ -712,8 +638,8 @@ public class ClientesView extends javax.swing.JFrame {
                     .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDataDeContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDataDeContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDataDeContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataContracto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -943,12 +869,12 @@ public class ClientesView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        if(camposObrigatoriosPreenchidos()){;
-        cadastrarCliente();
-        listarClientes();
+        if (camposObrigatoriosPreenchidos()) {;
+            cadastrarCliente();
+            listarClientes();
 //        limparCampos();
-        }else{
-        JOptionPane.showMessageDialog(null, "Preencha todos campos Obrigatorios!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos campos Obrigatorios!");
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -972,11 +898,6 @@ public class ClientesView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSaldoActionPerformed
 
-    private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
-        new MenuPrincipal().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnVoltarMenuActionPerformed
-
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         ActualizarCliente();
         listarClientes();
@@ -986,6 +907,23 @@ public class ClientesView extends javax.swing.JFrame {
     private void cbxDespesasIniciaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDespesasIniciaisActionPerformed
         AccaoComboxDespesas();
     }//GEN-LAST:event_cbxDespesasIniciaisActionPerformed
+
+    private void btnVoltarMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenuMouseClicked
+        btnVoltarMenu.setBackground(new Color(52, 102, 138));
+    }//GEN-LAST:event_btnVoltarMenuMouseClicked
+
+    private void btnVoltarMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenuMouseEntered
+        btnVoltarMenu.setBackground(new Color(45, 45, 45));
+    }//GEN-LAST:event_btnVoltarMenuMouseEntered
+
+    private void btnVoltarMenuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMenuMouseExited
+        btnVoltarMenu.setBackground(new Color(52, 102, 138));
+    }//GEN-LAST:event_btnVoltarMenuMouseExited
+
+    private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
+        new MenuPrincipal().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1033,6 +971,7 @@ public class ClientesView extends javax.swing.JFrame {
     private javax.swing.JLabel lbSaldo;
     private javax.swing.JLabel lbStatus;
     private javax.swing.JLabel lblCabecalho;
+    private javax.swing.JLabel lblCabecalho1;
     private javax.swing.JLabel lblDataDeContrato;
     private javax.swing.JLabel lblIconLogo;
     private javax.swing.JPanel painelCabecalho;
@@ -1044,9 +983,10 @@ public class ClientesView extends javax.swing.JFrame {
     private javax.swing.JPanel painelInferiorBotoesTabela;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JPanel painelSuperiorDados;
+    private javax.swing.JPanel painelVoltarMenu;
     private javax.swing.JPanel tabela;
     private javax.swing.JTable tabelaClientes;
-    private rojeru_san.componentes.RSDateChooser txtDataDeContrato;
+    private com.toedter.calendar.JDateChooser txtDataContracto;
     private javax.swing.JTextField txtEmailParticular;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
