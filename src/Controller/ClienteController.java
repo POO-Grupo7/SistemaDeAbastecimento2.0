@@ -66,11 +66,10 @@ public class ClienteController {
             pstm.setString(5, clienteModel.getDataContracto());   // dataContrato
             pstm.setString(6, clienteModel.getEmail());           // emailCliente
             pstm.setInt(7, clienteModel.getNrTelefone());           // telefone
-//            pstm.setString(8, clienteModel.getHidrometro());      // hidrometro
-            pstm.setDouble(9, clienteModel.getConsumo());         // consumo
-            pstm.setDouble(10, clienteModel.getSaldo());          // saldo
-            pstm.setBoolean(11, clienteModel.getStatus());        // activo
-            pstm.setBoolean(12, clienteModel.getDisp());          // disp
+            pstm.setDouble(8, clienteModel.getConsumo());         // consumo
+            pstm.setDouble(9, clienteModel.getSaldo());          // saldo
+            pstm.setBoolean(10, clienteModel.getStatus());        // activo
+            pstm.setBoolean(11, clienteModel.getDisp());          // disp
 
             pstm.execute();
             pstm.close();

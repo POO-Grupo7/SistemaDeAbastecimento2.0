@@ -26,7 +26,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="FACTURA&#xc7;&#xc3;O"/>
+    <Property name="title" type="java.lang.String" value="PAGAMENTOS"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1200, 680]"/>
     </Property>
@@ -256,7 +256,7 @@
                                           <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="txtDataPagamento" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
-                                              <Component id="txtValor" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
+                                              <Component id="txtValorFactura" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
                                               <Component id="txtIdPagamentos" alignment="0" min="-2" pref="49" max="-2" attributes="0"/>
                                               <Component id="txtPrazoPagamento" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
                                               <Component id="cbxFacturas" alignment="0" min="-2" pref="236" max="-2" attributes="0"/>
@@ -265,7 +265,7 @@
                                           </Group>
                                       </Group>
                                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="txtTotal" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
+                                          <Component id="txtTotalAPagar" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
                                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -294,7 +294,7 @@
                                                       <Group type="102" alignment="1" attributes="0">
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="txtValorApagar" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
+                                                              <Component id="txtValorEntregue" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
                                                               <Component id="btnCalcularTrocos" alignment="1" min="-2" pref="236" max="-2" attributes="0"/>
                                                           </Group>
                                                       </Group>
@@ -328,7 +328,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtValorFactura" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -350,12 +350,12 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtTotal" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtTotalAPagar" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtValorApagar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtValorEntregue" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnCalcularTrocos" min="-2" max="-2" attributes="0"/>
@@ -398,12 +398,14 @@
                         <Component class="javax.swing.JComboBox" name="cbxFacturas">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="2">
+                              <StringArray count="1">
                                 <StringItem index="0" value="Selecione"/>
-                                <StringItem index="1" value="1234"/>
                               </StringArray>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxFacturasActionPerformed"/>
+                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
@@ -423,9 +425,9 @@
                             <Property name="text" type="java.lang.String" value="Valor:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtValor">
+                        <Component class="javax.swing.JTextField" name="txtValorFactura">
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtValorActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtValorFacturaActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel23">
@@ -474,9 +476,9 @@
                             <Property name="text" type="java.lang.String" value="Total:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtTotal">
+                        <Component class="javax.swing.JTextField" name="txtTotalAPagar">
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTotalActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTotalAPagarActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel1">
@@ -484,9 +486,9 @@
                             <Property name="text" type="java.lang.String" value="Insira o valor a pagar:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtValorApagar">
+                        <Component class="javax.swing.JTextField" name="txtValorEntregue">
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtValorApagarActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtValorEntregueActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnCalcularTrocos">
@@ -732,13 +734,14 @@
                           <SubComponents>
                             <Component class="javax.swing.JTable" name="tabelaPagamentos">
                               <Properties>
+                                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                                     <LineBorder/>
                                   </Border>
                                 </Property>
                                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                                  <Color blue="33" green="33" red="33" type="rgb"/>
                                 </Property>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                                   <Table columnCount="13" rowCount="4">

@@ -14,7 +14,9 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -37,7 +39,7 @@ public class ClientesView extends javax.swing.JFrame {
         cbxDespesasIniciais.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atualizarSaldo();
+//                atualizarSaldo();
             }
         });
 
@@ -47,17 +49,17 @@ public class ClientesView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
 //       
     }
-// Função para atualizar o saldo com base na seleção
-
-    private void atualizarSaldo() {
-        String selectedOption = cbxDespesasIniciais.getSelectedItem().toString();
-
-        if (selectedOption.equals("Ligação")) {
-            txtSaldo.setText("3000");
-        } else {
-            txtSaldo.setText("8000");
-        }
-    }
+//// Função para atualizar o saldo com base na seleção
+//
+//    private void atualizarSaldo() {
+//        String selectedOption = cbxDespesasIniciais.getSelectedItem().toString();
+//
+//        if (selectedOption.equals("Ligação")) {
+//            txtSaldo.setText("3000");
+//        } else {
+//            txtSaldo.setText("8000");
+//        }
+//    }
 
     //Metodo Cadastrar
     private void cadastrarCliente() {
@@ -66,13 +68,21 @@ public class ClientesView extends javax.swing.JFrame {
         String bairro = cbxBairro.getSelectedItem().toString();
         String quarteiraoText = txtQuarterao.getText().trim();
         String nr = txtNumeroDeCasa.getText().trim();
-        String data = txtDataDeContrato.getToolTipText().trim();
+
+        Date selectedDate = txtDataContracto.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String data = dateFormat.format(selectedDate);
+
         String email = txtEmailParticular.getText().trim();
         String nrTel = TxtNumeroDeTelefone.getText().trim();
+        int nrtelefone = Integer.parseInt(nrTel);
+        int nrDaCasa = Integer.parseInt(nr);
+        int quarteirao = Integer.parseInt(quarteiraoText);
+        double saldo = Double.parseDouble(txtSaldo.getText());
+        boolean disponibilidade = true;
         boolean status;
         if (cbxStatus.getItemAt(0) == "Sim") {
             status = true;
-
         } else {
             status = false;
         }
@@ -102,40 +112,6 @@ public class ClientesView extends javax.swing.JFrame {
             return;
         }
 
-        // Conversão de valores numéricos com tratamento de exceção
-        int nrtelefone;
-        int nrDaCasa;
-        int quarteirao;
-//        double saldo;
-        try {
-            nrtelefone = Integer.parseInt(nrTel);
-            nrDaCasa = Integer.parseInt(nr);
-            quarteirao = Integer.parseInt(quarteiraoText);
-//            saldo = Double.parseDouble(txtSaldo.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao converter número de telefone, número da casa, quarteirão ou saldo.");
-            return;
-        }
-
-        // Define o saldo automaticamente
-        double saldo;
-        if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
-            saldo = 3000;
-        } else {
-            saldo = 8000;
-        }
-        txtSaldo.setText(String.valueOf(saldo));
-
-        // Define o número do hidrômetro
-        String nrHidrometro = quarteirao + "/" + nrDaCasa;
-        txtNumeroDeHidrometro.setText(nrHidrometro);
-        // Define o saldo automaticamente
-        saldo = Double.parseDouble(txtSaldo.getText());
-        txtSaldo.setText(String.valueOf(saldo));
-        boolean disponibilidade = true;
-
-//        // Status: Verifica o item selecionado corretamente
-//        boolean status = cbxStatus.getSelectedItem().toString().equalsIgnoreCase("Activo");
         // Criar o modelo de cliente
         ClienteModel clienteModel = new ClienteModel();
         clienteModel.setNome(nome);
@@ -145,18 +121,13 @@ public class ClientesView extends javax.swing.JFrame {
         clienteModel.setDataContracto(data);
         clienteModel.setEmail(email);
         clienteModel.setNrTelefone(nrtelefone);
-//        clienteModel.setHidrometro(nrHidrometro);
         clienteModel.setConsumo(0); // Consumo inicial
         clienteModel.setSaldo(saldo);
         clienteModel.setStatus(status);
         clienteModel.setDisp(disponibilidade);
 
-        // Cadastrar cliente através do controlador
         ClienteController clienteControler = new ClienteController();
         clienteControler.cadastrarCliente(clienteModel);
-
-        JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
-        listarClientes();
     }
 
     //Metodo Actualizar Cliente
@@ -166,7 +137,11 @@ public class ClientesView extends javax.swing.JFrame {
         String bairro = cbxBairro.getSelectedItem().toString();
         String quarteiraoText = txtQuarterao.getText().trim();
         String nr = txtNumeroDeCasa.getText().trim();
-        String data = txtDataDeContrato.getToolTipText().trim();
+
+        Date selectedDate = txtDataContracto.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String data = dateFormat.format(selectedDate);
+
         String email = txtEmailParticular.getText().trim();
         String nrTel = TxtNumeroDeTelefone.getText().trim();
         String cons = txtConsumo.getText();
@@ -253,7 +228,11 @@ public class ClientesView extends javax.swing.JFrame {
         String bairro = cbxBairro.getSelectedItem().toString();
         String quarteiraoText = txtQuarterao.getText().trim();
         String nr = txtNumeroDeCasa.getText().trim();
-        String data = txtDataDeContrato.getToolTipText().trim();
+
+        Date selectedDate = txtDataContracto.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String data = dateFormat.format(selectedDate);
+
         String email = txtEmailParticular.getText().trim();
         String nrTel = TxtNumeroDeTelefone.getText().trim();
         String cons = txtConsumo.getText();
@@ -356,7 +335,7 @@ public class ClientesView extends javax.swing.JFrame {
                     item.getDataContracto(),
                     item.getEmail(),
                     item.getNrTelefone(),
-//                    item.getHidrometro(),
+                    //                    item.getHidrometro(),
                     item.getConsumo(),
                     item.getSaldo(),
                     item.getStatus(),
@@ -370,19 +349,16 @@ public class ClientesView extends javax.swing.JFrame {
 
     private void AccaoComboxDespesas() {
         if (cbxDespesasIniciais.getSelectedIndex() == 0) {
-            txtNome.setText(null);
             txtSaldo.setText(null);
-
             return;
         }
         try {
-            int setar = tabelaClientes.getSelectedRow();
-            if (cbxDespesasIniciais.getSelectedItem().toString().equals("Ligação")) {
-                txtSaldo.setText(String.valueOf(3000));
-            } else if (cbxDespesasIniciais.getSelectedItem().toString().equals("Instalação + Ligaçao")) {
-                txtSaldo.setText(String.valueOf(8000));
-            } else {
+            if (cbxDespesasIniciais.getSelectedIndex() == 1) {
                 txtSaldo.setText("" + 0);
+            } else if (cbxDespesasIniciais.getSelectedIndex() == 2) {
+                txtSaldo.setText("" + 3000);
+            } else {
+                txtSaldo.setText("" + 8000);
             }
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "Clientes View prencher saldo" + erro);
@@ -398,7 +374,7 @@ public class ClientesView extends javax.swing.JFrame {
         cbxBairro.setSelectedItem(tabelaClientes.getModel().getValueAt(setar, 2).toString());
         txtQuarterao.setText(tabelaClientes.getModel().getValueAt(setar, 3).toString());
         txtNumeroDeCasa.setText(tabelaClientes.getModel().getValueAt(setar, 4).toString());
-        txtDataDeContrato.setToolTipText(tabelaClientes.getModel().getValueAt(setar, 5).toString());
+        txtDataContracto.setToolTipText(tabelaClientes.getModel().getValueAt(setar, 5).toString());
         txtEmailParticular.setText(tabelaClientes.getModel().getValueAt(setar, 6).toString());
         TxtNumeroDeTelefone.setText(tabelaClientes.getModel().getValueAt(setar, 7).toString());
         txtNumeroDeHidrometro.setText(tabelaClientes.getModel().getValueAt(setar, 8).toString());
@@ -413,7 +389,7 @@ public class ClientesView extends javax.swing.JFrame {
         txtNome.setText("");
         txtQuarterao.setText("");
         txtNumeroDeCasa.setText("");
-        txtDataDeContrato.setToolTipText("");
+        txtDataContracto.setToolTipText("");
         txtEmailParticular.setText("");
         TxtNumeroDeTelefone.setText("");
         txtNumeroDeHidrometro.setText("");
@@ -468,7 +444,7 @@ public class ClientesView extends javax.swing.JFrame {
         lbNumeroDeTelefone = new javax.swing.JLabel();
         txtEmailParticular = new javax.swing.JTextField();
         TxtNumeroDeTelefone = new javax.swing.JTextField();
-        txtDataDeContrato = new rojeru_san.componentes.RSDateChooser();
+        txtDataContracto = new com.toedter.calendar.JDateChooser();
         painelDirDados = new javax.swing.JPanel();
         lbNumeroDeHidrometro = new javax.swing.JLabel();
         txtNumeroDeHidrometro = new javax.swing.JTextField();
@@ -644,7 +620,7 @@ public class ClientesView extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(TxtNumeroDeTelefone))
                     .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                                 .addComponent(lbId)
                                 .addGap(137, 137, 137)
@@ -657,16 +633,16 @@ public class ClientesView extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addGap(9, 9, 9)
                                 .addComponent(txtQuarterao, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                .addComponent(lbNumeroDaCasa)
-                                .addGap(54, 54, 54)
-                                .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                .addComponent(lblDataDeContrato)
+                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbNumeroDaCasa)
+                                    .addComponent(lblDataDeContrato))
                                 .addGap(51, 51, 51)
-                                .addComponent(txtDataDeContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 110, Short.MAX_VALUE)))
+                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDataContracto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 116, Short.MAX_VALUE)))
                 .addGap(79, 79, 79))
         );
         painelEsqDadosLayout.setVerticalGroup(
@@ -694,8 +670,8 @@ public class ClientesView extends javax.swing.JFrame {
                     .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDataDeContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDataDeContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDataDeContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataContracto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -826,11 +802,11 @@ public class ClientesView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nome", "Bairro", "Quarteirao", "Numero da Casa", "Data de Contrato", "Email Particular", "Numero de Telefone", "Numero de Hidrometro", "Consumo", "Saldo", "Status", "Disp"
+                "Id", "Nome", "Bairro", "Quarteirao", "Numero da Casa", "Data de Contrato", "Email Particular", "Numero de Telefone", "Consumo", "Saldo", "Status", "Disp"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, true, true
+                false, false, false, false, false, false, false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1066,7 +1042,7 @@ public class ClientesView extends javax.swing.JFrame {
     private javax.swing.JPanel tabela;
     private javax.swing.JTable tabelaClientes;
     private javax.swing.JTextField txtConsumo;
-    private rojeru_san.componentes.RSDateChooser txtDataDeContrato;
+    private com.toedter.calendar.JDateChooser txtDataContracto;
     private javax.swing.JTextField txtEmailParticular;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;

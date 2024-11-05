@@ -37,8 +37,7 @@ public class LeiturasView extends javax.swing.JFrame {
     public LeiturasView() {
         initComponents();
         txtLeituraActual.requestFocus();
-        LocalDate dataLocal = LocalDate.now();
-        txtDataDeEmissao.setText("" + dataLocal);
+        dataLocal();
         restaurarDadosComboBoxHidrometro();
         listarLeituras();
         testData(tabelaLeitura);
@@ -770,6 +769,10 @@ public class LeiturasView extends javax.swing.JFrame {
     private javax.swing.JTextField txtSaldoActual;
     // End of variables declaration//GEN-END:variables
 
+    private void dataLocal() {
+        LocalDate dataLocal = LocalDate.now();
+        txtDataDeEmissao.setText("" + dataLocal);
+    }
     //Accao para o JcomboxClientes
 //    Vector<Integer> idCliente = new Vector<Integer>();
     Vector<Integer> idHistoricoHidrometro = new Vector<Integer>();
@@ -920,6 +923,7 @@ public class LeiturasView extends javax.swing.JFrame {
         txtOcorrencia.setText("");
         txtNumeroDaLeitura.setText("");
         txtLeituraActual.requestFocus();
+        dataLocal();
     }
 
     //Metodo Carregar Campos
