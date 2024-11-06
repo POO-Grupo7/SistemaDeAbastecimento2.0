@@ -17,9 +17,9 @@ public class FuncionarioController {
 
     public ResultSet autenticacaoUsuario(FuncionarioModel funcionarioModel) {
         conexao = new ConexaoController().conectaBaseDados();
+        String sql = "SELECT * FROM usuario WHERE nomeUsuario = ? AND senhaUsuario = ? AND activo = ? AND disp = ?";
 
         try {
-            String sql = "SELECT * FROM usuario WHERE nomeUsuario = ? AND senhaUsuario = ? AND activo = ? AND disp = ?";
 
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setString(1, funcionarioModel.getNome());
@@ -28,10 +28,14 @@ public class FuncionarioController {
             pstm.setBoolean(4, funcionarioModel.getDisp());
 
             ResultSet rs = pstm.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                System.out.println("Nenhum usuário encontrado com essas credenciais.");
+            }
             return rs;
 
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "UsuarioControlelr" + erro);
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro na autenticação: " + erro.getMessage());
             return null;
         }
     }
@@ -136,14 +140,13 @@ public class FuncionarioController {
         }
         return list;
     }
-    
-//Metodo para actualizar usuarios
 
+//Metodo para actualizar usuarios
     public void ActualizarUsuario(FuncionarioModel funcionarioModel) {
 //        String sql = "update usuario set nome = ?, apelidoFuncionario = ?, naturalidadeFuncionario = ?, dataNascimentoFuncionario = ?, emailFuncionario = ?, funcaoFuncionario = ?, nomeUsuario = ?, senhaUsuario = ?, perfil = ?, activo = ?, disp = ? where idFuncionario = ?";
- String sql = "UPDATE usuario SET nome = ?,apelidoFuncionario = ?, naturalidadeFuncionario = ?, dataNascimentoFuncionario = ?, emailFuncionario = ?, funcaoFuncionario = ?, nomeUsuario = ?, senhaUsuario = ?, perfil = ?, activo = ?, disp = ? WHERE idFuncionario = ?";        
+        String sql = "UPDATE usuario SET nome = ?,apelidoFuncionario = ?, naturalidadeFuncionario = ?, dataNascimentoFuncionario = ?, emailFuncionario = ?, funcaoFuncionario = ?, nomeUsuario = ?, senhaUsuario = ?, perfil = ?, activo = ?, disp = ? WHERE idFuncionario = ?";
 
-Connection conexao = null;
+        Connection conexao = null;
         PreparedStatement pstm = null;
 
         try {
@@ -162,8 +165,6 @@ Connection conexao = null;
             pstm.setBoolean(10, funcionarioModel.getStatus());
             pstm.setBoolean(11, funcionarioModel.getDisp());
             pstm.setInt(12, funcionarioModel.getIdFuncionario());
-            
-
 
             pstm.executeUpdate();
             JOptionPane.showMessageDialog(null, "Dados actualizados com Sucesso.");

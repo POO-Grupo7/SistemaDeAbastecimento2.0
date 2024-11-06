@@ -1,10 +1,14 @@
 
 package View;
 
+import Controller.FuncionarioController;
+import Model.FuncionarioModel;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -33,9 +37,9 @@ public class LogInView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNomeU = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JPasswordField();
+        txtSenhaU = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
@@ -94,8 +98,8 @@ public class LogInView extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtSenhaU, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNomeU, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -110,11 +114,11 @@ public class LogInView extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSenha))
+                    .addComponent(txtSenhaU))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox1)
                 .addGap(2, 2, 2)
@@ -142,8 +146,12 @@ public class LogInView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new MenuPrincipal().setVisible(true);
-        dispose();
+
+            if (camposObrigatoriosPreenchidos()) {
+                EntrarNoSistema();
+            } else {
+                JOptionPane.showMessageDialog(null, "Preencha os campos vazios com os seus dados de acesso para entrar!");
+            }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -155,9 +163,9 @@ public class LogInView extends javax.swing.JFrame {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         if (jCheckBox1.isSelected()) {
-            txtSenha.setEchoChar((char) 0);
+            txtSenhaU.setEchoChar((char) 0);
         } else {
-            txtSenha.setEchoChar('*');
+            txtSenhaU.setEchoChar('*');
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
@@ -168,7 +176,7 @@ public class LogInView extends javax.swing.JFrame {
         try {
             FlatCyanLightIJTheme.setup();
 //            UIManager.setLookAndFeel(new FlatDarkLaf());
-        FlatLaf.registerCustomDefaultsSource("View");
+            FlatLaf.registerCustomDefaultsSource("View");
 //        FlatMacLightLaf.setup();
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,6 +188,58 @@ public class LogInView extends javax.swing.JFrame {
         });
     }
 
+    //Metodo Prencher Campos obrigatorios
+    private boolean camposObrigatoriosPreenchidos() {
+        boolean nomeUsuario = !txtNomeU.getText().isEmpty();
+        boolean senhaUsuario = !txtSenhaU.getText().isEmpty();
+
+        return nomeUsuario && senhaUsuario;
+    }
+
+    //Metodo para entrar no sistema
+    private void EntrarNoSistema() {
+        try {
+            String nomeUsuario = txtNomeU.getText();
+            String senhaUsuario = txtSenhaU.getText();
+            boolean activo = true;
+            boolean disponivel = true;
+
+            FuncionarioModel funcionarioModel = new FuncionarioModel();
+            funcionarioModel.setNome(nomeUsuario);
+            funcionarioModel.setSenhaFuncionario(senhaUsuario);
+            funcionarioModel.setStatus(activo);
+            funcionarioModel.setDisp(disponivel);
+
+            FuncionarioController funcionarioController = new FuncionarioController();
+            ResultSet rsUsuarioControlller = funcionarioController.autenticacaoUsuario(funcionarioModel);
+
+            if (rsUsuarioControlller != null && rsUsuarioControlller.next()) {
+                String perfil = rsUsuarioControlller.getString("perfil");
+                dispose();
+
+                if ("Admistrador".equals(perfil)) {
+                    MenuPrincipal menu = new MenuPrincipal();
+                    menu.setVisible(true);
+                } else if ("Gestor".equals(perfil)) {
+                    MenuGestorView telaGestor = new MenuGestorView();
+                    telaGestor.setVisible(true);
+                } else {
+                    MenuOperadorView telaOperador = new MenuOperadorView();
+                    telaOperador.setVisible(true);
+                }
+                JOptionPane.showMessageDialog(null, "Bem vindo(a) " + nomeUsuario + ".");
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos");
+                txtNomeU.setText("");
+                txtSenhaU.setText("");
+            }
+        } catch (SQLException erro) {
+            erro.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro de login: " + erro.getMessage());
+        }
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -188,7 +248,7 @@ public class LogInView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JPasswordField txtSenha;
+    private javax.swing.JTextField txtNomeU;
+    private javax.swing.JPasswordField txtSenhaU;
     // End of variables declaration//GEN-END:variables
 }
