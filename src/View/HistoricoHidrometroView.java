@@ -909,6 +909,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         String dataFim = dateFormat.format(selectedDateOfEnd);
 
         String nrHidrometro = cbxHidrometro.getSelectedItem().toString();
+        double saldoCliente = Double.parseDouble(txtSaldoActual.getText());
 
         // Verificações de campos
         HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
@@ -917,6 +918,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         cliente.setBairro(bairro);
         cliente.setQuarteirao(quarteirao);
         cliente.setNrDaCasa(nr);
+        cliente.setSaldo(saldoCliente);
 
         historicoHidrometroModel.setCliente(cliente);
 
@@ -924,7 +926,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         historicoHidrometroModel.setDataFinal(dataFim);
 
         HidrometroModel hidroometroModel = new HidrometroModel();
-        hidroometroModel.setNrHiodrometro(nrHidrometro);
+        hidroometroModel.setNrHidrometro(nrHidrometro);
         historicoHidrometroModel.setHidrometro(hidroometroModel);
 
         // Cadastrar cliente através do controlador
@@ -954,6 +956,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
                     item.getCliente().getBairro(),
                     item.getCliente().getQuarteirao(), // Certifique-se de usar o índice correto
                     item.getCliente().getNrDaCasa(), // Certifique-se de usar o índice correto
+//                    item.getCliente().getSaldo(), // Certifique-se de usar o índice correto
                     item.getDataInicial(),
                     item.getDataFinal(),
                     item.getHidrometro().getNrHidrometro()
@@ -1043,14 +1046,14 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         historicoHidrometroModel.setDataFinal(dataFim);
 
         HidrometroModel hidroometroModel = new HidrometroModel();
-        hidroometroModel.setNrHiodrometro(nrHidrometro);
+        hidroometroModel.setNrHidrometro(nrHidrometro);
         historicoHidrometroModel.setHidrometro(hidroometroModel);
 
         HistoricoHidrometroController historicoHidrometroControler = new HistoricoHidrometroController();
         historicoHidrometroControler.actualizarHistoricoHidometro(historicoHidrometroModel);
     }
 
-    //Metodo Actualizar Historico
+    //Metodo apagar Historico
     private void apagarHistoricoHidrometro() {
         int id = Integer.parseInt(txtId.getText());
         String nomeCliente = cbxNomeDoCliente.getSelectedItem().toString();
@@ -1065,6 +1068,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         String dataFim = dateFormat.format(selectedDateOfEnd);
 
         String nrHidrometro = cbxHidrometro.getSelectedItem().toString();
+        double saldoCliente = Double.parseDouble(txtSaldoActual.getText());
 
         // Verificações
         HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
@@ -1076,6 +1080,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         cliente.setBairro(bairro);
         cliente.setQuarteirao(quarteirao);
         cliente.setNrDaCasa(nr);
+        cliente.setSaldo(saldoCliente);
 
         historicoHidrometroModel.setCliente(cliente);
 
@@ -1083,7 +1088,7 @@ public class HistoricoHidrometroView extends javax.swing.JFrame {
         historicoHidrometroModel.setDataFinal(dataFim);
 
         HidrometroModel hidroometroModel = new HidrometroModel();
-        hidroometroModel.setNrHiodrometro(nrHidrometro);
+        hidroometroModel.setNrHidrometro(nrHidrometro);
         historicoHidrometroModel.setHidrometro(hidroometroModel);
         historicoHidrometroModel.setApagado(true);
 

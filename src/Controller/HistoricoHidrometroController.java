@@ -51,7 +51,7 @@ public class HistoricoHidrometroController {
 //    }
     // Metodo de cadastro
     public void cadastrarHistoricoHidometro(HistoricoHidrometroModel historicoHidrometroModel) {
-        String sql = "INSERT INTO historicoHidrometro (nomeCliente , bairro, quarteirao, numeroCasa, dataInicioUso, dataFimUso, nrHidrometro, apagado) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO historicoHidrometro (nomeCliente , bairro, quarteirao, numeroCasa, saldoCliente,dataInicioUso, dataFimUso, nrHidrometro, apagado) VALUES (?,?,?,?,?,?,?,?,?)";
 
         conexao = new ConexaoController().conectaBaseDados();
 
@@ -62,10 +62,11 @@ public class HistoricoHidrometroController {
             pstm.setString(2, historicoHidrometroModel.getCliente().getBairro());          // bairro
             pstm.setInt(3, historicoHidrometroModel.getCliente().getQuarteirao());         // quarteirao
             pstm.setInt(4, historicoHidrometroModel.getCliente().getNrDaCasa());           // numeroCasa
-            pstm.setString(5, historicoHidrometroModel.getDataInicial());   // dataContrato
-            pstm.setString(6, historicoHidrometroModel.getDataFinal());           // emailHistoricoHidometro
-            pstm.setString(7, historicoHidrometroModel.getHidrometro().getNrHidrometro());           // telefone
-            pstm.setBoolean(8, historicoHidrometroModel.getApagado());          // disp
+            pstm.setDouble(5, historicoHidrometroModel.getCliente().getSaldo());           // numeroCasa
+            pstm.setString(6, historicoHidrometroModel.getDataInicial());   // dataContrato
+            pstm.setString(7, historicoHidrometroModel.getDataFinal());           // emailHistoricoHidometro
+            pstm.setString(8, historicoHidrometroModel.getHidrometro().getNrHidrometro());           // telefone
+            pstm.setBoolean(9, historicoHidrometroModel.getApagado());          // disp
 
             pstm.execute();
             pstm.close();
@@ -99,13 +100,14 @@ public class HistoricoHidrometroController {
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setQuarteirao(rs.getInt("quarteirao"));
                 cliente.setNrDaCasa(rs.getInt("numeroCasa"));
+                cliente.setSaldo(rs.getInt("saldoCliente"));
                 historicoHidrometroModel.setCliente(cliente);
 
                 historicoHidrometroModel.setDataInicial(rs.getString("dataInicioUso"));
                 historicoHidrometroModel.setDataFinal(rs.getString("dataFimUso"));
 
                 HidrometroModel hidrometroModel = new HidrometroModel();
-                hidrometroModel.setNrHiodrometro(rs.getString("nrHidrometro"));
+                hidrometroModel.setNrHidrometro(rs.getString("nrHidrometro"));
                 historicoHidrometroModel.setHidrometro(hidrometroModel);
 
                 historicoHidrometroModel.setApagado(rs.getBoolean("apagado"));
@@ -136,7 +138,7 @@ public class HistoricoHidrometroController {
 
     //Metodo para actualizar historicoHidometros
     public void actualizarHistoricoHidometro(HistoricoHidrometroModel historicoHidrometroModel) {
-        String sql = "update historicoHidrometro set nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, dataInicioUso = ?, dataFimUso = ?, nrHidrometro = ?, apagado = ? where idHistoricoHidrometro = ?";
+        String sql = "update historicoHidrometro set nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, saldoCliente = ?,dataInicioUso = ?, dataFimUso = ?, nrHidrometro = ?, apagado = ? where idHistoricoHidrometro = ?";
         Connection conexao = null;
         PreparedStatement pstm = null;
 
@@ -149,11 +151,12 @@ public class HistoricoHidrometroController {
             pstm.setString(2, historicoHidrometroModel.getCliente().getBairro());
             pstm.setInt(3, historicoHidrometroModel.getCliente().getQuarteirao());
             pstm.setInt(4, historicoHidrometroModel.getCliente().getNrDaCasa());
-            pstm.setString(5, historicoHidrometroModel.getDataInicial());
-            pstm.setString(6, historicoHidrometroModel.getDataFinal());
-            pstm.setString(7, historicoHidrometroModel.getHidrometro().getNrHidrometro());
-            pstm.setBoolean(8, historicoHidrometroModel.getApagado());
-            pstm.setInt(9, historicoHidrometroModel.getIdHistoricoHidrometro());
+            pstm.setDouble(5, historicoHidrometroModel.getCliente().getSaldo());
+            pstm.setString(6, historicoHidrometroModel.getDataInicial());
+            pstm.setString(7, historicoHidrometroModel.getDataFinal());
+            pstm.setString(8, historicoHidrometroModel.getHidrometro().getNrHidrometro());
+            pstm.setBoolean(9, historicoHidrometroModel.getApagado());
+            pstm.setInt(10, historicoHidrometroModel.getIdHistoricoHidrometro());
 
             pstm.executeUpdate();
             JOptionPane.showMessageDialog(null, "Historico actualizado com sucesso");
@@ -175,7 +178,7 @@ public class HistoricoHidrometroController {
     
         //Metodo para actualizar historicoHidometros
     public void apagarHistoricoHidometro(HistoricoHidrometroModel historicoHidrometroModel) {
-        String sql = "update historicoHidrometro set nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, dataInicioUso = ?, dataFimUso = ?, nrHidrometro = ?, apagado = ? where idHistoricoHidrometro = ?";
+        String sql = "update historicoHidrometro set nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, saldoClienet = ?, dataInicioUso = ?, dataFimUso = ?, nrHidrometro = ?, apagado = ? where idHistoricoHidrometro = ?";
         Connection conexao = null;
         PreparedStatement pstm = null;
 
@@ -188,11 +191,12 @@ public class HistoricoHidrometroController {
             pstm.setString(2, historicoHidrometroModel.getCliente().getBairro());
             pstm.setInt(3, historicoHidrometroModel.getCliente().getQuarteirao());
             pstm.setInt(4, historicoHidrometroModel.getCliente().getNrDaCasa());
-            pstm.setString(5, historicoHidrometroModel.getDataInicial());
-            pstm.setString(6, historicoHidrometroModel.getDataFinal());
-            pstm.setString(7, historicoHidrometroModel.getHidrometro().getNrHidrometro());
-            pstm.setBoolean(8, historicoHidrometroModel.getApagado());
-            pstm.setInt(9, historicoHidrometroModel.getIdHistoricoHidrometro());
+            pstm.setDouble(5, historicoHidrometroModel.getCliente().getSaldo());
+            pstm.setString(6, historicoHidrometroModel.getDataInicial());
+            pstm.setString(7, historicoHidrometroModel.getDataFinal());
+            pstm.setString(8, historicoHidrometroModel.getHidrometro().getNrHidrometro());
+            pstm.setBoolean(9, historicoHidrometroModel.getApagado());
+            pstm.setInt(10, historicoHidrometroModel.getIdHistoricoHidrometro());
 
             pstm.executeUpdate();
             JOptionPane.showMessageDialog(null, "Historico apagado com sucesso");

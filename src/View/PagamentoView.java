@@ -30,7 +30,9 @@ public class PagamentoView extends javax.swing.JFrame {
 
     public PagamentoView() {
         initComponents();
+        RestaurarDadosComboBoxFactura();
         listarPagamentos();
+        
         // Obtém a data atual
         Date data = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -71,10 +73,10 @@ public class PagamentoView extends javax.swing.JFrame {
 //        }
 //    }
     // Ação ao selecionar um item no ComboBox
-    private void AccaoComboxClientes() {
+    private void AccaoComboxFactura() {
         if (cbxFacturas.getSelectedIndex() == 0) {
             txtNomeCliente.setText(null);
-            txtValor.setText(null);
+            txtValorFactura.setText(null);
             txtPrazoPagamento.setText(null);
             txtDataPagamento.setText(null);
             return;
@@ -87,8 +89,8 @@ public class PagamentoView extends javax.swing.JFrame {
 
             if (rs.next()) {
                 txtNomeCliente.setText(rs.getString(3));
-                txtValor.setText(rs.getString(4));
-                txtPrazoPagamento.setText(rs.getString(5));
+                txtValorFactura.setText(rs.getString(14));
+                txtPrazoPagamento.setText(rs.getString(8));
             }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao preencher dados: " + erro);
@@ -110,17 +112,17 @@ public class PagamentoView extends javax.swing.JFrame {
 //        }
 //    }
     // Método para restaurar dados no ComboBox
-    private void RestaurarDadosComboBoxTaxa() {
-        idFactura.clear();  // Limpa o vetor para evitar duplicação de IDs
-        cbxFacturas.removeAllItems();  // Limpa o ComboBox antes de preencher
+    private void RestaurarDadosComboBoxFactura() {
+//        idFactura.clear();  // Limpa o vetor para evitar duplicação de IDs
+//        cbxFacturas.removeAllItems();  // Limpa o ComboBox antes de preencher
 
         try {
-            FacturacaoController facturacoController = new FacturacaoController();
-            ResultSet rs = facturacoController.listarTaxas();
+            PagamentoController pagamentoController = new PagamentoController();
+            ResultSet rs = pagamentoController.listarFacturas();
 
             while (rs.next()) {
                 idFactura.addElement(rs.getInt(1));
-                cbxFacturas.addItem(rs.getString(4));  // Exibe o quarto campo no ComboBox
+                cbxFacturas.addItem(rs.getString(15));
             }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao listar dados no ComboBox: " + erro);
@@ -154,7 +156,7 @@ public class PagamentoView extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         txtNomeCliente = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        txtValor = new javax.swing.JTextField();
+        txtValorFactura = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         txtPrazoPagamento = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
@@ -163,9 +165,9 @@ public class PagamentoView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtMultas = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtTotal = new javax.swing.JTextField();
+        txtTotalAPagar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtValorApagar = new javax.swing.JTextField();
+        txtValorEntregue = new javax.swing.JTextField();
         btnCalcularTrocos = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtTrocos = new javax.swing.JTextField();
@@ -189,7 +191,7 @@ public class PagamentoView extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("FACTURAÇÃO");
+        setTitle("PAGAMENTOS");
         setMinimumSize(new java.awt.Dimension(1200, 680));
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
@@ -264,7 +266,12 @@ public class PagamentoView extends javax.swing.JFrame {
 
         jLabel16.setText("Factura:");
 
-        cbxFacturas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "1234" }));
+        cbxFacturas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxFacturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFacturasActionPerformed(evt);
+            }
+        });
 
         jLabel17.setText("Nome do Cliente:");
 
@@ -276,9 +283,9 @@ public class PagamentoView extends javax.swing.JFrame {
 
         jLabel20.setText("Valor:");
 
-        txtValor.addActionListener(new java.awt.event.ActionListener() {
+        txtValorFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorActionPerformed(evt);
+                txtValorFacturaActionPerformed(evt);
             }
         });
 
@@ -316,17 +323,17 @@ public class PagamentoView extends javax.swing.JFrame {
 
         jLabel3.setText("Total:");
 
-        txtTotal.addActionListener(new java.awt.event.ActionListener() {
+        txtTotalAPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalActionPerformed(evt);
+                txtTotalAPagarActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Insira o valor a pagar:");
 
-        txtValorApagar.addActionListener(new java.awt.event.ActionListener() {
+        txtValorEntregue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorApagarActionPerformed(evt);
+                txtValorEntregueActionPerformed(evt);
             }
         });
 
@@ -380,14 +387,14 @@ public class PagamentoView extends javax.swing.JFrame {
                         .addGap(72, 72, 72)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValorFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtIdPagamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPrazoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCalcularValorPAgar, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTotalAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,7 +418,7 @@ public class PagamentoView extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelEsqDadosLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtValorApagar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtValorEntregue, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btnCalcularTrocos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
@@ -433,7 +440,7 @@ public class PagamentoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel23)
@@ -451,11 +458,11 @@ public class PagamentoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotalAPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(txtValorApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorEntregue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCalcularTrocos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -570,8 +577,9 @@ public class PagamentoView extends javax.swing.JFrame {
 
         tabela.add(botoes, java.awt.BorderLayout.PAGE_START);
 
+        tabelaPagamentos.setAutoCreateRowSorter(true);
         tabelaPagamentos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tabelaPagamentos.setForeground(new java.awt.Color(255, 255, 255));
+        tabelaPagamentos.setForeground(new java.awt.Color(51, 51, 51));
         tabelaPagamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -668,9 +676,9 @@ public class PagamentoView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeClienteActionPerformed
 
-    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
+    private void txtValorFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorFacturaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorActionPerformed
+    }//GEN-LAST:event_txtValorFacturaActionPerformed
 
     private void txtPrazoPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrazoPagamentoActionPerformed
         // TODO add your handling code here:
@@ -688,13 +696,13 @@ public class PagamentoView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMultasActionPerformed
 
-    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
+    private void txtTotalAPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalAPagarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTotalActionPerformed
+    }//GEN-LAST:event_txtTotalAPagarActionPerformed
 
-    private void txtValorApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorApagarActionPerformed
+    private void txtValorEntregueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorEntregueActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorApagarActionPerformed
+    }//GEN-LAST:event_txtValorEntregueActionPerformed
 
     private void btnCalcularTrocosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularTrocosActionPerformed
         verificarTrocos();
@@ -711,6 +719,10 @@ public class PagamentoView extends javax.swing.JFrame {
     private void txtNrRecibosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNrRecibosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNrRecibosActionPerformed
+
+    private void cbxFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFacturasActionPerformed
+        AccaoComboxFactura();
+    }//GEN-LAST:event_cbxFacturasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -778,10 +790,10 @@ public class PagamentoView extends javax.swing.JFrame {
     private javax.swing.JTextField txtNrRecibos;
     private javax.swing.JTextField txtPrazoPagamento;
     private javax.swing.JTextField txtSaldoActual;
-    private javax.swing.JTextField txtTotal;
+    private javax.swing.JTextField txtTotalAPagar;
     private javax.swing.JTextField txtTrocos;
-    private javax.swing.JTextField txtValor;
-    private javax.swing.JTextField txtValorApagar;
+    private javax.swing.JTextField txtValorEntregue;
+    private javax.swing.JTextField txtValorFactura;
     // End of variables declaration//GEN-END:variables
 
     private void calcularMultaETotal() {
@@ -807,7 +819,7 @@ public class PagamentoView extends javax.swing.JFrame {
         System.out.println(diasInt);
 
         //Condicao para multa
-        double valorAntesMultaAReduzir = Double.parseDouble(txtValor.getText());
+        double valorAntesMultaAReduzir = Double.parseDouble(txtValorFactura.getText());
         BigDecimal bd = new BigDecimal(valorAntesMultaAReduzir).setScale(2, RoundingMode.HALF_UP);
         double valorAntesMulta = bd.doubleValue();
 
@@ -831,7 +843,7 @@ public class PagamentoView extends javax.swing.JFrame {
         }
         BigDecimal bd3 = new BigDecimal(valorDividaDepoisMultaAReduzir).setScale(2, RoundingMode.HALF_UP);
         double valorDividaDepoisMulta = bd3.doubleValue();
-        txtTotal.setText("" + valorDividaDepoisMulta);
+        txtTotalAPagar.setText("" + valorDividaDepoisMulta);
     }
 
     //Salvar Leitura
@@ -842,12 +854,12 @@ public class PagamentoView extends javax.swing.JFrame {
             String prazoPagamento = txtPrazoPagamento.getText();
             String nrFact = cbxFacturas.getSelectedItem().toString();
             int nrFactura = Integer.parseInt(nrFact);
-            double valorfactura = Double.parseDouble(txtValor.getText());
+            double valorfactura = Double.parseDouble(txtValorFactura.getText());
             double multa = Double.parseDouble(txtMultas.getText());
             double valorTotal = Double.parseDouble(txtSaldoActual.getText());
-            double valorPago = Double.parseDouble(txtValorApagar.getText());
+            double valorPago = Double.parseDouble(txtValorEntregue.getText());
             double trocos = Double.parseDouble(txtTrocos.getText());
-            double saldo = Double.parseDouble(txtTotal.getText());
+            double saldo = Double.parseDouble(txtTotalAPagar.getText());
 
             Random aleatorio = new Random();
             int nrReciboPadraoInicial = 20240001;
@@ -924,10 +936,10 @@ public class PagamentoView extends javax.swing.JFrame {
         txtNomeCliente.setText("");
         txtSaldoActual.setText("");
         txtMultas.setText("");
-        txtTotal.setText("");
-        txtValor.setText("");
+        txtTotalAPagar.setText("");
+        txtValorFactura.setText("");
         txtTrocos.setText("");
-        txtValorApagar.setText("");
+        txtValorEntregue.setText("");
         txtNrRecibos.setText("");
 
     }
@@ -941,14 +953,13 @@ public class PagamentoView extends javax.swing.JFrame {
         txtDataPagamento.setText(tabelaPagamentos.getModel().getValueAt(setar, 2).toString());
         txtPrazoPagamento.setText(tabelaPagamentos.getModel().getValueAt(setar, 3).toString());
         cbxFacturas.setSelectedItem(tabelaPagamentos.getModel().getValueAt(setar, 4).toString());
-        txtSaldoActual.setText(tabelaPagamentos.getModel().getValueAt(setar, 5).toString());
+        txtValorFactura.setText(tabelaPagamentos.getModel().getValueAt(setar, 5).toString());
         txtMultas.setText(tabelaPagamentos.getModel().getValueAt(setar, 6).toString());
-        txtTotal.setText(tabelaPagamentos.getModel().getValueAt(setar, 7).toString());
-        txtValor.setText(tabelaPagamentos.getModel().getValueAt(setar, 8).toString());
+        txtTotalAPagar.setText(tabelaPagamentos.getModel().getValueAt(setar, 7).toString());
+        txtValorEntregue.setText(tabelaPagamentos.getModel().getValueAt(setar, 8).toString());
         txtTrocos.setText(tabelaPagamentos.getModel().getValueAt(setar, 9).toString());
-        txtValorApagar.setText(tabelaPagamentos.getModel().getValueAt(setar, 10).toString());
+        txtSaldoActual.setText(tabelaPagamentos.getModel().getValueAt(setar, 10).toString());
         txtNrRecibos.setText(tabelaPagamentos.getModel().getValueAt(setar, 11).toString());
-//        txt.setText(tabelaPagamentos.getModel().getValueAt(setar, 12).toString());
     }
 
     //Metodo Actualizar Pagamento
@@ -960,12 +971,12 @@ public class PagamentoView extends javax.swing.JFrame {
             String prazoPagamento = txtPrazoPagamento.getText();
             String nrFact = cbxFacturas.getSelectedItem().toString();
             int nrFactura = Integer.parseInt(nrFact);
-            double valorfactura = Double.parseDouble(txtValor.getText());
+            double valorfactura = Double.parseDouble(txtValorFactura.getText());
             double multa = Double.parseDouble(txtMultas.getText());
             double valorTotal = Double.parseDouble(txtSaldoActual.getText());
-            double valorPago = Double.parseDouble(txtValorApagar.getText());
+            double valorPago = Double.parseDouble(txtValorEntregue.getText());
             double trocos = Double.parseDouble(txtTrocos.getText());
-            double saldo = Double.parseDouble(txtTotal.getText());
+            double saldo = Double.parseDouble(txtTotalAPagar.getText());
 
             int nrRecibo = Integer.parseInt(txtNrRecibos.getText());
             boolean disp = true;
@@ -1013,12 +1024,12 @@ public class PagamentoView extends javax.swing.JFrame {
             String prazoPagamento = txtPrazoPagamento.getText();
             String nrFact = cbxFacturas.getSelectedItem().toString();
             int nrFactura = Integer.parseInt(nrFact);
-            double valorfactura = Double.parseDouble(txtValor.getText());
+            double valorfactura = Double.parseDouble(txtValorFactura.getText());
             double multa = Double.parseDouble(txtMultas.getText());
             double valorTotal = Double.parseDouble(txtSaldoActual.getText());
-            double valorPago = Double.parseDouble(txtValorApagar.getText());
+            double valorPago = Double.parseDouble(txtValorEntregue.getText());
             double trocos = Double.parseDouble(txtTrocos.getText());
-            double saldo = Double.parseDouble(txtTotal.getText());
+            double saldo = Double.parseDouble(txtTotalAPagar.getText());
             int nrRecibo = Integer.parseInt(txtNrRecibos.getText());
             boolean disp = false;
 
@@ -1059,18 +1070,18 @@ public class PagamentoView extends javax.swing.JFrame {
     //Metodo verificar trocos
     private void verificarTrocos() {
         //verificao de um valor positivo e apenas numeros
-        String valorPag = txtValorApagar.getText();
+        String valorPag = txtValorEntregue.getText();
         if (valorPag.isEmpty() || !valorPag.matches("\\d+")) {
             JOptionPane.showMessageDialog(null, "Valor inválido.");
             return;
         }
 
         double trocosAReduzir = 0;
-        double valorPagoAReduzir = Double.parseDouble(txtValorApagar.getText());
+        double valorPagoAReduzir = Double.parseDouble(txtValorEntregue.getText());
         BigDecimal bd = new BigDecimal(valorPagoAReduzir).setScale(2, RoundingMode.HALF_UP);
         double valorPago = bd.doubleValue();
 
-        double valorAPagar = Double.parseDouble(txtTotal.getText());
+        double valorAPagar = Double.parseDouble(txtTotalAPagar.getText());
 
         if (valorPago <= 0) {
             JOptionPane.showMessageDialog(null, "Valor pago deve ser maior que 0.", "Erro na Inserção de Valor", JOptionPane.ERROR_MESSAGE);

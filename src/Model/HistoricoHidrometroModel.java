@@ -19,7 +19,7 @@ public class HistoricoHidrometroModel {
     public void setIdHistoricoHidrometro(int idHistoricoHidrometro) {
         this.idHistoricoHidrometro = idHistoricoHidrometro;
     }
-    
+
     public ClienteModel getCliente() {
         return cliente;
     }
@@ -51,6 +51,8 @@ public class HistoricoHidrometroModel {
     public void setDataFinal(String dataFinal) {
         this.dataFinal = dataFinal;
     }
+
+    
 
     public boolean getApagado() {
         return apagado;

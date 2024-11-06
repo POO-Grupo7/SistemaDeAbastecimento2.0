@@ -1,10 +1,12 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Controller;
 
+import Model.ClienteModel;
+import Model.HidrometroModel;
+import Model.HistoricoHidrometroModel;
 import Model.LeituraModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -91,9 +93,10 @@ public class LeituraController {
     //METODO PARA CADASTRAR
     public void cadastrarLeitura(LeituraModel leituraModel) {
 
-        String sql = "insert into leituras (nrHidrometro, nomeCliente, bairro, quarteirao, numeroCasa, mesRef, dataLeitura, hidrometro, leitAnterior, leitActual, consumo, ocorrencia, nrLeitura, saldo, disp ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+        String sql = "insert into leituras (nrHidrometro, nomeCliente, bairro, quarteirao, numeroCasa, saldoCliente, mesRef, dataLeitura, leitAnterior, leitActual, consumo, ocorrencia, nrLeitura, status ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
         conexao = new ConexaoController().conectaBaseDados();
 
+//        HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
         try {
             pstm = conexao.prepareStatement(sql);
 
@@ -102,14 +105,15 @@ public class LeituraController {
             pstm.setString(3, leituraModel.getHistoricoHidrometro().getCliente().getBairro());
             pstm.setInt(4, leituraModel.getHistoricoHidrometro().getCliente().getQuarteirao());
             pstm.setInt(5, leituraModel.getHistoricoHidrometro().getCliente().getNrDaCasa());
-            pstm.setString(6, leituraModel.getMesReferencia());
-            pstm.setString(7, leituraModel.getDataEmissao());
-            pstm.setDouble(8, leituraModel.getLeituraAnterior());
-            pstm.setDouble(9, leituraModel.getLeituraActual());
-            pstm.setDouble(10, leituraModel.getConsumoMes());
-            pstm.setString(11, leituraModel.getOcorrencia());
-            pstm.setString(12, leituraModel.getNrLeitura());
-//            pstm.setString(14, leituraModel.getDisp());
+            pstm.setDouble(6, leituraModel.getHistoricoHidrometro().getCliente().getSaldo());
+            pstm.setString(7, leituraModel.getMesReferencia());
+            pstm.setString(8, leituraModel.getDataEmissao());
+            pstm.setDouble(9, leituraModel.getLeituraAnterior());
+            pstm.setDouble(10, leituraModel.getLeituraActual());
+            pstm.setDouble(11, leituraModel.getConsumoMes());
+            pstm.setString(12, leituraModel.getOcorrencia());
+            pstm.setString(13, leituraModel.getNrLeitura());
+            pstm.setBoolean(14, leituraModel.getStatusLeitura());
 
             pstm.execute();
             pstm.close();
@@ -118,41 +122,53 @@ public class LeituraController {
             JOptionPane.showMessageDialog(null, "LeituraController Cadastrar" + erro);
         }
     }
+
     //METODO PARA LISTAR
-//    public ArrayList<LeituraModel> listarLeituras() {
-//        ArrayList<LeituraModel> list = new ArrayList<>();
-//        String sql = "select * from leituras where disp = 'Sim'";
-//        conexao = new ConexaoController().conectaBaseDados();
-//
-//        try {
-//            pstm = conexao.prepareStatement(sql);
-//            rs = pstm.executeQuery();
-//
-//            while (rs.next()) {
-//                LeituraModel leituraModel = new LeituraModel();
-//                leituraModel.setId(rs.getInt("idLeitura"));
-//                leituraModel.SetNome(rs.getString("nomeCliente"));
-//                leituraModel.SetMoradia(rs.getString("bairro"));
-//                leituraModel.setQuarteirao(rs.getInt("quarteirao"));
-//                leituraModel.setNrDaCasa(rs.getInt("numeroCasa"));
-//                leituraModel.setMesReferencia(rs.getString("mesRef"));
-//                leituraModel.setDataEmissao(rs.getString("dataLeitura"));
-//                leituraModel.setHidrometro(rs.getString("hidrometro"));
-//                leituraModel.setLeituraAnterior(rs.getDouble("leitAnterior"));
-//                leituraModel.setLeituraActual(rs.getDouble("leitActual"));
-//                leituraModel.setConsumoMes(rs.getDouble("consumo"));
-//                leituraModel.setOcorrencia(rs.getString("ocorrencia"));
-//                leituraModel.setNrLeitura(rs.getString("nrLeitura"));
-//                leituraModel.setSaldo(rs.getDouble("saldo"));
-//                leituraModel.setDisp(rs.getString("disp"));
-//
-//                list.add(leituraModel);
-//            }
-//        } catch (SQLException erro) {
-//            JOptionPane.showMessageDialog(null, "LeituraController Listar" + erro);
-//        }
-//        return list;
-//    }
+    public ArrayList<LeituraModel> listarLeituras() {
+        ArrayList<LeituraModel> list = new ArrayList<>();
+        String sql = "select * from leituras where status = '1'";
+        conexao = new ConexaoController().conectaBaseDados();
+
+        try {
+            pstm = conexao.prepareStatement(sql);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                LeituraModel leituraModel = new LeituraModel();
+                leituraModel.setIdLeitura(rs.getInt("idLeitura"));
+
+                HidrometroModel hidrometroModel = new HidrometroModel();
+                hidrometroModel.setNrHidrometro(rs.getString("nrHidrometro"));
+
+                ClienteModel cliente = new ClienteModel();
+                cliente.setNome(rs.getString("nomeCliente"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setQuarteirao(rs.getInt("quarteirao"));
+                cliente.setNrDaCasa(rs.getInt("numeroCasa"));
+                cliente.setSaldo(rs.getDouble("saldoCliente"));
+
+                HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
+                historicoHidrometroModel.setCliente(cliente);
+                historicoHidrometroModel.setHidrometro(hidrometroModel);
+
+                leituraModel.setHistoricoHidrometro(historicoHidrometroModel);
+
+                leituraModel.setMesReferencia(rs.getString("mesRef"));
+                leituraModel.setDataEmissao(rs.getString("dataLeitura"));
+                leituraModel.setLeituraAnterior(rs.getDouble("leitAnterior"));
+                leituraModel.setLeituraActual(rs.getDouble("leitActual"));
+                leituraModel.setConsumoMes(rs.getDouble("consumo"));
+                leituraModel.setOcorrencia(rs.getString("ocorrencia"));
+                leituraModel.setNrLeitura(rs.getString("nrLeitura"));
+                leituraModel.setStatusLeitura(rs.getBoolean("status"));
+
+                list.add(leituraModel);
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "LeituraController Listar" + erro);
+        }
+        return list;
+    }
 //
 //    //METODO PARA LISTAR Leituras Apagadas
 //    public ArrayList<LeituraModel> listarLeiturasApagadas() {
@@ -190,38 +206,72 @@ public class LeituraController {
 //        return list;
 //    }
 //
-//    //Metodo para actualizar leituras
-//    public void actualizarLeitura(LeituraModel leituraModel) {
-//
-//        String sql = "update leituras set nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, mesRef = ? ,dataLeitura = ?, hidrometro = ?, leitAnterior =?, leitActual = ?, consumo = ?, ocorrencia = ?, nrLeitura = ?, saldo = ?, disp = ? where idLeitura =?";
-//        conexao = new ConexaoController().conectaBaseDados();
-//
-//        try {
-//            pstm = conexao.prepareStatement(sql);
-//            pstm.setString(1, leituraModel.getNome());
-//            pstm.setString(2, leituraModel.getMoradia());
-//            pstm.setInt(3, leituraModel.getQuarteirao());
-//            pstm.setInt(4, leituraModel.getNrDaCasa());
-//            pstm.setString(5, leituraModel.getMesReferencia());
-//            pstm.setString(6, leituraModel.getDataEmissao());
-//            pstm.setString(7, leituraModel.getHidrometro());
-//            pstm.setDouble(8, leituraModel.getLeituraAnterior());
-//            pstm.setDouble(9, leituraModel.getLeituraActual());
-//            pstm.setDouble(10, leituraModel.getConsumoMes());
-//            pstm.setString(11, leituraModel.getOcorrencia());
-//            pstm.setString(12, leituraModel.getNrLeitura());
-//
-//            pstm.setDouble(13, leituraModel.getSaldo());
-//            pstm.setString(14, leituraModel.getDisp());
-//            pstm.setInt(15, leituraModel.getId());
-//
-//            pstm.execute();
-//            pstm.close();
-//
-//        } catch (SQLException erro) {
-//            JOptionPane.showMessageDialog(null, "LeituraController Actuaizar Leitura" + erro);
-//        }
-//    }
+    //Metodo para actualizar leituras
+
+    public void actualizarLeitura(LeituraModel leituraModel) {
+
+        String sql = "update leituras set nrHidrometro = ?, nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, saldoCliente = ?, mesRef = ? ,dataLeitura = ?, leitAnterior =?, leitActual = ?, consumo = ?, ocorrencia = ?, nrLeitura = ?, status = ? where idLeitura =?";
+        conexao = new ConexaoController().conectaBaseDados();
+
+        try {
+            pstm = conexao.prepareStatement(sql);
+            pstm.setString(1, leituraModel.getHistoricoHidrometro().getHidrometro().getNrHidrometro());
+            pstm.setString(2, leituraModel.getHistoricoHidrometro().getCliente().getNome());
+            pstm.setString(3, leituraModel.getHistoricoHidrometro().getCliente().getBairro());
+            pstm.setInt(4, leituraModel.getHistoricoHidrometro().getCliente().getQuarteirao());
+            pstm.setInt(5, leituraModel.getHistoricoHidrometro().getCliente().getNrDaCasa());
+            pstm.setDouble(6, leituraModel.getHistoricoHidrometro().getCliente().getSaldo());
+            pstm.setString(7, leituraModel.getMesReferencia());
+            pstm.setString(8, leituraModel.getDataEmissao());
+            pstm.setDouble(9, leituraModel.getLeituraAnterior());
+            pstm.setDouble(10, leituraModel.getLeituraActual());
+            pstm.setDouble(11, leituraModel.getConsumoMes());
+            pstm.setString(12, leituraModel.getOcorrencia());
+            pstm.setString(13, leituraModel.getNrLeitura());
+            pstm.setBoolean(14, leituraModel.getStatusLeitura());
+            pstm.setInt(14, leituraModel.getIdLeitura());
+
+            pstm.execute();
+            pstm.close();
+            JOptionPane.showMessageDialog(null, "leitura actualizado com sucesso");
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "LeituraController Actuaizar Leitura" + erro);
+        }
+    }
+    //Metodo para actualizar leituras
+
+    public void apagarLeitura(LeituraModel leituraModel) {
+
+        String sql = "update leituras set nrHidrometro = ?, nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, saldoCliente = ?, mesRef = ? ,dataLeitura = ?, leitAnterior =?, leitActual = ?, consumo = ?, ocorrencia = ?, nrLeitura = ?, status = ? where idLeitura =?";
+        conexao = new ConexaoController().conectaBaseDados();
+
+        try {
+            pstm = conexao.prepareStatement(sql);
+            pstm.setString(1, leituraModel.getHistoricoHidrometro().getHidrometro().getNrHidrometro());
+            pstm.setString(2, leituraModel.getHistoricoHidrometro().getCliente().getNome());
+            pstm.setString(3, leituraModel.getHistoricoHidrometro().getCliente().getBairro());
+            pstm.setInt(4, leituraModel.getHistoricoHidrometro().getCliente().getQuarteirao());
+            pstm.setInt(5, leituraModel.getHistoricoHidrometro().getCliente().getNrDaCasa());
+            pstm.setDouble(6, leituraModel.getHistoricoHidrometro().getCliente().getSaldo());
+            pstm.setString(7, leituraModel.getMesReferencia());
+            pstm.setString(8, leituraModel.getDataEmissao());
+            pstm.setDouble(9, leituraModel.getLeituraAnterior());
+            pstm.setDouble(10, leituraModel.getLeituraActual());
+            pstm.setDouble(11, leituraModel.getConsumoMes());
+            pstm.setString(12, leituraModel.getOcorrencia());
+            pstm.setString(13, leituraModel.getNrLeitura());
+            pstm.setBoolean(14, leituraModel.getStatusLeitura());
+            pstm.setInt(15, leituraModel.getIdLeitura());
+
+            pstm.execute();
+            pstm.close();
+            JOptionPane.showMessageDialog(null, "leitura apagada com sucesso");
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "LeituraController apagar Leitura" + erro);
+        }
+    }
 //    //Metodo para actualizar Saldo
 //
 //    public void ActualizarSaldo(LeituraModel leituraModel) {
@@ -244,28 +294,29 @@ public class LeituraController {
 //
 }
 
-    /*
+/*
+
+alterar nome da coluna e tipo de variavel
+ALTER TABLE leituras CHANGE COLUMN activo disp VARCHAR(45);
+     
     create table leituras (idLeitura int AUTO_INCREMENT PRIMARY KEY,
+                           nrHidrometro varchar(45),
                        nomeCliente varchar(45), 
                        bairro varchar(45), 
                        quarteirao int, 
                        numeroCasa int, 
                        mesRef varchar(45),
                        dataLeitura  varchar(45), 
-                       hidrometro varchar(45), 
                        leitAnterior double, 
                        leitActual double, 
                        consumo double, 
                        ocorrencia  varchar(45),
                        nrLeitura varchar(45),
-                       saldo double,
-                       activo varchar(45));
+                       status tinyint);
 
 
-alterar nome da coluna e tipo de variavel
-ALTER TABLE leituras CHANGE COLUMN activo disp VARCHAR(45);
-     */
+ALTER TABLE leituras
+ADD COLUMN saldoCliente double NOT NULL DEFAULT 0 AFTER numeroCasa;
 
 
-
-    
+ */

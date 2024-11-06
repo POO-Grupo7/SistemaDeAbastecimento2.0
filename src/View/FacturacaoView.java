@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import Controller.ClienteController;
@@ -30,6 +26,7 @@ public class FacturacaoView extends javax.swing.JFrame {
     public FacturacaoView() {
         initComponents();
         listarFacturacao();
+        RestaurarDadosComboBoxLeituras();
         RestaurarDadosComboBoxTaxa();
         // Obtém a data atual
         Date data = new Date();
@@ -62,31 +59,44 @@ public class FacturacaoView extends javax.swing.JFrame {
     //Accao para prencher campos
     Vector<Integer> idLeitura = new Vector<Integer>();
 
-    private void AccaoComboxClientes() {
+    private void AccaoComboBoxLeituras() {
         if (cbxNrLeitura.getSelectedIndex() == 0) {
             txtNomeCliente.setText(null);
             txtMesReferente.setText(null);
             txtConsumoDoMes.setText(null);
-            txtSaldoAnterior.setText(null);
+            txtSaldoAntesProcesso.setText(null);
             return;
         }
         try {
             FacturacaoController facturacaoController = new FacturacaoController();
-            ResultSet rs = facturacaoController.PrencherDados(idLeitura.get(cbxNrLeitura.getSelectedIndex() - 1));
+            ResultSet rs = facturacaoController.prencherDadosLeitura(idLeitura.get(cbxNrLeitura.getSelectedIndex() - 1));
 
             while (rs.next()) {
-                txtNomeCliente.setText(rs.getString(2));
-                txtMesReferente.setText(rs.getString(6));
+                txtNomeCliente.setText(rs.getString(3));
+                txtMesReferente.setText(rs.getString(8));
                 txtConsumoDoMes.setText(rs.getString(11));
-                txtSaldoAnterior.setText(rs.getString(14));
+                txtSaldoAntesProcesso.setText(rs.getString(7));
             }
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "FacturacaoView prencher dados" + erro);
+            JOptionPane.showMessageDialog(null, "FacturacaoView prencher dados leitura" + erro);
         }
     }
+
+    private void RestaurarDadosComboBoxLeituras() {
+        try {
+            FacturacaoController facturacoController = new FacturacaoController();
+            ResultSet rs = facturacoController.listarLeituras();
+
+            while (rs.next()) {
+                idLeitura.addElement(rs.getInt(1));
+                cbxNrLeitura.addItem(rs.getString(14));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FacturacaoView listar nr da leitura na comboBox" + erro);
+        }
+    }
+
     //Metodo que pega clientes activos na BD para jcboxClientes
-
-
     private void RestaurarDadosComboBoxTaxa() {
         try {
             FacturacaoController facturacoController = new FacturacaoController();
@@ -102,13 +112,14 @@ public class FacturacaoView extends javax.swing.JFrame {
     }
 
     //Metodo processar Factura
-    final Double consumoMinimo = 4.0;
+    final Double consumoMinimo = 5.0;
     double taxaIva = (0.75 * 0.16);
 
     private void processarFactura() {
         double calcSubtotal = 0, ivaAReduzir, iva, desconto = 0, totalFactura, saldoActual;
-        double saldoAnterior = Double.parseDouble(txtSaldoAnterior.getText());
+        double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
         double consumo = Double.parseDouble(txtConsumoDoMes.getText());
+        double taxaAplicar = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
         //taxa fixa de 100,00 para consumo inferior ao minimo estipulado
         if (consumo <= consumoMinimo) {
             calcSubtotal = 100.0;
@@ -164,7 +175,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         double iva = Double.parseDouble(txtIva.getText());
         double desconto = Double.parseDouble(txtDescontos.getText());
         double totalFactura = Double.parseDouble(txtTotalFactura.getText());
-        double saldoAnterior = Double.parseDouble(txtSaldoAnterior.getText());
+        double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
         double saldoActual = Double.parseDouble(txtSaldoActual.getText());
         double taxaa = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
 
@@ -203,7 +214,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         clienteModel.setNome(nome);
 
         ClienteController clienteController = new ClienteController();
-        clienteController.ActualizarCliente(clienteModel);
+        clienteController.ActualizarSaldo(clienteModel);
     }
 
     //Metodo Listar
@@ -253,7 +264,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         txtPrazoDePagamento.setText("");
         txtDescontos.setText("");
         txtTotalFactura.setText("");
-        txtSaldoAnterior.setText("");
+        txtSaldoAntesProcesso.setText("");
         txtSubTotal.setText("");
         txtIva.setText("");
         txtNrFactura.setText("");
@@ -270,8 +281,15 @@ public class FacturacaoView extends javax.swing.JFrame {
         cbxNrLeitura.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 2).toString());
         txtMesReferente.setText(tabelaFacturacao.getModel().getValueAt(setar, 3).toString());
         txtNomeCliente.setText(tabelaFacturacao.getModel().getValueAt(setar, 4).toString());
-        txtSaldoAnterior.setText(tabelaFacturacao.getModel().getValueAt(setar, 5).toString());
+        txtSaldoAntesProcesso.setText(tabelaFacturacao.getModel().getValueAt(setar, 5).toString());
         txtConsumoDoMes.setText(tabelaFacturacao.getModel().getValueAt(setar, 6).toString());
+//        Object taxaValue = tabelaFacturacao.getModel().getValueAt(setar, 7);
+//        if (taxaValue != null) {
+//            cbxTaxas.setSelectedItem(taxaValue.toString());
+//        } else {
+//            cbxTaxas.setSelectedItem(null); // ou algum valor padrão
+//        }
+
         cbxTaxas.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 7).toString());
         txtSubTotal.setText(tabelaFacturacao.getModel().getValueAt(setar, 8).toString());
         txtIva.setText(tabelaFacturacao.getModel().getValueAt(setar, 9).toString());
@@ -296,7 +314,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         double iva = Double.parseDouble(txtIva.getText());
         double desconto = Double.parseDouble(txtDescontos.getText());
         double totalFactura = Double.parseDouble(txtTotalFactura.getText());
-        double saldoAnterior = Double.parseDouble(txtSaldoAnterior.getText());
+        double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
         double saldoActual = Double.parseDouble(txtSaldoActual.getText());
         int nrFactura = Integer.parseInt(txtNrFactura.getText());
         double taxaa = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
@@ -329,7 +347,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         clienteModel.setNome(nome);
 
         ClienteController clienteController = new ClienteController();
-        clienteController.ActualizarCliente(clienteModel);
+        clienteController.ActualizarSaldo(clienteModel);
 
     }
 
@@ -345,7 +363,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         double iva = Double.parseDouble(txtIva.getText());
         double desconto = Double.parseDouble(txtDescontos.getText());
         double totalFactura = Double.parseDouble(txtTotalFactura.getText());
-        double saldoAnterior = Double.parseDouble(txtSaldoAnterior.getText());
+        double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
         double saldoActual = Double.parseDouble(txtSaldoActual.getText());
         double taxaa = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
         int nrFactura = Integer.parseInt(txtNrFactura.getText());
@@ -378,7 +396,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         clienteModel.setNome(nome);
 
         ClienteController clienteController = new ClienteController();
-        clienteController.ActualizarCliente(clienteModel);
+        clienteController.ActualizarSaldo(clienteModel);
         JOptionPane.showMessageDialog(null, "A Factura apagada com sucesso");
     }
 
@@ -411,7 +429,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         txtNomeCliente = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
-        txtSaldoAnterior = new javax.swing.JTextField();
+        txtSaldoAntesProcesso = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         txtConsumoDoMes = new javax.swing.JTextField();
         btnProcessar = new javax.swing.JButton();
@@ -512,12 +530,12 @@ public class FacturacaoView extends javax.swing.JFrame {
         painelContCentral.setLayout(new java.awt.BorderLayout());
 
         painelSuperiorDados.setBackground(new java.awt.Color(255, 255, 255));
-        painelSuperiorDados.setPreferredSize(new java.awt.Dimension(994, 480));
+        painelSuperiorDados.setPreferredSize(new java.awt.Dimension(994, 520));
         painelSuperiorDados.setLayout(new java.awt.GridLayout(1, 2));
 
         painelEsqDados.setBackground(new java.awt.Color(255, 255, 255));
         painelEsqDados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 43, 64)));
-        painelEsqDados.setPreferredSize(new java.awt.Dimension(497, 415));
+        painelEsqDados.setPreferredSize(new java.awt.Dimension(497, 420));
 
         jLabel15.setText("Id:");
 
@@ -526,6 +544,11 @@ public class FacturacaoView extends javax.swing.JFrame {
         jLabel17.setText("Numero da Leitura:");
 
         cbxNrLeitura.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxNrLeitura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxNrLeituraActionPerformed(evt);
+            }
+        });
 
         jLabel20.setText("Mes Referente:");
 
@@ -545,9 +568,9 @@ public class FacturacaoView extends javax.swing.JFrame {
 
         jLabel25.setText("Saldo Anterior:");
 
-        txtSaldoAnterior.addActionListener(new java.awt.event.ActionListener() {
+        txtSaldoAntesProcesso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSaldoAnteriorActionPerformed(evt);
+                txtSaldoAntesProcessoActionPerformed(evt);
             }
         });
 
@@ -646,44 +669,46 @@ public class FacturacaoView extends javax.swing.JFrame {
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(171, 171, 171)
-                        .addComponent(txtIdFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel2)
-                            .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                                .addGap(177, 177, 177)
-                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                                    .addComponent(txtIva, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                                    .addComponent(txtDescontos, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                                    .addComponent(txtTotalFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                                    .addComponent(txtSaldoActual, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                                    .addComponent(txtPrazoDePagamento, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                                    .addComponent(txtNrFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))))
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel2)
                         .addGroup(painelEsqDadosLayout.createSequentialGroup()
-                            .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel17)
-                                .addComponent(jLabel20)
-                                .addComponent(jLabel23)
-                                .addComponent(jLabel25)
-                                .addComponent(jLabel24)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel9))
-                            .addGap(75, 75, 75)
+                            .addGap(177, 177, 177)
+                            .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                .addComponent(txtIva, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                .addComponent(txtDescontos, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                .addComponent(txtTotalFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                .addComponent(txtSaldoActual, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                .addComponent(txtPrazoDePagamento, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                .addComponent(txtNrFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))))
+                    .addGroup(painelEsqDadosLayout.createSequentialGroup()
+                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelEsqDadosLayout.createSequentialGroup()
+                                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jLabel23)
+                                    .addComponent(jLabel25)
+                                    .addComponent(jLabel24)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addGap(75, 75, 75))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelEsqDadosLayout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(164, 164, 164)))
+                        .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtIdFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtDataFactura)
                                 .addComponent(txtConsumoDoMes)
-                                .addComponent(txtSaldoAnterior)
+                                .addComponent(txtSaldoAntesProcesso)
                                 .addComponent(txtMesReferente)
                                 .addComponent(cbxNrLeitura, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtNomeCliente)
@@ -695,10 +720,10 @@ public class FacturacaoView extends javax.swing.JFrame {
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelEsqDadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtIdFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(txtIdFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtDataFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -717,7 +742,7 @@ public class FacturacaoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel25)
-                    .addComponent(txtSaldoAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSaldoAntesProcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel24)
@@ -756,7 +781,7 @@ public class FacturacaoView extends javax.swing.JFrame {
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNrFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         painelSuperiorDados.add(painelEsqDados);
@@ -772,7 +797,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         );
         painelDirDadosLayout.setVerticalGroup(
             painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 478, Short.MAX_VALUE)
+            .addGap(0, 518, Short.MAX_VALUE)
         );
 
         painelSuperiorDados.add(painelDirDados);
@@ -783,9 +808,11 @@ public class FacturacaoView extends javax.swing.JFrame {
         painelInferiorBotoesTabela.setLayout(new java.awt.BorderLayout());
 
         tabela.setBackground(new java.awt.Color(255, 255, 255));
+        tabela.setPreferredSize(new java.awt.Dimension(606, 450));
         tabela.setLayout(new java.awt.BorderLayout());
 
         jScrollPane2.setBackground(new java.awt.Color(0, 102, 102));
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(452, 380));
 
         tabelaFacturacao.setAutoCreateRowSorter(true);
         tabelaFacturacao.setForeground(new java.awt.Color(51, 51, 51));
@@ -811,7 +838,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         tabela.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         botoes.setBackground(new java.awt.Color(255, 255, 255));
-        botoes.setPreferredSize(new java.awt.Dimension(606, 60));
+        botoes.setPreferredSize(new java.awt.Dimension(606, 50));
         botoes.setLayout(new java.awt.GridBagLayout());
 
         jButton6.setBackground(new java.awt.Color(52, 102, 138));
@@ -982,9 +1009,9 @@ public class FacturacaoView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtConsumoDoMesActionPerformed
 
-    private void txtSaldoAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoAnteriorActionPerformed
+    private void txtSaldoAntesProcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoAntesProcessoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSaldoAnteriorActionPerformed
+    }//GEN-LAST:event_txtSaldoAntesProcessoActionPerformed
 
     private void txtNomeClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeClienteActionPerformed
         // TODO add your handling code here:
@@ -1005,6 +1032,10 @@ public class FacturacaoView extends javax.swing.JFrame {
     private void cbxTaxasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTaxasActionPerformed
         AccaoComboxTaxa();
     }//GEN-LAST:event_cbxTaxasActionPerformed
+
+    private void cbxNrLeituraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNrLeituraActionPerformed
+        AccaoComboBoxLeituras();
+    }//GEN-LAST:event_cbxNrLeituraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1078,7 +1109,7 @@ public class FacturacaoView extends javax.swing.JFrame {
     private javax.swing.JTextField txtNrFactura;
     private javax.swing.JTextField txtPrazoDePagamento;
     private javax.swing.JTextField txtSaldoActual;
-    private javax.swing.JTextField txtSaldoAnterior;
+    private javax.swing.JTextField txtSaldoAntesProcesso;
     private javax.swing.JTextField txtSubTotal;
     private javax.swing.JTextField txtTotalFactura;
     // End of variables declaration//GEN-END:variables
