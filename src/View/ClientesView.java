@@ -550,6 +550,11 @@ public class ClientesView extends javax.swing.JFrame {
         lbEmailParticular.setText("Email Particular:");
 
         cbxBairro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "CMC", "Albasine" }));
+        cbxBairro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxBairroActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Quarteirao:");
 
@@ -869,7 +874,7 @@ public class ClientesView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        if (camposObrigatoriosPreenchidos()) {;
+        if (camposObrigatoriosPreenchidos()) {
             cadastrarCliente();
             listarClientes();
 //        limparCampos();
@@ -924,6 +929,10 @@ public class ClientesView extends javax.swing.JFrame {
         new MenuPrincipal().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
+
+    private void cbxBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBairroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxBairroActionPerformed
 
     /**
      * @param args the command line arguments

@@ -92,34 +92,38 @@ public class LeituraController {
 
     //METODO PARA CADASTRAR
     public void cadastrarLeitura(LeituraModel leituraModel) {
+        if (LeituraExiste(leituraModel.getMesReferencia(), leituraModel.getHistoricoHidrometro().getCliente().getNome())) {
+            JOptionPane.showMessageDialog(null, "A Leitura ja foi Cadastrada!");
+        } else {
 
-        String sql = "insert into leituras (nrHidrometro, nomeCliente, bairro, quarteirao, numeroCasa, saldoCliente, mesRef, dataLeitura, leitAnterior, leitActual, consumo, ocorrencia, nrLeitura, status ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
-        conexao = new ConexaoController().conectaBaseDados();
+            String sql = "insert into leituras (nrHidrometro, nomeCliente, bairro, quarteirao, numeroCasa, saldoCliente, mesRef, dataLeitura, leitAnterior, leitActual, consumo, ocorrencia, nrLeitura, status ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+            conexao = new ConexaoController().conectaBaseDados();
 
 //        HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
-        try {
-            pstm = conexao.prepareStatement(sql);
+            try {
+                pstm = conexao.prepareStatement(sql);
 
-            pstm.setString(1, leituraModel.getHistoricoHidrometro().getHidrometro().getNrHidrometro());
-            pstm.setString(2, leituraModel.getHistoricoHidrometro().getCliente().getNome());
-            pstm.setString(3, leituraModel.getHistoricoHidrometro().getCliente().getBairro());
-            pstm.setInt(4, leituraModel.getHistoricoHidrometro().getCliente().getQuarteirao());
-            pstm.setInt(5, leituraModel.getHistoricoHidrometro().getCliente().getNrDaCasa());
-            pstm.setDouble(6, leituraModel.getHistoricoHidrometro().getCliente().getSaldo());
-            pstm.setString(7, leituraModel.getMesReferencia());
-            pstm.setString(8, leituraModel.getDataEmissao());
-            pstm.setDouble(9, leituraModel.getLeituraAnterior());
-            pstm.setDouble(10, leituraModel.getLeituraActual());
-            pstm.setDouble(11, leituraModel.getConsumoMes());
-            pstm.setString(12, leituraModel.getOcorrencia());
-            pstm.setString(13, leituraModel.getNrLeitura());
-            pstm.setBoolean(14, leituraModel.getStatusLeitura());
+                pstm.setString(1, leituraModel.getHistoricoHidrometro().getHidrometro().getNrHidrometro());
+                pstm.setString(2, leituraModel.getHistoricoHidrometro().getCliente().getNome());
+                pstm.setString(3, leituraModel.getHistoricoHidrometro().getCliente().getBairro());
+                pstm.setInt(4, leituraModel.getHistoricoHidrometro().getCliente().getQuarteirao());
+                pstm.setInt(5, leituraModel.getHistoricoHidrometro().getCliente().getNrDaCasa());
+                pstm.setDouble(6, leituraModel.getHistoricoHidrometro().getCliente().getSaldo());
+                pstm.setString(7, leituraModel.getMesReferencia());
+                pstm.setString(8, leituraModel.getDataEmissao());
+                pstm.setDouble(9, leituraModel.getLeituraAnterior());
+                pstm.setDouble(10, leituraModel.getLeituraActual());
+                pstm.setDouble(11, leituraModel.getConsumoMes());
+                pstm.setString(12, leituraModel.getOcorrencia());
+                pstm.setString(13, leituraModel.getNrLeitura());
+                pstm.setBoolean(14, leituraModel.getStatusLeitura());
 
-            pstm.execute();
-            pstm.close();
-            JOptionPane.showMessageDialog(null, "Leitura Salva com sucesso.");
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "LeituraController Cadastrar" + erro);
+                pstm.execute();
+                pstm.close();
+                JOptionPane.showMessageDialog(null, "Leitura Salva com sucesso.");
+            } catch (SQLException erro) {
+                JOptionPane.showMessageDialog(null, "LeituraController Cadastrar" + erro);
+            }
         }
     }
 

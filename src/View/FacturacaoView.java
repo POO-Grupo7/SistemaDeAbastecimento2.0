@@ -350,6 +350,14 @@ public class FacturacaoView extends javax.swing.JFrame {
         clienteController.ActualizarSaldo(clienteModel);
 
     }
+    //Metodo Prencher Campos obrigatorios
+
+    private boolean camposObrigatoriosPreenchidos() {
+
+        boolean nrDaLeitura = cbxNrLeitura.getSelectedIndex() > 0;
+
+        return nrDaLeitura;
+    }
 
     //Metodo Apagar Facturacao
     private void ApagarFacturacao() {
@@ -952,9 +960,15 @@ public class FacturacaoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        salvarFacturacao();
-        listarFacturacao();
-        limparCampos();
+
+        if (camposObrigatoriosPreenchidos()) {
+            salvarFacturacao();
+            listarFacturacao();
+            limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos campos Obrigatorios!");
+        }
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed

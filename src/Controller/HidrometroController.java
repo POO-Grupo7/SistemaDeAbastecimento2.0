@@ -51,24 +51,28 @@ public class HidrometroController {
 
     // Metodo de cadastro
     public void cadastrarHidrometro(HidrometroModel hidrometroModel) {
-        String sql = "INSERT INTO hidrometro (dataRegisto , numeroHidrometro , estado , apagado) VALUES (?,?,?,?)";
+        if (hidrometroExiste(hidrometroModel.getDataRegisto(), hidrometroModel.getNrHidrometro())) {
+            JOptionPane.showMessageDialog(null, "O Hidrometro ja existe!");
+        } else {
+            String sql = "INSERT INTO hidrometro (dataRegisto , numeroHidrometro , estado , apagado) VALUES (?,?,?,?)";
 
-        conexao = new ConexaoController().conectaBaseDados();
+            conexao = new ConexaoController().conectaBaseDados();
 
-        try {
-            pstm = conexao.prepareStatement(sql);
+            try {
+                pstm = conexao.prepareStatement(sql);
 
-            pstm.setString(1, hidrometroModel.getDataRegisto());
-            pstm.setString(2, hidrometroModel.getNrHidrometro());
-            pstm.setString(3, hidrometroModel.getEstado());
-            pstm.setBoolean(4, hidrometroModel.getApagado());
+                pstm.setString(1, hidrometroModel.getDataRegisto());
+                pstm.setString(2, hidrometroModel.getNrHidrometro());
+                pstm.setString(3, hidrometroModel.getEstado());
+                pstm.setBoolean(4, hidrometroModel.getApagado());
 
-            pstm.execute();
-            pstm.close();
+                pstm.execute();
+                pstm.close();
 
-            JOptionPane.showMessageDialog(null, "O Cadastro foi efetuado com sucesso");
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar hidrometro: " + erro.getMessage());
+                JOptionPane.showMessageDialog(null, "O Cadastro foi efetuado com sucesso");
+            } catch (SQLException erro) {
+                JOptionPane.showMessageDialog(null, "Erro ao cadastrar hidrometro: " + erro.getMessage());
+            }
         }
     }
 
