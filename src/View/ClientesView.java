@@ -14,9 +14,12 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -75,7 +78,7 @@ public class ClientesView extends javax.swing.JFrame {
         String quarteiraoText = txtQuarterao.getText().trim();
         String nr = txtNumeroDeCasa.getText().trim();
 
-        Date selectedDate = txtDataContracto.getDate();
+        Date selectedDate = dateChooserDataContracto.getDate();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String data = dateFormat.format(selectedDate);
 
@@ -143,7 +146,7 @@ public class ClientesView extends javax.swing.JFrame {
         String quarteiraoText = txtQuarterao.getText().trim();
         String nr = txtNumeroDeCasa.getText().trim();
 
-        Date selectedDate = txtDataContracto.getDate();
+        Date selectedDate = dateChooserDataContracto.getDate();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String data = dateFormat.format(selectedDate);
 
@@ -214,7 +217,7 @@ public class ClientesView extends javax.swing.JFrame {
         String quarteiraoText = txtQuarterao.getText().trim();
         String nr = txtNumeroDeCasa.getText().trim();
 
-        Date selectedDate = txtDataContracto.getDate();
+        Date selectedDate = dateChooserDataContracto.getDate();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String data = dateFormat.format(selectedDate);
 
@@ -331,7 +334,20 @@ public class ClientesView extends javax.swing.JFrame {
         cbxBairro.setSelectedItem(tabelaClientes.getModel().getValueAt(setar, 2).toString());
         txtQuarterao.setText(tabelaClientes.getModel().getValueAt(setar, 3).toString());
         txtNumeroDeCasa.setText(tabelaClientes.getModel().getValueAt(setar, 4).toString());
-        txtDataContracto.setToolTipText(tabelaClientes.getModel().getValueAt(setar, 5).toString());
+        
+        // Carregar data de contracto no JDateChooser
+        Object dataContractoObj = tabelaClientes.getModel().getValueAt(setar, 5);
+        if (dataContractoObj != null) {
+            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataContracto = null;
+            try {
+                dataContracto = formatador.parse(dataContractoObj.toString());
+            } catch (ParseException ex) {
+                Logger.getLogger(ClientesView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            dateChooserDataContracto.setDate(dataContracto);
+        }
+        
         txtEmailParticular.setText(tabelaClientes.getModel().getValueAt(setar, 6).toString());
         TxtNumeroDeTelefone.setText(tabelaClientes.getModel().getValueAt(setar, 7).toString());;
         txtSaldo.setText(tabelaClientes.getModel().getValueAt(setar, 8).toString());
@@ -344,7 +360,7 @@ public class ClientesView extends javax.swing.JFrame {
         txtNome.setText("");
         txtQuarterao.setText("");
         txtNumeroDeCasa.setText("");
-        txtDataContracto.setToolTipText("");
+        dateChooserDataContracto.setDate(null);
         txtEmailParticular.setText("");
         TxtNumeroDeTelefone.setText("");
         cbxDespesasIniciais.setSelectedIndex(0);
@@ -395,7 +411,7 @@ public class ClientesView extends javax.swing.JFrame {
         lbNumeroDeTelefone = new javax.swing.JLabel();
         txtEmailParticular = new javax.swing.JTextField();
         TxtNumeroDeTelefone = new javax.swing.JTextField();
-        txtDataContracto = new com.toedter.calendar.JDateChooser();
+        dateChooserDataContracto = new com.toedter.calendar.JDateChooser();
         painelDirDados = new javax.swing.JPanel();
         lbDespesasIniciais = new javax.swing.JLabel();
         lbSaldo = new javax.swing.JLabel();
@@ -609,7 +625,7 @@ public class ClientesView extends javax.swing.JFrame {
                                 .addGap(51, 51, 51)
                                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNumeroDeCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDataContracto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(dateChooserDataContracto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 116, Short.MAX_VALUE)))
                 .addGap(79, 79, 79))
         );
@@ -639,7 +655,7 @@ public class ClientesView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDataDeContrato, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDataContracto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateChooserDataContracto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -949,6 +965,7 @@ public class ClientesView extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxBairro;
     private javax.swing.JComboBox<String> cbxDespesasIniciais;
     private javax.swing.JComboBox<String> cbxStatus;
+    private com.toedter.calendar.JDateChooser dateChooserDataContracto;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -986,7 +1003,6 @@ public class ClientesView extends javax.swing.JFrame {
     private javax.swing.JPanel painelVoltarMenu;
     private javax.swing.JPanel tabela;
     private javax.swing.JTable tabelaClientes;
-    private com.toedter.calendar.JDateChooser txtDataContracto;
     private javax.swing.JTextField txtEmailParticular;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;

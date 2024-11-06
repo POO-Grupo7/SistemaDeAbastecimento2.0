@@ -585,7 +585,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRelatoriosActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        new UsuariosView().setVisible(true);
+        new UsuariosView1111().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
