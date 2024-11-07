@@ -10,6 +10,7 @@ import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import net.miginfocom.swing.MigLayout;
@@ -258,7 +260,7 @@ public class TaxaView extends javax.swing.JFrame {
         lblCabecalho.setForeground(new java.awt.Color(255, 255, 255));
         lblCabecalho.setText("TAXAS");
         painelCabecalho.add(lblCabecalho);
-        lblCabecalho.setBounds(260, 10, 81, 28);
+        lblCabecalho.setBounds(260, 10, 81, 29);
 
         painelPrincipal.add(painelCabecalho, java.awt.BorderLayout.NORTH);
 
@@ -285,6 +287,12 @@ public class TaxaView extends javax.swing.JFrame {
         txtId.setEditable(false);
 
         lblNome.setText("Nome:");
+
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomeKeyTyped(evt);
+            }
+        });
 
         lblTipoConsumo.setText("Tipo de Consumo:");
 
@@ -482,7 +490,6 @@ public class TaxaView extends javax.swing.JFrame {
         });
         tabelaTaxas.setToolTipText("");
         tabelaTaxas.setRowSelectionAllowed(false);
-        tabelaTaxas.setShowGrid(true);
         jScrollPane2.setViewportView(tabelaTaxas);
         if (tabelaTaxas.getColumnModel().getColumnCount() > 0) {
             tabelaTaxas.getColumnModel().getColumn(0).setPreferredWidth(35);
@@ -538,6 +545,31 @@ public class TaxaView extends javax.swing.JFrame {
     private void txtValorTaxaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorTaxaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorTaxaActionPerformed
+
+    private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
+            char c = evt.getKeyChar();
+    if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+        // Previne a entrada de números e outros caracteres
+        evt.consume();
+        // Faz o JTextField "piscar"
+        new Thread(() -> {
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(200);
+                    txtNome.setBackground(Color.RED);
+                    Thread.sleep(200);
+                    txtNome.setBackground(Color.WHITE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        SwingUtilities.invokeLater(() -> 
+            JOptionPane.showMessageDialog(null, "Apenas letras são permitidas!")
+        );
+    }
+   
+    }//GEN-LAST:event_txtNomeKeyTyped
 
     /**
      * @param args the command line arguments

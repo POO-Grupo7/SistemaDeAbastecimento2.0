@@ -453,6 +453,12 @@
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNome">
+                          <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNomeFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNomeFocusLost"/>
+                            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNomeKeyPressed"/>
+                            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNomeKeyTyped"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="lbEmailParticular">
                           <Properties>
@@ -480,10 +486,17 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtQuarterao">
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtQuarteraoFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtQuarteraoFocusLost"/>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtQuarteraoActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNumeroDeCasa">
+                          <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNumeroDeCasaFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNumeroDeCasaFocusLost"/>
+                            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNumeroDeCasaKeyTyped"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jTextField3">
                           <Properties>
@@ -499,8 +512,18 @@
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtEmailParticular">
+                          <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEmailParticularFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtEmailParticularFocusLost"/>
+                            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtEmailParticularMouseExited"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="TxtNumeroDeTelefone">
+                          <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TxtNumeroDeTelefoneFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TxtNumeroDeTelefoneFocusLost"/>
+                            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TxtNumeroDeTelefoneKeyPressed"/>
+                          </Events>
                         </Component>
                         <Component class="com.toedter.calendar.JDateChooser" name="dateChooserDataContracto">
                         </Component>
@@ -750,7 +773,6 @@
                                     </Column>
                                   </TableColumnModel>
                                 </Property>
-                                <Property name="showGrid" type="boolean" value="true"/>
                                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                                 </Property>

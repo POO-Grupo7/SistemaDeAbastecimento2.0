@@ -14,6 +14,7 @@ import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.math.BigDecimal;
@@ -376,6 +377,11 @@ public class LeiturasView extends javax.swing.JFrame {
                 txtLeituraActualActionPerformed(evt);
             }
         });
+        txtLeituraActual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLeituraActualKeyTyped(evt);
+            }
+        });
 
         lblLeituraActual.setText("Leitura Actual:*");
 
@@ -691,6 +697,13 @@ public class LeiturasView extends javax.swing.JFrame {
         limparCampos();
         listarLeituras();
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void txtLeituraActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLeituraActualKeyTyped
+ char c = evt.getKeyChar();
+    if (!Character.isDigit(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+        evt.consume();
+                    JOptionPane.showMessageDialog(null, "Apenas números são permitidos!"); }
+    }//GEN-LAST:event_txtLeituraActualKeyTyped
 
     /**
      * @param args the command line arguments

@@ -12,6 +12,7 @@ import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.ParseException;
@@ -21,10 +22,12 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import net.miginfocom.swing.MigLayout;
@@ -563,15 +566,54 @@ public class ClientesView extends javax.swing.JFrame {
 
         lblDataDeContrato.setText("Data do Contrato:*");
 
+        txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNomeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNomeFocusLost(evt);
+            }
+        });
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomeKeyTyped(evt);
+            }
+        });
+
         lbEmailParticular.setText("Email Particular:");
 
         cbxBairro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "CMC", "Albasine" }));
 
         jLabel2.setText("Quarteirao:");
 
+        txtQuarterao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtQuarteraoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtQuarteraoFocusLost(evt);
+            }
+        });
         txtQuarterao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtQuarteraoActionPerformed(evt);
+            }
+        });
+
+        txtNumeroDeCasa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNumeroDeCasaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNumeroDeCasaFocusLost(evt);
+            }
+        });
+        txtNumeroDeCasa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroDeCasaKeyTyped(evt);
             }
         });
 
@@ -583,6 +625,34 @@ public class ClientesView extends javax.swing.JFrame {
         });
 
         lbNumeroDeTelefone.setText("Numero de Telefone:*");
+
+        txtEmailParticular.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEmailParticularFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailParticularFocusLost(evt);
+            }
+        });
+        txtEmailParticular.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtEmailParticularMouseExited(evt);
+            }
+        });
+
+        TxtNumeroDeTelefone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TxtNumeroDeTelefoneFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TxtNumeroDeTelefoneFocusLost(evt);
+            }
+        });
+        TxtNumeroDeTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtNumeroDeTelefoneKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelEsqDadosLayout = new javax.swing.GroupLayout(painelEsqDados);
         painelEsqDados.setLayout(painelEsqDadosLayout);
@@ -766,7 +836,6 @@ public class ClientesView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaClientes.setShowGrid(true);
         jScrollPane2.setViewportView(tabelaClientes);
 
         tabela.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -941,6 +1010,164 @@ public class ClientesView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
+    private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
+        txtNome.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+    }//GEN-LAST:event_txtNomeFocusGained
+
+    private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
+        txtNome.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+    }//GEN-LAST:event_txtNomeFocusLost
+
+    private void txtQuarteraoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuarteraoFocusGained
+txtQuarterao.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+    }//GEN-LAST:event_txtQuarteraoFocusGained
+
+    private void txtQuarteraoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuarteraoFocusLost
+txtQuarterao.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+    }//GEN-LAST:event_txtQuarteraoFocusLost
+
+    private void txtNumeroDeCasaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroDeCasaFocusGained
+                                                 
+        txtNumeroDeCasa.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));                                         
+    }//GEN-LAST:event_txtNumeroDeCasaFocusGained
+
+    private void txtNumeroDeCasaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumeroDeCasaFocusLost
+txtNumeroDeCasa.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+    }//GEN-LAST:event_txtNumeroDeCasaFocusLost
+
+    private void txtEmailParticularFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailParticularFocusGained
+        txtEmailParticular.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+    }//GEN-LAST:event_txtEmailParticularFocusGained
+
+    private void txtEmailParticularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailParticularFocusLost
+       txtEmailParticular.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+    }//GEN-LAST:event_txtEmailParticularFocusLost
+
+    private void TxtNumeroDeTelefoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TxtNumeroDeTelefoneFocusGained
+          TxtNumeroDeTelefone.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2));
+    }//GEN-LAST:event_TxtNumeroDeTelefoneFocusGained
+
+    private void TxtNumeroDeTelefoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TxtNumeroDeTelefoneFocusLost
+        TxtNumeroDeTelefone.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+    }//GEN-LAST:event_TxtNumeroDeTelefoneFocusLost
+
+    private void txtEmailParticularMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEmailParticularMouseExited
+        String email = txtEmailParticular.getText();
+    if (!email.contains("@")) {
+        new Thread(() -> {
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(200);
+                    txtEmailParticular.setBackground(Color.RED);
+                    Thread.sleep(200);
+                    txtEmailParticular.setBackground(Color.WHITE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        
+        SwingUtilities.invokeLater(() -> 
+            JOptionPane.showMessageDialog(null, "O email deve conter '@'!")
+        );
+        txtEmailParticular.setText("");
+    }
+    }//GEN-LAST:event_txtEmailParticularMouseExited
+
+    private void txtNumeroDeCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroDeCasaKeyTyped
+        char c = evt.getKeyChar();
+    
+    // Verifica se a tecla pressionada não é um dígito ou backspace
+    if (!Character.isDigit(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+        // Previne a entrada de caracteres inválidos
+        evt.consume();
+        
+            JOptionPane.showMessageDialog(null, "Apenas números são permitidos!"); }
+    }//GEN-LAST:event_txtNumeroDeCasaKeyTyped
+
+    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
+    
+    }//GEN-LAST:event_txtNomeKeyPressed
+
+    private void TxtNumeroDeTelefoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNumeroDeTelefoneKeyPressed
+   
+    char c = evt.getKeyChar();
+    String textoAtual = TxtNumeroDeTelefone.getText();
+    if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+        return; 
+    }
+    if (!Character.isDigit(c)) {
+        evt.consume(); 
+        mostrarMensagemErro("Apenas números são permitidos!");
+        return;
+    }
+    if (textoAtual.length() >= 9) {
+        evt.consume();
+        mostrarMensagemErro("O número deve ter no máximo 9 dígitos!");
+        return;
+    }
+    if (textoAtual.length() == 0 && c != '8') {
+        evt.consume(); 
+        mostrarMensagemErro("O primeiro número deve ser 8!");
+        return;
+    }
+    if (textoAtual.length() == 1 && (c < '2' || c > '7')) {
+        evt.consume();
+        mostrarMensagemErro("O segundo número deve estar entre 2 e 7!");
+    }
+}
+
+private void mostrarMensagemErro(String mensagem) {
+    // PISCAR
+    new Thread(() -> {
+        for (int i = 0; i < 3; i++) {
+            try {
+                Thread.sleep(200);
+                TxtNumeroDeTelefone.setBackground(Color.RED);
+                Thread.sleep(200);
+                TxtNumeroDeTelefone.setBackground(Color.WHITE);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }).start();
+    
+    SwingUtilities.invokeLater(() -> 
+        JOptionPane.showMessageDialog(null, mensagem)
+    );
+    }//GEN-LAST:event_TxtNumeroDeTelefoneKeyPressed
+
+    private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
+     char c = evt.getKeyChar();
+    
+    // Verifica se a tecla é de apagar (backspace) ou se é uma letra ou espaço
+    if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+        // Previne a entrada de números e outros caracteres
+        evt.consume();
+        
+        // Faz o JTextField "piscar"
+        new Thread(() -> {
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(200);
+                    txtNome.setBackground(Color.RED);
+                    Thread.sleep(200);
+                    txtNome.setBackground(Color.WHITE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        
+        // Exibe a mensagem de erro e em seguida apaga o caractere
+        SwingUtilities.invokeLater(() -> {
+            JOptionPane.showMessageDialog(null, "Apenas letras são permitidas!");
+        });
+    }
+
+
+    }//GEN-LAST:event_txtNomeKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -1011,4 +1238,5 @@ public class ClientesView extends javax.swing.JFrame {
     private javax.swing.JTextField txtQuarterao;
     private javax.swing.JTextField txtSaldo;
     // End of variables declaration//GEN-END:variables
+
 }

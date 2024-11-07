@@ -622,6 +622,7 @@
                         <Component class="javax.swing.JTextField" name="txtLeituraActual">
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLeituraActualActionPerformed"/>
+                            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtLeituraActualKeyTyped"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="lblLeituraActual">

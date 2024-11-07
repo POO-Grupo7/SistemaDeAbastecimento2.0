@@ -12,6 +12,7 @@ import Model.PagamentoModel;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
@@ -334,6 +335,11 @@ public class PagamentoView extends javax.swing.JFrame {
         txtValorEntregue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtValorEntregueActionPerformed(evt);
+            }
+        });
+        txtValorEntregue.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorEntregueKeyTyped(evt);
             }
         });
 
@@ -723,6 +729,17 @@ public class PagamentoView extends javax.swing.JFrame {
     private void cbxFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFacturasActionPerformed
         AccaoComboxFactura();
     }//GEN-LAST:event_cbxFacturasActionPerformed
+
+    private void txtValorEntregueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorEntregueKeyTyped
+        char c = evt.getKeyChar();
+    
+    // Verifica se a tecla pressionada não é um dígito ou backspace
+    if (!Character.isDigit(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+        // Previne a entrada de caracteres inválidos
+        evt.consume();
+        
+            JOptionPane.showMessageDialog(null, "Apenas números são permitidos!"); }
+    }//GEN-LAST:event_txtValorEntregueKeyTyped
 
     /**
      * @param args the command line arguments

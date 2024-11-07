@@ -832,7 +832,6 @@ public class FacturacaoView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaFacturacao.setShowGrid(true);
         jScrollPane2.setViewportView(tabelaFacturacao);
 
         tabela.add(jScrollPane2, java.awt.BorderLayout.CENTER);
