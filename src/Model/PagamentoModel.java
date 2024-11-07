@@ -13,13 +13,8 @@ public class PagamentoModel {
     private double valorTotal;
     private double valorPago;
     private double trocos;
-    private String nomeDoCliente;
     private int nrRecibo;
-    private double saldo;
     private boolean processada=true;
-
-    public PagamentoModel() {
-    }
 
     public int getIdPagamento() {
         return idPagamento;
@@ -53,7 +48,7 @@ public class PagamentoModel {
         this.prazoPagamento = prazoPagamento;
     }
 
-    public boolean isStatusPagamento() {
+    public boolean getStatusPagamento() {
         return statusPagamento;
     }
 
@@ -109,28 +104,12 @@ public class PagamentoModel {
         this.trocos = trocos;
     }
 
-    public String getNomeDoCliente() {
-        return nomeDoCliente;
-    }
-
-    public void setNomeDoCliente(String nomeDoCliente) {
-        this.nomeDoCliente = nomeDoCliente;
-    }
-
     public int getNrRecibo() {
         return nrRecibo;
     }
 
     public void setNrRecibo(int nrRecibo) {
         this.nrRecibo = nrRecibo;
-    }
-
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
     }
 
     public boolean getProcessada() {

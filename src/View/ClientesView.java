@@ -34,9 +34,9 @@ public class ClientesView extends javax.swing.JFrame {
     public ClientesView() {
         initComponents();
         listarClientes();
-        testData(tabelaClientes);
-        getContentPane().setBackground(Color.white);
-        TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
+//        testData(tabelaClientes);
+//        getContentPane().setBackground(Color.white);
+//        TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
 
 // Dentro do método de inicialização da interface, certifique-se de que o cbxDespesasIniciais esteja corretamente configurado
         cbxDespesasIniciais.addActionListener(new java.awt.event.ActionListener() {

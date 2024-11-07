@@ -37,9 +37,9 @@ public class LogInView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtNomeU = new javax.swing.JTextField();
+        txtNomeUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtSenhaU = new javax.swing.JPasswordField();
+        txtSenhaUsuario = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
@@ -98,8 +98,8 @@ public class LogInView extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtSenhaU, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNomeU, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtSenhaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -114,11 +114,11 @@ public class LogInView extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNomeU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSenhaU))
+                    .addComponent(txtSenhaUsuario))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jCheckBox1)
                 .addGap(2, 2, 2)
@@ -163,9 +163,9 @@ public class LogInView extends javax.swing.JFrame {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         if (jCheckBox1.isSelected()) {
-            txtSenhaU.setEchoChar((char) 0);
+            txtSenhaUsuario.setEchoChar((char) 0);
         } else {
-            txtSenhaU.setEchoChar('*');
+            txtSenhaUsuario.setEchoChar('*');
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
@@ -190,8 +190,8 @@ public class LogInView extends javax.swing.JFrame {
 
     //Metodo Prencher Campos obrigatorios
     private boolean camposObrigatoriosPreenchidos() {
-        boolean nomeUsuario = !txtNomeU.getText().isEmpty();
-        boolean senhaUsuario = !txtSenhaU.getText().isEmpty();
+        boolean nomeUsuario = !txtNomeUsuario.getText().isEmpty();
+        boolean senhaUsuario = !txtSenhaUsuario.getText().isEmpty();
 
         return nomeUsuario && senhaUsuario;
     }
@@ -199,21 +199,21 @@ public class LogInView extends javax.swing.JFrame {
     //Metodo para entrar no sistema
     private void EntrarNoSistema() {
         try {
-            String nomeUsuario = txtNomeU.getText();
-            String senhaUsuario = txtSenhaU.getText();
+            String nomeUsuario = txtNomeUsuario.getText();
+            String senhaUsuario = txtSenhaUsuario.getText();
             boolean activo = true;
-            boolean disponivel = true;
+            boolean apagado = false;
 
             FuncionarioModel funcionarioModel = new FuncionarioModel();
             funcionarioModel.setNome(nomeUsuario);
             funcionarioModel.setSenhaFuncionario(senhaUsuario);
             funcionarioModel.setStatus(activo);
-            funcionarioModel.setDisp(disponivel);
+            funcionarioModel.setDisp(apagado);
 
             FuncionarioController funcionarioController = new FuncionarioController();
             ResultSet rsUsuarioControlller = funcionarioController.autenticacaoUsuario(funcionarioModel);
 
-            if (rsUsuarioControlller != null && rsUsuarioControlller.next()) {
+            if (rsUsuarioControlller.next()) {
                 String perfil = rsUsuarioControlller.getString("perfil");
                 dispose();
 
@@ -230,8 +230,8 @@ public class LogInView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Bem vindo(a) " + nomeUsuario + ".");
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos");
-                txtNomeU.setText("");
-                txtSenhaU.setText("");
+                txtNomeUsuario.setText("");
+                txtSenhaUsuario.setText("");
             }
         } catch (SQLException erro) {
             erro.printStackTrace();
@@ -248,7 +248,7 @@ public class LogInView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtNomeU;
-    private javax.swing.JPasswordField txtSenhaU;
+    private javax.swing.JTextField txtNomeUsuario;
+    private javax.swing.JPasswordField txtSenhaUsuario;
     // End of variables declaration//GEN-END:variables
 }

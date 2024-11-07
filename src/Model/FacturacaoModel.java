@@ -14,7 +14,12 @@ public class FacturacaoModel{
     private int nrDaFactura;
     private String nrLeitura;
     private String nome, disp;
+    private boolean paga;
 
+    public FacturacaoModel() {
+        this.paga = false;
+    }
+    
     public int getIdFacturacao() {
         return idFacturacao;
     }
@@ -175,5 +180,14 @@ public class FacturacaoModel{
         this.disp = disp;
     }
 
+    public boolean getPaga() {
+        return paga;
+    }
+
+    public void setPaga(boolean paga) {
+        this.paga = paga;
+    }
+
+    
         
 }

@@ -93,7 +93,7 @@ public class LeituraController {
     //METODO PARA CADASTRAR
     public void cadastrarLeitura(LeituraModel leituraModel) {
 
-        String sql = "insert into leituras (nrHidrometro, nomeCliente, bairro, quarteirao, numeroCasa, saldoCliente, mesRef, dataLeitura, leitAnterior, leitActual, consumo, ocorrencia, nrLeitura, status ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+        String sql = "insert into leituras (nrHidrometro, nomeCliente, bairro, quarteirao, numeroCasa, saldoCliente, mesRef, dataLeitura, leitAnterior, leitActual, consumo, ocorrencia, nrLeitura, status, estadoFacturacao) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
         conexao = new ConexaoController().conectaBaseDados();
 
 //        HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
@@ -114,6 +114,7 @@ public class LeituraController {
             pstm.setString(12, leituraModel.getOcorrencia());
             pstm.setString(13, leituraModel.getNrLeitura());
             pstm.setBoolean(14, leituraModel.getStatusLeitura());
+            pstm.setBoolean(15, leituraModel.getEstadoFacturacao());
 
             pstm.execute();
             pstm.close();
@@ -161,6 +162,7 @@ public class LeituraController {
                 leituraModel.setOcorrencia(rs.getString("ocorrencia"));
                 leituraModel.setNrLeitura(rs.getString("nrLeitura"));
                 leituraModel.setStatusLeitura(rs.getBoolean("status"));
+                leituraModel.setEstadoFacturacao(rs.getBoolean("estadoFacturacao"));
 
                 list.add(leituraModel);
             }
@@ -210,7 +212,7 @@ public class LeituraController {
 
     public void actualizarLeitura(LeituraModel leituraModel) {
 
-        String sql = "update leituras set nrHidrometro = ?, nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, saldoCliente = ?, mesRef = ? ,dataLeitura = ?, leitAnterior =?, leitActual = ?, consumo = ?, ocorrencia = ?, nrLeitura = ?, status = ? where idLeitura =?";
+        String sql = "update leituras set nrHidrometro = ?, nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, saldoCliente = ?, mesRef = ? ,dataLeitura = ?, leitAnterior =?, leitActual = ?, consumo = ?, ocorrencia = ?, nrLeitura = ?, status = ?, estadoFacturacao = ? where idLeitura =?";
         conexao = new ConexaoController().conectaBaseDados();
 
         try {
@@ -229,7 +231,9 @@ public class LeituraController {
             pstm.setString(12, leituraModel.getOcorrencia());
             pstm.setString(13, leituraModel.getNrLeitura());
             pstm.setBoolean(14, leituraModel.getStatusLeitura());
-            pstm.setInt(14, leituraModel.getIdLeitura());
+            pstm.setBoolean(15, leituraModel.getEstadoFacturacao());
+            pstm.setInt(16, leituraModel.getIdLeitura());
+            
 
             pstm.execute();
             pstm.close();
@@ -243,7 +247,7 @@ public class LeituraController {
 
     public void apagarLeitura(LeituraModel leituraModel) {
 
-        String sql = "update leituras set nrHidrometro = ?, nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, saldoCliente = ?, mesRef = ? ,dataLeitura = ?, leitAnterior =?, leitActual = ?, consumo = ?, ocorrencia = ?, nrLeitura = ?, status = ? where idLeitura =?";
+        String sql = "update leituras set nrHidrometro = ?, nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, saldoCliente = ?, mesRef = ? ,dataLeitura = ?, leitAnterior =?, leitActual = ?, consumo = ?, ocorrencia = ?, nrLeitura = ?, status = ?, estadoFacturacao = ? where idLeitura =?";
         conexao = new ConexaoController().conectaBaseDados();
 
         try {
@@ -262,7 +266,8 @@ public class LeituraController {
             pstm.setString(12, leituraModel.getOcorrencia());
             pstm.setString(13, leituraModel.getNrLeitura());
             pstm.setBoolean(14, leituraModel.getStatusLeitura());
-            pstm.setInt(15, leituraModel.getIdLeitura());
+            pstm.setBoolean(15, leituraModel.getEstadoFacturacao());
+            pstm.setInt(16, leituraModel.getIdLeitura());
 
             pstm.execute();
             pstm.close();

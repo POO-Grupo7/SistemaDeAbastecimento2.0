@@ -33,8 +33,8 @@ public class UsuariosView1111 extends javax.swing.JFrame {
     public UsuariosView1111() {
         initComponents();
         listarUsuarios();
-        getContentPane().setBackground(Color.white);
-        TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
+//        getContentPane().setBackground(Color.white);
+//        TableCustom.apply(jScrollPane2, TableCustom.TableType.MULTI_LINE);
     }
 
     private void testData(JTable table) {
@@ -238,7 +238,7 @@ public class UsuariosView1111 extends javax.swing.JFrame {
 
         lblNaturalidade.setText("Naturalidade:");
 
-        cbxNaturalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Maputo (Província)", "Maputo (Cidade)", "Gaza", "Inhambane", "Niassa", "Sofala", "Manica", "Tete", "Zambézia", "Nampula", "Cabo Delgado", " " }));
+        cbxNaturalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Maputo (Província)", "Maputo (Cidade)", "Gaza", "Inhambane", "Niassa", "Sofala", "Manica", "Tete", "Zambézia", "Nampula", "Cabo Delgado" }));
 
         lblDataNascimento.setText("Data de Nascimento:");
 
@@ -981,7 +981,7 @@ public class UsuariosView1111 extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tabelaUsuarios.getModel();
             model.setRowCount(0);
 
-            ArrayList<FuncionarioModel> lista = usuarioController.PesquisarUsuario();
+            ArrayList<FuncionarioModel> lista = usuarioController.listarUsuario();
             System.out.println("Clientes encontrados: " + lista.size());
             System.out.println(lista.isEmpty());
 
@@ -1005,7 +1005,6 @@ public class UsuariosView1111 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Listar Usuários View" + erro);
         }
     }
-
 
 // Método Carregar Campos
     private void CarregarCampos() {

@@ -5,7 +5,9 @@
  */
 package Controller;
 
+import Model.ClienteModel;
 import Model.FacturacaoModel;
+import Model.LeituraModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +29,7 @@ public class FacturacaoController {
     //Listar Leituras na ComboBox
     public ResultSet listarLeituras() {
         conexao = new ConexaoController().conectaBaseDados();
-        String sql = "select * from leituras WHERE status = '1' ORDER BY nrLeitura;";
+        String sql = "select * from leituras WHERE status = '1' and estadoFacturacao = '0' ORDER BY nrLeitura;";
 
         try {
             pstm = conexao.prepareStatement(sql);
@@ -92,7 +94,7 @@ public class FacturacaoController {
     //METODO PARA CADASTRAR
     public void cadastrarFacturamento(FacturacaoModel facturacaoModel) {
 
-        String sql = "insert into facturacao (nrLeitura, nomeCliente, dataEmissao, mesReferente, consumoDoMes,taxa, prazoPagamento, subTotal , iva, descontos, TotalFactura, saldoAnterior, saldoActual, nrDaFactura, disp) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+        String sql = "insert into facturacao (nrLeitura, nomeCliente, dataEmissao, mesReferente, consumoDoMes,taxa, prazoPagamento, subTotal , iva, descontos, TotalFactura, saldoAnterior, saldoActual, nrDaFactura, disp, paga) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
         conexao = new ConexaoController().conectaBaseDados();
 
         try {
@@ -113,6 +115,7 @@ public class FacturacaoController {
             pstm.setDouble(13, facturacaoModel.getDividaActual());
             pstm.setInt(14, facturacaoModel.getNrDaFactura());
             pstm.setString(15, facturacaoModel.getDisp());
+            pstm.setBoolean(16, facturacaoModel.getPaga());
 
             pstm.execute();
             pstm.close();
@@ -151,6 +154,7 @@ public class FacturacaoController {
                 facturacaoModel.setDividaActual(rs.getDouble("saldoActual"));
                 facturacaoModel.setNrDaFactura(rs.getInt("nrDaFactura"));
                 facturacaoModel.setDisp(rs.getString("disp"));
+                facturacaoModel.setPaga(rs.getBoolean("paga"));
 
                 list.add(facturacaoModel);
             }
@@ -202,6 +206,7 @@ public class FacturacaoController {
                 facturacaoModel.setDividaActual(rs.getDouble("saldoActual"));
                 facturacaoModel.setNrDaFactura(rs.getInt("nrDaFactura"));
                 facturacaoModel.setDisp(rs.getString("disp"));
+                facturacaoModel.setPaga(rs.getBoolean("paga"));
 
                 list.add(facturacaoModel);
             }
@@ -214,7 +219,7 @@ public class FacturacaoController {
     //Metodo para actualizar clientes
     public void ActualizarFacturacao(FacturacaoModel facturacaoModel) {
 
-        String sql = "update facturacao set nrLeitura = ?, nomeCliente = ?, dataEmissao  = ?, mesReferente  = ?, consumoDoMes  = ?, taxa  = ?,prazoPagamento = ?, subTotal  = ?, iva = ?, descontos = ?, TotalFactura =?, saldoAnterior  = ?, saldoActual = ?, nrDaFactura = ?, disp = ? where idFacturacao =?";
+        String sql = "update facturacao set nrLeitura = ?, nomeCliente = ?, dataEmissao  = ?, mesReferente  = ?, consumoDoMes  = ?, taxa  = ?,prazoPagamento = ?, subTotal  = ?, iva = ?, descontos = ?, TotalFactura =?, saldoAnterior  = ?, saldoActual = ?, nrDaFactura = ?, disp = ?, paga = ? where idFacturacao =?";
         conexao = new ConexaoController().conectaBaseDados();
 
         try {
@@ -235,7 +240,8 @@ public class FacturacaoController {
             pstm.setDouble(13, facturacaoModel.getDividaActual());
             pstm.setInt(14, facturacaoModel.getNrDaFactura());
             pstm.setString(15, facturacaoModel.getDisp());
-            pstm.setInt(16, facturacaoModel.getIdFacturacao());
+            pstm.setBoolean(16, facturacaoModel.getPaga());
+            pstm.setInt(17, facturacaoModel.getIdFacturacao());
 
             pstm.execute();
             pstm.close();
@@ -243,6 +249,26 @@ public class FacturacaoController {
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "FacturacaoController Actuaizar facturacao" + erro);
         }
+    }
+    
+        //Metodo para actualizar estadoDaLeitura se ja foi facturada
+    public void ActualizarEstadoLeitura(LeituraModel leituraModel) {
+        String sql = "UPDATE leituras SET estadoFacturacao = ? WHERE nrLeitura = ?";
+        conexao = new ConexaoController().conectaBaseDados();
+
+        try {
+            pstm = conexao.prepareStatement(sql);
+
+            pstm.setBoolean(1, leituraModel.getEstadoFacturacao());
+            pstm.setString(2, leituraModel.getNrLeitura());
+
+            pstm.execute();
+            pstm.close();
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FacturacaoController Actuaizar estadoFacturacao da leitura" + erro);
+        }
+
     }
 }
 

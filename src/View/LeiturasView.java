@@ -40,15 +40,9 @@ public class LeiturasView extends javax.swing.JFrame {
         dataLocal();
         restaurarDadosComboBoxHidrometro();
         listarLeituras();
-        testData(tabelaLeitura);
-        getContentPane().setBackground(Color.white);
-        TableCustom.apply(jScrollPane1, TableCustom.TableType.MULTI_LINE);
-//        painelEsqDados.setLayout(new MigLayout());
-//        painelEsqDados.add(lblId);
-//        painelEsqDados.add(txtId, "wrap");
-//        painelEsqDados.add(lblNome);
-//        painelEsqDados.add(txtNome, "wrap, pushx, growx");
-
+//        testData(tabelaLeitura);
+//        getContentPane().setBackground(Color.white);
+//        TableCustom.apply(jScrollPane1, TableCustom.TableType.MULTI_LINE);
     }
 
     private void testData(JTable table) {
@@ -556,7 +550,7 @@ public class LeiturasView extends javax.swing.JFrame {
         tabela.add(botoes, java.awt.BorderLayout.PAGE_START);
 
         tabelaLeitura.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tabelaLeitura.setForeground(new java.awt.Color(255, 255, 255));
+        tabelaLeitura.setForeground(new java.awt.Color(51, 51, 51));
         tabelaLeitura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -998,6 +992,7 @@ public class LeiturasView extends javax.swing.JFrame {
         leituraModel.setOcorrencia(ocorrencia);
         leituraModel.setNrLeitura(nrLeitura);
         leituraModel.setStatusLeitura(true);
+//        leituraModel.setEstadoFacturacao(false);
 
         LeituraController leituraControler = new LeituraController();
         leituraControler.actualizarLeitura(leituraModel);

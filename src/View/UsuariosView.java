@@ -868,7 +868,7 @@ public class UsuariosView extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tabelaUsuarios.getModel();
             model.setRowCount(0);
 
-            ArrayList<FuncionarioModel> lista = usuarioController.PesquisarUsuario();
+            ArrayList<FuncionarioModel> lista = usuarioController.listarUsuario();
             System.out.println("Clientes encontrados: " + lista.size());
             System.out.println(lista.isEmpty());
 

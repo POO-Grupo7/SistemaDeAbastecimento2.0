@@ -12,10 +12,13 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -550,15 +553,27 @@ public class HidrometroView extends javax.swing.JFrame {
         }
 
     }
-    
-        //Metodo Carregar Campos
+
+    //Metodo Carregar Campos
     private void carregarCampos() {
         int setar = tabelaHidrometro.getSelectedRow();
 
         txtId.setText(tabelaHidrometro.getModel().getValueAt(setar, 0).toString());
-        txtDataRegisto.setDateFormatString(tabelaHidrometro.getModel().getValueAt(setar, 1).toString());
+        // Carregar data de contracto no JDateChooser
+        Object dataRegGHidrObj = tabelaHidrometro.getModel().getValueAt(setar, 1);
+        if (dataRegGHidrObj != null) {
+            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataContracto = null;
+            try {
+                dataContracto = formatador.parse(dataRegGHidrObj.toString());
+            } catch (ParseException ex) {
+                Logger.getLogger(ClientesView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            txtDataRegisto.setDate(dataContracto);
+        }
+
         txtNumeroDeHidrometro.setText(tabelaHidrometro.getModel().getValueAt(setar, 2).toString());
-        cbxStatus.setSelectedItem(tabelaHidrometro.getModel().getValueAt(setar, 3).toString());        
+        cbxStatus.setSelectedItem(tabelaHidrometro.getModel().getValueAt(setar, 3).toString());
     }
 
     //Metodo Limpar Campos

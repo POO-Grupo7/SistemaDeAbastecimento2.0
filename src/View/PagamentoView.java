@@ -8,6 +8,8 @@ import Controller.ClienteController;
 import Controller.FacturacaoController;
 import Controller.PagamentoController;
 import Model.ClienteModel;
+import Model.FacturacaoModel;
+import Model.HistoricoHidrometroModel;
 import Model.PagamentoModel;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.BorderLayout;
@@ -32,12 +34,8 @@ public class PagamentoView extends javax.swing.JFrame {
         initComponents();
         RestaurarDadosComboBoxFactura();
         listarPagamentos();
-        
         // Obtém a data atual
-        Date data = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        String dataFormatada = formato.format(data);
-        txtDataPagamento.setText("" + dataFormatada);
+        dataActual();
     }
 
     //Metodo Prencher Campos obrigatorios
@@ -113,9 +111,6 @@ public class PagamentoView extends javax.swing.JFrame {
 //    }
     // Método para restaurar dados no ComboBox
     private void RestaurarDadosComboBoxFactura() {
-//        idFactura.clear();  // Limpa o vetor para evitar duplicação de IDs
-//        cbxFacturas.removeAllItems();  // Limpa o ComboBox antes de preencher
-
         try {
             PagamentoController pagamentoController = new PagamentoController();
             ResultSet rs = pagamentoController.listarFacturas();
@@ -795,6 +790,13 @@ public class PagamentoView extends javax.swing.JFrame {
     private javax.swing.JTextField txtValorEntregue;
     private javax.swing.JTextField txtValorFactura;
     // End of variables declaration//GEN-END:variables
+    // Obtém a data atual
+    private void dataActual() {
+        Date data = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String dataFormatada = formato.format(data);
+        txtDataPagamento.setText("" + dataFormatada);
+    }
 
     private void calcularMultaETotal() {
         //pegando data na textField
@@ -859,7 +861,7 @@ public class PagamentoView extends javax.swing.JFrame {
             double valorTotal = Double.parseDouble(txtSaldoActual.getText());
             double valorPago = Double.parseDouble(txtValorEntregue.getText());
             double trocos = Double.parseDouble(txtTrocos.getText());
-            double saldo = Double.parseDouble(txtTotalAPagar.getText());
+            double saldo = Double.parseDouble(txtSaldoActual.getText());
 
             Random aleatorio = new Random();
             int nrReciboPadraoInicial = 20240001;
@@ -868,7 +870,11 @@ public class PagamentoView extends javax.swing.JFrame {
             boolean disp = true;
 
             PagamentoModel pagamentoModel = new PagamentoModel();
-            pagamentoModel.setNomeDoCliente(nome);
+
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.setNome(nome);
+            clienteModel.setSaldo(saldo);
+            pagamentoModel.setCliente(clienteModel);
             pagamentoModel.setDataPagamento(datapagamento);
             pagamentoModel.setPrazoPagamento(prazoPagamento);
             pagamentoModel.setNrDaFactura(nrFactura);
@@ -877,19 +883,32 @@ public class PagamentoView extends javax.swing.JFrame {
             pagamentoModel.setValorTotal(valorTotal);
             pagamentoModel.setValorPago(valorPago);
             pagamentoModel.setTrocos(trocos);
-            pagamentoModel.setSaldo(saldo);
+
             pagamentoModel.setNrRecibo(nrRecibo);
             pagamentoModel.setProcessada(disp);
 
+            boolean paga = false;
+            if (saldo > 0) {
+                paga = false;
+            } else {
+                paga = true;
+            }
+
+            HistoricoHidrometroModel historicoHidrometro = new HistoricoHidrometroModel();
+            ClienteModel cliente = new ClienteModel();
+            cliente.setSaldo(saldo);
+            historicoHidrometro.setCliente(cliente);
+
+            FacturacaoModel facturacaoModel = new FacturacaoModel();
+            facturacaoModel.setPaga(paga);
+            facturacaoModel.setHistoricoHidrometro(historicoHidrometro);
+            facturacaoModel.setNrDaFactura(nrFactura);
+
             PagamentoController pagamentoControler = new PagamentoController();
             pagamentoControler.registarPagamento(pagamentoModel);
+            pagamentoControler.actualizarSaldo(pagamentoModel);
+            pagamentoControler.actualizarEstadoFactura(facturacaoModel);
 
-            ClienteModel clienteModel = new ClienteModel();
-            clienteModel.setNome(nome);
-            clienteModel.setSaldo(saldo);
-
-            ClienteController clienteController = new ClienteController();
-            clienteController.ActualizarSaldo(clienteModel);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Erro ao converter valores numéricos: " + e.getMessage());
         }
@@ -908,7 +927,7 @@ public class PagamentoView extends javax.swing.JFrame {
             for (PagamentoModel item : lista) {
                 model.addRow(new Object[]{
                     item.getIdPagamento(),
-                    item.getNomeDoCliente(),
+                    item.getCliente().getNome(),
                     item.getDataPagamento(),
                     item.getPrazoPagamento(),
                     item.getNrDaFactura(),
@@ -917,7 +936,7 @@ public class PagamentoView extends javax.swing.JFrame {
                     item.getValorTotal(),
                     item.getValorPago(),
                     item.getTrocos(),
-                    item.getSaldo(),
+                    item.getCliente().getSaldo(),
                     item.getNrRecibo(),
                     item.getProcessada()
                 });
@@ -932,7 +951,8 @@ public class PagamentoView extends javax.swing.JFrame {
         txtIdPagamentos.setText("");
         cbxFacturas.setSelectedIndex(0);
         txtPrazoPagamento.setText("");
-        txtPrazoPagamento.setText("");
+        txtDataPagamento.setText("");
+        dataActual();
         txtNomeCliente.setText("");
         txtSaldoActual.setText("");
         txtMultas.setText("");
@@ -976,7 +996,7 @@ public class PagamentoView extends javax.swing.JFrame {
             double valorTotal = Double.parseDouble(txtSaldoActual.getText());
             double valorPago = Double.parseDouble(txtValorEntregue.getText());
             double trocos = Double.parseDouble(txtTrocos.getText());
-            double saldo = Double.parseDouble(txtTotalAPagar.getText());
+            double saldo = Double.parseDouble(txtSaldoActual.getText());
 
             int nrRecibo = Integer.parseInt(txtNrRecibos.getText());
             boolean disp = true;
@@ -984,7 +1004,11 @@ public class PagamentoView extends javax.swing.JFrame {
             // Criando e configurando o modelo de pagamento
             PagamentoModel pagamentoModel = new PagamentoModel();
             pagamentoModel.setIdPagamento(idPagamento);
-            pagamentoModel.setNomeDoCliente(nome);
+
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.setNome(nome);
+            clienteModel.setSaldo(saldo);
+            pagamentoModel.setCliente(clienteModel);
             pagamentoModel.setDataPagamento(datapagamento);
             pagamentoModel.setPrazoPagamento(prazoPagamento);
             pagamentoModel.setNrDaFactura(nrFactura);
@@ -993,21 +1017,32 @@ public class PagamentoView extends javax.swing.JFrame {
             pagamentoModel.setValorTotal(valorTotal);
             pagamentoModel.setValorPago(valorPago);
             pagamentoModel.setTrocos(trocos);
-            pagamentoModel.setSaldo(saldo);
             pagamentoModel.setNrRecibo(nrRecibo);
             pagamentoModel.setStatusPagamento(disp);
 
+            boolean paga = false;
+            if (saldo > 0) {
+                paga = false;
+            } else {
+                paga = true;
+            }
+
+            HistoricoHidrometroModel historicoHidrometro = new HistoricoHidrometroModel();
+            ClienteModel cliente = new ClienteModel();
+            cliente.setSaldo(saldo);
+            historicoHidrometro.setCliente(cliente);
+
+            FacturacaoModel facturacaoModel = new FacturacaoModel();
+            facturacaoModel.setPaga(paga);
+            facturacaoModel.setHistoricoHidrometro(historicoHidrometro);
+            facturacaoModel.setNrDaFactura(nrFactura);
+
             // Atualizando pagamento no banco de dados
-            PagamentoController pagamentoController = new PagamentoController();
-            pagamentoController.ActualizarPagamentos(pagamentoModel);
+            PagamentoController pagamentoControler = new PagamentoController();
+            pagamentoControler.ActualizarPagamentos(pagamentoModel);
+            pagamentoControler.actualizarSaldo(pagamentoModel);
+            pagamentoControler.actualizarEstadoFactura(facturacaoModel);
 
-            // Atualizando saldo na tabela de clientes
-            ClienteModel clienteModel = new ClienteModel();
-            clienteModel.setNome(nome); // Corrigido para setNome
-            clienteModel.setSaldo(saldo);
-
-            ClienteController clienteController = new ClienteController();
-            clienteController.ActualizarSaldo(clienteModel);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Erro ao converter valores numéricos: " + e.getMessage());
         } catch (Exception e) {
@@ -1036,7 +1071,12 @@ public class PagamentoView extends javax.swing.JFrame {
             // Criando e configurando o modelo de pagamento
             PagamentoModel pagamentoModel = new PagamentoModel();
             pagamentoModel.setIdPagamento(idPagamento);
-            pagamentoModel.setNomeDoCliente(nome);
+
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.setNome(nome); // Corrigido para setNome
+            clienteModel.setSaldo(saldo);
+
+            pagamentoModel.setCliente(clienteModel);
             pagamentoModel.setDataPagamento(datapagamento);
             pagamentoModel.setPrazoPagamento(prazoPagamento);
             pagamentoModel.setNrDaFactura(nrFactura);
@@ -1045,19 +1085,34 @@ public class PagamentoView extends javax.swing.JFrame {
             pagamentoModel.setValorTotal(valorTotal);
             pagamentoModel.setValorPago(valorPago);
             pagamentoModel.setTrocos(trocos);
-            pagamentoModel.setSaldo(saldo);
+
             pagamentoModel.setNrRecibo(nrRecibo);
             pagamentoModel.setStatusPagamento(disp);
 
+            boolean paga = false;
+            if (saldo > 0) {
+                paga = false;
+            } else {
+                paga = true;
+            }
+
+            HistoricoHidrometroModel historicoHidrometro = new HistoricoHidrometroModel();
+            ClienteModel cliente = new ClienteModel();
+            cliente.setSaldo(saldo);
+            historicoHidrometro.setCliente(cliente);
+
+            FacturacaoModel facturacaoModel = new FacturacaoModel();
+            facturacaoModel.setPaga(paga);
+            facturacaoModel.setHistoricoHidrometro(historicoHidrometro);
+            facturacaoModel.setNrDaFactura(nrFactura);
+
             // Atualizando pagamento no banco de dados
-            PagamentoController pagamentoController = new PagamentoController();
-            pagamentoController.ActualizarPagamentos(pagamentoModel);
+            PagamentoController pagamentoControler = new PagamentoController();
+            pagamentoControler.ActualizarPagamentos(pagamentoModel);
+            pagamentoControler.actualizarSaldo(pagamentoModel);
+            pagamentoControler.actualizarEstadoFactura(facturacaoModel);;
 
             // Atualizando saldo na tabela de clientes
-            ClienteModel clienteModel = new ClienteModel();
-            clienteModel.setNome(nome); // Corrigido para setNome
-            clienteModel.setSaldo(saldo);
-
             ClienteController clienteController = new ClienteController();
             clienteController.ActualizarSaldo(clienteModel);
         } catch (NumberFormatException e) {

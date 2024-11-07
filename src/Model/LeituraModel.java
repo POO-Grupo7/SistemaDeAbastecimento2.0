@@ -14,9 +14,12 @@ public class LeituraModel {
     private String mesReferencia;
     private String nrLeitura;
     private boolean statusLeitura;
+    private boolean estadoFacturacao;
+    
 
     public LeituraModel() {
         this.statusLeitura = true;
+        this.estadoFacturacao = false;
     }
     
     public int getIdLeitura() {
@@ -97,6 +100,14 @@ public class LeituraModel {
 
     public void setStatusLeitura(boolean statusLeitura) {
         this.statusLeitura = statusLeitura;
+    }
+
+    public boolean getEstadoFacturacao() {
+        return estadoFacturacao;
+    }
+
+    public void setEstadoFacturacao(boolean estadoFacturacao) {
+        this.estadoFacturacao = estadoFacturacao;
     }
 
     

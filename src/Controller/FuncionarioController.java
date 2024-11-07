@@ -107,7 +107,7 @@ public class FuncionarioController {
     }
 
 //    //METODO PARA LISTAR
-    public ArrayList<FuncionarioModel> PesquisarUsuario() {
+    public ArrayList<FuncionarioModel> listarUsuario() {
         ArrayList<FuncionarioModel> list = new ArrayList<>();
         String sql = "select * from usuario where disp = 1";
         conexao = new ConexaoController().conectaBaseDados();

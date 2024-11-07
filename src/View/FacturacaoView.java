@@ -2,9 +2,11 @@ package View;
 
 import Controller.ClienteController;
 import Controller.FacturacaoController;
+import Controller.LeituraController;
 import Controller.TaxaController;
 import Model.ClienteModel;
 import Model.FacturacaoModel;
+import Model.LeituraModel;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,376 +30,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         listarFacturacao();
         RestaurarDadosComboBoxLeituras();
         RestaurarDadosComboBoxTaxa();
-        // Obtém a data atual
-        Date data = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        String dataFormatada = formato.format(data);
-        txtDataFactura.setText("" + dataFormatada);
-    }
-
-    int taxaAplicar;
-    //Accao para comboxTaxas
-    Vector<Integer> idTaxas = new Vector<Integer>();
-
-    private void AccaoComboxTaxa() {
-        if (cbxTaxas.getSelectedIndex() == 0) {
-            taxaAplicar = 0;
-            return;
-        }
-        try {
-            TaxaController taxaController = new TaxaController();
-            ResultSet rs = taxaController.PesquisarTaxas(idTaxas.get(cbxTaxas.getSelectedIndex() - 1));
-
-            while (rs.next()) {
-                taxaAplicar = rs.getInt(4);
-            }
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "TaxasView pegar valores de Taxas" + erro);
-        }
-    }
-
-    //Accao para prencher campos
-    Vector<Integer> idLeitura = new Vector<Integer>();
-
-    private void AccaoComboBoxLeituras() {
-        if (cbxNrLeitura.getSelectedIndex() == 0) {
-            txtNomeCliente.setText(null);
-            txtMesReferente.setText(null);
-            txtConsumoDoMes.setText(null);
-            txtSaldoAntesProcesso.setText(null);
-            return;
-        }
-        try {
-            FacturacaoController facturacaoController = new FacturacaoController();
-            ResultSet rs = facturacaoController.prencherDadosLeitura(idLeitura.get(cbxNrLeitura.getSelectedIndex() - 1));
-
-            while (rs.next()) {
-                txtNomeCliente.setText(rs.getString(3));
-                txtMesReferente.setText(rs.getString(8));
-                txtConsumoDoMes.setText(rs.getString(11));
-                txtSaldoAntesProcesso.setText(rs.getString(7));
-            }
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "FacturacaoView prencher dados leitura" + erro);
-        }
-    }
-
-    private void RestaurarDadosComboBoxLeituras() {
-        try {
-            FacturacaoController facturacoController = new FacturacaoController();
-            ResultSet rs = facturacoController.listarLeituras();
-
-            while (rs.next()) {
-                idLeitura.addElement(rs.getInt(1));
-                cbxNrLeitura.addItem(rs.getString(14));
-            }
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "FacturacaoView listar nr da leitura na comboBox" + erro);
-        }
-    }
-
-    //Metodo que pega clientes activos na BD para jcboxClientes
-    private void RestaurarDadosComboBoxTaxa() {
-        try {
-            FacturacaoController facturacoController = new FacturacaoController();
-            ResultSet rs = facturacoController.listarTaxas();
-
-            while (rs.next()) {
-                idTaxas.addElement(rs.getInt(1));
-                cbxTaxas.addItem(rs.getString(4));
-            }
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "FacturacaoView listar nr da leitura na comboBox" + erro);
-        }
-    }
-
-    //Metodo processar Factura
-    final Double consumoMinimo = 5.0;
-    double taxaIva = (0.75 * 0.16);
-
-    private void processarFactura() {
-        double calcSubtotal = 0, ivaAReduzir, iva, desconto = 0, totalFactura, saldoActual;
-        double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
-        double consumo = Double.parseDouble(txtConsumoDoMes.getText());
-        double taxaAplicar = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
-        //taxa fixa de 100,00 para consumo inferior ao minimo estipulado
-        if (consumo <= consumoMinimo) {
-            calcSubtotal = 100.0;
-        } else if (consumo > consumoMinimo) {
-            calcSubtotal = consumo * taxaAplicar;
-        }
-        //Desconto para consumo acima de 15m3 de consumo
-        if (consumo > 15) {
-            double descontoAReduzir = calcSubtotal * 0.1;
-            BigDecimal bd4 = new BigDecimal(descontoAReduzir).setScale(2, RoundingMode.HALF_UP);
-            desconto = bd4.doubleValue();
-        }
-        BigDecimal bd = new BigDecimal(calcSubtotal).setScale(2, RoundingMode.HALF_UP);
-        double subtotal = bd.doubleValue();
-
-        ivaAReduzir = subtotal * taxaIva;
-        BigDecimal bd2 = new BigDecimal(ivaAReduzir).setScale(2, RoundingMode.HALF_UP);
-        iva = bd2.doubleValue();
-
-        totalFactura = subtotal + iva - desconto;
-        txtSubTotal.setText("" + subtotal);
-        txtIva.setText("" + iva);
-        txtDescontos.setText("" + desconto);
-        txtTotalFactura.setText("" + totalFactura);
-        //Saldo actualizado
-        double saldoActualAReduzir = totalFactura + saldoAnterior;
-        BigDecimal bd5 = new BigDecimal(saldoActualAReduzir).setScale(2, RoundingMode.HALF_UP);
-        saldoActual = bd5.doubleValue();
-        txtSaldoActual.setText("" + saldoActual);
-
-        // prazo de pagamento
-        LocalDate dataEmissao = LocalDate.now();
-        int diasPrazo = 15;
-        LocalDate dataVencimento = dataEmissao.plusDays(diasPrazo);
-        String dataVencimentoString = dataVencimento.toString();
-        txtPrazoDePagamento.setText(dataVencimentoString);
-
-        //Alerta para dividas > 3000Mts
-        if (saldoAnterior > 3000) {
-            JOptionPane.showMessageDialog(null, "O cliente tem uma divida de " + saldoActual + "Mts. Caso não seja o seu 1 Pagam. Efectuar Corte!");
-        }
-    }
-
-    //Salvar Leitura
-    private void salvarFacturacao() {
-
-        String nrLeitura = cbxNrLeitura.getSelectedItem().toString();
-        String nome = txtNomeCliente.getText();
-        String dataEmissao = txtDataFactura.getText();
-        String mes = txtMesReferente.getText();
-        double consumo = Double.parseDouble(txtConsumoDoMes.getText());
-        double subtotal = Double.parseDouble(txtSubTotal.getText());
-        double iva = Double.parseDouble(txtIva.getText());
-        double desconto = Double.parseDouble(txtDescontos.getText());
-        double totalFactura = Double.parseDouble(txtTotalFactura.getText());
-        double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
-        double saldoActual = Double.parseDouble(txtSaldoActual.getText());
-        double taxaa = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
-
-        Random aleatorio = new Random();
-        //Numero aleatorio para factura
-        int nrFacturaPadraoInicial = 202401;
-        int nrFactura = nrFacturaPadraoInicial + aleatorio.nextInt(100001);
-        txtNrFactura.setText(nrFactura + "");
-
-        String prazoPagamento = txtPrazoDePagamento.getText();
-        String disponibilidade = "Sim";
-//        txtDisponibilidade.setText(disponibilidade);
-
-        FacturacaoModel facturacaoModel = new FacturacaoModel();
-        facturacaoModel.setNrLeitura(nrLeitura);
-        facturacaoModel.setNome(nome);
-        facturacaoModel.setDataFacturacao(dataEmissao);
-        facturacaoModel.setMesDeReferencia(mes);
-        facturacaoModel.setConsumoMensal(consumo);
-        facturacaoModel.setTaxa(taxaa);
-        facturacaoModel.setPrazoDePagamento(prazoPagamento);
-        facturacaoModel.setSubTotal(subtotal);
-        facturacaoModel.setIva(iva);
-        facturacaoModel.setDescontos(desconto);
-        facturacaoModel.setTotalFactura(totalFactura);
-        facturacaoModel.setDividaAnterior(saldoAnterior);
-        facturacaoModel.setDividaActual(saldoActual);
-        facturacaoModel.setNrDaFactura(nrFactura);
-        facturacaoModel.setDisp(disponibilidade);
-
-        FacturacaoController facturacaoControler = new FacturacaoController();
-        facturacaoControler.cadastrarFacturamento(facturacaoModel);
-
-        ClienteModel clienteModel = new ClienteModel();
-        clienteModel.setSaldo(saldoActual);
-        clienteModel.setNome(nome);
-
-        ClienteController clienteController = new ClienteController();
-        clienteController.ActualizarSaldo(clienteModel);
-    }
-
-    //Metodo Listar
-    private void listarFacturacao() {
-        try {
-            FacturacaoController facturacaoController = new FacturacaoController();
-
-            DefaultTableModel model = (DefaultTableModel) tabelaFacturacao.getModel();
-            model.setRowCount(0);
-
-            ArrayList<FacturacaoModel> lista = facturacaoController.listarFacturacao();
-
-            for (FacturacaoModel item : lista) {
-                model.addRow(new Object[]{
-                    item.getIdFacturacao(),
-                    item.getDataFacturacao(),
-                    item.getNrLeitura(),
-                    item.getMesDeReferencia(),
-                    item.getNome(),
-                    item.getDividaAnterior(),
-                    item.getConsumoMensal(),
-                    item.getTaxa(),
-                    item.getSubTotal(),
-                    item.getIva(),
-                    item.getDescontos(),
-                    item.getTotalFactura(),
-                    item.getDividaActual(),
-                    item.getPrazoDePagamento(),
-                    item.getNrDaFactura(),
-                    item.getDisp()
-                });
-            }
-        } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null, "ListarFacturacao View" + erro);
-        }
-    }
-
-    //Metodo Limpar Campos
-    private void limparCampos() {
-        txtIdFactura.setText("");
-        cbxNrLeitura.setSelectedIndex(0);
-        txtDataFactura.setText("");
-        txtMesReferente.setText("");
-        txtNomeCliente.setText("");
-        txtConsumoDoMes.setText("");
-        cbxTaxas.setSelectedIndex(0);
-        txtPrazoDePagamento.setText("");
-        txtDescontos.setText("");
-        txtTotalFactura.setText("");
-        txtSaldoAntesProcesso.setText("");
-        txtSubTotal.setText("");
-        txtIva.setText("");
-        txtNrFactura.setText("");
-        txtSaldoActual.setText("");
-
-    }
-
-    //Metodo Carregar Campos
-    private void CarregarCampos() {
-        int setar = tabelaFacturacao.getSelectedRow();
-
-        txtIdFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 0).toString());
-        txtDataFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 1).toString());
-        cbxNrLeitura.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 2).toString());
-        txtMesReferente.setText(tabelaFacturacao.getModel().getValueAt(setar, 3).toString());
-        txtNomeCliente.setText(tabelaFacturacao.getModel().getValueAt(setar, 4).toString());
-        txtSaldoAntesProcesso.setText(tabelaFacturacao.getModel().getValueAt(setar, 5).toString());
-        txtConsumoDoMes.setText(tabelaFacturacao.getModel().getValueAt(setar, 6).toString());
-//        Object taxaValue = tabelaFacturacao.getModel().getValueAt(setar, 7);
-//        if (taxaValue != null) {
-//            cbxTaxas.setSelectedItem(taxaValue.toString());
-//        } else {
-//            cbxTaxas.setSelectedItem(null); // ou algum valor padrão
-//        }
-
-        cbxTaxas.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 7).toString());
-        txtSubTotal.setText(tabelaFacturacao.getModel().getValueAt(setar, 8).toString());
-        txtIva.setText(tabelaFacturacao.getModel().getValueAt(setar, 9).toString());
-        txtDescontos.setText(tabelaFacturacao.getModel().getValueAt(setar, 10).toString());
-        txtTotalFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 11).toString());
-        txtSaldoActual.setText(tabelaFacturacao.getModel().getValueAt(setar, 12).toString());
-        txtPrazoDePagamento.setText(tabelaFacturacao.getModel().getValueAt(setar, 13).toString());
-        txtNrFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 14).toString());
-
-    }
-
-    //Metodo Actualizar Facturacao
-    private void actualizarFacturacao() {
-
-        int idFacturacao = Integer.parseInt(txtIdFactura.getText());
-        String nrLeitura = cbxNrLeitura.getSelectedItem().toString();
-        String nome = txtNomeCliente.getText();
-        String dataEmissao = txtDataFactura.getText();
-        String mes = txtMesReferente.getText();
-        double consumo = Double.parseDouble(txtConsumoDoMes.getText());
-        double subtotal = Double.parseDouble(txtSubTotal.getText());
-        double iva = Double.parseDouble(txtIva.getText());
-        double desconto = Double.parseDouble(txtDescontos.getText());
-        double totalFactura = Double.parseDouble(txtTotalFactura.getText());
-        double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
-        double saldoActual = Double.parseDouble(txtSaldoActual.getText());
-        int nrFactura = Integer.parseInt(txtNrFactura.getText());
-        double taxaa = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
-        String prazoPagamento = txtPrazoDePagamento.getText();
-        String disponibilidade = "Sim";
-
-        FacturacaoModel facturacaoModel = new FacturacaoModel();
-        facturacaoModel.setIdFacturacao(idFacturacao);
-        facturacaoModel.setNrLeitura(nrLeitura);
-        facturacaoModel.setNome(nome);
-        facturacaoModel.setDataFacturacao(dataEmissao);
-        facturacaoModel.setMesDeReferencia(mes);
-        facturacaoModel.setConsumoMensal(consumo);
-        facturacaoModel.setTaxa(taxaa);
-        facturacaoModel.setPrazoDePagamento(prazoPagamento);
-        facturacaoModel.setSubTotal(subtotal);
-        facturacaoModel.setIva(iva);
-        facturacaoModel.setDescontos(desconto);
-        facturacaoModel.setTotalFactura(totalFactura);
-        facturacaoModel.setDividaAnterior(saldoAnterior);
-        facturacaoModel.setDividaActual(saldoActual);
-        facturacaoModel.setNrDaFactura(nrFactura);
-        facturacaoModel.setDisp(disponibilidade);
-
-        FacturacaoController facturacaoController = new FacturacaoController();
-        facturacaoController.ActualizarFacturacao(facturacaoModel);
-
-        ClienteModel clienteModel = new ClienteModel();
-        clienteModel.setSaldo(saldoActual);
-        clienteModel.setNome(nome);
-
-        ClienteController clienteController = new ClienteController();
-        clienteController.ActualizarSaldo(clienteModel);
-
-    }
-
-    //Metodo Apagar Facturacao
-    private void ApagarFacturacao() {
-        int idFacturacao = Integer.parseInt(txtIdFactura.getText());
-        String nrLeitura = cbxNrLeitura.getSelectedItem().toString();
-        String nome = txtNomeCliente.getText();
-        String dataEmissao = txtDataFactura.getText();
-        String mes = txtMesReferente.getText();
-        double consumo = Double.parseDouble(txtConsumoDoMes.getText());
-        double subtotal = Double.parseDouble(txtSubTotal.getText());
-        double iva = Double.parseDouble(txtIva.getText());
-        double desconto = Double.parseDouble(txtDescontos.getText());
-        double totalFactura = Double.parseDouble(txtTotalFactura.getText());
-        double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
-        double saldoActual = Double.parseDouble(txtSaldoActual.getText());
-        double taxaa = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
-        int nrFactura = Integer.parseInt(txtNrFactura.getText());
-        String prazoPagamento = txtPrazoDePagamento.getText();
-        String disponibilidade = "Não";
-
-        FacturacaoModel facturacaoModel = new FacturacaoModel();
-        facturacaoModel.setIdFacturacao(idFacturacao);
-        facturacaoModel.setNrLeitura(nrLeitura);
-        facturacaoModel.setNome(nome);
-        facturacaoModel.setDataFacturacao(dataEmissao);
-        facturacaoModel.setMesDeReferencia(mes);
-        facturacaoModel.setConsumoMensal(consumo);
-        facturacaoModel.setTaxa(taxaa);
-        facturacaoModel.setPrazoDePagamento(prazoPagamento);
-        facturacaoModel.setSubTotal(subtotal);
-        facturacaoModel.setIva(iva);
-        facturacaoModel.setDescontos(desconto);
-        facturacaoModel.setTotalFactura(totalFactura);
-        facturacaoModel.setDividaAnterior(saldoAnterior);
-        facturacaoModel.setDividaActual(saldoActual);
-        facturacaoModel.setNrDaFactura(nrFactura);
-        facturacaoModel.setDisp(disponibilidade);
-
-        FacturacaoController facturacaoController = new FacturacaoController();
-        facturacaoController.ActualizarFacturacao(facturacaoModel);
-
-        ClienteModel clienteModel = new ClienteModel();
-        clienteModel.setSaldo(saldoActual);
-        clienteModel.setNome(nome);
-
-        ClienteController clienteController = new ClienteController();
-        clienteController.ActualizarSaldo(clienteModel);
-        JOptionPane.showMessageDialog(null, "A Factura apagada com sucesso");
+        dataActual();
     }
 
     /**
@@ -1113,4 +746,389 @@ public class FacturacaoView extends javax.swing.JFrame {
     private javax.swing.JTextField txtSubTotal;
     private javax.swing.JTextField txtTotalFactura;
     // End of variables declaration//GEN-END:variables
+
+    // Obtém a data atual
+    private void dataActual() {
+        Date data = new Date();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        String dataFormatada = formato.format(data);
+        txtDataFactura.setText("" + dataFormatada);
+    }
+
+    int taxaAplicar;
+    //Accao para comboxTaxas
+    Vector<Integer> idTaxas = new Vector<Integer>();
+
+    private void AccaoComboxTaxa() {
+        if (cbxTaxas.getSelectedIndex() == 0) {
+            taxaAplicar = 0;
+            return;
+        }
+        try {
+            TaxaController taxaController = new TaxaController();
+            ResultSet rs = taxaController.PesquisarTaxas(idTaxas.get(cbxTaxas.getSelectedIndex() - 1));
+
+            while (rs.next()) {
+                taxaAplicar = rs.getInt(4);
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "TaxasView pegar valores de Taxas" + erro);
+        }
+    }
+
+    //Accao para prencher campos
+    Vector<Integer> idLeitura = new Vector<Integer>();
+
+    private void AccaoComboBoxLeituras() {
+        if (cbxNrLeitura.getSelectedIndex() == 0) {
+            txtNomeCliente.setText(null);
+            txtMesReferente.setText(null);
+            txtConsumoDoMes.setText(null);
+            txtSaldoAntesProcesso.setText(null);
+            return;
+        }
+        try {
+            FacturacaoController facturacaoController = new FacturacaoController();
+            ResultSet rs = facturacaoController.prencherDadosLeitura(idLeitura.get(cbxNrLeitura.getSelectedIndex() - 1));
+
+            while (rs.next()) {
+                txtNomeCliente.setText(rs.getString(3));
+                txtMesReferente.setText(rs.getString(8));
+                txtConsumoDoMes.setText(rs.getString(11));
+                txtSaldoAntesProcesso.setText(rs.getString(7));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FacturacaoView prencher dados leitura" + erro);
+        }
+    }
+
+    private void RestaurarDadosComboBoxLeituras() {
+        try {
+            FacturacaoController facturacoController = new FacturacaoController();
+            ResultSet rs = facturacoController.listarLeituras();
+
+            while (rs.next()) {
+                idLeitura.addElement(rs.getInt(1));
+                cbxNrLeitura.addItem(rs.getString(14));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FacturacaoView listar nr da leitura na comboBox" + erro);
+        }
+    }
+
+    //Metodo que pega clientes activos na BD para jcboxClientes
+    private void RestaurarDadosComboBoxTaxa() {
+        try {
+            FacturacaoController facturacoController = new FacturacaoController();
+            ResultSet rs = facturacoController.listarTaxas();
+
+            while (rs.next()) {
+                idTaxas.addElement(rs.getInt(1));
+                cbxTaxas.addItem(rs.getString(4));
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "FacturacaoView listar nr da leitura na comboBox" + erro);
+        }
+    }
+
+    //Metodo processar Factura
+    final Double consumoMinimo = 5.0;
+    double taxaIva = (0.75 * 0.16);
+
+    private void processarFactura() {
+        double calcSubtotal = 0, ivaAReduzir, iva, desconto = 0, totalFactura, saldoActual;
+        double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
+        double consumo = Double.parseDouble(txtConsumoDoMes.getText());
+        double taxaAplicar = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
+        //taxa fixa de 100,00 para consumo inferior ao minimo estipulado
+        if (consumo <= consumoMinimo) {
+            calcSubtotal = 100.0;
+        } else if (consumo > consumoMinimo) {
+            calcSubtotal = consumo * taxaAplicar;
+        }
+        //Desconto para consumo acima de 15m3 de consumo
+        if (consumo > 15) {
+            double descontoAReduzir = calcSubtotal * 0.1;
+            BigDecimal bd4 = new BigDecimal(descontoAReduzir).setScale(2, RoundingMode.HALF_UP);
+            desconto = bd4.doubleValue();
+        }
+        BigDecimal bd = new BigDecimal(calcSubtotal).setScale(2, RoundingMode.HALF_UP);
+        double subtotal = bd.doubleValue();
+
+        ivaAReduzir = subtotal * taxaIva;
+        BigDecimal bd2 = new BigDecimal(ivaAReduzir).setScale(2, RoundingMode.HALF_UP);
+        iva = bd2.doubleValue();
+
+        totalFactura = subtotal + iva - desconto;
+        txtSubTotal.setText("" + subtotal);
+        txtIva.setText("" + iva);
+        txtDescontos.setText("" + desconto);
+        txtTotalFactura.setText("" + totalFactura);
+        //Saldo actualizado
+        double saldoActualAReduzir = totalFactura + saldoAnterior;
+        BigDecimal bd5 = new BigDecimal(saldoActualAReduzir).setScale(2, RoundingMode.HALF_UP);
+        saldoActual = bd5.doubleValue();
+        txtSaldoActual.setText("" + saldoActual);
+
+        // prazo de pagamento
+        LocalDate dataEmissao = LocalDate.now();
+        int diasPrazo = 15;
+        LocalDate dataVencimento = dataEmissao.plusDays(diasPrazo);
+        String dataVencimentoString = dataVencimento.toString();
+        txtPrazoDePagamento.setText(dataVencimentoString);
+
+        //Alerta para dividas > 3000Mts
+        if (saldoAnterior > 3000) {
+            JOptionPane.showMessageDialog(null, "O cliente tem uma divida de " + saldoActual + "Mts. Caso não seja o seu 1 Pagam. Efectuar Corte!");
+        }
+    }
+
+    //Salvar Leitura
+    private void salvarFacturacao() {
+
+        String nrLeitura = cbxNrLeitura.getSelectedItem().toString();
+        String nome = txtNomeCliente.getText();
+        String dataEmissao = txtDataFactura.getText();
+        String mes = txtMesReferente.getText();
+        double consumo = Double.parseDouble(txtConsumoDoMes.getText());
+        double subtotal = Double.parseDouble(txtSubTotal.getText());
+        double iva = Double.parseDouble(txtIva.getText());
+        double desconto = Double.parseDouble(txtDescontos.getText());
+        double totalFactura = Double.parseDouble(txtTotalFactura.getText());
+        double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
+        double saldoActual = Double.parseDouble(txtSaldoActual.getText());
+        double taxaa = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
+
+        Random aleatorio = new Random();
+        //Numero aleatorio para factura
+        int nrFacturaPadraoInicial = 202401;
+        int nrFactura = nrFacturaPadraoInicial + aleatorio.nextInt(100001);
+        txtNrFactura.setText(nrFactura + "");
+
+        String prazoPagamento = txtPrazoDePagamento.getText();
+        String disponibilidade = "Sim";
+//        txtDisponibilidade.setText(disponibilidade);
+
+        FacturacaoModel facturacaoModel = new FacturacaoModel();
+        facturacaoModel.setNrLeitura(nrLeitura);
+        facturacaoModel.setNome(nome);
+        facturacaoModel.setDataFacturacao(dataEmissao);
+        facturacaoModel.setMesDeReferencia(mes);
+        facturacaoModel.setConsumoMensal(consumo);
+        facturacaoModel.setTaxa(taxaa);
+        facturacaoModel.setPrazoDePagamento(prazoPagamento);
+        facturacaoModel.setSubTotal(subtotal);
+        facturacaoModel.setIva(iva);
+        facturacaoModel.setDescontos(desconto);
+        facturacaoModel.setTotalFactura(totalFactura);
+        facturacaoModel.setDividaAnterior(saldoAnterior);
+        facturacaoModel.setDividaActual(saldoActual);
+        facturacaoModel.setNrDaFactura(nrFactura);
+        facturacaoModel.setDisp(disponibilidade);
+//        facturacaoModel.setPaga(false);
+
+        FacturacaoController facturacaoControler = new FacturacaoController();
+        facturacaoControler.cadastrarFacturamento(facturacaoModel);
+
+        ClienteModel clienteModel = new ClienteModel();
+        clienteModel.setSaldo(saldoActual);
+        clienteModel.setNome(nome);
+
+        ClienteController clienteController = new ClienteController();
+        clienteController.ActualizarSaldo(clienteModel);
+
+        LeituraModel leituraModel = new LeituraModel();
+        leituraModel.setEstadoFacturacao(true);
+        leituraModel.setNrLeitura(nrLeitura);
+        facturacaoControler.ActualizarEstadoLeitura(leituraModel);
+
+    }
+
+    //Metodo Listar
+    private void listarFacturacao() {
+        try {
+            FacturacaoController facturacaoController = new FacturacaoController();
+
+            DefaultTableModel model = (DefaultTableModel) tabelaFacturacao.getModel();
+            model.setRowCount(0);
+
+            ArrayList<FacturacaoModel> lista = facturacaoController.listarFacturacao();
+
+            for (FacturacaoModel item : lista) {
+                model.addRow(new Object[]{
+                    item.getIdFacturacao(),
+                    item.getDataFacturacao(),
+                    item.getNrLeitura(),
+                    item.getMesDeReferencia(),
+                    item.getNome(),
+                    item.getDividaAnterior(),
+                    item.getConsumoMensal(),
+                    item.getTaxa(),
+                    item.getSubTotal(),
+                    item.getIva(),
+                    item.getDescontos(),
+                    item.getTotalFactura(),
+                    item.getDividaActual(),
+                    item.getPrazoDePagamento(),
+                    item.getNrDaFactura(),
+                    item.getDisp()
+                });
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "ListarFacturacao View" + erro);
+        }
+    }
+
+    //Metodo Limpar Campos
+    private void limparCampos() {
+        txtIdFactura.setText("");
+        cbxNrLeitura.setSelectedIndex(0);
+//        txtDataFactura.setText("");
+        dataActual();
+        txtMesReferente.setText("");
+        txtNomeCliente.setText("");
+        txtConsumoDoMes.setText("");
+        cbxTaxas.setSelectedIndex(0);
+        txtPrazoDePagamento.setText("");
+        txtDescontos.setText("");
+        txtTotalFactura.setText("");
+        txtSaldoAntesProcesso.setText("");
+        txtSubTotal.setText("");
+        txtIva.setText("");
+        txtNrFactura.setText("");
+        txtSaldoActual.setText("");
+    }
+
+    //Metodo Carregar Campos
+    private void CarregarCampos() {
+        int setar = tabelaFacturacao.getSelectedRow();
+
+        txtIdFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 0).toString());
+        txtDataFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 1).toString());
+        cbxNrLeitura.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 2).toString());
+        txtMesReferente.setText(tabelaFacturacao.getModel().getValueAt(setar, 3).toString());
+        txtNomeCliente.setText(tabelaFacturacao.getModel().getValueAt(setar, 4).toString());
+        txtSaldoAntesProcesso.setText(tabelaFacturacao.getModel().getValueAt(setar, 5).toString());
+        txtConsumoDoMes.setText(tabelaFacturacao.getModel().getValueAt(setar, 6).toString());
+        cbxTaxas.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 7).toString());
+        txtSubTotal.setText(tabelaFacturacao.getModel().getValueAt(setar, 8).toString());
+        txtIva.setText(tabelaFacturacao.getModel().getValueAt(setar, 9).toString());
+        txtDescontos.setText(tabelaFacturacao.getModel().getValueAt(setar, 10).toString());
+        txtTotalFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 11).toString());
+        txtSaldoActual.setText(tabelaFacturacao.getModel().getValueAt(setar, 12).toString());
+        txtPrazoDePagamento.setText(tabelaFacturacao.getModel().getValueAt(setar, 13).toString());
+        txtNrFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 14).toString());
+
+    }
+
+    //Metodo Actualizar Facturacao
+    private void actualizarFacturacao() {
+
+        int idFacturacao = Integer.parseInt(txtIdFactura.getText());
+        String nrLeitura = cbxNrLeitura.getSelectedItem().toString();
+        String nome = txtNomeCliente.getText();
+        String dataEmissao = txtDataFactura.getText();
+        String mes = txtMesReferente.getText();
+        double consumo = Double.parseDouble(txtConsumoDoMes.getText());
+        double subtotal = Double.parseDouble(txtSubTotal.getText());
+        double iva = Double.parseDouble(txtIva.getText());
+        double desconto = Double.parseDouble(txtDescontos.getText());
+        double totalFactura = Double.parseDouble(txtTotalFactura.getText());
+        double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
+        double saldoActual = Double.parseDouble(txtSaldoActual.getText());
+        int nrFactura = Integer.parseInt(txtNrFactura.getText());
+        double taxaa = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
+        String prazoPagamento = txtPrazoDePagamento.getText();
+        String disponibilidade = "Sim";
+
+        FacturacaoModel facturacaoModel = new FacturacaoModel();
+        facturacaoModel.setIdFacturacao(idFacturacao);
+        facturacaoModel.setNrLeitura(nrLeitura);
+        facturacaoModel.setNome(nome);
+        facturacaoModel.setDataFacturacao(dataEmissao);
+        facturacaoModel.setMesDeReferencia(mes);
+        facturacaoModel.setConsumoMensal(consumo);
+        facturacaoModel.setTaxa(taxaa);
+        facturacaoModel.setPrazoDePagamento(prazoPagamento);
+        facturacaoModel.setSubTotal(subtotal);
+        facturacaoModel.setIva(iva);
+        facturacaoModel.setDescontos(desconto);
+        facturacaoModel.setTotalFactura(totalFactura);
+        facturacaoModel.setDividaAnterior(saldoAnterior);
+        facturacaoModel.setDividaActual(saldoActual);
+        facturacaoModel.setNrDaFactura(nrFactura);
+        facturacaoModel.setDisp(disponibilidade);
+
+        FacturacaoController facturacaoController = new FacturacaoController();
+        facturacaoController.ActualizarFacturacao(facturacaoModel);
+
+        ClienteModel clienteModel = new ClienteModel();
+        clienteModel.setSaldo(saldoActual);
+        clienteModel.setNome(nome);
+
+        ClienteController clienteController = new ClienteController();
+        clienteController.ActualizarSaldo(clienteModel);
+
+        LeituraModel leituraModel = new LeituraModel();
+        leituraModel.setEstadoFacturacao(true);
+        leituraModel.setNrLeitura(nrLeitura);
+        facturacaoController.ActualizarEstadoLeitura(leituraModel);
+
+    }
+
+    //Metodo Apagar Facturacao
+    private void ApagarFacturacao() {
+        int idFacturacao = Integer.parseInt(txtIdFactura.getText());
+        String nrLeitura = cbxNrLeitura.getSelectedItem().toString();
+        String nome = txtNomeCliente.getText();
+        String dataEmissao = txtDataFactura.getText();
+        String mes = txtMesReferente.getText();
+        double consumo = Double.parseDouble(txtConsumoDoMes.getText());
+        double subtotal = Double.parseDouble(txtSubTotal.getText());
+        double iva = Double.parseDouble(txtIva.getText());
+        double desconto = Double.parseDouble(txtDescontos.getText());
+        double totalFactura = Double.parseDouble(txtTotalFactura.getText());
+        double saldoAnterior = Double.parseDouble(txtSaldoAntesProcesso.getText());
+        double saldoActual = Double.parseDouble(txtSaldoActual.getText());
+        double taxaa = Double.parseDouble(cbxTaxas.getSelectedItem().toString());
+        int nrFactura = Integer.parseInt(txtNrFactura.getText());
+        String prazoPagamento = txtPrazoDePagamento.getText();
+        String disponibilidade = "Não";
+
+        FacturacaoModel facturacaoModel = new FacturacaoModel();
+        facturacaoModel.setIdFacturacao(idFacturacao);
+        facturacaoModel.setNrLeitura(nrLeitura);
+        facturacaoModel.setNome(nome);
+        facturacaoModel.setDataFacturacao(dataEmissao);
+        facturacaoModel.setMesDeReferencia(mes);
+        facturacaoModel.setConsumoMensal(consumo);
+        facturacaoModel.setTaxa(taxaa);
+        facturacaoModel.setPrazoDePagamento(prazoPagamento);
+        facturacaoModel.setSubTotal(subtotal);
+        facturacaoModel.setIva(iva);
+        facturacaoModel.setDescontos(desconto);
+        facturacaoModel.setTotalFactura(totalFactura);
+        facturacaoModel.setDividaAnterior(saldoAnterior);
+        facturacaoModel.setDividaActual(saldoActual);
+        facturacaoModel.setNrDaFactura(nrFactura);
+        facturacaoModel.setDisp(disponibilidade);
+
+        FacturacaoController facturacaoController = new FacturacaoController();
+        facturacaoController.ActualizarFacturacao(facturacaoModel);
+
+        ClienteModel clienteModel = new ClienteModel();
+        clienteModel.setSaldo(saldoActual);
+        clienteModel.setNome(nome);
+
+        ClienteController clienteController = new ClienteController();
+        clienteController.ActualizarSaldo(clienteModel);
+
+        LeituraModel leituraModel = new LeituraModel();
+        leituraModel.setNrLeitura(nrLeitura);
+        leituraModel.setEstadoFacturacao(false);
+        facturacaoController.ActualizarEstadoLeitura(leituraModel);
+
+        JOptionPane.showMessageDialog(null, "A Factura apagada com sucesso");
+    }
+
 }
