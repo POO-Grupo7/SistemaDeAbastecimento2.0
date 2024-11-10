@@ -10,6 +10,8 @@ import Model.LeituraModel;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.print.PrinterException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
@@ -20,7 +22,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 public class FacturacaoView extends javax.swing.JFrame {
@@ -85,6 +90,14 @@ public class FacturacaoView extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         cbxTaxas = new javax.swing.JComboBox<>();
         painelDirDados = new javax.swing.JPanel();
+        painelFactura = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        areaFactura = new javax.swing.JTextArea();
+        botoesFactura = new javax.swing.JPanel();
+        btnCarregarFactua = new javax.swing.JButton();
+        btnLimparFactura = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
+        btnEnviar = new javax.swing.JButton();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
         tabela = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -347,7 +360,7 @@ public class FacturacaoView extends javax.swing.JFrame {
                                 .addComponent(txtNomeCliente)
                                 .addComponent(cbxTaxas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnProcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         painelEsqDadosLayout.setVerticalGroup(
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,17 +434,64 @@ public class FacturacaoView extends javax.swing.JFrame {
 
         painelDirDados.setBackground(new java.awt.Color(255, 255, 255));
         painelDirDados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 43, 64)));
+        painelDirDados.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout painelDirDadosLayout = new javax.swing.GroupLayout(painelDirDados);
-        painelDirDados.setLayout(painelDirDadosLayout);
-        painelDirDadosLayout.setHorizontalGroup(
-            painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 495, Short.MAX_VALUE)
+        areaFactura.setColumns(20);
+        areaFactura.setRows(5);
+        jScrollPane1.setViewportView(areaFactura);
+
+        javax.swing.GroupLayout painelFacturaLayout = new javax.swing.GroupLayout(painelFactura);
+        painelFactura.setLayout(painelFacturaLayout);
+        painelFacturaLayout.setHorizontalGroup(
+            painelFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
         );
-        painelDirDadosLayout.setVerticalGroup(
-            painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 518, Short.MAX_VALUE)
+        painelFacturaLayout.setVerticalGroup(
+            painelFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
         );
+
+        painelDirDados.add(painelFactura, java.awt.BorderLayout.CENTER);
+
+        botoesFactura.setPreferredSize(new java.awt.Dimension(495, 30));
+        botoesFactura.setLayout(new java.awt.GridLayout(1, 4, 10, 5));
+
+        btnCarregarFactua.setText("Carregar Factura");
+        btnCarregarFactua.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCarregarFactua.setMargin(new java.awt.Insets(5, 15, 5, 15));
+        btnCarregarFactua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarregarFactuaActionPerformed(evt);
+            }
+        });
+        botoesFactura.add(btnCarregarFactua);
+
+        btnLimparFactura.setText("Limpar a Factura");
+        btnLimparFactura.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLimparFactura.setMargin(new java.awt.Insets(5, 15, 5, 15));
+        btnLimparFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparFacturaActionPerformed(evt);
+            }
+        });
+        botoesFactura.add(btnLimparFactura);
+
+        btnImprimir.setText("Imprimir");
+        btnImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnImprimir.setMargin(new java.awt.Insets(5, 15, 5, 15));
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        botoesFactura.add(btnImprimir);
+
+        btnEnviar.setText("Enviar");
+        btnEnviar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEnviar.setMargin(new java.awt.Insets(5, 15, 5, 15));
+        botoesFactura.add(btnEnviar);
+
+        painelDirDados.add(botoesFactura, java.awt.BorderLayout.PAGE_END);
 
         painelSuperiorDados.add(painelDirDados);
 
@@ -670,6 +730,22 @@ public class FacturacaoView extends javax.swing.JFrame {
         AccaoComboBoxLeituras();
     }//GEN-LAST:event_cbxNrLeituraActionPerformed
 
+    private void btnCarregarFactuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarFactuaActionPerformed
+        GerarFactura();
+    }//GEN-LAST:event_btnCarregarFactuaActionPerformed
+
+    private void btnLimparFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparFacturaActionPerformed
+        LimparFactura();
+    }//GEN-LAST:event_btnLimparFacturaActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        try {
+            areaFactura.print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(FacturacaoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -690,7 +766,13 @@ public class FacturacaoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areaFactura;
     private javax.swing.JPanel botoes;
+    private javax.swing.JPanel botoesFactura;
+    private javax.swing.JButton btnCarregarFactua;
+    private javax.swing.JButton btnEnviar;
+    private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnLimparFactura;
     private javax.swing.JButton btnProcessar;
     private javax.swing.JButton btnVoltarMenu;
     private javax.swing.JComboBox<String> cbxNrLeitura;
@@ -718,6 +800,7 @@ public class FacturacaoView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCabecalho;
     private javax.swing.JLabel lblIconLogo;
@@ -726,6 +809,7 @@ public class FacturacaoView extends javax.swing.JFrame {
     private javax.swing.JPanel painelConteudoEsquerdo;
     private javax.swing.JPanel painelDirDados;
     private javax.swing.JPanel painelEsqDados;
+    private javax.swing.JPanel painelFactura;
     private javax.swing.JPanel painelInferiorBotoesTabela;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JPanel painelSuperiorDados;
@@ -1129,6 +1213,38 @@ public class FacturacaoView extends javax.swing.JFrame {
         facturacaoController.ActualizarEstadoLeitura(leituraModel);
 
         JOptionPane.showMessageDialog(null, "A Factura apagada com sucesso");
+    }
+
+    // Método Gerar Factura
+    private void GerarFactura() {
+        areaFactura.setFont(new Font("", Font.LAYOUT_LEFT_TO_RIGHT, 15));
+        areaFactura.setText("***************************************************\n");
+        areaFactura.append("                         Flowing Waters            \n");
+        areaFactura.append("                 Albazine, Circular N.2045         \n");
+        areaFactura.append("            Cell: 831234567 Tel: 21478569     \n");
+        areaFactura.append("                        Nuit: 2104578798             \n");
+        areaFactura.append("***************************************************\n");
+        areaFactura.append(String.format("Factura Nr: %s\n", txtNrFactura.getText()));
+        areaFactura.append(String.format("Mês de Ref.: %s\n", txtMesReferente.getText()));
+        areaFactura.append(String.format("Data: %s\n", txtDataFactura.getText()));
+        areaFactura.append(String.format("Prazo Factura: %s\n\n", txtPrazoDePagamento.getText()));
+        areaFactura.append(String.format("Cliente: %s\n", txtNomeCliente.getText()));
+        areaFactura.append(String.format("Débito antes da Fact: %s\n", txtSaldoAntesProcesso.getText()));
+        areaFactura.append(String.format("Consumo mensal: %s\n", txtConsumoDoMes.getText()));
+        areaFactura.append(String.format("Subtotal: %s\n", txtSubTotal.getText()));
+        areaFactura.append(String.format("Desconto: %s\n", txtDescontos.getText()));
+        areaFactura.append(String.format("Iva (0.75*16%%): %s\n", txtIva.getText()));
+        areaFactura.append(String.format("Total Mês: %s Mts\n", txtTotalFactura.getText()));
+        areaFactura.append(String.format("Total dos Débitos: %s Mts\n\n", txtSaldoActual.getText()));
+        areaFactura.append("                           Assinatura               \n");
+
+        // Centralizar todo o texto na área de texto
+        areaFactura.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
+    }
+
+    //Limpar Factura
+    private void LimparFactura() {
+        areaFactura.setText("");
     }
 
 }
