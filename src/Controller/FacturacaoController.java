@@ -93,39 +93,42 @@ public class FacturacaoController {
 
     //METODO PARA CADASTRAR
     public void cadastrarFacturamento(FacturacaoModel facturacaoModel) {
+        if (facturaExiste(facturacaoModel.getNrLeitura(), facturacaoModel.getNrDaFactura())) {
+            JOptionPane.showMessageDialog(null, "A factura ja foi processada!");
+        } else {
+            String sql = "insert into facturacao (nrLeitura, nomeCliente, dataEmissao, mesReferente, consumoDoMes,taxa, prazoPagamento, subTotal , iva, descontos, TotalFactura, saldoAnterior, saldoActual, nrDaFactura, disp, paga) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+            conexao = new ConexaoController().conectaBaseDados();
 
-        String sql = "insert into facturacao (nrLeitura, nomeCliente, dataEmissao, mesReferente, consumoDoMes,taxa, prazoPagamento, subTotal , iva, descontos, TotalFactura, saldoAnterior, saldoActual, nrDaFactura, disp, paga) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
-        conexao = new ConexaoController().conectaBaseDados();
+            try {
+                pstm = conexao.prepareStatement(sql);
 
-        try {
-            pstm = conexao.prepareStatement(sql);
+                pstm.setString(1, facturacaoModel.getNrLeitura());
+                pstm.setString(2, facturacaoModel.getNome());
+                pstm.setString(3, facturacaoModel.getDataFacturacao());
+                pstm.setString(4, facturacaoModel.getMesDeReferencia());
+                pstm.setDouble(5, facturacaoModel.getConsumoMensal());
+                pstm.setDouble(6, facturacaoModel.getTaxa());
+                pstm.setString(7, facturacaoModel.getPrazoDePagamento());
+                pstm.setDouble(8, facturacaoModel.getSubTotal());
+                pstm.setDouble(9, facturacaoModel.getIva());
+                pstm.setDouble(10, facturacaoModel.getDescontos());
+                pstm.setDouble(11, facturacaoModel.getTotalFactura());
+                pstm.setDouble(12, facturacaoModel.getDividaAnterior());
+                pstm.setDouble(13, facturacaoModel.getDividaActual());
+                pstm.setInt(14, facturacaoModel.getNrDaFactura());
+                pstm.setString(15, facturacaoModel.getDisp());
+                pstm.setBoolean(16, facturacaoModel.getPaga());
 
-            pstm.setString(1, facturacaoModel.getNrLeitura());
-            pstm.setString(2, facturacaoModel.getNome());
-            pstm.setString(3, facturacaoModel.getDataFacturacao());
-            pstm.setString(4, facturacaoModel.getMesDeReferencia());
-            pstm.setDouble(5, facturacaoModel.getConsumoMensal());
-            pstm.setDouble(6, facturacaoModel.getTaxa());
-            pstm.setString(7, facturacaoModel.getPrazoDePagamento());
-            pstm.setDouble(8, facturacaoModel.getSubTotal());
-            pstm.setDouble(9, facturacaoModel.getIva());
-            pstm.setDouble(10, facturacaoModel.getDescontos());
-            pstm.setDouble(11, facturacaoModel.getTotalFactura());
-            pstm.setDouble(12, facturacaoModel.getDividaAnterior());
-            pstm.setDouble(13, facturacaoModel.getDividaActual());
-            pstm.setInt(14, facturacaoModel.getNrDaFactura());
-            pstm.setString(15, facturacaoModel.getDisp());
-            pstm.setBoolean(16, facturacaoModel.getPaga());
+                pstm.execute();
+                pstm.close();
 
-            pstm.execute();
-            pstm.close();
-
-            JOptionPane.showMessageDialog(null, "Factura salva com sucesso");
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "FacturacaoController Cadastrar" + erro);
+                JOptionPane.showMessageDialog(null, "Factura salva com sucesso");
+            } catch (SQLException erro) {
+                JOptionPane.showMessageDialog(null, "FacturacaoController Cadastrar" + erro);
+            }
         }
     }
-    
+
     //METODO PARA LISTAR
     public ArrayList<FacturacaoModel> listarFacturacao() {
         ArrayList<FacturacaoModel> list = new ArrayList<>();
@@ -164,6 +167,7 @@ public class FacturacaoController {
         return list;
     }
 //Listar Taxas na ComboBox
+
     public ResultSet listarTaxas() {
         conexao = new ConexaoController().conectaBaseDados();
         String sql = "select * from taxas where processada = 'Sim'";
@@ -177,7 +181,7 @@ public class FacturacaoController {
             return null;
         }
     }
-    
+
     //METODO PARA LISTAR APAGADAS
     public ArrayList<FacturacaoModel> listarFacturacaoApagadas() {
         ArrayList<FacturacaoModel> list = new ArrayList<>();
@@ -250,8 +254,8 @@ public class FacturacaoController {
             JOptionPane.showMessageDialog(null, "FacturacaoController Actuaizar facturacao" + erro);
         }
     }
-    
-        //Metodo para actualizar estadoDaLeitura se ja foi facturada
+
+    //Metodo para actualizar estadoDaLeitura se ja foi facturada
     public void ActualizarEstadoLeitura(LeituraModel leituraModel) {
         String sql = "UPDATE leituras SET estadoFacturacao = ? WHERE nrLeitura = ?";
         conexao = new ConexaoController().conectaBaseDados();
