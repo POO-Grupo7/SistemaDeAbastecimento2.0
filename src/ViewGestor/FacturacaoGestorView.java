@@ -813,7 +813,7 @@ public class FacturacaoGestorView extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(52, 102, 138));
         jButton6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Facturar");
+        jButton6.setText("Imprimir");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);

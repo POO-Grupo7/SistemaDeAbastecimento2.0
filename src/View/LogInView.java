@@ -217,7 +217,7 @@ public class LogInView extends javax.swing.JFrame {
                 String perfil = rsUsuarioControlller.getString("perfil");
                 dispose();
 
-                if ("Admistrador".equals(perfil)) {
+                if ("Administrador".equals(perfil)) {
                     MenuPrincipal menu = new MenuPrincipal();
                     menu.setVisible(true);
                 } else if ("Gestor".equals(perfil)) {

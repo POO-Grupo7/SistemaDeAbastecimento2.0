@@ -1,6 +1,5 @@
-package ViewGestor;
+package View;
 
-import View.*;
 import Controller.ClienteController;
 import Controller.HistoricoHidrometroController;
 import Model.ClienteModel;
@@ -626,22 +625,28 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCarregarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarCamposActionPerformed
-//        carregarCampos();
+        carregarCampos();
     }//GEN-LAST:event_btnCarregarCamposActionPerformed
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
-//        limparCampos();
+        limparCampos();
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
-
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que apagar?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            apagarHistoricoHidrometro();
+            limparCampos();
+            listarHistoricoHidrometro();
+        }
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        try {
-            tabelaHistorico.print();
-        } catch (Exception e) {
-
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que salvar?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            guardarHistorico();
+            listarHistoricoHidrometro();
+            limparCampos();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -698,7 +703,7 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenuMouseExited
 
     private void btnVoltarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarMenuActionPerformed
-        new MenuGestorView().setVisible(true);
+        new MenuPrincipal().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
@@ -712,7 +717,12 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu2ActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        btnActualizar.setEnabled(false);
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja actualizar?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            actualizarHistoricoHidrometro();
+            listarHistoricoHidrometro();
+            limparCampos();
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
@@ -879,6 +889,7 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
         String dataFim = dateFormat.format(selectedDateOfEnd);
 
         String nrHidrometro = cbxHidrometro.getSelectedItem().toString();
+        double saldoCliente = Double.parseDouble(txtSaldoActual.getText());
 
         // Verificações de campos
         HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
@@ -887,6 +898,7 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
         cliente.setBairro(bairro);
         cliente.setQuarteirao(quarteirao);
         cliente.setNrDaCasa(nr);
+        cliente.setSaldo(saldoCliente);
 
         historicoHidrometroModel.setCliente(cliente);
 
@@ -924,6 +936,7 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
                     item.getCliente().getBairro(),
                     item.getCliente().getQuarteirao(), // Certifique-se de usar o índice correto
                     item.getCliente().getNrDaCasa(), // Certifique-se de usar o índice correto
+//                    item.getCliente().getSaldo(), // Certifique-se de usar o índice correto
                     item.getDataInicial(),
                     item.getDataFinal(),
                     item.getHidrometro().getNrHidrometro()
@@ -1020,7 +1033,7 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
         historicoHidrometroControler.actualizarHistoricoHidometro(historicoHidrometroModel);
     }
 
-    //Metodo Actualizar Historico
+    //Metodo apagar Historico
     private void apagarHistoricoHidrometro() {
         int id = Integer.parseInt(txtId.getText());
         String nomeCliente = cbxNomeDoCliente.getSelectedItem().toString();
@@ -1035,6 +1048,7 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
         String dataFim = dateFormat.format(selectedDateOfEnd);
 
         String nrHidrometro = cbxHidrometro.getSelectedItem().toString();
+        double saldoCliente = Double.parseDouble(txtSaldoActual.getText());
 
         // Verificações
         HistoricoHidrometroModel historicoHidrometroModel = new HistoricoHidrometroModel();
@@ -1046,6 +1060,7 @@ public class HistoricoHidrometroGestorView extends javax.swing.JFrame {
         cliente.setBairro(bairro);
         cliente.setQuarteirao(quarteirao);
         cliente.setNrDaCasa(nr);
+        cliente.setSaldo(saldoCliente);
 
         historicoHidrometroModel.setCliente(cliente);
 

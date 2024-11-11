@@ -186,7 +186,7 @@ public class PagamentoGestorView extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("FACTURAÇÃO");
+        setTitle("PAGAMENTOS");
         setMinimumSize(new java.awt.Dimension(1200, 680));
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));

@@ -361,7 +361,7 @@ public class UsuariosView1111 extends javax.swing.JFrame {
 
         jCheckBox1.setText("Ver Senha");
 
-        cbxPerfilAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Admistrador ", "Gestor", "Leitor", "Balconista" }));
+        cbxPerfilAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Administrador ", "Gestor", "Leitor", "Balconista" }));
 
         cbxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
 
