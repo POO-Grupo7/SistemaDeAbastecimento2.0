@@ -380,7 +380,7 @@ public class UsuariosView1 extends javax.swing.JFrame {
 
         jCheckBox1.setText("Ver Senha");
 
-        cbxPerfilAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Administrador ", "Gestor", "Operador" }));
+        cbxPerfilAcesso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Administrador", "Gestor", "Operador" }));
 
         cbxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
 
