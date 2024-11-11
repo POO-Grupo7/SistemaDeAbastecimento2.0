@@ -618,9 +618,16 @@ public class LeiturasView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        salvarLeitura();
-        listarLeituras();
-        limparCampos();
+
+        if (camposObrigatoriosPreenchidos()) {
+            salvarLeitura();
+            listarLeituras();
+            limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos campos Obrigatorios!");
+        }
+
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
@@ -810,6 +817,15 @@ public class LeiturasView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "LeituraView pegar valores do NrHidrometro na tabela HistHidrom" + erro);
         }
     }
+    
+       //Metodo Prencher Campos obrigatorios
+    private boolean camposObrigatoriosPreenchidos() {
+        boolean mesRef = !cbxMesDeReferencia.getSelectedItem().toString().equals("Selecione");
+        boolean hidrometro = !cbxNrHidrometro.getSelectedItem().toString().equals("Selecione");
+
+        return mesRef && hidrometro;
+    }
+
 
     //Salvar Leitura
     private void salvarLeitura() {

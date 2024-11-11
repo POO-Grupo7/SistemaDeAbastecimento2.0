@@ -176,7 +176,12 @@ public class HidrometroView extends javax.swing.JFrame {
 
         lbStatus.setText("Estado:*");
 
-        cbxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>", "Operacional", "Nao Operacional" }));
+        cbxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Operacional", "Nao Operacional" }));
+        cbxStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxStatusActionPerformed(evt);
+            }
+        });
 
         txtDataRegisto.setDateFormatString("dd/MM/yyyy");
 
@@ -390,9 +395,14 @@ public class HidrometroView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        cadastrarHidrometro();
-        listarHidrometro();
-        limparCampos();
+
+        if (camposObrigatoriosPreenchidos()) {
+            cadastrarHidrometro();
+            listarHidrometro();
+            limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos campos Obrigatorios!");
+        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed
@@ -412,6 +422,10 @@ public class HidrometroView extends javax.swing.JFrame {
         listarHidrometro();
         limparCampos();
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void cbxStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxStatusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -471,7 +485,7 @@ public class HidrometroView extends javax.swing.JFrame {
 
         String selectedOption = cbxStatus.getSelectedItem().toString();
         String estado = "Operacional";
-        if (selectedOption.equals("<Selecione>")) {
+        if (selectedOption.equals("Selecione")) {
             JOptionPane.showMessageDialog(null, "Selecione uma opcao válida");
         } else {
             estado = cbxStatus.getSelectedItem().toString();
@@ -517,12 +531,20 @@ public class HidrometroView extends javax.swing.JFrame {
         }
     }
 
+    //Metodo Prencher Campos obrigatorios
+    private boolean camposObrigatoriosPreenchidos() {
+        boolean dataInicio = txtDataRegisto.getDate() != null;
+        boolean bairroSelecionado = !cbxStatus.getSelectedItem().toString().equals("Selecione");
+
+        return dataInicio && bairroSelecionado;
+    }
+
     //Metodo Actualizar Hidrometro
     private void actualizarHidrometro() {
         int id = Integer.parseInt(txtId.getText());
         String selectedOption = cbxStatus.getSelectedItem().toString();
         String estado = "Operacional";
-        if (selectedOption.equals("<Selecione>")) {
+        if (selectedOption.equals("Selecione")) {
             JOptionPane.showMessageDialog(null, "Selecione uma opcao válida");
         } else {
             estado = cbxStatus.getSelectedItem().toString();

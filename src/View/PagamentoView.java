@@ -702,9 +702,17 @@ public class PagamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        
+
+        if (camposObrigatoriosPreenchidos()) {
+          
         salvarPagamento();
         listarPagamentos();
         limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos campos Obrigatorios!");
+        }
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -931,6 +939,7 @@ public class PagamentoView extends javax.swing.JFrame {
         double valorDividaDepoisMulta = bd3.doubleValue();
         txtTotalAPagar.setText("" + valorDividaDepoisMulta);
     }
+    
 
     //Salvar Leitura
     private void salvarPagamento() {
