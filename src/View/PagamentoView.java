@@ -14,6 +14,8 @@ import Model.PagamentoModel;
 import com.formdev.flatlaf.intellijthemes.FlatCyanLightIJTheme;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.print.PrinterException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
@@ -25,7 +27,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 public class PagamentoView extends javax.swing.JFrame {
@@ -171,6 +176,14 @@ public class PagamentoView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtNrRecibos = new javax.swing.JTextField();
         painelDirDados = new javax.swing.JPanel();
+        painelFactura = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        areaRecibo = new javax.swing.JTextArea();
+        botoesFactura = new javax.swing.JPanel();
+        btnCarregarRecibo = new javax.swing.JButton();
+        btnLimparRecibo = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
+        btnEnviar = new javax.swing.JButton();
         painelInferiorBotoesTabela = new javax.swing.JPanel();
         tabela = new javax.swing.JPanel();
         botoes = new javax.swing.JPanel();
@@ -415,7 +428,7 @@ public class PagamentoView extends javax.swing.JFrame {
                                         .addGroup(painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtValorEntregue, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btnCalcularTrocos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         painelEsqDadosLayout.setVerticalGroup(
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -479,17 +492,64 @@ public class PagamentoView extends javax.swing.JFrame {
 
         painelDirDados.setBackground(new java.awt.Color(255, 255, 255));
         painelDirDados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(13, 43, 64)));
+        painelDirDados.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout painelDirDadosLayout = new javax.swing.GroupLayout(painelDirDados);
-        painelDirDados.setLayout(painelDirDadosLayout);
-        painelDirDadosLayout.setHorizontalGroup(
-            painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 495, Short.MAX_VALUE)
+        areaRecibo.setColumns(20);
+        areaRecibo.setRows(5);
+        jScrollPane1.setViewportView(areaRecibo);
+
+        javax.swing.GroupLayout painelFacturaLayout = new javax.swing.GroupLayout(painelFactura);
+        painelFactura.setLayout(painelFacturaLayout);
+        painelFacturaLayout.setHorizontalGroup(
+            painelFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
         );
-        painelDirDadosLayout.setVerticalGroup(
-            painelDirDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 478, Short.MAX_VALUE)
+        painelFacturaLayout.setVerticalGroup(
+            painelFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
         );
+
+        painelDirDados.add(painelFactura, java.awt.BorderLayout.CENTER);
+
+        botoesFactura.setPreferredSize(new java.awt.Dimension(495, 30));
+        botoesFactura.setLayout(new java.awt.GridLayout(1, 4, 10, 5));
+
+        btnCarregarRecibo.setText("Carregar Recibo");
+        btnCarregarRecibo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCarregarRecibo.setMargin(new java.awt.Insets(5, 15, 5, 15));
+        btnCarregarRecibo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarregarReciboActionPerformed(evt);
+            }
+        });
+        botoesFactura.add(btnCarregarRecibo);
+
+        btnLimparRecibo.setText("Limpar Recibo");
+        btnLimparRecibo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLimparRecibo.setMargin(new java.awt.Insets(5, 15, 5, 15));
+        btnLimparRecibo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparReciboActionPerformed(evt);
+            }
+        });
+        botoesFactura.add(btnLimparRecibo);
+
+        btnImprimir.setText("Imprimir");
+        btnImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnImprimir.setMargin(new java.awt.Insets(5, 15, 5, 15));
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+        botoesFactura.add(btnImprimir);
+
+        btnEnviar.setText("Enviar");
+        btnEnviar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEnviar.setMargin(new java.awt.Insets(5, 15, 5, 15));
+        botoesFactura.add(btnEnviar);
+
+        painelDirDados.add(botoesFactura, java.awt.BorderLayout.PAGE_END);
 
         painelSuperiorDados.add(painelDirDados);
 
@@ -642,9 +702,17 @@ public class PagamentoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        
+
+        if (camposObrigatoriosPreenchidos()) {
+          
         salvarPagamento();
         listarPagamentos();
         limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos campos Obrigatorios!");
+        }
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -719,6 +787,22 @@ public class PagamentoView extends javax.swing.JFrame {
         AccaoComboxFactura();
     }//GEN-LAST:event_cbxFacturasActionPerformed
 
+    private void btnCarregarReciboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarReciboActionPerformed
+        GerarRecibo();
+    }//GEN-LAST:event_btnCarregarReciboActionPerformed
+
+    private void btnLimparReciboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparReciboActionPerformed
+        LimparRecibo();
+    }//GEN-LAST:event_btnLimparReciboActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        try {
+            areaRecibo.print();
+        } catch (PrinterException ex) {
+            Logger.getLogger(PagamentoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -739,9 +823,15 @@ public class PagamentoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areaRecibo;
     private javax.swing.JPanel botoes;
+    private javax.swing.JPanel botoesFactura;
     private javax.swing.JButton btnCalcularTrocos;
     private javax.swing.JButton btnCalcularValorPAgar;
+    private javax.swing.JButton btnCarregarRecibo;
+    private javax.swing.JButton btnEnviar;
+    private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnLimparRecibo;
     private javax.swing.JButton btnVoltarMenu;
     private javax.swing.JComboBox<String> cbxFacturas;
     private javax.swing.JButton jButton10;
@@ -764,6 +854,7 @@ public class PagamentoView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCabecalho;
     private javax.swing.JLabel lblIconLogo;
@@ -772,6 +863,7 @@ public class PagamentoView extends javax.swing.JFrame {
     private javax.swing.JPanel painelConteudoEsquerdo;
     private javax.swing.JPanel painelDirDados;
     private javax.swing.JPanel painelEsqDados;
+    private javax.swing.JPanel painelFactura;
     private javax.swing.JPanel painelInferiorBotoesTabela;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JPanel painelSuperiorDados;
@@ -847,6 +939,7 @@ public class PagamentoView extends javax.swing.JFrame {
         double valorDividaDepoisMulta = bd3.doubleValue();
         txtTotalAPagar.setText("" + valorDividaDepoisMulta);
     }
+    
 
     //Salvar Leitura
     private void salvarPagamento() {
@@ -1157,6 +1250,35 @@ public class PagamentoView extends javax.swing.JFrame {
             double dividaDepoisPag = bd.doubleValue();
             txtSaldoActual.setText("" + dividaDepoisPag);
         }
+    }
+
+    //Metodo Gerar Recibo
+    private void GerarRecibo() {
+        areaRecibo.setFont(new Font("", Font.LAYOUT_LEFT_TO_RIGHT, 15));
+        areaRecibo.setText("***************************************************\n");
+        areaRecibo.append("                         Flowing Waters            \n");
+        areaRecibo.append("                 Albazine, Circular N.2045         \n");
+        areaRecibo.append("            Cell: 831234567 Tel: 21478569     \n");
+        areaRecibo.append("                        Nuit: 2104578798             \n");
+        areaRecibo.append("***************************************************\n");
+        areaRecibo.append(String.format("Recibo Nr: %s\n", txtNrRecibos.getText()));
+        areaRecibo.append(String.format("Prazo de Pagamento: %s\n", txtPrazoPagamento.getText()));
+        areaRecibo.append(String.format("Data de Pagamento: %s\n\n", txtDataPagamento.getText()));
+        areaRecibo.append(String.format("Cliente: %s\n", txtNomeCliente.getText()));
+        areaRecibo.append(String.format("Débito antes do Pag.: %s\n", txtValorFactura.getText()));
+        areaRecibo.append(String.format("Multas: %s\n", txtMultas.getText()));
+        areaRecibo.append(String.format("Total a Pagar: %s\n", txtTotalAPagar.getText()));
+        areaRecibo.append(String.format("Valor Pago: %s\n", txtValorEntregue.getText()));
+        areaRecibo.append(String.format("Trocos: %s\n", txtTrocos.getText()));
+        areaRecibo.append(String.format("Débito depois Pagam.: %s Mts\n\n", txtSaldoActual.getText()));
+        areaRecibo.append("                           Assinatura               \n");
+        // Centralizar todo o texto na área de texto
+        areaRecibo.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
+    }
+
+    //Limpar Factura
+    private void LimparRecibo() {
+        areaRecibo.setText("");
     }
 
 }

@@ -7,7 +7,7 @@ package View;
 import ViewGestor.ClientesGestorView;
 import ViewGestor.FacturacaoGestorView;
 import ViewGestor.GestaoInternaGestorView;
-import ViewGestor.HistoricoHidrometroGestorView;
+//import ViewGestor.HistoricoHidrometroGestorView;
 import ViewGestor.LeiturasGestorView;
 import ViewGestor.PagamentoGestorView;
 import ViewGestor.RelatoriosGestorView;
@@ -584,7 +584,7 @@ public class MenuGestorView extends javax.swing.JFrame {
     private void btnTerminarSeccaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminarSeccaoActionPerformed
         int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que terminar a secção?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
         if (confirmacao == JOptionPane.YES_OPTION) {
-            new LogInView().setVisible(true);
+            new LogInView1().setVisible(true);
             dispose();
         }
     }//GEN-LAST:event_btnTerminarSeccaoActionPerformed
@@ -636,8 +636,8 @@ public class MenuGestorView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHidrometroMouseExited
 
     private void btnHidrometroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHidrometroActionPerformed
-        new HistoricoHidrometroGestorView().setVisible(true);
-        dispose();
+//        new HistoricoHidrometroGestorView().setVisible(true);
+//        dispose();
     }//GEN-LAST:event_btnHidrometroActionPerformed
 
     private void btnUsuariosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnUsuariosKeyPressed

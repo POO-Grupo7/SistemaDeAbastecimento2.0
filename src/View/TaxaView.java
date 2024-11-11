@@ -70,6 +70,14 @@ public class TaxaView extends javax.swing.JFrame {
         }
     }
 
+    //Metodo Prencher Campos obrigatorios
+    private boolean camposObrigatoriosPreenchidos() {
+        boolean nome = !txtNome.getText().isEmpty();
+        boolean valor = !txtValorTaxa.getText().isEmpty();
+
+        return nome && valor;
+    }
+
     //Metodo Listar
     private void listarTaxas() {
         try {
@@ -520,9 +528,16 @@ public class TaxaView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        cadastrarTaxa();
-        listarTaxas();
-        limparCampos();
+
+        if (camposObrigatoriosPreenchidos()) {
+
+            cadastrarTaxa();
+            listarTaxas();
+            limparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha todos campos Obrigatorios!");
+        }
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void txtNomeAPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAPesquisarActionPerformed

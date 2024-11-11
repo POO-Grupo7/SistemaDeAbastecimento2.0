@@ -23,7 +23,40 @@ public class TaxaController {
     PreparedStatement pstm;
     ResultSet rs;
     ArrayList<TaxaModel> lista = new ArrayList<>();
-    
+
+    //Metodo que verifia a existencia de um Hidrometro com mesmos dados
+    public boolean TaxaExiste(String nome, double valor) {
+        conexao = new ConexaoController().conectaBaseDados();
+        String sql = "SELECT COUNT(*) FROM taxas WHERE nomeTaxa = ? OR valorTaxa = ?";
+
+        try {
+            pstm = conexao.prepareStatement(sql);
+            pstm.setString(1, nome);
+            pstm.setDouble(2, valor);
+            rs = pstm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "TaxaController TaxaExiste" + erro);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException erro) {
+                JOptionPane.showMessageDialog(null, "TaxaController taxaExiste (finally)" + erro);
+            }
+        }
+        return false;
+    }
+
     //Metodo que pega valores da BD e preenche nos campos
     public ResultSet PesquisarTaxas(int idTaxas) {
         conexao = new ConexaoController().conectaBaseDados();
@@ -40,27 +73,33 @@ public class TaxaController {
         }
         return null;
     }
+
     // Metodo de cadastro 
     public void cadastrarTaxa(TaxaModel taxaModel) {
-        String sql = "INSERT INTO taxas (nomeTaxa, tipoTaxa, valorTaxa, processada) VALUES (?,?,?,?)";
+        if (TaxaExiste(taxaModel.getNome(), taxaModel.getValortaxa())) {
+            JOptionPane.showMessageDialog(null, "A Taxa ja existe!");
+        } else {
 
-        conexao = new ConexaoController().conectaBaseDados();
+            String sql = "INSERT INTO taxas (nomeTaxa, tipoTaxa, valorTaxa, processada) VALUES (?,?,?,?)";
 
-        try {
-            pstm = conexao.prepareStatement(sql);
+            conexao = new ConexaoController().conectaBaseDados();
 
-            // Ordem correta dos parâmetros de acordo com o SQL
-            pstm.setString(1, taxaModel.getNome());
-            pstm.setString(2, taxaModel.getTipoconsumo());
-            pstm.setDouble(3, taxaModel.getValortaxa());
-            pstm.setString(4, taxaModel.getProcessada());
+            try {
+                pstm = conexao.prepareStatement(sql);
 
-            pstm.execute();
-            pstm.close();
+                // Ordem correta dos parâmetros de acordo com o SQL
+                pstm.setString(1, taxaModel.getNome());
+                pstm.setString(2, taxaModel.getTipoconsumo());
+                pstm.setDouble(3, taxaModel.getValortaxa());
+                pstm.setString(4, taxaModel.getProcessada());
 
-            JOptionPane.showMessageDialog(null, "A Taxa foi efetuada com sucesso");
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Taxa: " + erro.getMessage());
+                pstm.execute();
+                pstm.close();
+
+                JOptionPane.showMessageDialog(null, "A Taxa foi efetuada com sucesso");
+            } catch (SQLException erro) {
+                JOptionPane.showMessageDialog(null, "Erro ao cadastrar Taxa: " + erro.getMessage());
+            }
         }
     }
 
@@ -89,70 +128,30 @@ public class TaxaController {
         return lista;
     }
 
-    //Metodo para actualizar clientes
-//    public void ActualizarTaxa(TaxaModel taxaModel) {
-//        String sql = "update taxa set nomeTaxa = ?, tipoTaxa = ?, valorTaxa = ?, processada = ? where idTaxa = ?";
-//        Connection conexao = null;
-//        PreparedStatement pstm = null;
-//
-//        try {
-//            conexao = new ConexaoController().conectaBaseDados();
-//            pstm = conexao.prepareStatement(sql);
-//
-//            // Ordem correta dos parâmetros de acordo com o SQL
-//            pstm.setString(1, taxaModel.getNome());
-//            pstm.setInt(2, taxaModel.getTipoconsumo());
-//            pstm.setDouble(3, taxaModel.getValortaxa());
-//            pstm.setString(4, taxaModel.getProcessada());
-//            pstm.setInt(5, taxaModel.getId());
-//
-//            pstm.executeUpdate();
-//
-////             Mostrar mensagem de sucesso após a execução bem-sucedida
-//            JOptionPane.showMessageDialog(null, "Taxa atualizada com sucesso");
-//
-//        } catch (SQLException erro) {
-//            JOptionPane.showMessageDialog(null, "Erro ao atualizar Taxa: " + erro);
-//        } finally {
-//            try {
-//                if (pstm != null) {
-//                    pstm.close();
-//                }
-//                if (conexao != null) {
-//                    conexao.close();
-//                }
-//            } catch (SQLException erro) {
-//                JOptionPane.showMessageDialog(null, "Erro ao fechar a conexão: " + erro);
-//            }
-//        }
-//
-//    }
 // Método para atualizar os dados de uma taxa existente
-public void AtualizarTaxa(TaxaModel taxaModel) {
-    String sql = "UPDATE taxas SET nomeTaxa = ?, tipoTaxa = ?, valorTaxa = ?, processada = ? WHERE idTaxa = ?";
+    public void AtualizarTaxa(TaxaModel taxaModel) {
+        String sql = "UPDATE taxas SET nomeTaxa = ?, tipoTaxa = ?, valorTaxa = ?, processada = ? WHERE idTaxa = ?";
 
-    conexao = new ConexaoController().conectaBaseDados();
+        conexao = new ConexaoController().conectaBaseDados();
 
-    try {
-        pstm = conexao.prepareStatement(sql);
+        try {
+            pstm = conexao.prepareStatement(sql);
 
-        // Definindo os valores dos parâmetros de acordo com o SQL
-        pstm.setString(1, taxaModel.getNome());
-        pstm.setString(2, taxaModel.getTipoconsumo());
-        pstm.setDouble(3, taxaModel.getValortaxa());
-        pstm.setString(4, taxaModel.getProcessada());
-        pstm.setInt(5, taxaModel.getId()); // Identificador da taxa a ser atualizada
+            // Definindo os valores dos parâmetros de acordo com o SQL
+            pstm.setString(1, taxaModel.getNome());
+            pstm.setString(2, taxaModel.getTipoconsumo());
+            pstm.setDouble(3, taxaModel.getValortaxa());
+            pstm.setString(4, taxaModel.getProcessada());
+            pstm.setInt(5, taxaModel.getId()); // Identificador da taxa a ser atualizada
 
-        pstm.executeUpdate();
-        pstm.close();
+            pstm.executeUpdate();
+            pstm.close();
 
-
-    } catch (SQLException erro) {
-        JOptionPane.showMessageDialog(null, "Erro ao atualizar Taxa: " + erro.getMessage());
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar Taxa: " + erro.getMessage());
+        }
     }
-}
 
-    
 }
 
 //create table taxas ( idTaxa int AUTO_INCREMENT PRIMARY KEY, nomeTaxa varchar(45), tipoTaxa int, valorTaxa double,processada varchar(5)  );

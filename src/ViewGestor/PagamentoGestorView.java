@@ -186,7 +186,7 @@ public class PagamentoGestorView extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("FACTURAÇÃO");
+        setTitle("PAGAMENTOS");
         setMinimumSize(new java.awt.Dimension(1200, 680));
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
@@ -778,7 +778,7 @@ public class PagamentoGestorView extends javax.swing.JFrame {
             boolean disp = true;
 
             PagamentoModel pagamentoModel = new PagamentoModel();
-            pagamentoModel.setNomeDoCliente(nome);
+//            pagamentoModel.setNomeDoCliente(nome);
             pagamentoModel.setDataPagamento(datapagamento);
             pagamentoModel.setPrazoPagamento(prazoPagamento);
             pagamentoModel.setNrDaFactura(nrFactura);
@@ -787,7 +787,7 @@ public class PagamentoGestorView extends javax.swing.JFrame {
             pagamentoModel.setValorTotal(valorTotal);
             pagamentoModel.setValorPago(valorPago);
             pagamentoModel.setTrocos(trocos);
-            pagamentoModel.setSaldo(saldo);
+//            pagamentoModel.setSaldo(saldo);
             pagamentoModel.setNrRecibo(nrRecibo);
             pagamentoModel.setProcessada(disp);
 
@@ -818,7 +818,7 @@ public class PagamentoGestorView extends javax.swing.JFrame {
             for (PagamentoModel item : lista) {
                 model.addRow(new Object[]{
                     item.getIdPagamento(),
-                    item.getNomeDoCliente(),
+                    item.getCliente().getNome(),
                     item.getDataPagamento(),
                     item.getPrazoPagamento(),
                     item.getNrDaFactura(),
@@ -827,7 +827,7 @@ public class PagamentoGestorView extends javax.swing.JFrame {
                     item.getValorTotal(),
                     item.getValorPago(),
                     item.getTrocos(),
-                    item.getSaldo(),
+                    item.getCliente().getSaldo(),
                     item.getNrRecibo(),
                     item.getProcessada()
                 });
@@ -895,7 +895,7 @@ public class PagamentoGestorView extends javax.swing.JFrame {
             // Criando e configurando o modelo de pagamento
             PagamentoModel pagamentoModel = new PagamentoModel();
             pagamentoModel.setIdPagamento(idPagamento);
-            pagamentoModel.setNomeDoCliente(nome);
+//            pagamentoModel.setNomeDoCliente(nome);
             pagamentoModel.setDataPagamento(datapagamento);
             pagamentoModel.setPrazoPagamento(prazoPagamento);
             pagamentoModel.setNrDaFactura(nrFactura);
@@ -904,7 +904,7 @@ public class PagamentoGestorView extends javax.swing.JFrame {
             pagamentoModel.setValorTotal(valorTotal);
             pagamentoModel.setValorPago(valorPago);
             pagamentoModel.setTrocos(trocos);
-            pagamentoModel.setSaldo(saldo);
+//            pagamentoModel.setSaldo(saldo);
             pagamentoModel.setNrRecibo(nrRecibo);
             pagamentoModel.setStatusPagamento(disp);
 
@@ -947,7 +947,7 @@ public class PagamentoGestorView extends javax.swing.JFrame {
             // Criando e configurando o modelo de pagamento
             PagamentoModel pagamentoModel = new PagamentoModel();
             pagamentoModel.setIdPagamento(idPagamento);
-            pagamentoModel.setNomeDoCliente(nome);
+//            pagamentoModel.setNomeDoCliente(nome);
             pagamentoModel.setDataPagamento(datapagamento);
             pagamentoModel.setPrazoPagamento(prazoPagamento);
             pagamentoModel.setNrDaFactura(nrFactura);
@@ -956,7 +956,7 @@ public class PagamentoGestorView extends javax.swing.JFrame {
             pagamentoModel.setValorTotal(valorTotal);
             pagamentoModel.setValorPago(valorPago);
             pagamentoModel.setTrocos(trocos);
-            pagamentoModel.setSaldo(saldo);
+//            pagamentoModel.setSaldo(saldo);
             pagamentoModel.setNrRecibo(nrRecibo);
             pagamentoModel.setStatusPagamento(disp);
 

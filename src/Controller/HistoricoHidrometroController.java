@@ -17,63 +17,68 @@ public class HistoricoHidrometroController {
     ResultSet rs;
     ArrayList<HistoricoHidrometroModel> lista = new ArrayList<>();
 
-//    //Metodo que verifia a existencia de um HistoricoHidometro com mesmos dados
-//    public boolean historicoHidometroExiste(String emailHistoricoHidometro, String hidrometro) {
-//        conexao = new ConexaoController().conectaBaseDados();
-//        String sql = "SELECT COUNT(*) FROM historicoHidometros WHERE emailHistoricoHidometro = ? OR hidrometro = ?";
-//
-//        try {
-//            pstm = conexao.prepareStatement(sql);
-//            pstm.setString(1, emailHistoricoHidrometro);
-//            pstm.setString(2, hidrometro);
-//            rs = pstm.executeQuery();
-//            if (rs.next()) {
-//                return rs.getInt(1) > 0;
-//            }
-//        } catch (SQLException erro) {
-//            JOptionPane.showMessageDialog(null, "HistoricoHidometroController historicoHidometroExiste" + erro);
-//        } finally {
-//            try {
-//                if (rs != null) {
-//                    rs.close();
-//                }
-//                if (pstm != null) {
-//                    pstm.close();
-//                }
-//                if (conexao != null) {
-//                    conexao.close();
-//                }
-//            } catch (SQLException erro) {
-//                JOptionPane.showMessageDialog(null, "HistoricoHidometroController historicoHidometroExiste (finally)" + erro);
-//            }
-//        }
-//        return false;
-//    }
-    // Metodo de cadastro
-    public void cadastrarHistoricoHidometro(HistoricoHidrometroModel historicoHidrometroModel) {
-        String sql = "INSERT INTO historicoHidrometro (nomeCliente , bairro, quarteirao, numeroCasa, saldoCliente,dataInicioUso, dataFimUso, nrHidrometro, apagado) VALUES (?,?,?,?,?,?,?,?,?)";
-
+    //Metodo que verifia a existencia de um HistoricoHidometro com mesmos dados
+    public boolean historicoHidometroExiste(String nrHidometro, String nomeCliente) {
         conexao = new ConexaoController().conectaBaseDados();
+        String sql = "SELECT COUNT(*) FROM historicoHidrometro WHERE nrHidrometro = ?OR nomeCliente = ?";
 
         try {
             pstm = conexao.prepareStatement(sql);
-
-            pstm.setString(1, historicoHidrometroModel.getCliente().getNome());            // nomeHistoricoHidometro
-            pstm.setString(2, historicoHidrometroModel.getCliente().getBairro());          // bairro
-            pstm.setInt(3, historicoHidrometroModel.getCliente().getQuarteirao());         // quarteirao
-            pstm.setInt(4, historicoHidrometroModel.getCliente().getNrDaCasa());           // numeroCasa
-            pstm.setDouble(5, historicoHidrometroModel.getCliente().getSaldo());           // numeroCasa
-            pstm.setString(6, historicoHidrometroModel.getDataInicial());   // dataContrato
-            pstm.setString(7, historicoHidrometroModel.getDataFinal());           // emailHistoricoHidometro
-            pstm.setString(8, historicoHidrometroModel.getHidrometro().getNrHidrometro());           // telefone
-            pstm.setBoolean(9, historicoHidrometroModel.getApagado());          // disp
-
-            pstm.execute();
-            pstm.close();
-
-            JOptionPane.showMessageDialog(null, "Historico salvo com sucesso");
+            pstm.setString(1, nrHidometro);
+            pstm.setString(2, nomeCliente);
+            rs = pstm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar historicoHidometro: " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "HistoricoHidometroController historicoHidometroExiste" + erro);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstm != null) {
+                    pstm.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException erro) {
+                JOptionPane.showMessageDialog(null, "HistoricoHidometroController historicoHidometroExiste (finally)" + erro);
+            }
+        }
+        return false;
+    }
+
+    // Metodo de cadastro
+    public void cadastrarHistoricoHidometro(HistoricoHidrometroModel historicoHidrometroModel) {
+        if (historicoHidometroExiste(historicoHidrometroModel.getCliente().getNome(), historicoHidrometroModel.getHidrometro().getNrHidrometro())) {
+            JOptionPane.showMessageDialog(null, "Ja  existe!");
+        } else {
+            String sql = "INSERT INTO historicoHidrometro (nomeCliente , bairro, quarteirao, numeroCasa, saldoCliente,dataInicioUso, dataFimUso, nrHidrometro, apagado) VALUES (?,?,?,?,?,?,?,?,?)";
+
+            conexao = new ConexaoController().conectaBaseDados();
+
+            try {
+                pstm = conexao.prepareStatement(sql);
+
+                pstm.setString(1, historicoHidrometroModel.getCliente().getNome());            // nomeHistoricoHidometro
+                pstm.setString(2, historicoHidrometroModel.getCliente().getBairro());          // bairro
+                pstm.setInt(3, historicoHidrometroModel.getCliente().getQuarteirao());         // quarteirao
+                pstm.setInt(4, historicoHidrometroModel.getCliente().getNrDaCasa());           // numeroCasa
+                pstm.setDouble(5, historicoHidrometroModel.getCliente().getSaldo());           // numeroCasa
+                pstm.setString(6, historicoHidrometroModel.getDataInicial());   // dataContrato
+                pstm.setString(7, historicoHidrometroModel.getDataFinal());           // emailHistoricoHidometro
+                pstm.setString(8, historicoHidrometroModel.getHidrometro().getNrHidrometro());           // telefone
+                pstm.setBoolean(9, historicoHidrometroModel.getApagado());          // disp
+
+                pstm.execute();
+                pstm.close();
+
+                JOptionPane.showMessageDialog(null, "Historico salvo com sucesso");
+            } catch (SQLException erro) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar historicoHidometro: " + erro.getMessage());
+            }
         }
     }
 
@@ -175,8 +180,8 @@ public class HistoricoHidrometroController {
             }
         }
     }
-    
-        //Metodo para actualizar historicoHidometros
+
+    //Metodo para actualizar historicoHidometros
     public void apagarHistoricoHidometro(HistoricoHidrometroModel historicoHidrometroModel) {
         String sql = "update historicoHidrometro set nomeCliente = ?, bairro = ?, quarteirao = ?, numeroCasa = ?, saldoClienet = ?, dataInicioUso = ?, dataFimUso = ?, nrHidrometro = ?, apagado = ? where idHistoricoHidrometro = ?";
         Connection conexao = null;

@@ -59,14 +59,14 @@ public class PagamentoController {
     }
 
     //Metodo que verifia a existencia de um factura com mesmos dados
-    public boolean pagamentoExiste(int nrDaFactura, int nrRecibo) {
+    public boolean pagamentoExiste(int nrRecibo) {
         conexao = new ConexaoController().conectaBaseDados();
-        String sql = "SELECT COUNT(*) FROM pagamentos WHERE nrDaFactura = ? OR nrRecibo = ?";
+        String sql = "SELECT COUNT(*) FROM pagamentos WHERE nrRecibo = ?";
 
         try {
             pstm = conexao.prepareStatement(sql);
-            pstm.setInt(1, nrDaFactura);
-            pstm.setInt(2, nrRecibo);
+//            pstm.setInt(1, nrDaFactura);
+            pstm.setInt(1, nrRecibo);
             rs = pstm.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1) > 0;
@@ -93,39 +93,43 @@ public class PagamentoController {
 
     //METODO PARA CADASTRAR
     public void registarPagamento(PagamentoModel pagamentoModel) {
-        String sql = "insert into pagamentos (nomeCliente, dataPag, prazoPag, nrDaFactura, valorFactura, multa, valorTotal, valorPago , trocos , saldo, nrRecibo, processada) values (?,?,?,?,?,?,?,?,?,?,?,?)";
-        conexao = new ConexaoController().conectaBaseDados();
+        if (pagamentoExiste(pagamentoModel.getNrRecibo())) {
+            JOptionPane.showMessageDialog(null, "O pagamento ja existe!");
+        } else {
+            String sql = "insert into pagamentos (nomeCliente, dataPag, prazoPag, nrDaFactura, valorFactura, multa, valorTotal, valorPago , trocos , saldo, nrRecibo, processada) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+            conexao = new ConexaoController().conectaBaseDados();
 
-        try {
-            pstm = conexao.prepareStatement(sql);
-
-            pstm.setString(1, pagamentoModel.getCliente().getNome());
-            pstm.setString(2, pagamentoModel.getDataPagamento());
-            pstm.setString(3, pagamentoModel.getPrazoPagamento());
-            pstm.setInt(4, pagamentoModel.getNrDaFactura());
-            pstm.setDouble(5, pagamentoModel.getValorDaFactura());
-            pstm.setDouble(6, pagamentoModel.getMulta());
-            pstm.setDouble(7, pagamentoModel.getValorTotal());
-            pstm.setDouble(8, pagamentoModel.getValorPago());
-            pstm.setDouble(9, pagamentoModel.getTrocos());
-            pstm.setDouble(10, pagamentoModel.getCliente().getSaldo());
-            pstm.setInt(11, pagamentoModel.getNrRecibo());
-            pstm.setBoolean(12, pagamentoModel.getProcessada());
-
-            pstm.executeUpdate();  // Usar executeUpdate para inserção
-            JOptionPane.showMessageDialog(null, "O Pagamento foi registado com sucesso");
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao registrar pagamento: " + erro.getMessage());
-        } finally {
             try {
-                if (pstm != null) {
-                    pstm.close();
+                pstm = conexao.prepareStatement(sql);
+
+                pstm.setString(1, pagamentoModel.getCliente().getNome());
+                pstm.setString(2, pagamentoModel.getDataPagamento());
+                pstm.setString(3, pagamentoModel.getPrazoPagamento());
+                pstm.setInt(4, pagamentoModel.getNrDaFactura());
+                pstm.setDouble(5, pagamentoModel.getValorDaFactura());
+                pstm.setDouble(6, pagamentoModel.getMulta());
+                pstm.setDouble(7, pagamentoModel.getValorTotal());
+                pstm.setDouble(8, pagamentoModel.getValorPago());
+                pstm.setDouble(9, pagamentoModel.getTrocos());
+                pstm.setDouble(10, pagamentoModel.getCliente().getSaldo());
+                pstm.setInt(11, pagamentoModel.getNrRecibo());
+                pstm.setBoolean(12, pagamentoModel.getProcessada());
+
+                pstm.executeUpdate();  // Usar executeUpdate para inserção
+                JOptionPane.showMessageDialog(null, "O Pagamento foi registado com sucesso");
+            } catch (SQLException erro) {
+                JOptionPane.showMessageDialog(null, "Erro ao registrar pagamento: " + erro.getMessage());
+            } finally {
+                try {
+                    if (pstm != null) {
+                        pstm.close();
+                    }
+                    if (conexao != null) {
+                        conexao.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-                if (conexao != null) {
-                    conexao.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -324,7 +328,7 @@ public class PagamentoController {
         }
 
     }
-    
+
     //Metodo para actualizar factura se ja foi paga
     public void actualizarEstadoFactura(FacturacaoModel facturacaoModel) {
         String sql = "UPDATE facturacao SET paga = ?, saldoActual = ? WHERE nrDaFactura = ?";
