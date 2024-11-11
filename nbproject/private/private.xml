@@ -5,14 +5,12 @@
         <group>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/ViewGestor/FacturacaoGestorView.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/ViewGestor/LeiturasGestorView.java</file>
-            <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/View/UsuariosView.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/View/PagamentoView.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/ViewGestor/HidrometroGestorView.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/View/HistoricoHidrometroView.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/Model/PagamentoModel.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/ViewOperador/RelatoriosOperadorView.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/Model/HistoricoHidrometroModel.java</file>
-            <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/View/UsuariosView1.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/View/TaxaView.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/Controller/HistoricoHidrometroController.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/ViewGestor/ClientesGestorView.java</file>
@@ -34,9 +32,8 @@
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/Controller/HidrometroController.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/ViewOperador/FacturacaoOperadorView.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/ViewGestor/RelatoriosGestorView.java</file>
-            <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/View/LogInView.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/Controller/TaxaController.java</file>
-            <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/ViewGestor/HistoricoHidrometroGestorView.java</file>
+            <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/View/LogInView.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/View/LeiturasView.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/Controller/FacturacaoController.java</file>
             <file>file:/Users/mac/NetBeansProjects/SistemaDeAbastecimento2.0/src/ViewGestor/GestaoInternaGestorView.java</file>

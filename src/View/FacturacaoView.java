@@ -360,7 +360,7 @@ public class FacturacaoView extends javax.swing.JFrame {
                                 .addComponent(txtNomeCliente)
                                 .addComponent(cbxTaxas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnProcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         painelEsqDadosLayout.setVerticalGroup(
             painelEsqDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,7 +444,7 @@ public class FacturacaoView extends javax.swing.JFrame {
         painelFactura.setLayout(painelFacturaLayout);
         painelFacturaLayout.setHorizontalGroup(
             painelFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
         );
         painelFacturaLayout.setVerticalGroup(
             painelFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

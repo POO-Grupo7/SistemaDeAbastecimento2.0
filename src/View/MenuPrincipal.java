@@ -570,7 +570,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnTerminarSeccaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminarSeccaoActionPerformed
         int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que terminar a secção?", "Confirmação de Saída", JOptionPane.YES_NO_OPTION);
         if (confirmacao == JOptionPane.YES_OPTION) {
-            new LogInView1().setVisible(true);
+            new LogInView().setVisible(true);
             dispose();
         }
     }//GEN-LAST:event_btnTerminarSeccaoActionPerformed

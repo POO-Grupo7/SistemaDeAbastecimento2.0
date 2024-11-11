@@ -195,8 +195,7 @@ public class LogInView extends javax.swing.JFrame {
 
         return nomeUsuario && senhaUsuario;
     }
-
-    //Metodo para entrar no sistema
+   //Metodo para entrar no sistema
     private void EntrarNoSistema() {
         try {
             String nomeUsuario = txtNomeU.getText();
@@ -239,6 +238,49 @@ public class LogInView extends javax.swing.JFrame {
         }
 
     }
+//    //Metodo para entrar no sistema
+//    private void EntrarNoSistema() {
+//        try {
+//            String nomeUsuario = txtNomeU.getText();
+//            String senhaUsuario = txtSenhaU.getText();
+//            boolean activo = true;
+//            boolean disponivel = true;
+//
+//            FuncionarioModel funcionarioModel = new FuncionarioModel();
+//            funcionarioModel.setNome(nomeUsuario);
+//            funcionarioModel.setSenhaFuncionario(senhaUsuario);
+//            funcionarioModel.setStatus(activo);
+//            funcionarioModel.setDisp(disponivel);
+//
+//            FuncionarioController funcionarioController = new FuncionarioController();
+//            ResultSet rsUsuarioControlller = funcionarioController.autenticacaoUsuario(funcionarioModel);
+//
+//            if (rsUsuarioControlller != null && rsUsuarioControlller.next()) {
+//                String perfil = rsUsuarioControlller.getString("perfil");
+//                dispose();
+//
+//                if ("Administrador".equals(perfil)) {
+//                    MenuPrincipal menu = new MenuPrincipal();
+//                    menu.setVisible(true);
+//                } else if ("Gestor".equals(perfil)) {
+//                    MenuGestorView telaGestor = new MenuGestorView();
+//                    telaGestor.setVisible(true);
+//                } else {
+//                    MenuOperadorView telaOperador = new MenuOperadorView();
+//                    telaOperador.setVisible(true);
+//                }
+//                JOptionPane.showMessageDialog(null, "Bem vindo(a) " + nomeUsuario + ".");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos");
+//                txtNomeU.setText("");
+//                txtSenhaU.setText("");
+//            }
+//        } catch (SQLException erro) {
+//            erro.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Erro de login: " + erro.getMessage());
+//        }
+//
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
