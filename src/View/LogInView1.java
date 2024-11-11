@@ -1,4 +1,3 @@
-
 package View;
 
 import Controller.FuncionarioController;
@@ -16,12 +15,12 @@ import javax.swing.UIManager;
  *
  * @author lenovo
  */
-public class LogInView extends javax.swing.JFrame {
+public class LogInView1 extends javax.swing.JFrame {
 
     /**
      * Creates new form LogInView
      */
-    public LogInView() {
+    public LogInView1() {
         initComponents();
     }
 
@@ -147,11 +146,11 @@ public class LogInView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-            if (camposObrigatoriosPreenchidos()) {
-                EntrarNoSistema();
-            } else {
-                JOptionPane.showMessageDialog(null, "Preencha os campos vazios com os seus dados de acesso para entrar!");
-            }
+        if (camposObrigatoriosPreenchidos()) {
+            EntrarNoSistema();
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos vazios com os seus dados de acesso para entrar!");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -183,7 +182,7 @@ public class LogInView extends javax.swing.JFrame {
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LogInView().setVisible(true);
+                new LogInView1().setVisible(true);
             }
         });
     }
@@ -196,50 +195,98 @@ public class LogInView extends javax.swing.JFrame {
         return nomeUsuario && senhaUsuario;
     }
 
-    //Metodo para entrar no sistema
-    private void EntrarNoSistema() {
-        try {
-            String nomeUsuario = txtNomeUsuario.getText();
-            String senhaUsuario = txtSenhaUsuario.getText();
-            boolean activo = true;
-            boolean apagado = false;
+//    //Metodo para entrar no sistema
+    // Método para entrar no sistema
+private void EntrarNoSistema() {
+    try {
+        String nomeUsuario = txtNomeUsuario.getText();
+        String senhaUsuario = txtSenhaUsuario.getText();
+        boolean activo = true;
+        boolean apagado = true;
 
-            FuncionarioModel funcionarioModel = new FuncionarioModel();
-            funcionarioModel.setNome(nomeUsuario);
-            funcionarioModel.setSenhaFuncionario(senhaUsuario);
-            funcionarioModel.setStatus(activo);
-            funcionarioModel.setDisp(apagado);
+        FuncionarioModel funcionarioModel = new FuncionarioModel();
+        funcionarioModel.setNome(nomeUsuario);
+        funcionarioModel.setSenhaFuncionario(senhaUsuario);
+        funcionarioModel.setStatus(activo);
+        funcionarioModel.setDisp(apagado);
 
-            FuncionarioController funcionarioController = new FuncionarioController();
-            ResultSet rsUsuarioControlller = funcionarioController.autenticacaoUsuario(funcionarioModel);
+        FuncionarioController funcionarioController = new FuncionarioController();
+        ResultSet rsUsuarioController = funcionarioController.autenticacaoUsuario(funcionarioModel);
 
-            if (rsUsuarioControlller.next()) {
-                String perfil = rsUsuarioControlller.getString("perfil");
-                dispose();
+        if (rsUsuarioController.next()) {
+            String perfil = rsUsuarioController.getString("perfil");
 
-                if ("Administrador".equals(perfil)) {
-                    MenuPrincipal menu = new MenuPrincipal();
-                    menu.setVisible(true);
-                } else if ("Gestor".equals(perfil)) {
-                    MenuGestorView telaGestor = new MenuGestorView();
-                    telaGestor.setVisible(true);
-                } else {
-                    MenuOperadorView telaOperador = new MenuOperadorView();
-                    telaOperador.setVisible(true);
-                }
-                JOptionPane.showMessageDialog(null, "Bem vindo(a) " + nomeUsuario + ".");
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos");
-                txtNomeUsuario.setText("");
-                txtSenhaUsuario.setText("");
+            // Fechar a tela de login atual antes de abrir a próxima
+            dispose();
+
+            // Verificar o perfil do usuário e abrir a tela correspondente
+            switch (perfil) {
+                case "Administrador":
+                    new MenuPrincipal().setVisible(true);
+                    break;
+                case "Gestor":
+                    new MenuGestorView().setVisible(true);
+                    break;
+                default: // Assume que o perfil é "Operador" ou outro não especificado
+                    new MenuOperadorView().setVisible(true);
+                    break;
             }
-        } catch (SQLException erro) {
-            erro.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro de login: " + erro.getMessage());
+            
+            JOptionPane.showMessageDialog(null, "Bem-vindo(a) " + nomeUsuario + ".");
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos.");
+            txtNomeUsuario.setText("");
+            txtSenhaUsuario.setText("");
         }
-
+    } catch (SQLException erro) {
+        erro.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Erro de login: " + erro.getMessage());
     }
+}
 
+//    private void EntrarNoSistema() {
+//        try {
+//            String nomeUsuario = txtNomeUsuario.getText();
+//            String senhaUsuario = txtSenhaUsuario.getText();
+//            boolean activo = true;
+//            boolean apagado = true;
+//
+//            FuncionarioModel funcionarioModel = new FuncionarioModel();
+//            funcionarioModel.setNome(nomeUsuario);
+//            funcionarioModel.setSenhaFuncionario(senhaUsuario);
+//            funcionarioModel.setStatus(activo);
+//            funcionarioModel.setDisp(apagado);
+//
+//            FuncionarioController funcionarioController = new FuncionarioController();
+//            ResultSet rsUsuarioControlller = funcionarioController.autenticacaoUsuario(funcionarioModel);
+//
+//            if (rsUsuarioControlller.next()) {
+//                String perfil = rsUsuarioControlller.getString("perfil");
+//                dispose();
+//
+//                if ("Administrador".equals(perfil)) {
+//                    new MenuPrincipal().setVisible(true);
+//                    dispose();
+//
+//                } else if ("Gestor".equals(perfil)) {
+//                    MenuGestorView telaGestor = new MenuGestorView();
+//                    telaGestor.setVisible(true);
+//                } else {
+//                    MenuOperadorView telaOperador = new MenuOperadorView();
+//                    telaOperador.setVisible(true);
+//                }
+//                JOptionPane.showMessageDialog(null, "Bem vindo(a) " + nomeUsuario + ".");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos");
+//                txtNomeUsuario.setText("");
+//                txtSenhaUsuario.setText("");
+//            }
+//        } catch (SQLException erro) {
+//            erro.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Erro de login: " + erro.getMessage());
+//        }
+//
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
