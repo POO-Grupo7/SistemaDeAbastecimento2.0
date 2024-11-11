@@ -60,7 +60,7 @@ public class LeituraController {
 
     public boolean LeituraExiste(String mesRef, String nomeCliente) {
         conexao = new ConexaoController().conectaBaseDados();
-        String sql = "SELECT COUNT(*) FROM leituras WHERE mesRef = ? OR nomeCliente = ?";
+        String sql = "SELECT COUNT(*) FROM leituras WHERE mesRef = ? and nomeCliente = ?";
 
         try {
             pstm = conexao.prepareStatement(sql);

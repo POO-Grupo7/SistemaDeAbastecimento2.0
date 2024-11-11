@@ -73,7 +73,7 @@ public class FacturacaoGestorView extends javax.swing.JFrame {
         }
         try {
             FacturacaoController facturacaoController = new FacturacaoController();
-            ResultSet rs = facturacaoController.PrencherDados(idLeitura.get(cbxNrLeitura.getSelectedIndex() - 1));
+            ResultSet rs = facturacaoController.prencherDadosLeitura(idLeitura.get(cbxNrLeitura.getSelectedIndex() - 1));
 
             while (rs.next()) {
                 txtNomeCliente.setText(rs.getString(2));

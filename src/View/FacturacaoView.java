@@ -1087,24 +1087,76 @@ public class FacturacaoView extends javax.swing.JFrame {
     private void CarregarCampos() {
         int setar = tabelaFacturacao.getSelectedRow();
 
-        txtIdFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 0).toString());
-        txtDataFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 1).toString());
-        cbxNrLeitura.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 2).toString());
-        txtMesReferente.setText(tabelaFacturacao.getModel().getValueAt(setar, 3).toString());
-        txtNomeCliente.setText(tabelaFacturacao.getModel().getValueAt(setar, 4).toString());
-        txtSaldoAntesProcesso.setText(tabelaFacturacao.getModel().getValueAt(setar, 5).toString());
-        txtConsumoDoMes.setText(tabelaFacturacao.getModel().getValueAt(setar, 6).toString());
-        cbxTaxas.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 7).toString());
-        txtSubTotal.setText(tabelaFacturacao.getModel().getValueAt(setar, 8).toString());
-        txtIva.setText(tabelaFacturacao.getModel().getValueAt(setar, 9).toString());
-        txtDescontos.setText(tabelaFacturacao.getModel().getValueAt(setar, 10).toString());
-        txtTotalFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 11).toString());
-        txtSaldoActual.setText(tabelaFacturacao.getModel().getValueAt(setar, 12).toString());
-        txtPrazoDePagamento.setText(tabelaFacturacao.getModel().getValueAt(setar, 13).toString());
-        txtNrFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 14).toString());
+        if (setar >= 0) { // Verifica se uma linha foi realmente selecionada
+            txtIdFactura.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 0)));
+            txtDataFactura.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 1)));
+            cbxNrLeitura.setSelectedItem(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 2)));
 
+            txtMesReferente.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 3)));
+            txtNomeCliente.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 4)));
+            txtSaldoAntesProcesso.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 5)));
+            txtConsumoDoMes.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 6)));
+            cbxTaxas.setSelectedItem(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 7)));
+            txtSubTotal.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 8)));
+            txtIva.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 9)));
+            txtDescontos.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 10)));
+            txtTotalFactura.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 11)));
+            txtSaldoActual.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 12)));
+            txtPrazoDePagamento.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 13)));
+            txtNrFactura.setText(valorOuVazio(tabelaFacturacao.getModel().getValueAt(setar, 14)));
+        }
     }
 
+// Método auxiliar que verifica se o valor é "Selecione" ou nulo e retorna uma string vazia nesses casos
+    private String valorOuVazio(Object valor) {
+        if (valor == null || valor.toString().equalsIgnoreCase("Selecione")) {
+            return ""; // Retorna uma string vazia se o valor não for válido
+        } else {
+            return valor.toString(); // Caso contrário, retorna o valor como string
+        }
+    }
+
+//    private void CarregarCampos() {
+//        int setar = tabelaFacturacao.getSelectedRow();
+//
+//        txtIdFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 0).toString());
+//        txtDataFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 1).toString());
+//        cbxNrLeitura.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 2).toString());
+//
+//        txtMesReferente.setText(tabelaFacturacao.getModel().getValueAt(setar, 3).toString());
+//        txtNomeCliente.setText(tabelaFacturacao.getModel().getValueAt(setar, 4).toString());
+//        txtSaldoAntesProcesso.setText(tabelaFacturacao.getModel().getValueAt(setar, 5).toString());
+//        txtConsumoDoMes.setText(tabelaFacturacao.getModel().getValueAt(setar, 6).toString());
+//        cbxTaxas.setSelectedItem(tabelaFacturacao.getModel().getValueAt(setar, 7).toString());
+//        txtSubTotal.setText(tabelaFacturacao.getModel().getValueAt(setar, 8).toString());
+//        txtIva.setText(tabelaFacturacao.getModel().getValueAt(setar, 9).toString());
+//        txtDescontos.setText(tabelaFacturacao.getModel().getValueAt(setar, 10).toString());
+//        txtTotalFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 11).toString());
+//        txtSaldoActual.setText(tabelaFacturacao.getModel().getValueAt(setar, 12).toString());
+//        txtPrazoDePagamento.setText(tabelaFacturacao.getModel().getValueAt(setar, 13).toString());
+//        txtNrFactura.setText(tabelaFacturacao.getModel().getValueAt(setar, 14).toString());
+//
+//    }
+    /*
+    
+    
+        try {
+            String input = cbxNrLeitura.getSelectedItem().toString(); // ou seuComboBox.getSelectedItem().toString();
+
+            // Verifica se a entrada não é "Selecione" antes de converter
+            if (!input.equals("Selecione")) {
+                int numero = Integer.parseInt(input);
+                // Processe o número conforme necessário
+            } else {
+                // Ação para quando "Selecione" for escolhido
+                System.out.println("Por favor, selecione um número válido.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Erro: A entrada não é um número válido.");
+            e.printStackTrace(); // Mostra a pilha de erros para depuração, se necessário
+        }
+
+     */
     //Metodo Actualizar Facturacao
     private void actualizarFacturacao() {
 

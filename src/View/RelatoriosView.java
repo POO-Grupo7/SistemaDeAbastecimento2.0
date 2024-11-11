@@ -40,10 +40,9 @@ public class RelatoriosView extends javax.swing.JFrame {
 
         //create dataset
         DefaultPieDataset barDataset = new DefaultPieDataset();
-        barDataset.setValue("IPhone 5s", new Double(20));
-        barDataset.setValue("SamSung Grand", new Double(20));
-        barDataset.setValue("MotoG", new Double(40));
-        barDataset.setValue("Nokia Lumia", new Double(10));
+        barDataset.setValue("Albazine", new Double(40));
+        barDataset.setValue("Guava", new Double(20));
+        barDataset.setValue("CMC", new Double(40));
 
         //create chart
         JFreeChart piechart = ChartFactory.createPieChart("Consumo por Bairro", barDataset, false, true, false);//explain
@@ -51,10 +50,10 @@ public class RelatoriosView extends javax.swing.JFrame {
         PiePlot piePlot = (PiePlot) piechart.getPlot();
 
         //changing pie chart blocks colors
-        piePlot.setSectionPaint("IPhone 5s", new Color(255, 255, 102));
-        piePlot.setSectionPaint("SamSung Grand", new Color(102, 255, 102));
-        piePlot.setSectionPaint("MotoG", new Color(255, 102, 153));
-        piePlot.setSectionPaint("Nokia Lumia", new Color(0, 204, 204));
+        piePlot.setSectionPaint("Albazine", new Color(255, 255, 102));
+        piePlot.setSectionPaint("Guava", new Color(102, 255, 102));
+        piePlot.setSectionPaint("CMC", new Color(255, 102, 153));
+//        piePlot.setSectionPaint("Nokia Lumia", new Color(0, 204, 204));
 
         piePlot.setBackgroundPaint(Color.white);
 
