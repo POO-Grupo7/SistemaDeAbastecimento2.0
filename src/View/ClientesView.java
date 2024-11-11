@@ -12,6 +12,7 @@ import com.formdev.flatlaf.intellijthemes.FlatGradiantoDeepOceanIJTheme;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.ParseException;
@@ -25,6 +26,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import net.miginfocom.swing.MigLayout;
@@ -563,20 +565,27 @@ public class ClientesView extends javax.swing.JFrame {
 
         lblDataDeContrato.setText("Data do Contrato:*");
 
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomeKeyTyped(evt);
+            }
+        });
+
         lbEmailParticular.setText("Email Particular:");
 
         cbxBairro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "CMC", "Albasine" }));
-        cbxBairro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxBairroActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Quarteirao:");
 
         txtQuarterao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtQuarteraoActionPerformed(evt);
+            }
+        });
+
+        txtNumeroDeCasa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroDeCasaKeyTyped(evt);
             }
         });
 
@@ -588,6 +597,31 @@ public class ClientesView extends javax.swing.JFrame {
         });
 
         lbNumeroDeTelefone.setText("Numero de Telefone:*");
+
+        txtEmailParticular.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailParticularFocusLost(evt);
+            }
+        });
+        txtEmailParticular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailParticularActionPerformed(evt);
+            }
+        });
+        txtEmailParticular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEmailParticularKeyTyped(evt);
+            }
+        });
+
+        TxtNumeroDeTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TxtNumeroDeTelefoneKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtNumeroDeTelefoneKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelEsqDadosLayout = new javax.swing.GroupLayout(painelEsqDados);
         painelEsqDados.setLayout(painelEsqDadosLayout);
@@ -890,7 +924,7 @@ public class ClientesView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        if (camposObrigatoriosPreenchidos()) {
+        if (camposObrigatoriosPreenchidos()) {;
             cadastrarCliente();
             listarClientes();
 //        limparCampos();
@@ -946,9 +980,150 @@ public class ClientesView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnVoltarMenuActionPerformed
 
-    private void cbxBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBairroActionPerformed
+    private void txtEmailParticularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailParticularActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbxBairroActionPerformed
+    }//GEN-LAST:event_txtEmailParticularActionPerformed
+
+    private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
+                                       
+    char c = evt.getKeyChar();
+
+    // Verifica se o caractere é uma letra (minúscula ou maiúscula), espaço, setas esquerda/direita ou Backspace
+    if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+            && evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT) {
+        evt.consume(); // Impede a digitação do caractere inválido
+
+        // Cria uma thread para alterar a cor de fundo do campo
+        new Thread(() -> {
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(200);
+                    txtNome.setBackground(Color.RED); // Altera para vermelho
+                    Thread.sleep(200);
+                    txtNome.setBackground(Color.WHITE); // Restaura a cor normal
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        // Exibe a mensagem de erro
+        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Apenas letras são permitidas!"));
+    
+}
+    }//GEN-LAST:event_txtNomeKeyTyped
+
+    private void txtEmailParticularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailParticularFocusLost
+       //        // Expressão regular para validar o formato do e-mail
+//        String emailPattern = "^[\\w\\.-]+@[\\w\\.-]+\\.[a-z]{2,}$";
+//        String email = txtEmail.getText();
+//
+//        // Verificar se o e-mail é válido
+//        if (!email.matches(emailPattern)) {
+//            // Exibe uma mensagem de erro
+//            JOptionPane.showMessageDialog(this, "Por favor, insira um e-mail válido.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+//            txtEmail.requestFocus(); // Volta o foco para o campo de e-mail
+//        }
+
+        // Expressão regular para validar o formato do e-mail
+        String emailPattern = "^[\\w\\.-]+@[\\w\\.-]+\\.[a-z]{2,}$";
+        String email = txtEmailParticular.getText();
+
+        // Verificar se o e-mail é válido
+        if (!email.matches(emailPattern)) {
+            // Altera a cor de fundo para vermelho se o e-mail for inválido
+            txtEmailParticular.setBackground(Color.PINK); // Ou Color.RED, mas PINK é mais suave
+            JOptionPane.showMessageDialog(this, "Por favor, insira um e-mail válido.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Restaura a cor de fundo para a cor padrão se o e-mail for válido
+            txtEmailParticular.setBackground(Color.WHITE);
+        }
+    }//GEN-LAST:event_txtEmailParticularFocusLost
+
+    private void txtEmailParticularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailParticularKeyTyped
+
+    }//GEN-LAST:event_txtEmailParticularKeyTyped
+
+    private void txtNumeroDeCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroDeCasaKeyTyped
+                                         
+    char c = evt.getKeyChar();
+
+    // Verifica se o caractere digitado não é um dígito (número)
+    if (!Character.isDigit(c)) {
+        evt.consume(); // Impede a digitação do caractere inválido
+    
+}
+
+    }//GEN-LAST:event_txtNumeroDeCasaKeyTyped
+
+    private void TxtNumeroDeTelefoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNumeroDeTelefoneKeyPressed
+                                            
+    }//GEN-LAST:event_TxtNumeroDeTelefoneKeyPressed
+
+    private void TxtNumeroDeTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNumeroDeTelefoneKeyTyped
+                                               
+//    String telefone = TxtNumeroDeTelefone.getText();
+//    char c = evt.getKeyChar();
+//
+//    // Verifica se o caractere é um número e impede letras ou outros caracteres
+//    if (!Character.isDigit(c)) {
+//        evt.consume(); // Impede a digitação de caracteres não numéricos
+//        return;
+//    }
+//
+//    // Verifica o limite de 9 dígitos
+//    if (telefone.length() >= 9) {
+//        evt.consume(); // Impede a digitação de mais de 9 caracteres
+//        return;
+//    }
+//
+//    // Verifica o primeiro dígito deve ser 8
+//    if (telefone.length() == 0 && c != '8') {
+//        evt.consume(); // Impede a digitação se o primeiro dígito não for 8
+//    }
+//
+//    // Verifica o segundo dígito deve estar entre 2 e 7
+//    if (telefone.length() == 1 && (c < '2' || c > '7')) {
+//        evt.consume(); // Impede a digitação se o segundo dígito não estiver entre 2 e 7
+//    }
+                                              
+   String telefone = TxtNumeroDeTelefone.getText();
+    char c = evt.getKeyChar();
+
+    // Permitir a tecla de apagar (Backspace)
+    if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+        return;
+    }
+
+    // Verifica se o caractere é um número e impede letras ou outros caracteres
+    if (!Character.isDigit(c)) {
+        evt.consume(); // Impede a digitação de caracteres não numéricos
+        JOptionPane.showMessageDialog(null, "Apenas números são permitidos!", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Verifica o limite de 9 dígitos
+    if (telefone.length() >= 9) {
+        evt.consume(); // Impede a digitação de mais de 9 caracteres
+        JOptionPane.showMessageDialog(null, "O número deve ter exatamente 9 dígitos!", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Verifica se o primeiro dígito é 8
+    if (telefone.length() == 0 && c != '8') {
+        evt.consume(); // Impede a digitação se o primeiro dígito não for 8
+        JOptionPane.showMessageDialog(null, "O primeiro dígito deve ser 8!", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Verifica se o segundo dígito está entre 2 e 7
+    if (telefone.length() == 1 && (c < '2' || c > '7')) {
+        evt.consume(); // Impede a digitação se o segundo dígito não estiver entre 2 e 7
+        JOptionPane.showMessageDialog(null, "O segundo dígito deve estar entre 2 e 7!", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
+    }
+
+
+    }//GEN-LAST:event_TxtNumeroDeTelefoneKeyTyped
 
     /**
      * @param args the command line arguments
