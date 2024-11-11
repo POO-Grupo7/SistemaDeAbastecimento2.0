@@ -212,23 +212,23 @@ public class LogInView extends javax.swing.JFrame {
             FuncionarioController funcionarioController = new FuncionarioController();
             ResultSet rsUsuarioControlller = funcionarioController.autenticacaoUsuario(funcionarioModel);
 
-            if (rsUsuarioControlller != null && rsUsuarioControlller.next()) {
+            if (rsUsuarioControlller.next()) {
+
+                //Verificacao do perfil do utilizador na coluna perfil da base de dados
                 String perfil = rsUsuarioControlller.getString("perfil");
                 dispose();
 
                 if ("Administrador".equals(perfil)) {
                     MenuPrincipal menu = new MenuPrincipal();
-                    menu.setVisible(true);
                 } else if ("Gestor".equals(perfil)) {
                     MenuGestorView telaGestor = new MenuGestorView();
-                    telaGestor.setVisible(true);
                 } else {
                     MenuOperadorView telaOperador = new MenuOperadorView();
-                    telaOperador.setVisible(true);
                 }
                 JOptionPane.showMessageDialog(null, "Bem vindo(a) " + nomeUsuario + ".");
+
             } else {
-                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos");
+                JOptionPane.showMessageDialog(null, "Usuario ou senha inválida");
                 txtNomeU.setText("");
                 txtSenhaU.setText("");
             }

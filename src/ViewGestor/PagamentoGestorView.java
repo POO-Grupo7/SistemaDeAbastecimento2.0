@@ -516,7 +516,7 @@ public class PagamentoGestorView extends javax.swing.JFrame {
         tabela.add(botoes, java.awt.BorderLayout.PAGE_START);
 
         tabelaPagamentos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tabelaPagamentos.setForeground(new java.awt.Color(255, 255, 255));
+        tabelaPagamentos.setForeground(new java.awt.Color(51, 51, 51));
         tabelaPagamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -805,7 +805,6 @@ public class PagamentoGestorView extends javax.swing.JFrame {
         }
     }
     //Metodo Listar
-
     private void listarPagamentos() {
         try {
             PagamentoController pagamentoController = new PagamentoController();

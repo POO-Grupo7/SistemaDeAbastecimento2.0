@@ -1007,7 +1007,6 @@ public class PagamentoView extends javax.swing.JFrame {
         }
     }
     //Metodo Listar
-
     private void listarPagamentos() {
         try {
             PagamentoController pagamentoController = new PagamentoController();
@@ -1054,7 +1053,6 @@ public class PagamentoView extends javax.swing.JFrame {
         txtTrocos.setText("");
         txtValorEntregue.setText("");
         txtNrRecibos.setText("");
-
     }
 
     //Metodo Carregar Campos
