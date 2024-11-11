@@ -222,9 +222,20 @@ public class UsuariosView1111 extends javax.swing.JFrame {
 
         lblNome.setText("Nome:");
 
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
         txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtNomeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomeKeyTyped(evt);
             }
         });
 
@@ -233,6 +244,9 @@ public class UsuariosView1111 extends javax.swing.JFrame {
         txtApelido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtApelidoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApelidoKeyTyped(evt);
             }
         });
 
@@ -244,6 +258,11 @@ public class UsuariosView1111 extends javax.swing.JFrame {
 
         lblEmail.setText("Email institucional:");
 
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
         txtEmail.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 txtEmailMouseExited(evt);
@@ -636,93 +655,64 @@ public class UsuariosView1111 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMenu1ActionPerformed
 
     private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
-        char c = evt.getKeyChar();
-        if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
-            evt.consume();
-            new Thread(() -> {
-                for (int i = 0; i < 3; i++) {
-                    try {
-                        Thread.sleep(200);
-                        txtNome.setBackground(Color.RED);
-                        Thread.sleep(200);
-                        txtNome.setBackground(Color.WHITE);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-            SwingUtilities.invokeLater(()
-                    -> JOptionPane.showMessageDialog(null, "Apenas letras são permitidas!")
-            );
-        }
+
     }//GEN-LAST:event_txtNomeKeyPressed
 
     private void txtApelidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApelidoKeyPressed
-        char c = evt.getKeyChar();
-        if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
-            evt.consume();
-            new Thread(() -> {
-                for (int i = 0; i < 3; i++) {
-                    try {
-                        Thread.sleep(200);
-                        txtApelido.setBackground(Color.RED);
-                        Thread.sleep(200);
-                        txtApelido.setBackground(Color.WHITE);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-            SwingUtilities.invokeLater(()
-                    -> JOptionPane.showMessageDialog(null, "Apenas letras são permitidas!")
-            );
-        }
+//        char c = evt.getKeyChar();
+//        if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
+//            evt.consume();
+//            new Thread(() -> {
+//                for (int i = 0; i < 3; i++) {
+//                    try {
+//                        Thread.sleep(200);
+//                        txtApelido.setBackground(Color.RED);
+//                        Thread.sleep(200);
+//                        txtApelido.setBackground(Color.WHITE);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//            SwingUtilities.invokeLater(()
+//                    -> JOptionPane.showMessageDialog(null, "Apenas letras são permitidas!")
+//            );
+//        }                                  
+  
+
+
     }//GEN-LAST:event_txtApelidoKeyPressed
 
     private void txtNomeUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeUsuarioKeyPressed
-        char c = evt.getKeyChar();
+                                        
+  
+    
 
-        if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE) {
-            evt.consume();
-            new Thread(() -> {
-                for (int i = 0; i < 3; i++) {
-                    try {
-                        Thread.sleep(200);
-                        txtNomeUsuario.setBackground(Color.RED);
-                        Thread.sleep(200);
-                        txtNomeUsuario.setBackground(Color.WHITE);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-            SwingUtilities.invokeLater(()
-                    -> JOptionPane.showMessageDialog(null, "Apenas letras são permitidas!")
-            );
-        }
+
+        
     }//GEN-LAST:event_txtNomeUsuarioKeyPressed
 
     private void txtEmailMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEmailMouseExited
-        String email = txtEmail.getText();
-        if (!email.contains("@")) {
-            new Thread(() -> {
-                for (int i = 0; i < 3; i++) {
-                    try {
-                        Thread.sleep(200);
-                        txtEmail.setBackground(Color.RED);
-                        Thread.sleep(200);
-                        txtEmail.setBackground(Color.WHITE);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-
-            SwingUtilities.invokeLater(()
-                    -> JOptionPane.showMessageDialog(null, "O email deve conter '@'!")
-            );
-            txtEmail.setText("");
-        }
+//        String email = txtEmail.getText();
+//        if (!email.contains("@")) {
+//            new Thread(() -> {
+//                for (int i = 0; i < 3; i++) {
+//                    try {
+//                        Thread.sleep(200);
+//                        txtEmail.setBackground(Color.RED);
+//                        Thread.sleep(200);
+//                        txtEmail.setBackground(Color.WHITE);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//
+//            SwingUtilities.invokeLater(()
+//                    -> JOptionPane.showMessageDialog(null, "O email deve conter '@'!")
+//            );
+//            txtEmail.setText("");
+//        }
     }//GEN-LAST:event_txtEmailMouseExited
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -754,6 +744,103 @@ public class UsuariosView1111 extends javax.swing.JFrame {
         limparCampos();
         listarUsuarios();
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+//        // Expressão regular para validar o formato do e-mail
+//        String emailPattern = "^[\\w\\.-]+@[\\w\\.-]+\\.[a-z]{2,}$";
+//        String email = txtEmail.getText();
+//
+//        // Verificar se o e-mail é válido
+//        if (!email.matches(emailPattern)) {
+//            // Exibe uma mensagem de erro
+//            JOptionPane.showMessageDialog(this, "Por favor, insira um e-mail válido.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+//            txtEmail.requestFocus(); // Volta o foco para o campo de e-mail
+//        }
+
+        // Expressão regular para validar o formato do e-mail
+        String emailPattern = "^[\\w\\.-]+@[\\w\\.-]+\\.[a-z]{2,}$";
+        String email = txtEmail.getText();
+
+        // Verificar se o e-mail é válido
+        if (!email.matches(emailPattern)) {
+            // Altera a cor de fundo para vermelho se o e-mail for inválido
+            txtEmail.setBackground(Color.PINK); // Ou Color.RED, mas PINK é mais suave
+            JOptionPane.showMessageDialog(this, "Por favor, insira um e-mail válido.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Restaura a cor de fundo para a cor padrão se o e-mail for válido
+            txtEmail.setBackground(Color.WHITE);
+        }
+
+
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
+
+    private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
+                                   
+    char c = evt.getKeyChar();
+
+    // Verifica se o caractere é uma letra (minúscula ou maiúscula), espaço, setas esquerda/direita ou Backspace
+    if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+            && evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT) {
+        evt.consume(); // Impede a digitação do caractere inválido
+
+        // Cria uma thread para alterar a cor de fundo do campo
+        new Thread(() -> {
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(200);
+                    txtNome.setBackground(Color.RED); // Altera para vermelho
+                    Thread.sleep(200);
+                    txtNome.setBackground(Color.WHITE); // Restaura a cor normal
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        // Exibe a mensagem de erro
+        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Apenas letras são permitidas!"));
+    
+}
+
+    }//GEN-LAST:event_txtNomeKeyTyped
+
+    private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
+ 
+    }//GEN-LAST:event_txtNomeKeyReleased
+
+    private void txtApelidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApelidoKeyTyped
+       
+                                   
+    char c = evt.getKeyChar();
+
+    // Verifica se o caractere é uma letra (minúscula ou maiúscula), espaço, setas esquerda/direita ou Backspace
+    if (!Character.isLetter(c) && !Character.isSpaceChar(c) && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE
+            && evt.getKeyCode() != KeyEvent.VK_LEFT && evt.getKeyCode() != KeyEvent.VK_RIGHT) {
+        evt.consume(); // Impede a digitação do caractere inválido
+
+        // Cria uma thread para alterar a cor de fundo do campo
+        new Thread(() -> {
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(200);
+                    txtApelido.setBackground(Color.RED); // Altera para vermelho
+                    Thread.sleep(200);
+                    txtApelido.setBackground(Color.WHITE); // Restaura a cor normal
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        // Exibe a mensagem de erro
+        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Apenas letras são permitidas!"));
+    
+}
+    }//GEN-LAST:event_txtApelidoKeyTyped
 
     /**
      * @param args the command line arguments
